@@ -1,0 +1,57 @@
+args:
+- description: ID of incident to upload to.
+  name: incident_id
+  required: true
+  supportedModules: []
+- description: Entry ID of file to upload.
+  name: entryID
+  supportedModules: []
+- description: Request body.
+  name: body
+  supportedModules: []
+comment: Deprecated. Use the *DemistoUploadFileV2* script instead. Copies a file from
+  this incident to the specified incident. The file is uploaded as an attachment to
+  the specified incident’s Summary page, and recorded as an entry in the War Room.
+commonfields:
+  id: DemistoUploadFileToIncident
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 5.0.0
+    isoverridable: false
+    itemVersion: 1.4.0
+    packID: DemistoRESTAPI
+    packName: Cortex REST API
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+dependson:
+  must:
+  - core-api-multipart
+deprecated: true
+dockerimage: demisto/python:2.7.18.76921
+enabled: true
+engineinfo: {}
+mainengineinfo: {}
+name: DemistoUploadFileToIncident
+pswd: ""
+restrictioncenter: {}
+runas: DBotWeakRole
+runonce: false
+script: |-
+  register_module_line('DemistoUploadFileToIncident', 'start', __line__())
+
+  return_results(demisto.executeCommand('DemistoUploadFileToAlert', demisto.args()))
+
+  register_module_line('DemistoUploadFileToIncident', 'end', __line__())
+scripttarget: 0
+signature: erky+8CgcsKBYjmd+KIUPHDu5cwdcxif/yZO3bT35tJqvV2L3QCROHl84NRZlCwjam4lIYclekRUmX5ZSIQnvEb0xkVTuWlZwwyg564FawlPIuEBiD4VwMIiVpvTeEmj2RBRA4i2NAZoiWZQQmv/KW7vrX+varfK8xvk8eORU2qlNRaBIBSIxFwWtYdTz2MvWNFXz/i8yFIR60dpez+9NjwjqeAvzcPDwHG5WFZlUnjNajetM0YsfgvK/xhs9AMAprfjoheRB3oAXJmBOf0JzhN74t/yZfVRZO0trut1UwMlwIHmFxNn/C0cUI+GeH9eV5W7SYHZTV0wjTJpHbupWA==
+subtype: python2
+system: true
+tags:
+- DemistoAPI
+type: python
