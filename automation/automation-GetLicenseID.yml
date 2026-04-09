@@ -1,0 +1,62 @@
+comment: Returns the license ID.
+commonfields:
+  id: GetLicenseID
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 6.5.0
+    isoverridable: false
+    itemVersion: 1.21.4
+    packID: CommonScripts
+    packName: Common Scripts
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+dockerimage: demisto/python3:3.12.12.6204436
+enabled: true
+engineinfo: {}
+mainengineinfo: {}
+name: GetLicenseID
+nativeimage:
+- "8.8"
+- "8.6"
+outputs:
+- contextPath: License.ID
+  description: The license ID.
+  type: string
+pswd: ""
+restrictioncenter: {}
+runas: DBotWeakRole
+runonce: false
+script: |
+  register_module_line('GetLicenseID', 'start', __line__())
+  CONSTANT_PACK_VERSION = '1.21.4'
+  demisto.debug('pack id = CommonScripts, pack version = 1.21.4')
+
+
+
+  def main():
+      human_readable, context_data = get_license_id()
+      return_outputs(human_readable, context_data)
+
+
+  def get_license_id():
+      license_id = demisto.getLicenseID()
+      human_readable = tableToMarkdown("Cortex License ID", license_id, headers="License ID")
+      return human_readable, {"License": {"ID": license_id}}
+
+
+  if __name__ in ("__main__", "__builtin__", "builtins"):
+      main()
+
+  register_module_line('GetLicenseID', 'end', __line__())
+scripttarget: 0
+signature: t8VhT5Y37rHl2G4RZzopXyjR+GPDGNVWPBl3I6p32f0y4MtMAZ+aeiAebWO6GcSyBlU8MWjYEEhVXFU1d/CsAQZxWhCS7L9N0Imve9bME2u+xUO79/u9KTv4khw1WpIlDDE4VM6LC8MOI5OFg3IMby7JkEIyyK96dn3xBY2N6c3X0YjBmLAQYTfb2N+zdqIHwO50Z4xDF9u6GlEHg+1RDWcebb4jbhzLozQusiOkS5k02O0mO8qRd+TlSadGMurEd883LiryN47s5WrJ1lm2OJ1fDpDZy3p/96YwXNE2U28JFbXLzaWyjJh1Nb+Jlb5cfZFktGrHSoAQXcSxfwwKqg==
+subtype: python3
+system: true
+tags: []
+type: python
