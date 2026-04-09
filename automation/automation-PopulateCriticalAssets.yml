@@ -1,0 +1,73 @@
+args:
+- description: A list of all critical assets. Received as output from "Calculate Severity
+    - Critical Assets v2" playbook.
+  isArray: true
+  name: critical_assets
+  required: true
+  supportedModules: []
+comment: Populates critical assets in a grid field that has the section headers "Asset
+  Type" and "Asset Name".
+commonfields:
+  id: PopulateCriticalAssets
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 5.0.0
+    isoverridable: false
+    itemVersion: 1.21.4
+    packID: CommonScripts
+    packName: Common Scripts
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+dockerimage: demisto/python3:3.12.12.6204436
+enabled: true
+engineinfo: {}
+mainengineinfo: {}
+name: PopulateCriticalAssets
+nativeimage:
+- "8.8"
+- "8.6"
+pswd: ""
+restrictioncenter: {}
+runas: DBotWeakRole
+runonce: false
+script: |
+  register_module_line('PopulateCriticalAssets', 'start', __line__())
+  CONSTANT_PACK_VERSION = '1.21.4'
+  demisto.debug('pack id = CommonScripts, pack version = 1.21.4')
+
+
+
+
+
+  field_cli_name = "criticalassets"
+  current_value = demisto.incidents()[0].get("CustomFields", {}).get(field_cli_name) or demisto.incidents()[0].get(field_cli_name)
+  critical_assets = demisto.args().get("critical_assets")
+  grid_lst = []  # type: list
+  for key, value in critical_assets.items():
+      if isinstance(value, list):
+          grid_lst += [{"assetname": asset_value, "assettype": key} for asset_value in value]
+      else:
+          grid_lst += [{"assetname": value, "assettype": key}]
+
+  # If the field is empty, we will set an empty value. Else, we will append the new values and set it to the field.
+  if not current_value:
+      current_value = grid_lst
+  else:
+      current_value += grid_lst
+  val = json.dumps({field_cli_name: current_value})
+
+  demisto.results(demisto.executeCommand("setIncident", {"customFields": val}))
+
+  register_module_line('PopulateCriticalAssets', 'end', __line__())
+scripttarget: 0
+signature: dw2RYIHt+09J1ZwjFGKnzjYXytTEJuGa8xHT4PGOA6PRemFHXvS/jW8cGgnn1abn44uNQHQ52JooLQyiOg72mAbkj8iOQRoH/3GlCGRaL66/IlM1oV3TpfRpXBUGd8B7BKfhg/dfMjGP4YUpocpagA0aHbEclMDXDeF9Fh3sdwB1UZ/Uap6Z0B3CN/ona2LSx1vbZugVTNSnVbV4EJRoJ/3wIULvjEgzVtet70TOIp4672T6pOygGedHTOGSsB5xaI+cS0yZw5gHd6T+TGj5WFh75g2gJ76QCweYAwNbO3qHiXyxAJAUMgTD7cHrteWDiZrkXwpjGzhUnFnnK2E89g==
+subtype: python3
+system: true
+tags: []
+type: python
