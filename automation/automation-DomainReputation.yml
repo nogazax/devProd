@@ -1,0 +1,79 @@
+args:
+- default: true
+  description: Domain to look up
+  name: domain
+  required: true
+  supportedModules: []
+comment: A context script for Domain entities
+commonfields:
+  id: DomainReputation
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 5.0.0
+    isoverridable: false
+    itemVersion: 1.21.4
+    packID: CommonScripts
+    packName: Common Scripts
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+dockerimage: demisto/python3:3.12.12.5490952
+enabled: true
+engineinfo: {}
+mainengineinfo: {}
+name: DomainReputation
+nativeimage:
+- "8.8"
+- "8.6"
+pswd: ""
+restrictioncenter: {}
+runas: DBotWeakRole
+runonce: false
+script: |
+  register_module_line('DomainReputation', 'start', __line__())
+  CONSTANT_PACK_VERSION = '1.21.4'
+  demisto.debug('pack id = CommonScripts, pack version = 1.21.4')
+
+
+
+
+  def domain_reputation():
+      results = demisto.executeCommand("domain", {"domain": demisto.get(demisto.args(), "domain")})
+
+      for item in results:
+          if isError(item):
+              if is_offset_error(item):  # call to is_offset_error is a temporary fix to ignore offset 1 error
+                  results.remove(item)
+              else:
+                  item["Contents"] = item["Brand"] + " returned an error.\n" + str(item["Contents"])
+
+      demisto.results(results)
+
+
+  def is_offset_error(item) -> bool:
+      """error msg: 'Offset: 1' will not be displayed to Users
+      This method is temporary and will be removed
+      once XSUP-18208 issue is fixed."""
+      return item["Contents"] and "Offset" in item["Contents"]
+
+
+  def main():
+      domain_reputation()
+
+
+  if __name__ in ("__main__", "__builtin__", "builtins"):  # pragma: no cover
+      main()
+
+  register_module_line('DomainReputation', 'end', __line__())
+scripttarget: 0
+signature: iHcx782hiA/RWNCCTj8fNYhREMpSJdAxtfxONE+uEunuxikftrVX7nPRKh++nYPaXs47D64SqIwZQdOMIIFOe9KOcEXWxA/NnIdM9ajZhlVzYs6JFZacabqbBTM1qFlH28lt7mp2BpTvEonA2RW5yQDwnsgUsnP0hsg+ucnIGK2SSk8ATDGzRqQmxlndwQh+bdl8LJTLESVB4mPnCzStn3EiO0rP6OnpCvLtkiG//nHMVCnU6aHWqlEyRe56YgEy3hMEVILSj3w2hRHFwQEExbGQMzGkMDfouZTOSRRUsivssXXmCrJFC/Z0bKVG2Z1miTaf5LA/oUgNDL4bnXOTuA==
+subtype: python3
+system: true
+tags:
+- enhancement
+type: python
