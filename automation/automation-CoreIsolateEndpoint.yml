@@ -1,0 +1,83 @@
+args:
+- description: Links the response action to the triggered incident.
+  name: incident_id
+  supportedModules: []
+- description: The endpoint ID (string) to isolate. Retrieve the string from the core-get-endpoints
+    command.
+  name: endpoint_id
+  required: true
+  supportedModules: []
+- auto: PREDEFINED
+  defaultValue: "false"
+  description: Suppress an error when trying to isolate a disconnected endpoint. When
+    set to false, an error is returned.
+  name: suppress_disconnected_endpoint_error
+  predefined:
+  - "true"
+  - "false"
+  supportedModules: []
+comment: A polling wrapper script; Isolates the specified endpoint.
+commonfields:
+  id: CoreIsolateEndpoint
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 6.1.0
+    isoverridable: false
+    itemVersion: 3.5.30
+    packID: Core
+    packName: Core
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules:
+    - xsiam
+    - cloud_runtime_security
+    - edr
+    toServerVersion: ""
+dockerimage: demisto/python3:3.12.12.6391686
+enabled: true
+engineinfo: {}
+isInternal: true
+mainengineinfo: {}
+name: CoreIsolateEndpoint
+nativeimage:
+- "8.8"
+- "8.6"
+outputs:
+- contextPath: Core.Isolation.endpoint_id
+  description: The endpoint ID.
+  type: String
+pswd: ""
+restrictioncenter: {}
+runas: DBotWeakRole
+runonce: false
+script: |
+  register_module_line('CoreIsolateEndpoint', 'start', __line__())
+  CONSTANT_PACK_VERSION = '3.5.30'
+  demisto.debug('pack id = Core, pack version = 3.5.30')
+
+
+
+
+  def main():
+      args = demisto.args()
+      try:
+          return_results(execute_polling_command("core-isolate-endpoint", args))
+      except Exception as e:
+          return_error(f"Failed to execute script.\nError:\n{e!s}")
+
+
+  if __name__ in ("__main__", "__builtin__", "builtins"):
+      main()
+
+  register_module_line('CoreIsolateEndpoint', 'end', __line__())
+scripttarget: 0
+signature: EGMBoYPt2LFKO9WTIiJkytgK1anI/nGghuBgNOFiu48cpvWup23VICi8id+Y+AKQxjNlTgS88kQtEdoFtfI7515v9mjFnfiZoeJ93VMEWB9YQr1p3Cc8Gsv3fqg6xaGaliv17DhJDqNAYmXm8wVw3IWbQXBpQ26WzuEfgGn/zVxSjdYrg7AEQ+w8kSFV37yfsDZOc4u9NIBH63SrVJv5wGTnzUqG12VvzX1fi2rEWU1yJRqFJ+xc2gU8WiQ1jcdzfco/51BlaUBaAhYjUZ168LxKuZk4G6lGg33l9VNHioDMc4pim8GlN5qu0gv9TD35TGZ9ZYXfC5bN3u9t0ig8MQ==
+subtype: python3
+system: true
+tags:
+- Utilities
+type: python
