@@ -1,0 +1,83 @@
+args:
+- description: The input url.
+  name: value
+  required: true
+  supportedModules: []
+comment: |-
+  Converts
+  https:%2F%2Fexample.com
+  into
+  https://example.com
+commonfields:
+  id: URLDecode
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 5.0.0
+    isoverridable: false
+    itemVersion: 1.4.17
+    packID: FiltersAndTransformers
+    packName: Filters And Transformers
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+dockerimage: demisto/python3:3.12.12.6204436
+enabled: true
+engineinfo: {}
+mainengineinfo: {}
+name: URLDecode
+nativeimage:
+- "8.8"
+- "8.6"
+outputs:
+- contextPath: DecodedURL
+  description: Parsed url as key/value.
+  type: string
+pswd: ""
+restrictioncenter: {}
+runas: DBotWeakRole
+runonce: false
+script: |
+  register_module_line('URLDecode', 'start', __line__())
+  CONSTANT_PACK_VERSION = '1.4.17'
+  demisto.debug('pack id = FiltersAndTransformers, pack version = 1.4.17')
+  from urllib.parse import unquote
+
+
+
+
+
+  def main():
+      value = demisto.args()["value"]
+      processed_value = unquote(value)
+
+      eContext = {"DecodedURL": processed_value}
+
+      entry = {
+          "Type": entryTypes["note"],
+          "Contents": eContext,
+          "ContentsFormat": formats["json"],
+          "HumanReadable": processed_value,
+          "ReadableContentsFormat": formats["markdown"],
+          "EntryContext": eContext,
+      }
+
+      demisto.results(entry)
+
+
+  # python2 uses __builtin__ python3 uses builtins
+  if __name__ == "__builtin__" or __name__ == "builtins":
+      main()
+
+  register_module_line('URLDecode', 'end', __line__())
+scripttarget: 0
+signature: c6HJpca3GKi8++jWzVZL1obDxp6FIxAEPYPCpAImw6HxG7ICquTdTcREEUvXd9HCnVo+2GdzCweZCtEu7zfYn63+Ow84yfDPLDnqxvAezCV3lfDEwpBpBvZipfg2TQfSx2t8rkqDbAYf8Mfaa2XOL3CedsyROv5jAxW/FBWfq6YFRlWf/XdAu/cqlPKRFxeR7deXdzVDAK9o7HDkUL3xrY9GLkA+CgiCW4HcMIQTTj8VwN5X7g0DJnJP6rFtHYtIxiIzxjWPzgfQYUsHJW2neAc5+1XY5O5LGpxyNII0zlgy8GlwDyYaUpo2yK3dwBcvgnfM+eKvcInvtNfPWAeQZw==
+subtype: python3
+system: true
+tags:
+- transformer
+type: python
