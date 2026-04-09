@@ -1,0 +1,46 @@
+comment: |-
+  This script is used to display the indicators of an incident in an incident field of type Array. It can be used to select indicators from the incident in order to later perform some actions, like tagging the indicators for blocking via EDL.
+  This script is a field-display script, so it needs to be configured as such, when editing the incident field that will be used to display the indicators.
+commonfields:
+  id: ShowIncidentIndicators
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 6.8.0
+    isoverridable: false
+    itemVersion: 1.21.4
+    packID: CommonScripts
+    packName: Common Scripts
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+deprecated: true
+dockerimage: demisto/python3:3.12.12.5490952
+enabled: true
+engineinfo: {}
+mainengineinfo: {}
+name: ShowIncidentIndicators
+nativeimage:
+- "8.8"
+- "8.6"
+pswd: ""
+restrictioncenter: {}
+runas: DBotWeakRole
+runonce: false
+script: |-
+  register_module_line('ShowIncidentIndicators', 'start', __line__())
+
+  return_results(demisto.executeCommand('ShowAlertIndicators', demisto.args()))
+
+  register_module_line('ShowIncidentIndicators', 'end', __line__())
+scripttarget: 0
+signature: pIflXkeeHeKYFk/e7R9dCEO1khmNPC+dPvl0cE3ifMEEnJUqUJFHwORONZbITXs7WZgxU9p7KJ9WcH0rXLoEtN54Y4EQIcouZxmtSzly7D+NshOWMahr37syL+bg/j/120SoKFSdnPChLGtJJYcQT60aU7UNohE+MYPyp4FIKVi0SLSbg36AQtWKjdC9qrZm7jIZTiF9T705C1rUyKwWHCJabMx5odmstAIffpXH0GmJ1yrAbRlFIwjHhSOf5siWVAkyFJEPxWLHgIZOvjpg/an9fB+LavRqtlyV1QofwOmx3Za8nbAqF2Ln+VFv1RfucPLK03x9NfWxJeTrbiGGew==
+subtype: python3
+system: true
+tags:
+- field-display
+type: python
