@@ -1,0 +1,60 @@
+args:
+- description: Incident ID to copy notes to.
+  name: target_incident
+  required: true
+  supportedModules: []
+- auto: PREDEFINED
+  defaultValue: "true"
+  description: Whether auto extract the indicators from the notes.
+  name: auto_extract
+  predefined:
+  - "true"
+  - "false"
+  supportedModules: []
+- description: Replicate only notes with these tags (array or comma separated).
+  isArray: true
+  name: tags
+  supportedModules: []
+comment: Copy all entries marked as notes from current incident to another incident.
+commonfields:
+  id: CopyNotesToIncident
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 5.0.0
+    isoverridable: false
+    itemVersion: 1.21.4
+    packID: CommonScripts
+    packName: Common Scripts
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+deprecated: true
+dockerimage: demisto/python3:3.12.13.7444307
+enabled: true
+engineinfo: {}
+mainengineinfo: {}
+name: CopyNotesToIncident
+nativeimage:
+- "8.8"
+- "8.6"
+pswd: ""
+restrictioncenter: {}
+runas: DBotWeakRole
+runonce: false
+script: |-
+  register_module_line('CopyNotesToIncident', 'start', __line__())
+
+  return_results(demisto.executeCommand('CopyNotesToAlert', demisto.args()))
+
+  register_module_line('CopyNotesToIncident', 'end', __line__())
+scripttarget: 0
+signature: PqYY9/LDGRnE1sl+H/kTz3J0fJ6a3QveRJJw5V5a6vxf7hNmBprOAEEyn+zA6AFNugAfmUcitBisnSPD8cFbXndQxEd6nqbB3Qh5NO1Y3Xo5kI6A7M/7DHpVUSbqrZA82r6SDrKjJ7GCws0N4p77Ip+SDQ5Jm7vAThKw2zb3y3xXpbxWBRiq2hkCRkV6EPl12sCx7SFCypWdl4JrATPz5k3f+3UYzHkZewGsmgI3SD8zLQ7x44qvREAq81qBau7CxQ1o3qrHPxTzrf3jqhF4eX5TV2mI0dcld5djWQl+4C5rVpQ+RTfb+bODmS2ndvRbK0R5NTSrKWXopwyfzdXUlw==
+subtype: python3
+system: true
+tags: []
+type: python
