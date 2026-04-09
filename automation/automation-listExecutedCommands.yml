@@ -1,0 +1,88 @@
+args:
+- auto: PREDEFINED
+  default: true
+  defaultValue: All
+  description: Source of commands to list - user, playbook or both
+  name: source
+  predefined:
+  - Manual
+  - Playbook
+  - All
+  supportedModules: []
+comment: Lists  executed commands in War Room
+commonfields:
+  id: listExecutedCommands
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 5.0.0
+    isoverridable: false
+    itemVersion: 1.21.4
+    packID: CommonScripts
+    packName: Common Scripts
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+enabled: true
+engineinfo: {}
+mainengineinfo: {}
+name: listExecutedCommands
+pswd: ""
+restrictioncenter: {}
+runas: DBotWeakRole
+runonce: false
+script: |
+  // pack version: 1.21.4
+  var fixDate = function(date) {
+      return date.Format('2006-01-02 15:04:05');
+  };
+
+  var entries = executeCommand('getEntries', {});
+
+  dbotCommands = [];
+  userCommands = [];
+  for (var i = 0; i < entries.length; i++) {
+      if (typeof entries[i].Contents == 'string' && entries[i].Contents.indexOf('!') === 0 && entries[i].Contents.indexOf('!listExecutedCommands') !== 0) {
+          if (entries[i].Metadata.User) {
+              if (args.source === 'All' || args.source === 'Manual') {
+                  userCommands.push({
+                      'Time': fixDate(entries[i].Metadata.Created),
+                      'Entry ID': entries[i].ID,
+                      'User': entries[i].Metadata.User,
+                      'Command': entries[i].Contents
+                  });
+              }
+          } else {
+              if (args.source === 'All' || args.source === 'Playbook') {
+                  dbotCommands.push({
+                      'Time': fixDate(entries[i].Metadata.Created),
+                      'Entry ID': entries[i].ID,
+                      'Playbook (Task)': entries[i].Metadata.EntryTask.PlaybookName + " (" + entries[i].Metadata.EntryTask.TaskName + ")",
+                      'Command': entries[i].Contents
+                  });
+              }
+          }
+      }
+  }
+
+  var md = '';
+  if (dbotCommands.length > 0) {
+      md += tableToMarkdown('DBot Executed Commands', dbotCommands, ['Time', 'Entry ID', 'Playbook (Task)', 'Command']) + '\n';
+  }
+  if (userCommands.length > 0) {
+      md += tableToMarkdown('User Executed Commands', userCommands, ['Time', 'Entry ID', 'User', 'Command']) + '\n';
+  }
+  if (md === '') {
+      md = 'No commands found\n';
+  }
+  return {ContentsFormat: formats.markdown, Type: entryTypes.note, Contents: md};
+scripttarget: 0
+signature: NjZrPawRB7tgimHBuEniJsQ1BgmfULUAidUtrbQW84m/1C9ZcgmnIjEZwCgDVg+U8JBaP3oxiLbMtiOKuSH4LYNdlNtBsYlsmzBNgSPiDAKIpbTsLMXQAdUjSP3gODvzLbLi1m55eHsbr+uWkCqF8NyB7ADDeGbGW661//EGAhL/0cHTjCSjeRz2F0Xw1fpEjQyLr2HRX3yyWWB959H432yQqGFLTwQKF7jKg0D5e3AlS5hGQXarT1e5Z8oVRHC1iDk2+51wNC5sbNv8MX8MwSniDFqd8nGG7aOauuatSqNNLbl7Y1NvX/XmEYqVpYHfqwBwiq9hDuh+kHmzp17lFw==
+system: true
+tags:
+- Utility
+type: javascript
