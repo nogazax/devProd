@@ -1,0 +1,67 @@
+args:
+- default: true
+  description: First percentage.
+  name: firstPercentage
+  required: true
+  supportedModules: []
+- description: Second percentage.
+  name: secondPercentage
+  required: true
+  supportedModules: []
+comment: |-
+  Checks if one percentage is less than another
+  Returns less: if firstPercentage < secondPercentage
+  Returns more: if firstPercentage >= secondPercentage
+  Returns exception if one of the inputs is not a float
+commonfields:
+  id: LessThanPercentage
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 5.0.0
+    isoverridable: false
+    itemVersion: 1.21.4
+    packID: CommonScripts
+    packName: Common Scripts
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+enabled: true
+engineinfo: {}
+mainengineinfo: {}
+name: LessThanPercentage
+outputs:
+- contextPath: less
+  description: if firstPercentage < secondPercentage
+- contextPath: more
+  description: if firstPercentage >= secondPercentage
+pswd: ""
+restrictioncenter: {}
+runas: DBotWeakRole
+runonce: false
+script: |
+  // pack version: 1.21.4
+  first = parseFloat(args.firstPercentage);
+  if (!first) {
+      throw 'firstPercentage is not valid: '+args.firstPercentage;
+  }
+  second = parseFloat(args.secondPercentage);
+  if (!second) {
+      throw 'firstPercentage is not valid: '+args.secondPercentage;
+  }
+  if (first < second) {
+      return 'less';
+  } else {
+      return 'more';
+  }
+scripttarget: 0
+signature: mnLxvN7pMcMIMcy7JXeTUmmlg1z7noI0Xk8EsIj7G0Y1P8vp7h6pgol92ExtwIUJHIT2FRU3c2s1mmxpHuhjmtGpeqHGn89RtETAv52KnDHq+GkoGfZGv0St4xy86Ws7PyVtHTE3Pt3FWsa4Hq+b5FNt3hth41fLqEutDhVtzQNjsV6vmUYmAnQ6HX0/eC1Jn7/SRkC7YWziXxrSkYxFb/AomBPOvzotyXw1lA8Gl7+JOuWEPeAEFIJHgz5CP3fuEMjxnUBKSUXlb/0SOkfQgUh6aCFNX0LbL9mk4VDEFzBHJAa8Z3Yb0NUadpECOqp1W7Jrh6AhwOVmFbhHUB4Ytw==
+system: true
+tags:
+- Utility
+- Condition
+type: javascript
