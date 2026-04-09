@@ -1,0 +1,1526 @@
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 8.9.0
+    isoverridable: false
+    itemVersion: 1.3.37
+    packID: CortexResponseAndRemediation
+    packName: Cortex Response And Remediation
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+description: |-
+  This playbook handles "Windows LOLBIN scripting engine connected to a rare external host" alerts.
+
+  ### **Analysis**
+  * Analyzes the suspicious command line to score its risk level.
+  * Gathers related alerts to provide broader context for the investigation.
+
+  ### **Investigation**
+  * Extracts and enriches any URLs or domains found in the command to check their reputation.
+  * Determines if the activity is malicious based on a high-risk command score, other related threat alerts, or a malicious verdict for the URL/domain.
+  * If no threat indicators are found, the playbook closes the alert as a False Positive.
+
+  ### **Remediation**
+  * If the activity is deemed malicious, the playbook automatically terminates the offending process.
+  * It seeks analyst approval to block any identified malicious URLs via a PAN-OS firewall.
+  * It recommends isolating the endpoint if it is a workstation, pending analyst approval. For servers or disconnected endpoints, it notifies the analyst that manual action is required.
+  * After taking action, it closes the alert as a True Positive.
+id: silent-Windows LOLBIN scripting engine connected to a rare external host
+inputs: []
+issilent: true
+name: silent-Windows LOLBIN scripting engine connected to a rare external host
+outlinetasks: {}
+outputs: []
+possibleresponses: []
+starttaskid: "0"
+system: true
+tags:
+- T1071 - Application Layer Protocol
+- T1059 - Command and Scripting Interpreter
+- TA0011 - Command and Control
+- TA0002 - Execution
+tasks:
+  "0":
+    continueonerrortype: ""
+    id: "0"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "29"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 95bfd32e-7cb1-4baf-88e1-dd12a3f2d6b4
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: ""
+      playbooktaskmissingcomponent: null
+      version: -1
+    taskid: 95bfd32e-7cb1-4baf-88e1-dd12a3f2d6b4
+    timertriggers: []
+    type: start
+    view: |-
+      {
+        "position": {
+          "x": 290.5,
+          "y": 50
+        }
+      }
+  "1":
+    continueonerrortype: ""
+    id: "1"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "121"
+      - "142"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: d64dad13-a886-4db1-8b28-2ca0f60c59eb
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Investigation
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: d64dad13-a886-4db1-8b28-2ca0f60c59eb
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 290.5,
+          "y": 540
+        }
+      }
+  "29":
+    continueonerrortype: ""
+    id: "29"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "120"
+      - "116"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 65b9abc6-c0e1-4d10-8b22-fcafc48cd70b
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Analysis
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 65b9abc6-c0e1-4d10-8b22-fcafc48cd70b
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 290.5,
+          "y": 210
+        }
+      }
+  "46":
+    continueonerrortype: ""
+    id: "46"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "47"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: e1c7754b-e72c-463d-873d-a0e28d82316a
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Block URLs
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: e1c7754b-e72c-463d-873d-a0e28d82316a
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 586,
+          "y": 1515
+        }
+      }
+  "47":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: Score
+                filters:
+                - - ignorecase: true
+                    left:
+                      iscontext: true
+                      value:
+                        simple: DBotScore.Type
+                    operator: isEqualString
+                    right:
+                      value:
+                        simple: url
+                root: DBotScore
+          operator: isExists
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: Score
+                filters:
+                - - ignorecase: true
+                    left:
+                      iscontext: true
+                      value:
+                        simple: DBotScore.Type
+                    operator: isEqualString
+                    right:
+                      value:
+                        simple: url
+                root: DBotScore
+          operator: isEqualNumber
+          right:
+            value:
+              simple: "3"
+      label: "yes"
+    continueonerrortype: ""
+    id: "47"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "125"
+      "yes":
+      - "139"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Check if there are any URLs found in the investigation that needs
+        to be blocked.
+      id: f6bf0601-23f1-4160-b076-378c29c2a5dc
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Check for URLs to block
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: f6bf0601-23f1-4160-b076-378c29c2a5dc
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 586,
+          "y": 1633
+        }
+      }
+  "110":
+    continueonerrortype: ""
+    id: "110"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "46"
+      - "136"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: f485f4fb-cbf9-46af-8fd0-51912d31e54b
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Remediation
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: f485f4fb-cbf9-46af-8fd0-51912d31e54b
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 290.5,
+          "y": 1385
+        }
+      }
+  "116":
+    continueonerrortype: ""
+    id: "116"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "1"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      query:
+        complex:
+          accessor: parentXDRIncident
+          root: alert
+          transformers:
+          - args:
+              delimiter:
+                value:
+                  simple: '-'
+              fields:
+                value:
+                  simple: "2"
+            operator: Cut
+          - args:
+              prefix:
+                value:
+                  simple: 'caseid:'
+              suffix: {}
+            operator: concat
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: This task searches for Cortex XSIAM related alerts to the current
+        alert.
+      id: 06f9e291-88a6-4567-8135-c8934bf56c05
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Get related alerts
+      playbooktaskmissingcomponent: null
+      script: SearchAlertsV2
+      type: regular
+      version: -1
+    taskid: 06f9e291-88a6-4567-8135-c8934bf56c05
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -2.5,
+          "y": 380
+        }
+      }
+  "117":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              complex:
+                accessor: action
+                filters:
+                - - ignorecase: true
+                    left:
+                      iscontext: true
+                      value:
+                        simple: foundIncidents.CustomFields.cid
+                    operator: isEqualString
+                    right:
+                      value:
+                        simple: alert.cid
+                root: foundIncidents.CustomFields
+          operator: isEqualString
+          right:
+            value:
+              simple: BLOCKED
+      label: Blocked
+    continueonerrortype: ""
+    id: "117"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "123"
+      Blocked:
+      - "128"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Check if the agent blocked any suspicious activity associated with
+        this alert.
+      id: 5dc51d1b-4c76-4068-89a2-5dfe99aca84f
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Check if the causality was blocked by the agent
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 5dc51d1b-4c76-4068-89a2-5dfe99aca84f
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -14,
+          "y": 1633
+        }
+      }
+  "118":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: foundIncidents.name
+          operator: containsGeneral
+          right:
+            value:
+              simple: WildFire Malware
+        - left:
+            iscontext: true
+            value:
+              simple: foundIncidents.name
+          operator: containsGeneral
+          right:
+            value:
+              simple: Local Analysis Malware
+        - left:
+            iscontext: true
+            value:
+              simple: foundIncidents.name
+          operator: containsGeneral
+          right:
+            value:
+              simple: Powershell Activity
+        - left:
+            iscontext: true
+            value:
+              simple: foundIncidents.name
+          operator: containsGeneral
+          right:
+            value:
+              simple: Script Activity
+        - left:
+            iscontext: true
+            value:
+              simple: foundIncidents.name
+          operator: containsGeneral
+          right:
+            value:
+              simple: Script Engine Activity
+        - left:
+            iscontext: true
+            value:
+              simple: foundIncidents.name
+          operator: containsGeneral
+          right:
+            value:
+              simple: Staged Malware Activity
+        - left:
+            iscontext: true
+            value:
+              simple: foundIncidents.name
+          operator: containsGeneral
+          right:
+            value:
+              simple: Suspicious .NET Behavior
+        - left:
+            iscontext: true
+            value:
+              simple: foundIncidents.name
+          operator: containsGeneral
+          right:
+            value:
+              simple: Malware Activity
+        - left:
+            iscontext: true
+            value:
+              simple: CommandLineAnalysis.score
+          operator: greaterThanOrEqual
+          right:
+            value:
+              simple: "40"
+        - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: Score
+                filters:
+                - - ignorecase: true
+                    left:
+                      iscontext: true
+                      value:
+                        simple: DBotScore.Type
+                    operator: isEqualString
+                    right:
+                      value:
+                        simple: url
+                root: DBotScore
+          operator: isEqualNumber
+          right:
+            value:
+              simple: "3"
+        - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: Score
+                filters:
+                - - ignorecase: true
+                    left:
+                      iscontext: true
+                      value:
+                        simple: DBotScore.Type
+                    operator: containsGeneral
+                    right:
+                      value:
+                        simple: Domain
+                root: DBotScore
+          operator: isEqualNumber
+          right:
+            value:
+              simple: "3"
+      label: "yes"
+    continueonerrortype: ""
+    id: "118"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "137"
+      "yes":
+      - "110"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: This task checks for known related Behavioral Threat Protection
+        alerts, Malicious indicators, or suspicious commands found in alerts. It evaluates
+        multiple conditions including WildFire Malware, Powershell Activity, Script
+        Activity, Suspicious .NET Behavior, command line analysis scores, and malicious
+        URL or domain detections.
+      id: 2da21b06-122c-435f-9612-116647dea67d
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Check for known related BTP alerts, Malicious domains or URLs, or suspicious
+        commands.
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 2da21b06-122c-435f-9612-116647dea67d
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 290.5,
+          "y": 980
+        }
+      }
+  "120":
+    continueonerrortype: ""
+    id: "120"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "1"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      command_line:
+        simple: ${alert.initiatorcmd}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |-
+        This script evaluates command-line threats by analyzing both original and decoded inputs. It assigns weighted scores to detected patterns, such as AMSI bypass or credential dumping, and applies risk combination bonuses for multiple detections. The total score is normalized to a 0-100 scale, with risk levels categorized as follows:
+
+        * 0-25: Low Risk
+        * 26-50: Medium Risk
+        * 51-90: High Risk
+        * 91-100: Critical Risk
+
+        The scoring mechanism provides a comprehensive risk assessment, considering both the severity and frequency of malicious behaviors.
+      id: 775db1d9-2821-4db2-8a61-70addc77302a
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Analyze command line
+      playbooktaskmissingcomponent: null
+      script: CommandLineAnalysis
+      type: regular
+      version: -1
+    taskid: 775db1d9-2821-4db2-8a61-70addc77302a
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 586,
+          "y": 380
+        }
+      }
+  "121":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: CommandLineAnalysis.analysis.original.indicators.URL
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "121"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "118"
+      "yes":
+      - "122"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks if any URLs were identified in the analyzed command line
+        and routes the playbook flow accordingly.
+      id: 5e171439-8c8d-4d87-969f-7fb3e9cfa8b7
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Check if any URLS were found in the command line
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 5e171439-8c8d-4d87-969f-7fb3e9cfa8b7
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -2.5,
+          "y": 669
+        }
+      }
+  "122":
+    continueonerror: true
+    continueonerrortype: ""
+    id: "122"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "118"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      url:
+        simple: ${CommandLineAnalysis.analysis.original.indicators.URL}
+    separatecontext: false
+    skipunavailable: true
+    task:
+      brand: ""
+      description: Enrich the URL to get its verdict.
+      id: 7ac28463-3b43-4796-8fee-edb440b8af60
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Enrich URLs
+      playbooktaskmissingcomponent: null
+      script: '|||url'
+      type: regular
+      version: -1
+    taskid: 7ac28463-3b43-4796-8fee-edb440b8af60
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -383.5,
+          "y": 812
+        }
+      }
+  "123":
+    continueonerror: true
+    continueonerrortype: ""
+    id: "123"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "128"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      agent_id:
+        simple: ${alert.agentid}
+      causality_id:
+        simple: ${Core.OriginalAlert.event.action_process_instance_id}
+      timeout_in_seconds:
+        simple: "180"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Terminate a process tree by its causality ID. Available only from
+        Cortex XSIAM 2.4
+      id: ffa10648-c5ab-4cd4-aad3-54a853291410
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Terminate Causality
+      playbooktaskmissingcomponent: null
+      script: '|||core-terminate-causality'
+      type: regular
+      version: -1
+    taskid: ffa10648-c5ab-4cd4-aad3-54a853291410
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -321,
+          "y": 1756
+        }
+      }
+  "125":
+    continueonerrortype: ""
+    id: "125"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "141"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: Closing the alert as true positive.
+      id: 7efe6ce3-2281-4a81-9ad3-f7c553e8b243
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Close the Alert as True Positive
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 7efe6ce3-2281-4a81-9ad3-f7c553e8b243
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 275.5,
+          "y": 2606
+        }
+      }
+  "126":
+    continueonerrortype: ""
+    form:
+      description: ""
+      expired: false
+      questions:
+      - defaultrows: []
+        fieldassociated: ""
+        gridcolumns: []
+        id: "0"
+        label: ""
+        labelarg:
+          simple: |-
+            **Recommendation: Isolation Required – Malicious Activity Detected**
+
+            The detection meets high-confidence criteria for malicious activity based on the following conditions:
+
+            **Matched Verdicts:**
+            * Matches for a command line analysis with a score higher than 40.
+            * Malicious URL \ Domain address detected.
+
+            **Action Required:**
+
+            * Isolate the remote host: ${Endpoint.Hostname}
+
+            Isolate endpoint?
+        options: []
+        optionsarg:
+        - simple: "Yes"
+        - simple: "No"
+        placeholder: ""
+        readonly: false
+        required: false
+        tooltip: ""
+        type: singleSelect
+      sender: Your SOC team
+      title: IsolateEndpoint
+      totalanswers: 0
+    id: "126"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    message:
+      bcc: null
+      body:
+        simple: |-
+          Its is recommended to isolate this station as the detection meets high-confidence criteria for malicious activity based on one or more of the following conditions:
+          1. Matches for a command line analysis with a score higher than 40.
+          2. Malicious URL \ Domain address detected.
+      cc: null
+      format: ""
+      methods: []
+      replyOptions:
+      - Isolate
+      subject: null
+      timings:
+        completeafterreplies: 1
+        completeaftersla: false
+        completeafterv2: true
+        retriescount: 2
+        retriesinterval: 360
+      to: null
+    nexttasks:
+      '#none#':
+      - "145"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |-
+        **Recommendation: Isolation Required – Malicious Activity Detected**
+
+        The detection meets high-confidence criteria for malicious activity based on the following conditions:
+
+        **Matched Verdicts:**
+        * Matches for a command line analysis with a score higher than 40.
+        * Malicious URL \ Domain address detected.
+      id: 4b70a390-14f7-4b7e-a9f6-97c8d6be6b3d
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Approval Required – Malicious Activity Detected
+      playbooktaskmissingcomponent: null
+      type: collection
+      version: -1
+    taskid: 4b70a390-14f7-4b7e-a9f6-97c8d6be6b3d
+    timertriggers: []
+    type: collection
+    view: |-
+      {
+        "position": {
+          "x": -321,
+          "y": 2057
+        }
+      }
+  "127":
+    continueonerrortype: ""
+    id: "127"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "125"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      endpoint_id:
+        simple: ${Endpoint.ID}
+      incident_id:
+        complex:
+          accessor: parentXDRIncident
+          root: alert
+          transformers:
+          - args:
+              delimiter:
+                value:
+                  simple: '-'
+              fields:
+                value:
+                  simple: "2"
+            operator: Cut
+      timeout_in_seconds:
+        simple: "120"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Isolates the specified endpoint.
+      id: 53994829-480d-4643-bd73-6c530eb36e21
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Isolate endpoint
+      playbooktaskmissingcomponent: null
+      script: '|||core-isolate-endpoint'
+      type: regular
+      version: -1
+    taskid: 53994829-480d-4643-bd73-6c530eb36e21
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -321,
+          "y": 2478
+        }
+      }
+  "128":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: Core.Endpoint.endpoint_type
+          operator: containsString
+          right:
+            value:
+              simple: WORKSTATION
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: Core.Endpoint.endpoint_status
+          operator: isEqualString
+          right:
+            value:
+              simple: CONNECTED
+      label: WORKSTATION
+    continueonerrortype: ""
+    id: "128"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "129"
+      WORKSTATION:
+      - "126"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the endpoint is a workstation or a server.
+      id: 6a91f368-f7b2-4915-8b15-759e3271ad75
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Check if the endpoint is workstation or a server
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 6a91f368-f7b2-4915-8b15-759e3271ad75
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -14,
+          "y": 1877
+        }
+      }
+  "129":
+    continueonerrortype: ""
+    id: "129"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "125"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: "Dear Analyst,\n\nPlease note that during the remediation process,
+        the playbook didn't isolate the following host: ${Endpoint.Hostname} \n\nThis
+        is due to one of the following reasons:\n- The device disconnected.\n- The
+        device has been identified as a server.\n\nPlease take manual action to contain
+        the attack and prevent the attacker from executing lateral movement before
+        closing this alert."
+      id: 88df1210-2baf-4e75-8f28-c1442375db38
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Manual remediation actions for a server or a disconnected endpoint
+      playbooktaskmissingcomponent: null
+      type: regular
+      version: -1
+    taskid: 88df1210-2baf-4e75-8f28-c1442375db38
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 275.5,
+          "y": 2057
+        }
+      }
+  "132":
+    continueonerrortype: ""
+    id: "132"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    loop:
+      exitCondition: ""
+      iscommand: false
+      max: 100
+      wait: 1
+    nexttasks:
+      '#none#':
+      - "125"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      AutoCommit:
+        simple: "Yes"
+      CustomURLCategory:
+        simple: XSIAM - Malicious URLs
+      URL:
+        complex:
+          accessor: Indicator
+          filters:
+          - - ignorecase: true
+              left:
+                iscontext: true
+                value:
+                  simple: DBotScore.Type
+              operator: isEqualString
+              right:
+                value:
+                  simple: url
+          - - left:
+                iscontext: true
+                value:
+                  simple: DBotScore.Score
+              operator: isEqualNumber
+              right:
+                value:
+                  simple: "3"
+          root: DBotScore
+          transformers:
+          - operator: uniq
+      pre-post:
+        simple: pre-rulebase
+      type:
+        simple: URL List
+    separatecontext: true
+    skipunavailable: true
+    task:
+      brand: ""
+      description: |-
+        This playbook blocks URLs using Palo Alto Networks Panorama or Firewall through Custom URL Categories.
+        The playbook checks whether the input URL category already exists, and if the URLs are a part of this category. Otherwise, it will create the category, block the URLs, and commit the configuration.
+      id: f2eafb4a-12da-4da0-b59d-9973f1e31f8c
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: PAN-OS - Block URL - Custom URL Category
+      playbookName: PAN-OS - Block URL - Custom URL Category
+      playbooktaskmissingcomponent: null
+      type: playbook
+      version: -1
+    taskid: f2eafb4a-12da-4da0-b59d-9973f1e31f8c
+    timertriggers: []
+    type: playbook
+    view: |-
+      {
+        "position": {
+          "x": 967,
+          "y": 2478
+        }
+      }
+  "135":
+    continueonerrortype: ""
+    id: "135"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    scriptarguments:
+      closeNotes:
+        simple: Resolved as False Positive - handled by the playbook "Windows LOLBIN
+          scripting engine connected to a rare external host"
+      closeReason:
+        simple: Resolved - False Positive
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: Close the Alert as False Positive
+      id: 62977917-f33f-4bf0-b516-34a7d5f98988
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Close the Alert as False Positive
+      playbooktaskmissingcomponent: null
+      script: Builtin|||closeInvestigation
+      type: regular
+      version: -1
+    taskid: 62977917-f33f-4bf0-b516-34a7d5f98988
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -14,
+          "y": 1245
+        }
+      }
+  "136":
+    continueonerrortype: ""
+    id: "136"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "117"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 808836bb-81d3-4dab-aa6a-0e952ea1fc85
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Terminate Process
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 808836bb-81d3-4dab-aa6a-0e952ea1fc85
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": -14,
+          "y": 1515
+        }
+      }
+  "137":
+    continueonerrortype: ""
+    id: "137"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "135"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 67e93266-9fac-4547-bf7d-f8a79a7b49c3
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Close the Alert As False Positive
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 67e93266-9fac-4547-bf7d-f8a79a7b49c3
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": -14,
+          "y": 1126
+        }
+      }
+  "139":
+    continueonerrortype: ""
+    form:
+      description: Blocking the URL is recommended, as its reputation is malicious.
+      expired: false
+      questions:
+      - defaultrows: []
+        fieldassociated: ""
+        gridcolumns: []
+        id: "0"
+        label: ""
+        labelarg:
+          simple: "Block the following malicious URL using PAN-OS? \n - ${DBotScore(val.Type
+            === 'url' && val.Score === 3).Indicator=>val.filter((v,i,a)=>a.indexOf(v)==i).join(\"\\n
+            - \")}"
+        options: []
+        optionsarg:
+        - simple: "No"
+        - simple: "Yes"
+        placeholder: ""
+        readonly: false
+        required: false
+        tooltip: This will block URLs using Palo Alto Networks Panorama or Firewall
+          through Custom URL Categories. The playbook checks whether the input URL
+          category already exists, and if the URLs are a part of this category. Otherwise,
+          it will create the category, block the URLs, and commit the configuration.
+        type: singleSelect
+      sender: Your SOC team
+      title: UrlBlockApproval
+      totalanswers: 0
+    id: "139"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    message:
+      bcc: null
+      body: null
+      cc: null
+      format: ""
+      methods: []
+      replyOptions:
+      - "Yes"
+      - "No"
+      subject: null
+      timings:
+        completeafterreplies: 1
+        completeaftersla: false
+        completeafterv2: true
+        retriescount: 2
+        retriesinterval: 360
+      to: null
+    nexttasks:
+      '#none#':
+      - "140"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Analyst approval is required to block the malicious URL.
+      id: a0d425e9-6a01-4864-9ee8-0198f9f874f9
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Approve the URL block using PAN-OS
+      playbooktaskmissingcomponent: null
+      type: collection
+      version: -1
+    taskid: a0d425e9-6a01-4864-9ee8-0198f9f874f9
+    timertriggers: []
+    type: collection
+    view: |-
+      {
+        "position": {
+          "x": 967,
+          "y": 1756
+        }
+      }
+  "140":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: UrlBlockApproval.Answers.0
+          operator: isEqualString
+          right:
+            value:
+              simple: "Yes"
+      label: Block URL
+    continueonerrortype: ""
+    id: "140"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "125"
+      Block URL:
+      - "132"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Check the analyst's answers and execute the appropriate actions
+        based on the responses.
+      id: a81d665e-c927-4d8b-b9f1-c0ffdf483a3c
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Check analyst answers for URL block
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: a81d665e-c927-4d8b-b9f1-c0ffdf483a3c
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 967,
+          "y": 2057
+        }
+      }
+  "141":
+    continueonerrortype: ""
+    id: "141"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "144"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      closeNotes:
+        simple: Resolved as True Positive - Handled by the playbook "Windows LOLBIN
+          scripting engine connected to a rare external host"
+      closeReason:
+        simple: Resolved - True Positive
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: Close the Alert as True Positive
+      id: 2efec428-4939-4160-9a15-4a8dac23fd72
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Close the Alert as True Positive
+      playbooktaskmissingcomponent: null
+      script: Builtin|||closeInvestigation
+      type: regular
+      version: -1
+    taskid: 2efec428-4939-4160-9a15-4a8dac23fd72
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 275.5,
+          "y": 2725
+        }
+      }
+  "142":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: CommandLineAnalysis.analysis.original.indicators.Domain
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "142"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "118"
+      "yes":
+      - "143"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks if any domains were identified in the analyzed command line
+        and routes the playbook flow accordingly.
+      id: 3f7f5dc3-af5f-4635-81f6-40ab9b4033c3
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Check if any domains were found in the command line
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 3f7f5dc3-af5f-4635-81f6-40ab9b4033c3
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 586,
+          "y": 669
+        }
+      }
+  "143":
+    continueonerror: true
+    continueonerrortype: ""
+    id: "143"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "118"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      domain:
+        simple: ${CommandLineAnalysis.analysis.original.indicators.Domain}
+    separatecontext: false
+    skipunavailable: true
+    task:
+      brand: ""
+      description: Returns domain information and reputation.
+      id: 036fed72-9d41-427c-9861-7c733235311b
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Enrich Domains
+      playbooktaskmissingcomponent: null
+      script: '|||domain'
+      type: regular
+      version: -1
+    taskid: 036fed72-9d41-427c-9861-7c733235311b
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 967,
+          "y": 812
+        }
+      }
+  "144":
+    continueonerrortype: ""
+    id: "144"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: d1313a48-cb27-4c77-890a-0164f83a180c
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Done
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: d1313a48-cb27-4c77-890a-0164f83a180c
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 275.5,
+          "y": 2865
+        }
+      }
+  "145":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: IsolateEndpoint.Answers.0
+          operator: isEqualString
+          right:
+            value:
+              simple: "yes"
+      label: "yes"
+    continueonerrortype: ""
+    id: "145"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "125"
+      "yes":
+      - "127"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Check analyst answer.
+      id: 1b193163-49e8-4cc8-8d97-09099cd35809
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Check analyst answer for endpoint isolation
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 1b193163-49e8-4cc8-8d97-09099cd35809
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -321,
+          "y": 2222
+        }
+      }
+version: -1
+view: |-
+  {
+    "linkLabelsPosition": {
+      "117_128_Blocked": 0.49,
+      "118_110_yes": 0.45,
+      "121_118_#default#": 0.29,
+      "128_126_WORKSTATION": 0.55,
+      "128_129_#default#": 0.61,
+      "140_125_#default#": 0.65,
+      "140_132_Block URL": 0.44,
+      "142_118_#default#": 0.28,
+      "145_127_yes": 0.51,
+      "47_125_#default#": 0.36
+    },
+    "paper": {
+      "dimensions": {
+        "height": 2875,
+        "width": 1731.5,
+        "x": -383.5,
+        "y": 50
+      }
+    }
+  }
