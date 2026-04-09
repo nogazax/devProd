@@ -1,0 +1,444 @@
+category: Analytics & SIEM
+commonfields:
+  id: Slack Event Collector
+  version: -1
+configuration:
+- defaultvalue: https://api.slack.com/audit/v1/
+  display: Server URL
+  name: url
+  required: true
+  section: Connect
+  supportedModules: []
+  type: 0
+- display: ""
+  displaypassword: User Token
+  hiddenusername: true
+  name: user_token
+  required: true
+  section: Connect
+  supportedModules: []
+  type: 9
+- defaultvalue: "1000"
+  display: The maximum number of audit logs to fetch
+  name: limit
+  required: false
+  section: Collect
+  supportedModules: []
+  type: 0
+- additionalinfo: Data is not available prior to March 2018.
+  defaultvalue: 3 days ago
+  display: First fetch time interval
+  name: oldest
+  required: false
+  section: Collect
+  supportedModules: []
+  type: 0
+- advanced: true
+  display: Trust any certificate (not secure)
+  name: insecure
+  required: false
+  section: Connect
+  supportedModules: []
+  type: 8
+- advanced: true
+  display: Use system proxy settings
+  name: proxy
+  required: false
+  section: Connect
+  supportedModules: []
+  type: 8
+- display: Fetch Events
+  name: isFetchEvents
+  required: false
+  section: Collect
+  supportedModules: []
+  type: 8
+- advanced: true
+  defaultvalue: "1"
+  display: Events Fetch Interval
+  name: eventFetchInterval
+  required: false
+  section: Collect
+  supportedModules: []
+  type: 19
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 6.8.0
+    isoverridable: false
+    itemVersion: 3.5.47
+    packID: Slack
+    packName: Slack
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules:
+    - agentix
+    - xsiam
+    toServerVersion: ""
+description: Slack logs event collector integration for XSIAM.
+detaileddescription: |-
+  Audit Logs API is only available to Slack workspaces on an Enterprise Grid plan, meaning, this Integration will *not* work for workspaces on a Free, Standard, or Business+ plan. For more information about the Audit Logs API, visit the [Slack API Documentation](https://api.slack.com/admins/audit-logs).
+
+  To configure an instance of Slack Event Collector, a Slack **User Token** with the `auditlogs:read` permissions must be obtained.
+
+  ### Obtain a User Token
+  **Important**: The following steps must be done by the **Owner** of the Enterprise Grid organization.
+  1. Create a Slack app [here](https://api.slack.com/apps?new_app=1). By clicking the **Create App** button, you will be redirected to its settings page.
+  2. Using the left navigation bar, go to **OAuth & Permissions**.
+     Scroll down to the **Scopes** section and add the `auditlogs:read` User Token Scope to your app.
+  3. Using the left navigation bar, go to **Manage Distribution**.
+     * **Activate Public Distribution** by make sure all sections under **Share Your App with Other Workspaces** have the green check. Then click the **Activate Public Distribution** button.
+     * Under the **Share Your App with Your Workspace** section, copy the **Sharable URL** and paste it into a browser to initiate the OAuth handshake that will install the app on your organization.
+     * **Check the dropdown in the upper right of the installation page to make sure you are installing the app on the Enterprise Grid organization, not an individual workspace within the organization.**
+  4. Once your app completes the OAuth flow, you will be granted an OAuth token that can be used for calling all of the Audit Logs API methods for your organization. The token should start with `xoxp-`.
+
+
+  ---
+  [View Integration Documentation](https://xsoar.pan.dev/docs/reference/integrations/slack-event-collector)
+display: Slack Event Collector
+image: data:image/png;base64,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
+imagepath: content/packs/Slack/SlackEventCollector_image.png
+name: Slack Event Collector
+restrictioncenter: {}
+script:
+  commands:
+  - arguments:
+    - auto: PREDEFINED
+      defaultValue: "false"
+      description: If true, the command will create events, otherwise it will only
+        display them.
+      name: should_push_events
+      predefined:
+      - "true"
+      - "false"
+      required: true
+      supportedModules: []
+    - defaultValue: "10"
+      description: Number of results to return, maximum is 9999. You may receive more
+        than the passed `limit` results from a given request if there are multiple
+        logs that were recorded at the exact same time.
+      name: limit
+      supportedModules: []
+    - description: A string pointing at the next page of results. The cursor can be
+        found within the response_metadata field, as part of the raw response of the
+        Audit Logs API call. For further information, visit Slack documentation -
+        https://api.slack.com/docs/pagination#cursors
+      name: cursor
+      supportedModules: []
+    - defaultValue: 3 days
+      description: Occurrence time of the least recent audit event to include (inclusive).
+        Data is not available prior to March 2018.
+      name: oldest
+      supportedModules: []
+    - description: Occurrence time of the most recent audit event to include (inclusive).
+      name: latest
+      supportedModules: []
+    - description: Name of the action.
+      name: action
+      supportedModules: []
+    - description: ID of the user who initiated the action.
+      name: actor
+      supportedModules: []
+    - description: ID of the target entity of the action (such as a channel, workspace,
+        organization, file).
+      name: entity
+      supportedModules: []
+    description: Gets audit log events from Slack.
+    name: slack-get-events
+    supportedModules: []
+  dockerimage: demisto/python3:3.12.12.5490952
+  isfetchevents: true
+  nativeimage:
+  - "8.8"
+  - "8.6"
+  runonce: false
+  script: |
+    register_module_line('Slack Event Collector', 'start', __line__())
+    CONSTANT_PACK_VERSION = '3.5.47'
+    demisto.debug('pack id = Slack, pack version = 3.5.47')
+
+    import urllib3
+
+
+    urllib3.disable_warnings()
+
+    VENDOR = "slack"
+    PRODUCT = "slack"
+
+
+    def arg_to_timestamp(value: Any) -> Optional[int]:
+        if isinstance(value, int):
+            return value
+        if datetime_obj := arg_to_datetime(value):
+            return int(datetime_obj.timestamp())
+        return None
+
+
+    def prepare_query_params(params: dict) -> dict:
+        """
+        Parses the given inputs into Slack Audit Logs API expected format.
+        """
+        query_params = {
+            "limit": arg_to_number(params.get("limit")) or 1000,
+            "oldest": arg_to_timestamp(params.get("oldest")),
+            "latest": arg_to_timestamp(params.get("latest")),
+            "action": params.get("action"),
+            "actor": params.get("actor"),
+            "entity": params.get("entity"),
+            "cursor": params.get("cursor"),
+        }
+        return query_params
+
+
+    class Client(BaseClient):
+        def get_logs(self, query_params: dict) -> tuple[dict, list, str | None]:
+            demisto.debug(f"{query_params=}")
+            raw_response = self._http_request(
+                method="GET",
+                url_suffix="logs",
+                params=query_params,
+                retries=2,
+            )
+            demisto.debug(f"{raw_response=}")
+            events = raw_response.get("entries", [])
+            cursor = raw_response.get("response_metadata", {}).get("next_cursor")
+
+            return raw_response, events, cursor
+
+        def handle_pagination_first_batch(self, query_params: dict, last_run: dict) -> tuple[list, str | None]:
+            """
+            Makes the first logs API call in the current fetch run.
+            If `last_search_stop_point` exists in the lastRun obj, finds it in the response and
+            returns only the subsequent events (that weren't collected yet).
+            """
+            if last_id := last_run.get("last_id"):
+                # Maintain compatibility when moving from versions 3.3.0 and lower to 3.4.0 by updating the 'last-run'.
+                # This code should only be performed once for each integration instance,
+                # when upgrading the pack from version 3.3.0 or lower to 3.4.0 or higher.
+                last_run["last_fetched_event"] = {"last_event_id": last_id, "last_event_time": None}
+                last_run.pop("last_id")
+
+            cursor = last_run.pop("cursor", None)
+            last_event = last_run.get("last_fetched_event", None)
+            if cursor:
+                query_params["cursor"] = cursor
+                query_params.pop("oldest")
+            elif last_event:
+                query_params["oldest"] = last_event.get("last_event_time")
+            _, events, cursor = self.get_logs(query_params)
+
+            if last_run.get("last_search_stop_point_event_id"):
+                for idx, event in enumerate(events):
+                    if event.get("id") == last_run["last_search_stop_point_event_id"]:
+                        events = events[idx:]
+                        break
+                last_run.pop("last_search_stop_point_event_id", None)  # removing to make sure it won't be used in future runs
+            return events, cursor
+
+        def get_logs_with_pagination(self, query_params: dict, last_run: dict) -> list[dict]:
+            """
+            Aggregates logs using cursor-based pagination, until one of the following occurs:
+            1. Encounters an event that was already fetched in a previous run / reaches all the resolutes.
+               In both cases, clears the cursor (if exist) from the lastRun obj, updates `event_last_id` and `event_last_time`
+               to know where to stop in the next runs and returns the aggragated logs.
+
+            2. Reaches the user-defined limit (parameter).
+               In this case, stores the last used cursor and the id of the next event to collect (`last_search_stop_point`)
+               and if it is the first run in this search it saves the newest event details as 'newest_event_fetched'
+               to be used when the cursor is exhausted and a new search query should be performed.
+               and returns the events that have been accumulated so far.
+
+            3. Reaches a rate limit.
+               In this case, stores the last cursor used in the lastRun obj
+               if it is the first run in this search it saves the newest event details as 'newest_event_fetched'
+               and returns the events that have been accumulated so far.
+            """
+            aggregated_logs: list[dict] = []
+
+            user_defined_limit = query_params.pop("limit")
+            query_params["limit"] = 200  # recommended limit value by Slack
+            try:
+                events, cursor = self.handle_pagination_first_batch(query_params, last_run)
+                last_event_id = last_run.get("last_fetched_event", {}).get("last_event_id")
+                while events:
+                    for event in events:
+                        if event.get("id") == last_event_id:
+                            demisto.debug("Encountered an event that was already fetched - stopping.")
+                            cursor = None
+                            break
+
+                        if len(aggregated_logs) == user_defined_limit:
+                            demisto.debug(f"Reached the user-defined limit ({user_defined_limit}) - stopping.")
+                            last_run["last_search_stop_point_event_id"] = event.get("id")
+                            cursor = query_params.get("cursor")
+                            break
+
+                        aggregated_logs.append(event)
+
+                    else:
+                        # Finished iterating through all events in this batch (did not encounter a break statement)
+                        if cursor:
+                            demisto.debug("Using the cursor from the last API call to execute the next call.")
+                            query_params["cursor"] = cursor
+                            _, events, cursor = self.get_logs(query_params)
+                            continue
+
+                    demisto.debug("Finished iterating through all events in this fetch run.")
+                    break
+
+            except DemistoException as e:
+                if not e.res or e.res.status_code != 429:
+                    raise e
+                demisto.debug("Reached API rate limit, storing last used cursor.")
+                cursor = query_params["cursor"]
+                last_run["cursor"] = cursor
+
+            if aggregated_logs:
+                """
+                If didn't fetch logs, we are not changing the last run
+                If fetched logs, There are 4 scenarios
+                    1. This run we did a new query and finished fetching all the events,
+                        so we save the newest event as 'last_fetched_event'.
+                    2. We did a new query this time and did not finish fetching all the events,
+                        so we save the newest event as 'newest_event_fetched'
+                        and the 'cursor' (if exists) and last_search_stop_point_event_id for the next run.
+                    3. We continued to fetch events by 'cursor' and finished fetching them all,
+                        saving the 'newest_event_fetched' as 'last_fetched_event'.
+                    4. We continued to fetch events by 'cursor', and we still haven't finished fetching them all,
+                        so we only need to save the 'cursor' (if exists), and last_search_stop_point_event_id.
+                """
+                if not last_run.get("newest_event_fetched"):
+                    newest_event = {
+                        "last_event_id": aggregated_logs[0].get("id"),
+                        "last_event_time": aggregated_logs[0].get("date_create"),
+                    }
+                    if cursor:
+                        last_run["newest_event_fetched"] = newest_event
+                        last_run["cursor"] = cursor
+                    elif last_run.get("last_search_stop_point_event_id"):  # if the 'user defined limit' is less than the page size,
+                        # then there won't be a curser, but we haven't finished bringing all the events yet
+                        last_run["newest_event_fetched"] = newest_event
+                    else:
+                        last_run["last_fetched_event"] = newest_event
+                else:
+                    if cursor:
+                        last_run["cursor"] = cursor
+                    elif not last_run.get("last_search_stop_point_event_id"):
+                        last_run["last_fetched_event"] = last_run["newest_event_fetched"]
+                        last_run.pop("newest_event_fetched")
+
+            return aggregated_logs
+
+
+    def test_module_command(client: Client, params: dict) -> str:
+        """
+        Tests connection to Slack.
+        Args:
+            clent (Client): the client implementing the API to Slack.
+            params (dict): the instance configuration.
+
+        Returns:
+            (str) 'ok' if success.
+        """
+        fetch_events_command(client, params, last_run={})
+        return "ok"
+
+
+    def get_events_command(client: Client, args: dict) -> tuple[list, CommandResults]:
+        """
+        Gets log events from Slack.
+        Args:
+            clent (Client): the client implementing the API to Slack.
+            args (dict): the command arguments.
+
+        Returns:
+            (list) the events retrieved from the logs API call.
+            (CommandResults) the CommandResults object holding the collected logs information.
+        """
+        query_params = prepare_query_params(args)
+        raw_response, events, cursor = client.get_logs(query_params)
+        results = CommandResults(
+            raw_response=raw_response,
+            readable_output=tableToMarkdown(
+                "Slack Audit Logs",
+                events,
+                metadata=f"Cursor: {cursor}" if cursor else None,
+                date_fields=["date_create"],
+            ),
+        )
+        return events, results
+
+
+    def fetch_events_command(client: Client, params: dict, last_run: dict) -> tuple[list, dict]:
+        """
+        Collects log events from Slack using pagination.
+        Args:
+            clent (Client): the client implementing the API to Slack.
+            params (dict): the instance configuration.
+            last_run (dict): the lastRun object, holding information from the previous run.
+
+        Returns:
+            (list) the events retrieved from the logs API call.
+            (dict) the updated lastRun object.
+        """
+        query_params = prepare_query_params(params)
+        events = client.get_logs_with_pagination(query_params, last_run)
+        return events, last_run
+
+
+    """ MAIN FUNCTION """
+
+
+    def main() -> None:  # pragma: no cover
+        command = demisto.command()
+        params = demisto.params()
+        args = demisto.args()
+
+        demisto.debug(f"Command being called is {command}")
+        try:
+            client = Client(
+                base_url=params.get("url"),
+                verify=not params.get("insecure"),
+                proxy=params.get("proxy"),
+                headers={"Accept": "application/json", "Authorization": f'Bearer {params.pop("user_token", {}).get("password")}'},
+            )
+
+            if command == "test-module":
+                return_results(test_module_command(client, params))
+
+            elif command == "slack-get-events":
+                events, results = get_events_command(client, args)
+                return_results(results)
+
+                if argToBoolean(args.get("should_push_events", "true")):
+                    send_events_to_xsiam(events, vendor=VENDOR, product=PRODUCT)
+
+            elif command == "fetch-events":
+                last_run = demisto.getLastRun()
+                demisto.debug(f"last run is: {last_run}")
+
+                events, last_run = fetch_events_command(client, params, last_run)
+
+                send_events_to_xsiam(events, vendor=VENDOR, product=PRODUCT)
+                demisto.setLastRun(last_run)
+                demisto.debug(f"Last run set to: {last_run}")
+
+        except Exception as e:
+            return_error(f"Failed to execute {command} command.\nError:\n{e}")
+
+
+    """ ENTRY POINT """
+
+    if __name__ in ("__main__", "__builtin__", "builtins"):
+        main()
+
+    register_module_line('Slack Event Collector', 'end', __line__())
+  subtype: python3
+  type: python
+sectionorder:
+- Connect
+- Collect
+signature: Q3TgGpuZfr0eu6vOPZnmHVb/qlmQJqs1A0P5t3jdfodLiYunbCkevRgKiKQdSuNtzKyu21VmBII+tAHnnJNdttCofr4825dZXlVig+09eD5F96lfr38IvvhznmQ9LZ2vhriezwdgCAnkvFgrwOc/7tlY3Vd/T5Rc6nHNwEz3f5CPCp6cTjY9DtMLeJI3vKDHASKUfVT2bB408bzqNEbxmLAcUBm0gAdY1uurhsmRWudxSoGTFKQkkos6OZmf8EDGZAAEu5b11A9AMINMldkOuQKDJQsf9MVRnZ+br0B2+/ZZvO63feLdcovTTIP8elK7lK/p7aN30D1sZDd+b/i5XQ==
+system: true
