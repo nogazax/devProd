@@ -1,0 +1,77 @@
+args:
+- description: Object to convert
+  name: value
+  required: true
+  supportedModules: []
+comment: |-
+  Convert object keys to match table keys.
+  Use when mapping object/collection to table (grid) field.
+  (Array of objects/collections is also supported).
+  Example:
+  Input: { "Engine": "val1", "Max Results": 13892378, "Key_With^Special   (characters)": true }
+  Output: { "engine": "val1", "maxresults": 13892378, "keywithspecialcharacters": true }
+commonfields:
+  id: ConvertKeysToTableFieldFormat
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 5.0.0
+    isoverridable: false
+    itemVersion: 1.4.17
+    packID: FiltersAndTransformers
+    packName: Filters And Transformers
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+enabled: true
+engineinfo: {}
+mainengineinfo: {}
+name: ConvertKeysToTableFieldFormat
+pswd: ""
+restrictioncenter: {}
+runas: DBotWeakRole
+runonce: false
+script: |+
+  // pack version: 1.4.17
+  // convert a specific key
+  function stripToCliName(str) {
+    return str.substr(0, 255).replace(/[\W\s\\&$#@%?!_*;׳()^]/g, '').toLowerCase();
+  }
+
+  // convert object keys
+  function convertObject(obj) {
+      var res = {};
+      Object.keys(obj).forEach(function(key) {
+          res[stripToCliName(key)] = obj[key];
+      });
+      return res;
+  }
+
+  var value = args.value;
+
+  if (typeof value !== "object") {
+      return {
+          ContentsFormat: formats.text,
+          Type: entryTypes.error,
+          Contents: 'Invalid input. Expected object/collection, got: ' + value
+      };
+  }
+
+  if (Array.isArray(value)) {
+      return value.map(convertObject);
+  }
+
+  return convertObject(value);
+
+
+
+scripttarget: 0
+signature: kKhLHyhenRBTdsWnia3qdBLuOtoNePQae30ptSpISlbkY2NbMdjWH0OH5M/0DIp+5L5zGdQ9XLbBNI5lHXFr730dT5Nbdgwe1mujWl9rWD85lqUhFn6S8D+eQFdn5aAySoDF2wE63CMDWOtF1co1KbupP+5XeDGTZQ1LNZKWH0RXUzOCK+5qTp5TOYi4sqcs6RF3X5XPwYglGMkeLBflveGe3+lVncnKCAutc04YaNawnqdw9zUg5MzZBnX0VQaYz9w9PmuQGeZYdWG1RmbY5ka7fWQJNUrBSmwuRmGw0ZMtI4kcdQVrePeMCGy1keSQSOdd4B2YzhLJnTyMgV5Esg==
+system: true
+tags:
+- transformer
+type: javascript
