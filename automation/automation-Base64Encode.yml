@@ -1,0 +1,50 @@
+args:
+- default: true
+  description: to encode in Base64 format
+  name: input
+  required: true
+  supportedModules: []
+comment: Will encode an input using Base64 format.
+commonfields:
+  id: Base64Encode
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 5.0.0
+    isoverridable: false
+    itemVersion: 1.21.4
+    packID: CommonScripts
+    packName: Common Scripts
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+enabled: true
+engineinfo: {}
+mainengineinfo: {}
+name: Base64Encode
+outputs:
+- contextPath: Base64.encoded
+  description: input encoded as Base64 format
+pswd: ""
+restrictioncenter: {}
+runas: DBotWeakRole
+runonce: false
+script: |
+  // pack version: 1.21.4
+  var result = Base64.encode(args.input);
+  return {Type: entryTypes.note,
+      Contents: result,
+      ContentsFormat: formats.note,
+      HumanReadable: result,
+      EntryContext: {"Base64.encoded": result}
+  };
+scripttarget: 0
+signature: HctJOTm2nnM0jCUftGh3+prR5sZ2n4QACiUOttP8sRsd28VlZ0cmFXIcDtMd649KsukxIe8Yj8ddHhL+m6g+XTeyQsNwc/PXWJAXgZWcA48lQEKmsqNLoVhmNNt57ETiFi64v0DGRHoD+a31/96yuT6zUzI3Udy//8++BsG6b5OniR8qaeyy+VAZvwO/LfQyWOWhP3UzegN//68VZujrUUiFLI+DIc+NLRQKNxawPF/3eXvuiDOWTfppOlNhCqOZK5CT+35vpX3BaLrqpSt1sHCnD8Qg0UCJgOCddE4CZlDZfcygqEQ29wFJyodeum4EvSf6ZlzqOnR4e2OO3KvQKg==
+system: true
+tags:
+- Utility
+type: javascript
