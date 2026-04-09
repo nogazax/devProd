@@ -1,0 +1,119 @@
+args:
+- description: Links the response action to the triggered incident.
+  name: incident_id
+  supportedModules: []
+- description: List of endpoint IDs.
+  isArray: true
+  name: endpoint_id_list
+  required: true
+  supportedModules: []
+- description: String that represents the path of the file you want to quarantine.
+  name: file_path
+  required: true
+  supportedModules: []
+- description: String that represents the file's hash. Must be a valid SHA256 hash.
+  name: file_hash
+  required: true
+  supportedModules: []
+comment: A polling wrapper script; Quarantines a file on selected endpoints. You can
+  select up to 1000 endpoints.
+commonfields:
+  id: CoreQuarantineFiles
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 6.1.0
+    isoverridable: false
+    itemVersion: 3.5.30
+    packID: Core
+    packName: Core
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules:
+    - xsiam
+    - cloud_runtime_security
+    - edr
+    toServerVersion: ""
+dockerimage: demisto/python3:3.12.12.5490952
+enabled: true
+engineinfo: {}
+isInternal: true
+mainengineinfo: {}
+name: CoreQuarantineFiles
+nativeimage:
+- "8.8"
+- "8.6"
+outputs:
+- contextPath: Core.GetActionStatus.action_id
+  description: The quarantine action ID.
+  type: String
+- contextPath: Core.GetActionStatus.endpoint_id
+  description: The endpoint ID on which the quarantine action was taken.
+  type: String
+- contextPath: Core.GetActionStatus.status
+  description: The status of the action.
+  type: String
+- contextPath: Core.GetActionStatus.ErrorReasons
+  description: The error reasons (if occurred).
+  type: unknown
+- contextPath: Core.GetActionStatus.ErrorReasons.bucket
+  description: The bucket in which the error occurred.
+  type: String
+- contextPath: Core.GetActionStatus.ErrorReasons.file_name
+  description: The name of the file that caused the error.
+  type: String
+- contextPath: Core.GetActionStatus.ErrorReasons.file_path
+  description: The path of the file that caused the error.
+  type: String
+- contextPath: Core.GetActionStatus.ErrorReasons.file_size
+  description: The size of the file that caused the error.
+  type: Number
+- contextPath: Core.GetActionStatus.ErrorReasons.missing_files
+  description: The missing files that caused the error.
+  type: Unknown
+- contextPath: Core.GetActionStatus.ErrorReasons.errorData
+  description: The error reason data.
+  type: String
+- contextPath: Core.GetActionStatus.ErrorReasons.terminated_by
+  description: The instance ID which terminated the action and caused the error.
+  type: String
+- contextPath: Core.GetActionStatus.ErrorReasons.errorDescription
+  description: The error reason description.
+  type: String
+- contextPath: Core.GetActionStatus.ErrorReasons.terminate_result
+  description: The error reason terminate result.
+  type: Unknown
+pswd: ""
+restrictioncenter: {}
+runas: DBotWeakRole
+runonce: false
+script: |
+  register_module_line('CoreQuarantineFiles', 'start', __line__())
+  CONSTANT_PACK_VERSION = '3.5.30'
+  demisto.debug('pack id = Core, pack version = 3.5.30')
+
+
+
+
+  def main():
+      args = demisto.args()
+      try:
+          return_results(execute_polling_command("core-quarantine-files", args))
+      except Exception as e:
+          return_error(f"Failed to execute script.\nError:\n{e!s}")
+
+
+  if __name__ in ("__main__", "__builtin__", "builtins"):
+      main()
+
+  register_module_line('CoreQuarantineFiles', 'end', __line__())
+scripttarget: 0
+signature: KmBdPbuSTjbesJiv7hwfh7qydP636qQL2tU+mmZOAC/vZifmxFqYdSt2z4DcPklbJHB8SVtKxicJ61viBySqn4BoMrorGFKNKNPRDslJfCLTopiXw/Qvy0gZOXLuvv+uBLlfmkNnmSAuT93PYfoDF9BD6cBbSHW9DlgIgVklMorDcHA7BAqRwNhbJ3y13chsBG+se/sxp0Odn+fo84ohdpulwPLW2EB8xy3k8heSFMPrKmLQuVko8BFi7nwCMjpGuWJFG+p8pRHf7PvcrB7D5FW84ZG8dllugxkmBJXtdvaCSUK/fmja4jMu5CjurS4cFRznIE9kG2tAaf6jJh4O0Q==
+subtype: python3
+system: true
+tags:
+- Utilities
+type: python
