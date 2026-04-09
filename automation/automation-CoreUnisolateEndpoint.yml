@@ -1,0 +1,83 @@
+args:
+- description: Links the response action to the triggered incident.
+  name: incident_id
+  supportedModules: []
+- description: The endpoint ID (string) to isolate. Retrieve the string from the core-get-endpoints
+    command.
+  name: endpoint_id
+  required: true
+  supportedModules: []
+- auto: PREDEFINED
+  defaultValue: "false"
+  description: Suppress an error when trying to isolate a disconnected endpoint. When
+    set to false, an error is returned.
+  name: suppress_disconnected_endpoint_error
+  predefined:
+  - "true"
+  - "false"
+  supportedModules: []
+comment: A polling wrapper script; Unisolates the specified endpoint.
+commonfields:
+  id: CoreUnisolateEndpoint
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 6.1.0
+    isoverridable: false
+    itemVersion: 3.5.30
+    packID: Core
+    packName: Core
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules:
+    - xsiam
+    - cloud_runtime_security
+    - edr
+    toServerVersion: ""
+dockerimage: demisto/python3:3.12.12.5490952
+enabled: true
+engineinfo: {}
+isInternal: true
+mainengineinfo: {}
+name: CoreUnisolateEndpoint
+nativeimage:
+- "8.8"
+- "8.6"
+outputs:
+- contextPath: Core.UnIsolation.endpoint_id
+  description: The ID of the endpoint that was unisolated.
+  type: String
+pswd: ""
+restrictioncenter: {}
+runas: DBotWeakRole
+runonce: false
+script: |
+  register_module_line('CoreUnisolateEndpoint', 'start', __line__())
+  CONSTANT_PACK_VERSION = '3.5.30'
+  demisto.debug('pack id = Core, pack version = 3.5.30')
+
+
+
+
+  def main():
+      args = demisto.args()
+      try:
+          return_results(execute_polling_command("core-unisolate-endpoint", args))
+      except Exception as e:
+          return_error(f"Failed to execute script.\nError:\n{e!s}")
+
+
+  if __name__ in ("__main__", "__builtin__", "builtins"):
+      main()
+
+  register_module_line('CoreUnisolateEndpoint', 'end', __line__())
+scripttarget: 0
+signature: 1mxXM3QGC0ORgOBz085F6sxg9Hugu0ST8H2FhPiAEpLU400+tmQ4hqIaysVwnjeEmpz6iZz/GL+l2p8TQH2PrVCv3DsoDno0bZu0/OrYXC/QXUkBLEyCWok+2Y2egnG77PVQoSN3g2/4ixGpvW1m0VFzWJMCzzS/xqmbXnIEcNRIm1KAOOd3rVGiAU4n8ftQHATHWSJwTckFoC/hp+SprhFfKX0XxgXTSDp59rVeW//w8TG2DZzzKJ/+Je/6UrRsuOSXBkM2zi2ZVM5YuOE1nO+VJlHODAiaqcJRjT8+yorO9PsjJHHCU2IsR4u/rh6Rd2EpgbmYMi0k4iM70ctXwQ==
+subtype: python3
+system: true
+tags:
+- Utilities
+type: python
