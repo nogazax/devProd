@@ -1,0 +1,70 @@
+commonfields:
+  id: BreachConfirmationHTML
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 6.5.0
+    isoverridable: false
+    itemVersion: 1.21.4
+    packID: CommonScripts
+    packName: Common Scripts
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+dockerimage: demisto/python3:3.12.12.6204436
+enabled: true
+engineinfo: {}
+mainengineinfo: {}
+name: BreachConfirmationHTML
+nativeimage:
+- "8.8"
+- "8.6"
+pswd: ""
+restrictioncenter: {}
+runas: DBotWeakRole
+runonce: false
+script: |
+  register_module_line('BreachConfirmationHTML', 'start', __line__())
+  CONSTANT_PACK_VERSION = '1.21.4'
+  demisto.debug('pack id = CommonScripts, pack version = 1.21.4')
+
+
+
+
+  def main():
+      try:
+          incident = demisto.incidents()
+          query = incident[0].get("CustomFields", {}).get("breachconfirmation", "Pending Confirmation")
+          color = "green"
+          header = "Pending Confirmation"
+
+          if query == "Confirm":
+              color = "red"
+              header = "Confirmed"
+
+          elif query == "Not Confirm":
+              color = "blue"
+              header = "Not Confirmed"
+
+          html = f"<div style='color:{color};'><h2>{header}</h2></div>"
+          demisto.results({"ContentsFormat": formats["html"], "Type": entryTypes["note"], "Contents": html})
+
+      except Exception as ex:
+          return_error(f"Failed to execute calculate entropy script. Error: {ex!s}")
+
+
+  if __name__ in ("__main__", "__builtin__", "builtins"):
+      main()
+
+  register_module_line('BreachConfirmationHTML', 'end', __line__())
+scripttarget: 0
+signature: a14TNs8XCs9DlcUdPdS4vUrjHzojIde1IiubTjaOpLiG3Mb7Qr2Hn60aHkyECRYKEDZqhiABVzJs+a+xp/FXNLSSAqTNdezm4m/VXvo+ppv28Ccxjqwk9uE+UtmHU521pAPfIXI9tkEQydKOBME1xtfn1LtxCKbiECgS1jufdSZBDwAW0pvCLBEihjyvBLXTQ/X06OAr0o8mAXNr29k1Um+p9WUuFAKM9upo1im+e3r8yCujgQRu2oeLbhMmLp5wKLbUL33qs1cAzdOqGbEHMicIo6xDtI6FC6awDzfIjZzgIjti37q41pz+9qdVD3kOWBNCniJTIw1+wg809/47Bw==
+subtype: python3
+system: true
+tags:
+- dynamic-section
+type: python
