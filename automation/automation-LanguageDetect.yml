@@ -1,0 +1,89 @@
+args:
+- default: true
+  description: Text to analyse for language detection.
+  name: text
+  required: true
+  supportedModules: []
+comment: Language detection based on Google's language-detection.
+commonfields:
+  id: LanguageDetect
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 5.0.0
+    isoverridable: false
+    itemVersion: 1.21.4
+    packID: CommonScripts
+    packName: Common Scripts
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+dockerimage: demisto/py3-tools:1.0.0.5475267
+enabled: true
+engineinfo: {}
+mainengineinfo: {}
+name: LanguageDetect
+nativeimage:
+- "8.8"
+- "8.6"
+outputs:
+- contextPath: langDetect.lang
+  description: Language detection.
+- contextPath: langDetect.probability
+  description: Probability of language detection.
+pswd: ""
+restrictioncenter: {}
+runas: DBotWeakRole
+runonce: false
+script: |
+  register_module_line('LanguageDetect', 'start', __line__())
+  CONSTANT_PACK_VERSION = '1.21.4'
+  demisto.debug('pack id = CommonScripts, pack version = 1.21.4')
+
+
+  from langdetect import detect_langs
+
+
+  def detect_language(text):
+      res = detect_langs(text)
+
+      md = "### Detected languages (probability):\n"
+      langs = []
+
+      for line in res:
+          lang = str(line).split(":")[0]
+          prob = float(str(line).split(":")[1])
+          langs.append({"lang": lang, "probability": prob})
+          md += "- " + lang + " (" + str(prob) + ")\n"
+
+      demisto.results(
+          {
+              "ContentsFormat": formats["json"],
+              "Type": entryTypes["note"],
+              "Contents": langs,
+              "HumanReadable": md,
+              "EntryContext": {"langDetect": langs},
+          }
+      )
+
+
+  def main():
+      text = demisto.args().get("text")
+      detect_language(text)
+
+
+  if __name__ in ("__main__", "__builtin__", "builtins"):
+      main()
+
+  register_module_line('LanguageDetect', 'end', __line__())
+scripttarget: 0
+signature: PzitNgmE+xOU/oMr3L5QhF2yoW/MDxZlNW5CU3NrTx/oGyBSe/l30LTQr/wYisz74g8gH22EKxbNys4MHiOlhwGK5tXL6cyWPAYaTWZ0eo0FtvW5JJCUtgxPo4nUIu7UV591rOTH989QXVQPnSjSzK0Nha/b6GLzlNHg2v8c48AstEvJGbvRwVD6Nd6HAxDAnDVoAIWdu3+x9V7ClicrKZYT83Dd8sf9LyRNPNVB/Qns30hs+YgNp5J/KvDsUFhyQpsEqC1KGcLzN1lCd0FgauZHxMiCViJVUMo463oMUW+YeVXPnfLkdNCCRczmwz0dpckptQv3osp9zws1MW67sg==
+subtype: python3
+system: true
+tags:
+- Utility
+type: python
