@@ -1,0 +1,73 @@
+args:
+- default: true
+  description: Command or Automation script to execute each while loop iteration.
+  name: cmdToRun
+  required: true
+  supportedModules: []
+- description: 'A comma separated list of command/automation arguments and values
+    to run: key=val,key=val,key=val'
+  name: cmdArguments
+  required: true
+  supportedModules: []
+- description: Watch this key, if it is equal to value argument (${key}==value) then
+    exit while loop, otherwise continue to next loop iteration (will run command again).
+  name: keyToWatch
+  required: true
+  supportedModules: []
+comment: "Not in context verification is a script that executes the given command
+  and verifies that the specified field is not in the context after execution. \n"
+commonfields:
+  id: NotInContextVerification
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 5.0.0
+    isoverridable: false
+    itemVersion: 1.21.4
+    packID: CommonScripts
+    packName: Common Scripts
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+enabled: true
+engineinfo: {}
+mainengineinfo: {}
+name: NotInContextVerification
+pswd: ""
+restrictioncenter: {}
+runas: DBotWeakRole
+runonce: false
+script: |+
+  // pack version: 1.21.4
+  var val = invContext.keyToWatch;
+  var argumentsVal = args.cmdArguments;
+  var argsArr = argumentsVal.split(",");
+
+  var argsToCmd = {};
+  for (i = 0; i < argsArr.length ; i++) {
+      var keyval = argsArr[i].split("=");
+      if (keyval.length == 2) {
+          argsToCmd[keyval[0].trim()] = keyval[1];
+      }
+  }
+
+  var entry = executeCommand(args.cmdToRun, argsToCmd);
+  if(!entry[0].EntryContext[args.keyToWatch]){
+      return entry;
+  }
+  else{
+      throw args.keyToWatch + ' in context is not empty';
+  }
+
+
+scripttarget: 0
+signature: IwqtEuvj2+YMajHAEpKl4rsp/5n3m3XHvnUJZKV9nFDchBsBv+Rc9YJCg3MQ2/eGAHP15ZPHYCcfDM92taVE3AeV6Q3V35NGqObUD4pX+tvo//18R35pHjeK7c19gw2mbOJQmBbc0fxovgWIu3IXTxDqnGtDEV0mkho0gIMQshoXqg+VKlOc/aBspFD+dn8I6c7jij/vsiQu1iUgiFgoH+ImQwHw5xwwQ16Trj9nUv9MBWFkvaYi8g1yFyqUb9xf+NetVQ0q/yq4+aBN2fzNssQB6gvefQqY1Y82xholHieGGsV8yTuMy5EsjcMD14huszn9KA7KYViIpTCe/B7upw==
+system: true
+tags:
+- Utility
+timeout: 15m0s
+type: javascript
