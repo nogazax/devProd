@@ -1,0 +1,299 @@
+{
+	"author": "Cortex",
+	"authorImage": "content/packs/Base/Author_image.png",
+	"beta": false,
+	"cacheVersn": 0,
+	"categories": [
+		"Cloud Services"
+	],
+	"certification": "certified",
+	"contentItemTypes": [
+		"integration"
+	],
+	"contentItems": {
+		"agentixaction": null,
+		"agentixagent": null,
+		"automation": null,
+		"casefield": null,
+		"classifier": null,
+		"dashboard": null,
+		"genericfield": null,
+		"generictype": null,
+		"incidentfield": null,
+		"incidenttype": null,
+		"indicatorfield": null,
+		"integration": [
+			{
+				"category": "Cloud Services",
+				"commands": [
+					{
+						"description": "Updates the specified firewall rule with the data included in the request.",
+						"name": "gcp-compute-firewall-patch"
+					},
+					{
+						"description": "Creates a new firewall rule in the specified project.",
+						"name": "gcp-compute-firewall-insert"
+					},
+					{
+						"description": "Lists firewall rules in the specified project.",
+						"name": "gcp-compute-firewall-list"
+					},
+					{
+						"description": "Retrieves a specific firewall rule by name.",
+						"name": "gcp-compute-firewall-get"
+					},
+					{
+						"description": "Lists snapshots in the specified project.",
+						"name": "gcp-compute-snapshots-list"
+					},
+					{
+						"description": "Retrieves details for a specific snapshot.",
+						"name": "gcp-compute-snapshot-get"
+					},
+					{
+						"description": "Aggregated list of instances across all zones; can be filtered by internal or external IP.",
+						"name": "gcp-compute-instances-aggregated-list-by-ip"
+					},
+					{
+						"description": "Adds a network tag to a VM instance (merges with existing tags).",
+						"name": "gcp-compute-network-tag-set"
+					},
+					{
+						"description": "Disables default GCP firewall rule which is overly permissive (except HTTP and HTTPS).",
+						"name": "gcp-compute-firewall-patch-disable-gcp-default-firewall-rule-quick-action"
+					},
+					{
+						"description": "Removes an entity from a bucket's Access Control List.",
+						"name": "gcp-storage-bucket-policy-delete"
+					},
+					{
+						"description": "Revoke 'allUsers' permission access in GCP Storage buckets.",
+						"name": "gcp-storage-bucket-policy-delete-remove-allusers-access-quick-action"
+					},
+					{
+						"description": "Revokes 'allAuthenticatedUsers' permission access in GCP Storage buckets.",
+						"name": "gcp-storage-bucket-policy-delete-remove-AllAuthenticatedUser-access-quick-action"
+					},
+					{
+						"description": "Revokes 'allUsers' and 'allAuthenticatedUsers' permissions access in a GCP Storage bucket.",
+						"name": "gcp-storage-bucket-policy-delete-make-gcp-bucket-private-quick-action"
+					},
+					{
+						"description": "Enables flow logs or Private Google Access on a subnet.",
+						"name": "gcp-compute-subnet-update"
+					},
+					{
+						"description": "Enables VPC Flow Logs on a GCP subnet.",
+						"name": "gcp-compute-subnet-update-enable-gcp-subnet-flow-logs-quick-action"
+					},
+					{
+						"description": "Enables Private Google Access on a GCP subnet.",
+						"name": "gcp-compute-enable-private-ip-access-on-subnet-quick-action"
+					},
+					{
+						"description": "Configures security settings for GKE clusters, including access controls and visibility.",
+						"name": "gcp-container-cluster-security-update"
+					},
+					{
+						"description": "Enables intra-node visibility on a GKE cluster for enhanced network monitoring.",
+						"name": "gcp-container-cluster-security-update-enable-gke-cluster-intra-node-visibility-quick-action"
+					},
+					{
+						"description": "Enables Master Authorized Networks on a GKE cluster to restrict API server access.",
+						"name": "gcp-container-cluster-security-update-enable-master-authorized-networks-on-gke-quick-action"
+					},
+					{
+						"description": "Updates the metadata of a Google Cloud Storage (GCS) bucket, including settings such as versioning and Uniform Bucket-Level Access (UBLA).",
+						"name": "gcp-storage-bucket-metadata-update"
+					},
+					{
+						"description": "Enables versioning on a GCP Storage bucket to preserve object versions.",
+						"name": "gcp-storage-bucket-metadata-update-enable-GCP-bucket-versioning-quick-action"
+					},
+					{
+						"description": "Enables uniform bucket-level access on a GCP Storage bucket for enhanced security.",
+						"name": "gcp-storage-bucket-metadata-update-set-GCP-bucket-access-to-uniform-quick-action"
+					},
+					{
+						"description": "Retrieves the list of buckets in the project associated with the client.",
+						"name": "gcp-storage-bucket-list"
+					},
+					{
+						"description": "Retrieves information about a specific bucket.",
+						"name": "gcp-storage-bucket-get"
+					},
+					{
+						"description": "Retrieves the list of objects in a bucket.",
+						"name": "gcp-storage-bucket-objects-list"
+					},
+					{
+						"description": "Retrieves the IAM policy for a bucket.",
+						"name": "gcp-storage-bucket-policy-list"
+					},
+					{
+						"description": "Sets the IAM policy for a bucket.",
+						"name": "gcp-storage-bucket-policy-set"
+					},
+					{
+						"description": "Retrieves the IAM policy for a specific object in a bucket.",
+						"name": "gcp-storage-bucket-object-policy-list"
+					},
+					{
+						"description": "Sets the IAM policy for a specific object in a bucket.",
+						"name": "gcp-storage-bucket-object-policy-set"
+					},
+					{
+						"description": "Removes a specified IAM role binding from a GCP project.",
+						"name": "gcp-iam-project-policy-binding-remove"
+					},
+					{
+						"description": "Sets the service account for a GCP Compute Engine VM instance. The instance must be stopped before the service account can be changed.\n",
+						"name": "gcp-compute-instance-service-account-set"
+					},
+					{
+						"description": "Removes the service account associated with a GCP Compute Engine VM instance. The instance must be stopped before the service account can be changed.\n",
+						"name": "gcp-compute-instance-service-account-remove"
+					},
+					{
+						"description": "Starts an instance that was stopped using the instances().stop method.",
+						"name": "gcp-compute-instance-start"
+					},
+					{
+						"description": "Returns the specified network.",
+						"name": "gcp-compute-network-get"
+					},
+					{
+						"description": "Returns the specified image.",
+						"name": "gcp-compute-image-get"
+					},
+					{
+						"description": "Returns the specified Region resource.",
+						"name": "gcp-compute-region-get"
+					},
+					{
+						"description": "Returns the specified instance group.",
+						"name": "gcp-compute-instance-group-get"
+					},
+					{
+						"description": "Returns the specified Zone resource.",
+						"name": "gcp-compute-zone-get"
+					},
+					{
+						"description": "Retrieves the list of networks available to the specified project.",
+						"name": "gcp-compute-networks-list"
+					},
+					{
+						"description": "Creates a network in the specified project using the data included in the request.",
+						"name": "gcp-compute-network-insert"
+					},
+					{
+						"description": "Stops a running instance, shutting it down cleanly, and allows you to restart the instance at a later time. Stopped instances do not incur VM usage charges while they are stopped. However, resources that the VM is using, such as persistent disks and static IP addresses, will continue to be charged until they are deleted.",
+						"name": "gcp-compute-instance-stop"
+					},
+					{
+						"description": "Retrieves the list of instances in the specified zone.",
+						"name": "gcp-compute-instances-list"
+					},
+					{
+						"description": "Returns the specified Instance resource. To get a list of available instances, make a list() request.",
+						"name": "gcp-compute-instance-get"
+					},
+					{
+						"description": "Sets labels on an instance.",
+						"name": "gcp-compute-instance-labels-set"
+					}
+				],
+				"description": "Cloud integrations are installed from the Data Sources page. To configure a cloud integration, go to Settings \u003e Data Sources and click \"Add Data Source\", select GCP, then in Advanced Settings \u003e Security Capabilities, enable \"Automation\".",
+				"fromversion": "8.11.0",
+				"id": "GCP",
+				"internal": true,
+				"name": "Google Cloud Platform",
+				"toversion": ""
+			}
+		],
+		"layoutscontainer": null,
+		"list": null,
+		"playbook": null,
+		"report": null,
+		"reputation": null,
+		"widget": null,
+		"wizard": null
+	},
+	"created": "2025-07-08T20:32:18Z",
+	"currentVersion": "1.1.9",
+	"defaultDataSource": {
+		"id": "",
+		"name": ""
+	},
+	"definitionId": "",
+	"dependencies": {
+		"Base": {
+			"author": "Cortex",
+			"certification": "certified",
+			"mandatory": true,
+			"minVersion": "1.41.70",
+			"name": "Base"
+		}
+	},
+	"deprecated": false,
+	"description": "Google Cloud Platform Services",
+	"downloads": 0,
+	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
+	"firstCreated": "2025-07-08T20:32:18Z",
+	"fromServerVersion": "8.11.0",
+	"general": [
+		"generalFieldCertified",
+		"generalFieldFree",
+		"generalFieldSupportIncluded",
+		"generalFieldSupportModule"
+	],
+	"hybrid": false,
+	"id": "GCP",
+	"installMessage": "",
+	"integrations": [
+		{
+			"id": "GCP",
+			"imagePath": "content/packs/GCP/GCP_image.png",
+			"name": "Google Cloud Platform"
+		}
+	],
+	"isOverridable": false,
+	"itemVersion": "1.1.9",
+	"keywords": [],
+	"legacy": true,
+	"modules": [],
+	"name": "GCP",
+	"packID": "GCP",
+	"packName": "",
+	"premium": false,
+	"previewOnly": false,
+	"price": 0,
+	"propagationLabels": [
+		"all"
+	],
+	"rawKeywords": null,
+	"rawTags": null,
+	"rawUseCases": null,
+	"searchRank": 0,
+	"serverMaxVersion": "",
+	"serverMinVersion": "8.11.0",
+	"support": "xsoar",
+	"supportDetails": {
+		"email": "",
+		"url": "https://www.paloaltonetworks.com/cortex"
+	},
+	"supportedModules": [
+		"cloud_posture",
+		"cloud",
+		"cloud_runtime_security",
+		"agentix",
+		"xsiam"
+	],
+	"tags": [],
+	"toServerVersion": "",
+	"updated": "2026-03-30T20:09:25Z",
+	"useCases": [],
+	"version": -1,
+	"versionInfo": "8024421",
+	"videos": []
+}
