@@ -1,0 +1,36 @@
+comment: Data output script for populating dashboard pie graph widget with the percentage
+  of incidents closed by DBot vs. incidents closed by analysts.
+commonfields:
+  id: DBotClosedIncidentsPercentage
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 5.0.0
+    isoverridable: false
+    itemVersion: 1.21.4
+    packID: CommonScripts
+    packName: Common Scripts
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+deprecated: true
+enabled: true
+engineinfo: {}
+mainengineinfo: {}
+name: DBotClosedIncidentsPercentage
+pswd: ""
+restrictioncenter: {}
+runas: DBotRole
+runonce: false
+script: |
+  return executeCommand('DBotClosedAlertsPercentage', args)
+scripttarget: 0
+signature: JEav+dGyYiUWWIVAtzSFWN/TPvf6vF5OSiBL7uOvTT6ZP2JTSDXHwI1uxmOTq71zYFzxMSzn4tuy1jZDVL3xlrWfckuwwX1TBs6P3DDNx0uNMJhT6FT2BsG/P5/9BrNdxhESSAc9eC+g+IxfqcXvWp0a21oHWpxS5hJvZUBf4CfTGeOKLsODDeZHeinBokNCI984mUg+lG5Zh+wvu9wmm/Drr4iB7LMGOErge1UEVg6+4+LyOP9XaY0LoKkKB0EBNo17G+5vH0tsWaDFhU8avO1k3KiSMO8OU/dRjuBp4fk7a/FRJVlsXCbJDFOgZRtBW1SpGiCEAdc2emwKmXUTgw==
+system: true
+tags:
+- widget
+type: javascript
