@@ -1,0 +1,120 @@
+args:
+- auto: PREDEFINED
+  defaultValue: Email
+  description: Medium to send message over (Slack, Mattermost, Email).
+  name: medium
+  predefined:
+  - Slack
+  - Mattermost
+  - Email
+  - All
+  supportedModules: []
+- default: true
+  description: Message to send
+  name: message
+  required: true
+  supportedModules: []
+comment: Send message to Demisto online users over Email, Slack, Mattermost or all.
+commonfields:
+  id: SendMessageToOnlineUsers
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 5.0.0
+    isoverridable: false
+    itemVersion: 1.21.4
+    packID: CommonScripts
+    packName: Common Scripts
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+enabled: true
+engineinfo: {}
+mainengineinfo: {}
+name: SendMessageToOnlineUsers
+pswd: ""
+restrictioncenter: {}
+runas: DBotWeakRole
+runonce: false
+script: |
+  // pack version: 1.21.4
+  var commandAvailable = function(command) {
+      var ret = false;
+      var allModules = getModulesForCommand(command);
+      if (allModules) {
+          var instanceKeys = Object.keys(allModules);
+          instanceKeys.forEach(function (key) {
+              if (allModules[key].state === 'active') {
+                  ret = true;
+              }
+          });
+      }
+      return ret;
+  };
+  var medium = (args.medium) ? args.medium.toLowerCase() : 'email';
+  var slackEnabled = commandAvailable('send-notification');
+  var mattermostEnabled = commandAvailable('mattermost-send');
+  var emailEnabled = commandAvailable('send-mail');
+
+  if (!slackEnabled && !emailEnabled && !mattermostEnabled) {
+      throw 'No available medium to send message';
+  }
+  if (medium === 'email' && !emailEnabled) {
+    throw 'Email integration not available';
+  }
+  if (medium === 'slack' && !slackEnabled) {
+    throw 'Slack integration not available';
+  }
+  if (medium === 'mattermost' && !mattermostEnabled) {
+    throw 'Mattermost integration not available';
+  }
+
+  var res = executeCommand("getUsers", {online: true});
+  if (isError(res[0])) {
+      return res[0];
+  }
+  var users = dq(res[0].Contents,'email');
+
+  var entries = [];
+  var sent = [];
+  users.forEach(function(user) {
+      if ((medium === 'all' && emailEnabled) || medium === 'email') {
+          res = executeCommand("send-mail", {to: user, subject: 'Notification from Demisto server', body: args.message});
+          if (isError(res[0])) {
+              entries.push(res[0]);
+          } else {
+              sent.push(user);
+          }
+      }
+      if ((medium === 'all' && slackEnabled) || medium === 'slack') {
+          res = executeCommand("send-notification", {to: user, message: args.message});
+          if (isError(res[0])) {
+              entries.push(res[0]);
+          } else {
+              sent.push(user);
+          }
+      }
+      if ((medium === 'all' && mattermostEnabled) || medium === 'mattermost') {
+          res = executeCommand("mattermost-send", {to: user, message: args.message});
+          if (isError(res[0])) {
+              entries.push(res[0]);
+          } else {
+              sent.push(user);
+          }
+      }
+  });
+
+  if (sent.length > 0) {
+      entries.push('Successfully sent ' + medium + ' message to ' + sent.join(','));
+  }
+
+  return entries;
+scripttarget: 0
+signature: CeW5zGqOvq3SAwIoBYyA+h5+5ilbIXNurcMUI0yqXlGMBwVmK8Ky6DRb/GaoVVMT9DrZWxpa+ZyE0yOnQ/5v/u988ktthKhcn023ptz8j5YyuHmt1mpiHlZ3B+iUYOBE4OciSFKOUJu1P87+/jO4YaP2hyzhhSE4O9o6Zgb4bBaFF5iU2xOnVtYm58ZwaMeVc25ecOqJJkHA07Gx1BLyNmOQKB2fdssFHO4gseTl5gxnUth9TlJWsAnbLeSGVJfNBmxVmG3sO8LjKTTtj9CuUROxQpOCMFkt/dBoLGwtu9liCjPfymjsVEzytQQpZNOs7qZnuXU8s1iTxwO/CPHS2w==
+system: true
+tags: []
+type: javascript
