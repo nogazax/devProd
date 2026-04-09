@@ -1,0 +1,110 @@
+args:
+- description: The query for the Indicators that you want to export. (e.g. type:IP
+    and reputation:Bad and expirationStatus:active). You can and should generate the
+    query from the Indicators search screen.
+  name: query
+  required: true
+  supportedModules: []
+- defaultValue: "7"
+  description: Indicator last seen days  (default is 7).  Needs to be a number.
+  name: seenDays
+  supportedModules: []
+- description: 'Comma separated list of columns (fields) for the CSV.  (Default is:
+    id,indicator_type,value,source,score,relatedIncCount,setBy,sourceBrands,modified).'
+  name: columns
+  supportedModules: []
+comment: This automation uses the Core REST API Integration to batch export Indicators
+  to CSV and return the resulting CSV file to the war room.
+commonfields:
+  id: ExportIndicatorsToCSV
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 6.5.0
+    isoverridable: false
+    itemVersion: 1.21.4
+    packID: CommonScripts
+    packName: Common Scripts
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+dependson:
+  must:
+  - core-api-post
+  - core-api-get
+dockerimage: demisto/python3:3.12.12.5490952
+enabled: true
+engineinfo: {}
+mainengineinfo: {}
+name: ExportIndicatorsToCSV
+nativeimage:
+- "8.8"
+- "8.6"
+pswd: ""
+restrictioncenter: {}
+runas: DBotWeakRole
+runonce: false
+script: |
+  register_module_line('ExportIndicatorsToCSV', 'start', __line__())
+  CONSTANT_PACK_VERSION = '1.21.4'
+  demisto.debug('pack id = CommonScripts, pack version = 1.21.4')
+
+
+
+
+  def main():
+      indicator_query = demisto.args().get("query")
+      seen_days = arg_to_number(demisto.args().get("seenDays", "7"))
+      columns_arg = demisto.args().get("columns")
+      if columns_arg:
+          indicator_columns = [x.strip() for x in columns_arg.split(",")]
+      else:
+          indicator_columns = [
+              "id",
+              "indicator_type",
+              "value",
+              "score",
+              "timestamp",
+              "relatedIncCount",
+              "sourceBrands",
+              "expirationStatus",
+              "expiration",
+              "modified",
+          ]
+
+      # body for the indicator request
+      indicator_body = {
+          "all": True,
+          "filter": {
+              "query": indicator_query,
+              "sort": [{"field": "calculatedTime", "asc": False}],
+              "period": {"by": "day", "fromValue": seen_days},
+          },
+          "columns": indicator_columns,
+      }
+
+      # generate the file
+      res = demisto.executeCommand("core-api-post", {"uri": "/indicators/batch/exportToCsv", "body": indicator_body})[0][
+          "Contents"
+      ]["response"]
+
+      # download the file and return to the war room
+      file = demisto.executeCommand("core-api-get", {"uri": f"/indicators/csv/{res}"})[0]["Contents"]["response"]
+      demisto.results(fileResult(res, file))
+
+
+  if __name__ in ("__main__", "__builtin__", "builtins"):
+      main()
+
+  register_module_line('ExportIndicatorsToCSV', 'end', __line__())
+scripttarget: 0
+signature: Imma0oMA4EtUQ9r6zuMgysZshl/PfF0kUAVzUfhvZt94HEK9/Rcch2Z0Z8OR3LM6LwJ5pXuGZsJ3K9uqfl4qRVP0JdPIGatwKK7n4VrDQpRBNL0/iLjPd8iBaNfPHThZ49DBF7JHUbQKPSAZuPWKUPlHFgO49VYwRsTJHuCCfzVw4ph01S0QysBPM263UYvv3hagngznCbC7M94cFtfmuMlK2SxCCGZtey7eo8JaN3Jt9eKmU563n0ahjYLc8FfWTmY9WkOroOTNtai74DClHX4QlSXf/9gHIDT7IKBGCIXh2mm13GFn9hxPB2+MmA7ydQaOy5Ftiz5aovzMBQq/Fg==
+subtype: python3
+system: true
+tags:
+- Utility
+type: python
