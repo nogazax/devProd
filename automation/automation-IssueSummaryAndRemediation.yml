@@ -1,0 +1,58 @@
+args:
+- description: The issue key reference from the playbook context that provides the
+    security issue details to be analyzed and summarized by the LLM.
+  name: issue
+  supportedModules: []
+comment: Provides detailed, actionable steps for remediating the security alert that
+  has been provided.
+commonfields:
+  id: IssueSummaryAndRemediation
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 8.13.0
+    isoverridable: false
+    itemVersion: 1.21.4
+    packID: CommonScripts
+    packName: Common Scripts
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules:
+    - agentix
+    - xsiam
+    - cloud_posture
+    - edr
+    toServerVersion: ""
+dockerimage: demisto/python3:3.12.12.6391686
+engineinfo: {}
+isllm: true
+mainengineinfo: {}
+name: IssueSummaryAndRemediation
+nativeimage:
+- "8.8"
+- "8.6"
+outputs:
+- contextPath: llm.summary
+  description: The LLM Output Summary.
+  type: string
+promptConfig:
+  maxOutputTokens: 12000
+  temperature: 0.1
+  webSearch: false
+pswd: ""
+restrictioncenter: {}
+runas: DBotWeakRole
+runonce: false
+script: ""
+scripttarget: 0
+signature: 4DHEJGW+3X43avGN2vP1hRud1WCE9u8LTmgYZj8V7TRoL9iLF05AsZI0yaosxPM3lVYd70Buokxuvc9oVTnmkpaCLHY7keV4avFOoPokGX0x9/WKoY6zd5B5LJ35rw3LaL5mUihLALWHM2XV6cCZjDY4cttD7l3tbJG5vXEm+0P9zhekMdJfa6Yr6Sif+GOA+dvUECcsdzrZl61CsGsUMGb/4NQRWOmDPv8aS2EApDSHWyp2goIrA6JN+IbfEdNs2wuUGYWjQFFm88akbTPuc86kFaKTqL8z2mHAurvcsbB1tmCd7nf6C3kKsLu7PMyfCJ/wD/j8QmWTz2eu7ABmjA==
+subtype: python3
+system: true
+systemprompt: '{MULAN}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'
+tags: []
+type: python
+userprompt: Provide detailed remediation steps for the security alert ${issue} in
+  a professional, well-structured format.
