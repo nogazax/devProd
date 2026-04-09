@@ -1,0 +1,253 @@
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 8.9.0
+    isoverridable: false
+    itemVersion: 1.3.37
+    packID: CortexResponseAndRemediation
+    packName: Cortex Response And Remediation
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+description: Adds the hostname of an endpoint to a "blocked_ip" remediation action
+  in the context. This subplaybook is designed to be called in a loop from a parent
+  playbook.
+id: silent-BlockIP - Add hostname to blocked_ip action
+inputSections:
+- description: Generic group for inputs
+  inputs:
+  - endpoint_data
+  name: General (Inputs group)
+inputs:
+- description: 'Expects a JSON with details on the endpoint. The minimal JSON should
+    be {"Hostname": <hostname>, "ID": <host_agent_id>}'
+  key: endpoint_data
+  playbookInputQuery: null
+  required: false
+  value: {}
+issilent: true
+name: silent-BlockIP - Add hostname to blocked_ip action
+outlinetasks: {}
+outputSections:
+- description: Generic group for outputs
+  name: General (Outputs group)
+  outputs: []
+outputs: []
+possibleresponses: []
+quiet: true
+starttaskid: "0"
+system: true
+tasks:
+  "0":
+    continueonerrortype: ""
+    id: "0"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "3"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 98a72191-9036-46e4-877c-eeee9ec41309
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: ""
+      playbooktaskmissingcomponent: null
+      version: -1
+    taskid: 98a72191-9036-46e4-877c-eeee9ec41309
+    timertriggers: []
+    type: start
+    view: |-
+      {
+        "position": {
+          "x": 265,
+          "y": 50
+        }
+      }
+  "1":
+    continueonerrortype: ""
+    id: "1"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "2"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: Remediation(val.ID == "${inputs.endpoint_data.ID}" && val.Name ==
+          "blocked_ip").Hostname
+      value:
+        simple: ${inputs.endpoint_data.Hostname}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Adds the host name of a host to a "blocked_ip" remediation action
+        in the context.
+      id: 9d9cdfdd-3496-40e0-8227-5acf8a563084
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Set Hostname
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 9d9cdfdd-3496-40e0-8227-5acf8a563084
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 50,
+          "y": 405
+        }
+      }
+  "2":
+    continueonerrortype: ""
+    id: "2"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: ab4e3fd1-9cc5-45e5-864d-32f93c293f9d
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Done
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: ab4e3fd1-9cc5-45e5-864d-32f93c293f9d
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 265,
+          "y": 590
+        }
+      }
+  "3":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: inputs.endpoint_data.ID
+          operator: isNotEmpty
+      - - left:
+            iscontext: true
+            value:
+              simple: inputs.endpoint_data.Hostname
+          operator: isNotEmpty
+      label: "yes"
+    continueonerrortype: ""
+    id: "3"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "4"
+      "yes":
+      - "1"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Validates that endpoint_data has all the data needed for the set
+        action.
+      id: 2db51a41-6303-420d-a898-3360a8d32c29
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Validate endpoint_data input
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 2db51a41-6303-420d-a898-3360a8d32c29
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 265,
+          "y": 220
+        }
+      }
+  "4":
+    continueonerrortype: ""
+    id: "4"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "2"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Errors
+      value:
+        simple: '{"Name": "blocked_ip_set_hostname", "Comment": "Could not set the
+          hostnames for the blocked IPs due to lack of endpoint data"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Sets an error in the context when the endpoint data is missing
+        or incomplete, preventing the hostname from being added to the blocked_ip
+        action.
+      id: f8ed92f8-3192-4422-a953-fa486fc4ed23
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Error: Could not set hostnames for blocked IPs'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: f8ed92f8-3192-4422-a953-fa486fc4ed23
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 480,
+          "y": 405
+        }
+      }
+version: -1
+view: |-
+  {
+    "linkLabelsPosition": {
+      "3_1_yes": 0.63,
+      "3_4_#default#": 0.57
+    },
+    "paper": {
+      "dimensions": {
+        "height": 600,
+        "width": 810,
+        "x": 50,
+        "y": 50
+      }
+    }
+  }
