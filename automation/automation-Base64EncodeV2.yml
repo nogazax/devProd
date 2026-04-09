@@ -1,0 +1,74 @@
+args:
+- description: The input to encode using Base64 format.
+  name: input
+  required: true
+  supportedModules: []
+comment: Encodes an input to Base64 format.
+commonfields:
+  id: Base64EncodeV2
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 5.0.0
+    isoverridable: false
+    itemVersion: 1.21.4
+    packID: CommonScripts
+    packName: Common Scripts
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+dockerimage: demisto/python3:3.12.12.5490952
+engineinfo: {}
+mainengineinfo: {}
+name: Base64EncodeV2
+nativeimage:
+- "8.8"
+- "8.6"
+outputs:
+- contextPath: Base64.encoded
+  description: The input encoded as Base64 format.
+  type: string
+pswd: ""
+restrictioncenter: {}
+runas: DBotWeakRole
+runonce: false
+script: |
+  register_module_line('Base64EncodeV2', 'start', __line__())
+  CONSTANT_PACK_VERSION = '1.21.4'
+  demisto.debug('pack id = CommonScripts, pack version = 1.21.4')
+  import base64
+
+
+
+
+
+
+
+  def encode(input):
+      input_bytes = input.encode("utf-8")
+      res = str(base64.b64encode(input_bytes))
+      res = res.split("'")[1]
+      outputs = {"Base64": {"encoded": res}}
+      return res, outputs
+
+
+  if __name__ in ("__main__", "builtins", "__builtin__"):
+      try:
+          input = demisto.args().get("input")
+          return_outputs(*encode(input))
+      except Exception as e:
+          return_error("Error occurred while running the command. Exception info:\n" + str(e))
+
+  register_module_line('Base64EncodeV2', 'end', __line__())
+scripttarget: 0
+signature: DC93KYZfTCph+/W0rbFU5qaChOAA6zF/QAanRXJ0IPvYIcuO28R+fl/1gTulEGhj0DLc4TvW5alF+w8iImsqNLqJzxISWdTG/c90NMV3yBipG2wH2h7Dn306UHrN6CJpFKDETyAH1n1LIzX3QFJ80dAReyGgGxn+WKYr2yGvFyWjAQ5pCbOqdIkWdtuf1Gi8ZM626wbuRfQy9C66gxtMufYquJIl7qdYGHE+hpI8XZV6h1fnDnMlkFRRMLcSSn4oRQC3Wpwl8+bGQNNTg9njJhgwGjSvof/Wgj3+w8Taen1e5aIFLYZq5c0jzP02DPuPN/h65OaEfN6XU7KtVtSc/Q==
+subtype: python3
+system: true
+tags:
+- Utility
+- incident-action-button
+type: python
