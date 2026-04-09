@@ -1,0 +1,61 @@
+args:
+- default: true
+  description: First value for comparison
+  name: left
+  supportedModules: []
+- description: Second value for comparison
+  name: right
+  supportedModules: []
+comment: Check whether the values provided in arguments are equal. If either of the
+  arguments are missing, no is returned.
+commonfields:
+  id: AreValuesEqual
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 5.0.0
+    isoverridable: false
+    itemVersion: 1.21.4
+    packID: CommonScripts
+    packName: Common Scripts
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+engineinfo: {}
+mainengineinfo: {}
+name: AreValuesEqual
+outputs:
+- contextPath: "yes"
+  description: if left is equal to right
+- contextPath: "no"
+  description: if left is not equal to right
+pswd: ""
+restrictioncenter: {}
+runas: DBotWeakRole
+runonce: false
+script: |
+  // pack version: 1.21.4
+  if (args.left === undefined || args.right === undefined) {
+      return 'no';
+  }
+
+  var left = (typeof args.left === 'string') ? args.left : args.left + '';
+  var right = (typeof args.right === 'string') ? args.right : args.right + '';
+  var answer = 'no';
+  if (left === right) {
+    answer = 'yes';
+  }
+
+  setContext('AreValuesEqual', answer)
+  return answer;
+scripttarget: 0
+signature: MdF5tJ+H6nkUcTRAVO02G04WoyI501iOMd6NQKulWp4V2dN9X4Uh9HPZpt5HSVb1xFOORLQj6CUE1h4zgQMque/CGCfFwLHk2DC/44LOw9JyKXcxjO+l+pijq33o1S0neBrYiwMmC7rCwZWWxOj2jbdDRRjFMzuhxRS+qu/MAlA79xufBZyRHOygY7/GWVsKmOlq/TLAvwtgnPHwruL8yREXIA5sT+S/7sSdzei67PespLcAoZyXhogfnjKC6QDFOMH+184i4LcI4n1TNqDnlyYDhpcqblCXVroD0XtWRcVlhFVNtZ/uER2Ua6Etff/gRjQJ74DSoCvv2+n1K1rg1Q==
+system: true
+tags:
+- Utility
+- Condition
+type: javascript
