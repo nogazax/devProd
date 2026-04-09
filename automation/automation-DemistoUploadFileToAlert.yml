@@ -1,0 +1,65 @@
+args:
+- description: ID of alert to upload to.
+  name: incident_id
+  required: true
+  supportedModules: []
+- description: Entry ID of file to upload.
+  name: entryID
+  supportedModules: []
+- description: Request body.
+  name: body
+  supportedModules: []
+comment: Deprecated. Use the *DemistoUploadFileV2* script instead. Copies a file from
+  this alert to the specified alert. The file is uploaded as an attachment to the
+  specified alert’s Summary page, and recorded as an entry in the War Room.
+commonfields:
+  id: DemistoUploadFileToAlert
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 5.0.0
+    isoverridable: false
+    itemVersion: 1.4.0
+    packID: DemistoRESTAPI
+    packName: Cortex REST API
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+dependson:
+  must:
+  - core-api-multipart
+deprecated: true
+dockerimage: demisto/python:2.7.18.76921
+enabled: true
+engineinfo: {}
+mainengineinfo: {}
+name: DemistoUploadFileToAlert
+pswd: ""
+restrictioncenter: {}
+runas: DBotWeakRole
+runonce: false
+script: |-
+  args = demisto.args()
+  incident_id = args.get('incident_id')
+  entry_id = args.get('entryID')
+  body = args.get('body', None)
+
+  response = demisto.executeCommand("core-api-multipart", {"uri":"incident/upload/{}".format(incident_id),"entryID":entry_id,"body":body})[0]
+  if isError(response):
+      demisto.results({ "Type" : entryTypes["error"], "ContentsFormat" : formats["text"], "Contents" : "There was an issue uploading file.  Check API key and input arguments."})
+  else:
+      if body:
+          demisto.results("Successfully uploaded file to incident. Comment is:" + body)
+      else:
+          demisto.results("Successfully uploaded file to incident")
+scripttarget: 0
+signature: Bi2KdDQQ+4Xo2WmlMkVx/mCypZzpcx+LWQoXXDy1SbgpMgGYEXFZP14Jm7vJPSLkZt3fy8zA/TL3jIzPu4t0YSWFnmAGYdh5VwP8l6tcaYr2+a5HoY/YeDbZeBMTnv1IaIo8aBNPYjWN3q+FQpoIrs6/bNFtUiWFTeimow5DtnDw2UN8HNiek12N3Fbjk9IEJRtNbN0/c3qZt38SLB1mQ0nN8jiG7j1vwQZ67LJpoBcPtMbFoM25vDjKt/PYBXMLnaKTNgOPxiPqaTnwiXtb4I7c3s718pUwFfOFwU00Ngp/NJfh0QrWS7MEqo3xqyli+KJx9huG7sRYKScjhYqdjQ==
+subtype: python2
+system: true
+tags:
+- DemistoAPI
+type: python
