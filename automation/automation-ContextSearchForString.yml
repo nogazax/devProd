@@ -1,0 +1,75 @@
+args:
+- description: Path in context to search the string in
+  name: path
+  supportedModules: []
+- description: String to search for in context
+  name: str
+  required: true
+  supportedModules: []
+comment: |
+  Searches for string in a path in context. If path is null, string will be searched in full context.
+commonfields:
+  id: ContextSearchForString
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 5.0.0
+    isoverridable: false
+    itemVersion: 1.21.4
+    packID: CommonScripts
+    packName: Common Scripts
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+enabled: true
+engineinfo: {}
+mainengineinfo: {}
+name: ContextSearchForString
+outputs:
+- contextPath: "true"
+  description: if given string exists in context
+- contextPath: "false"
+  description: if given string does not exist in context
+pswd: ""
+restrictioncenter: {}
+runas: DBotWeakRole
+runonce: false
+script: |+
+  // pack version: 1.21.4
+  var path = args.path;
+  var str = args.str;
+  var flat={};
+
+  function searchString(obj) {
+      flattenFields(obj,undefined,flat);
+      keysArr = Object.keys(flat);
+      for (i = 0; i < keysArr.length - 1; i++) {
+          if (flat[keysArr[i]] === str) {
+              return true;
+          }
+      }
+      return false;
+  }
+
+  if (!path) {
+      return searchString(invContext);
+  }
+
+  var contextObject = dq(invContext, path);
+
+  if (!contextObject) {
+      throw 'Path ' + path + ' is not in the context.';
+  }
+
+  return searchString(contextObject);
+
+
+scripttarget: 0
+signature: 0Cia0dr6W3Xlqa59Eo+KnTGacdh6k6chIHWQ7yjYKlJBguwkBurDRp1h+lNbAbgY5uTnQznwnnILsk39XZLtUE8+064Woq1RBf8QlTfmam02d3Gxeq9K3+nAI0WDxKOyHIjHkPCYRoVnNr3Z6OjZWIngn8Znz5SDjbk3ntfWORmTRRhpEv1k0b1GEmRmZp2hRgGrSW3YPSHlV4Oc/NbA63/ZfLOcdJ/uFmdu+Vx4Lhs7HU6zoRrDt//Z9tWrYnwr7YJV7ajJ6heY1nF/AkvGRDwPhjS/Kly7BWav7Y2c2vkvXlyvJjrOVUhsu1hqPMUq2HVRSf6R4BnZliD5xI3e3A==
+system: true
+tags: []
+type: javascript
