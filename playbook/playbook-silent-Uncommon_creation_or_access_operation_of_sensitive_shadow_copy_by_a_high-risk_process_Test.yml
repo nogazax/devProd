@@ -1,0 +1,6196 @@
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 8.9.0
+    isoverridable: false
+    itemVersion: 1.3.37
+    packID: CortexResponseAndRemediation
+    packName: Cortex Response And Remediation
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+description: "This playbook addresses the following alerts:\n \n- Uncommon creation
+  or access operation of sensitive shadow copy by a high-risk process\n \nPlaybook
+  Stages:\n  \nTriage: \n \n- Check if the causality process image (CGO) is signed
+  or not\n \nInvestigation:\n \n- If CGO is unsigned:\n  - Check the CGO process prevalence\n
+  \ - Check if the process image path is common\n  - Check the CGO process hash reputation\n
+  \ - Check the CGO commandline risk score\n- If CGO is signed:\n  - Check process
+  image name\n  - Check initiating process image name\n  - Check if username is SYSTEM\n
+  \ - Check if host is a server\n  - Check for previous similar alert closed as False
+  Positive\n \nContainment:\n \n- Terminate causality process (CGO) process - when
+  a signed high-risk process or an unsigned process from an uncommon path attempting
+  to create or access sensitive shadow copy data."
+id: silent-Uncommon creation or access operation of sensitive shadow copy by a high-risk
+  process Test
+inputs: []
+issilent: true
+name: silent-Uncommon creation or access operation of sensitive shadow copy by a high-risk
+  process Test
+outlinetasks: {}
+outputs: []
+possibleresponses: []
+starttaskid: "0"
+system: true
+tags:
+- T1003 - OS Credential Dumping
+- TA0006 - Credential Access
+tasks:
+  "0":
+    continueonerrortype: ""
+    id: "0"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "31"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 702ceef5-880a-4344-8843-15c70b9f776f
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: ""
+      playbooktaskmissingcomponent: null
+      version: -1
+    taskid: 702ceef5-880a-4344-8843-15c70b9f776f
+    timertriggers: []
+    type: start
+    view: |-
+      {
+        "position": {
+          "x": 725,
+          "y": -1845
+        }
+      }
+  "13":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: alert.cgoname
+          operator: isEqualString
+          right:
+            value:
+              simple: mmc.exe
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: alert.agentossubtype
+          operator: containsGeneral
+          right:
+            value:
+              simple: Server
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: alert.cgosigner.[0]
+          operator: isEqualString
+          right:
+            value:
+              simple: Microsoft Corporation
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: alert.osparentname.[0]
+          operator: isNotEqualString
+          right:
+            iscontext: true
+            value:
+              simple: cmd.exe
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: alert.osparentname.[0]
+          operator: notContainsGeneral
+          right:
+            value:
+              simple: powershell
+      - - left:
+            iscontext: true
+            value:
+              simple: |
+                alert.osparentname.[0]
+          operator: isNotEqualString
+          right:
+            value:
+              simple: wmic.exe
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: alert.initiatedby.[0]
+          operator: isNotEqualString
+          right:
+            value:
+              simple: cmd.exe
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: alert.initiatedby.[0]
+          operator: notContainsGeneral
+          right:
+            value:
+              simple: powershell
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: |
+                alert.initiatedby.[0]
+          operator: isNotEqualString
+          right:
+            value:
+              simple: wmic.exe
+      label: "yes"
+    continueonerrortype: ""
+    id: "13"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "82"
+      "yes":
+      - "92"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks if the CGO image name is mmc.exe and the host is server
+      id: 62dbc9fd-732c-4963-bcc5-3a6d86665df1
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Check CGO image name is mmc.exe & OS is server
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 62dbc9fd-732c-4963-bcc5-3a6d86665df1
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -3070,
+          "y": -798.125
+        }
+      }
+  "16":
+    continueonerrortype: ""
+    id: "16"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "116"
+      - "136"
+      - "132"
+      - "138"
+      - "151"
+      - "153"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: a1588134-cd1e-4479-884a-66526f8f2604
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Remediation
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: a1588134-cd1e-4479-884a-66526f8f2604
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 721.875,
+          "y": 1671.6666259765625
+        }
+      }
+  "26":
+    continueonerror: true
+    continueonerrortype: errorPath
+    id: "26"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#error#':
+      - "27"
+      '#none#':
+      - "137"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      agent_id:
+        simple: ${alert.agentid}
+      causality_id:
+        simple: ${alert.cid}
+      timeout_in_seconds:
+        simple: "180"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Terminate a process tree by its causality ID. Available only for
+        Cortex XSIAM 2.4.
+      id: 17338ce2-c9a1-4e55-89d8-c380573be240
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Terminate Causality (CGO)
+      playbooktaskmissingcomponent: null
+      script: '|||core-terminate-causality'
+      type: regular
+      version: -1
+    taskid: 17338ce2-c9a1-4e55-89d8-c380573be240
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 721.875,
+          "y": 1960.8331298828125
+        }
+      }
+  "27":
+    continueonerrortype: ""
+    id: "27"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "137"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |
+        Dear Analyst,
+
+        During the remediation process, the playbook failed to terminate the causality process: ${alert.cgoname}
+        Please investigate this before closing this alert.
+      id: 2ed915fc-31b3-4f83-84d2-e9a0e2f08c83
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Terminate Causality Process Manually
+      playbooktaskmissingcomponent: null
+      type: regular
+      version: -1
+    taskid: 2ed915fc-31b3-4f83-84d2-e9a0e2f08c83
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 500,
+          "y": 2150
+        }
+      }
+  "28":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: Core.AnalyticsPrevalence.Process.value
+          operator: containsGeneral
+          right:
+            value:
+              simple: "False"
+      label: "Yes"
+    continueonerrortype: ""
+    id: "28"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "82"
+      "Yes":
+      - "85"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the causality process (CGO) has a low prevalence
+        in the environment.
+      id: 51649132-bc63-44b8-bb14-39688efa0610
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Were any processes non-prevalent?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 51649132-bc63-44b8-bb14-39688efa0610
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -2168.625,
+          "y": -632.9166564941406
+        }
+      }
+  "29":
+    continueonerrortype: ""
+    id: "29"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "30"
+    note: false
+    quietmode: 2
+    scriptarguments:
+      fromdate:
+        simple: 30 days ago
+      name:
+        simple: ${alert.name}
+      query:
+        simple: name:"Uncommon creation or access operation of sensitive shadow copy
+          by a high-risk process" and resolution_status:*False*Positive* and cgo_name:${alert.cgoname.[0]}
+          and initiatedby:${alert.initiatedby.[0]}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |
+        Finds past similar alerts based on alert fields' similarity.
+      id: 9f7dc92f-e3a0-4293-83e8-9a3c8151ebc9
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Check if Previous Similar Alerts
+      playbooktaskmissingcomponent: null
+      script: SearchAlertsV2
+      type: regular
+      version: -1
+    taskid: 9f7dc92f-e3a0-4293-83e8-9a3c8151ebc9
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -2635,
+          "y": -798.125
+        }
+      }
+  "30":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: foundIncidents
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "30"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "82"
+      "yes":
+      - "84"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether any previously found similar alerts were closed
+        as a false positive.
+      id: 583f3fff-eb19-4781-81a5-76e84557e45e
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Were similar alerts closed as false positives?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 583f3fff-eb19-4781-81a5-76e84557e45e
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -2635,
+          "y": -632.9166564941406
+        }
+      }
+  "31":
+    continueonerrortype: ""
+    id: "31"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "41"
+      - "42"
+      - "43"
+      - "39"
+      - "76"
+      - "47"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 6cd8ebfa-ca9e-4141-8543-281189bb8471
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Data Collection
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 6cd8ebfa-ca9e-4141-8543-281189bb8471
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 725,
+          "y": -1710
+        }
+      }
+  "32":
+    continueonerrortype: ""
+    id: "32"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "28"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      process_name:
+        complex:
+          accessor: cgoname
+          root: alert
+          transformers:
+          - args:
+              item:
+                iscontext: true
+                value:
+                  simple: alert.initiatedby
+              raw: {}
+            operator: AppendIfNotEmpty
+          - args:
+              item:
+                iscontext: true
+                value:
+                  simple: alert.osparentname
+              raw: {}
+            operator: AppendIfNotEmpty
+          - args:
+              empty_values: {}
+              remove_keys:
+                value:
+                  simple: "true"
+            operator: RemoveEmpty
+          - operator: uniq
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Retrieves the prevalence of the causality process (CGO) across
+        the organization to determine if it is a common process.
+      id: d1790e20-d5e9-43c9-aaeb-64ff0ac6934e
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Get Causality process prevalence
+      playbooktaskmissingcomponent: null
+      script: '|||core-get-process-analytics-prevalence'
+      type: regular
+      version: -1
+    taskid: d1790e20-d5e9-43c9-aaeb-64ff0ac6934e
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -2168.625,
+          "y": -798.125
+        }
+      }
+  "33":
+    continueonerrortype: ""
+    id: "33"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "53"
+      - "51"
+      - "55"
+      - "58"
+      - "73"
+      - "74"
+      - "78"
+      - "80"
+      - "29"
+      - "32"
+      - "13"
+      - "94"
+      - "99"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: b289c1f0-975c-4375-8359-6da2b9599a77
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Investigation
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: b289c1f0-975c-4375-8359-6da2b9599a77
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 725,
+          "y": -940
+        }
+      }
+  "38":
+    continueonerror: true
+    continueonerrortype: errorPath
+    id: "38"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#error#':
+      - "48"
+      '#none#':
+      - "33"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      external_enrichment:
+        simple: "true"
+      file_hash:
+        complex:
+          root: ProcessToEnrich
+          transformers:
+          - args:
+              empty_values: {}
+              remove_keys:
+                value:
+                  simple: "true"
+            operator: RemoveEmpty
+          - operator: uniq
+    separatecontext: false
+    skipunavailable: true
+    task:
+      brand: ""
+      description: 'Enriches File indicators with reputation data from multiple integrations
+        and outputs a consolidated FileEnrichment object. This script exclusively
+        supports indicators of type File and will automatically create the indicator
+        in TIM if it is not already exists. Note: The script runs core-get-hash-analytics-prevalence
+        on SHA256 values only.'
+      id: 71b07e36-987c-4a99-8d6d-45d1c6f58dff
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Get Process Reputation
+      playbooktaskmissingcomponent: null
+      script: file-enrichment
+      type: regular
+      version: -1
+    taskid: 71b07e36-987c-4a99-8d6d-45d1c6f58dff
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1394.375,
+          "y": -1245.625
+        }
+      }
+  "39":
+    continueonerrortype: ""
+    id: "39"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "33"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      additional_fields:
+        simple: "true"
+      brands:
+        simple: Cortex Core - IR
+      endpoint_id:
+        simple: ${alert.agentid}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Retrieves detailed information for the endpoint involved in the
+        alert, such as its operating system and tags. returns an endpoint entity with
+        consolidated information to the context.
+      id: cf7cd96c-c266-48a9-9984-eefaba67a504
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Get endpoint info by endpoint ID
+      playbooktaskmissingcomponent: null
+      script: get-endpoint-data
+      type: regular
+      version: -1
+    taskid: cf7cd96c-c266-48a9-9984-eefaba67a504
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -478.625,
+          "y": -1565.625
+        }
+      }
+  "40":
+    continueonerror: true
+    continueonerrortype: ""
+    id: "40"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "33"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      user_id:
+        simple: ${Core.OriginalAlert.event.causality_actor_primary_username}
+    separatecontext: false
+    skipunavailable: true
+    task:
+      brand: ""
+      description: Retrieves the risk score for the user account associated with the
+        alert. the highest risk score in the environment along with the reason affecting
+        each score.
+      id: 68534077-671a-4a0b-a33b-8d3a43e5bbc4
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Get user risk score
+      playbooktaskmissingcomponent: null
+      script: '|||core-list-risky-users'
+      type: regular
+      version: -1
+    taskid: 68534077-671a-4a0b-a33b-8d3a43e5bbc4
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 400,
+          "y": -1235.625
+        }
+      }
+  "41":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: alert.cgosha256
+          operator: isNotEmpty
+          right:
+            value: {}
+      - - left:
+            iscontext: true
+            value:
+              simple: alert.cgosigner.[0]
+          operator: isNotEqualString
+          right:
+            value:
+              simple: Microsoft Corporation
+      label: "yes"
+    continueonerrortype: ""
+    id: "41"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "33"
+      "yes":
+      - "44"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the causality process (CGO) is signed by a publisher
+        other than Microsoft Corporation. reputation.
+      id: 3ddf260b-97e5-474c-ac0c-b34f8e13e14f
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Is the CGO process not signed by Microsoft?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 3ddf260b-97e5-474c-ac0c-b34f8e13e14f
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 981.375,
+          "y": -1565.625
+        }
+      }
+  "42":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: alert.osparentsigner.[0]
+          operator: isNotEqualString
+          right:
+            value:
+              simple: Microsoft Corporation
+      - - left:
+            iscontext: true
+            value:
+              simple: alert.osparentsha256
+          operator: isNotEmpty
+      label: "yes"
+    continueonerrortype: ""
+    id: "42"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "33"
+      "yes":
+      - "45"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the OS actor process is signed by a publisher other
+        than Microsoft Corporation. reputation.
+      id: 932419f5-930f-4143-a28a-8800af86a1c7
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Is the OS Actor not signed by Microsoft?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 932419f5-930f-4143-a28a-8800af86a1c7
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1394.375,
+          "y": -1565.625
+        }
+      }
+  "43":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: alert.initiatorsigner.[0]
+          operator: isNotEqualString
+          right:
+            value:
+              simple: Microsoft Corporation
+      - - left:
+            iscontext: true
+            value:
+              simple: alert.initiatorsha256
+          operator: isNotEmpty
+      label: "yes"
+    continueonerrortype: ""
+    id: "43"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "33"
+      "yes":
+      - "46"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the actor process is signed by a publisher other
+        than Microsoft Corporation. reputation.
+      id: 797d7e53-1f35-415c-9e97-9a50df46e764
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Is the Actor process not signed by Microsoft?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 797d7e53-1f35-415c-9e97-9a50df46e764
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1814.375,
+          "y": -1565.625
+        }
+      }
+  "44":
+    continueonerrortype: ""
+    id: "44"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "38"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: ProcessToEnrich
+      value:
+        simple: ${alert.cgosha256}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Extracts the causality process (CGO) file hash to prepare it for
+        reputation enrichment. is entered, the script doesn't do anything.\n\nThis
+        automation runs using the default Limited User role, unless you explicitly
+        change the permissions.\nFor more information, see the section about permissions
+        here:\n- For Cortex XSOAR 6 see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/6.x/Cortex-XSOAR-Playbook-Design-Guide/Automations
+        \n- For Cortex XSOAR 8 Cloud see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8/Cortex-XSOAR-Cloud-Documentation/Create-a-script\n-
+        For Cortex XSOAR 8.7 On-prem see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8.7/Cortex-XSOAR-On-prem-Documentation/Create-a-script"
+      id: 70a07c19-ca6a-47fd-a5d8-c33656db1b22
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Set CGO process to enrich
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 70a07c19-ca6a-47fd-a5d8-c33656db1b22
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 981.375,
+          "y": -1405.625
+        }
+      }
+  "45":
+    continueonerrortype: ""
+    id: "45"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "38"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: ProcessToEnrich
+      value:
+        simple: ${alert.osparentsha256}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Extracts the OS actor process file hash to prepare it for reputation
+        enrichment. is entered, the script doesn't do anything.\n\nThis automation
+        runs using the default Limited User role, unless you explicitly change the
+        permissions.\nFor more information, see the section about permissions here:\n-
+        For Cortex XSOAR 6 see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/6.x/Cortex-XSOAR-Playbook-Design-Guide/Automations
+        \n- For Cortex XSOAR 8 Cloud see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8/Cortex-XSOAR-Cloud-Documentation/Create-a-script\n-
+        For Cortex XSOAR 8.7 On-prem see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8.7/Cortex-XSOAR-On-prem-Documentation/Create-a-script"
+      id: 6f055812-8d81-40b7-b89d-70f79f8ae7ae
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Set OS Actor process to enrich
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 6f055812-8d81-40b7-b89d-70f79f8ae7ae
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1394.375,
+          "y": -1405.625
+        }
+      }
+  "46":
+    continueonerrortype: ""
+    id: "46"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "38"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: ProcessToEnrich
+      value:
+        simple: ${alert.initiatorsha256}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Extracts the actor process file hash to prepare it for reputation
+        enrichment. is entered, the script doesn't do anything.\n\nThis automation
+        runs using the default Limited User role, unless you explicitly change the
+        permissions.\nFor more information, see the section about permissions here:\n-
+        For Cortex XSOAR 6 see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/6.x/Cortex-XSOAR-Playbook-Design-Guide/Automations
+        \n- For Cortex XSOAR 8 Cloud see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8/Cortex-XSOAR-Cloud-Documentation/Create-a-script\n-
+        For Cortex XSOAR 8.7 On-prem see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8.7/Cortex-XSOAR-On-prem-Documentation/Create-a-script"
+      id: 92b687c8-6b7b-44a0-be86-981d4257a686
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Set Actor process to enrich
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 92b687c8-6b7b-44a0-be86-981d4257a686
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1814.375,
+          "y": -1405.625
+        }
+      }
+  "47":
+    continueonerrortype: ""
+    id: "47"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "50"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      alert_ids:
+        simple: ${alert.id}
+      filter_alert_fields:
+        simple: "false"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Retrieves the full raw data of the original alert for detailed
+        analysis.
+      id: 17405101-04e7-47f5-8b03-f229a263b860
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Get additional alert data
+      playbooktaskmissingcomponent: null
+      script: '|||core-get-cloud-original-alerts'
+      type: regular
+      version: -1
+    taskid: 17405101-04e7-47f5-8b03-f229a263b860
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 400,
+          "y": -1565.625
+        }
+      }
+  "48":
+    continueonerrortype: ""
+    id: "48"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "33"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Errors
+      value:
+        simple: '{"Name": "procees_enrichment_failed", "Comment": "Process enrichment
+          task failed"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records a note in the context that the process enrichment task
+        failed.
+      id: 31584c5f-a4f5-41bd-8c46-c726eb3594bc
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Error: Process enrichment task failed'
+      playbooktaskmissingcomponent: null
+      script: Set
+      type: regular
+      version: -1
+    taskid: 31584c5f-a4f5-41bd-8c46-c726eb3594bc
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1661.375,
+          "y": -1085.625
+        }
+      }
+  "50":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: Core.OriginalAlert.event.causality_actor_primary_username
+          operator: isNotEmpty
+          right:
+            value: {}
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: Core.OriginalAlert.event.causality_actor_primary_username
+          operator: isNotEqualString
+          right:
+            value:
+              simple: NT AUTHORITY\SYSTEM
+      label: "yes"
+    continueonerrortype: ""
+    id: "50"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "33"
+      "yes":
+      - "40"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the user account associated with the alert is a
+        non-system account.
+      id: fabca876-4e17-40c5-8c94-a5a92f946dd0
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Check if User Is a Non-System Account
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: fabca876-4e17-40c5-8c94-a5a92f946dd0
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 400,
+          "y": -1395.625
+        }
+      }
+  "51":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: Core.RiskyUser.risk_level
+          operator: isEqualString
+          right:
+            value:
+              simple: HIGH
+      label: "yes"
+    continueonerrortype: ""
+    id: "51"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "82"
+      "yes":
+      - "52"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the user's risk score is high, based on the retrieved
+        user risk data.
+      id: 5386e164-7a84-4b39-8a6f-d225a917f35e
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Was the action performed by a high-risk user?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 5386e164-7a84-4b39-8a6f-d225a917f35e
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -398.125,
+          "y": -800.625
+        }
+      }
+  "52":
+    continueonerrortype: ""
+    id: "52"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "82"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "high_risk_user", "Score": 0.5, "Comment": "The action performed
+          by a high risk user"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that the shadow copy operation was performed by
+        a user identified as high-risk.
+      id: 4498eaea-0f8b-4cef-9edc-fa1471bde7d2
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: The action performed by a high risk user'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 4498eaea-0f8b-4cef-9edc-fa1471bde7d2
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -398.125,
+          "y": -632.9166564941406
+        }
+      }
+  "53":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: Core.RiskyHost.score
+          operator: isNotEmpty
+          right:
+            value: {}
+        - left:
+            iscontext: true
+            value:
+              simple: Core.RiskyHost.score
+          operator: greaterThanOrEqual
+          right:
+            value:
+              simple: "900"
+      label: "Yes"
+    continueonerrortype: ""
+    id: "53"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "82"
+      "Yes":
+      - "54"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the action was performed on a host with a high risk
+        score. score.
+      id: 5cffe48d-c7c2-4584-a43f-4b126a8829d6
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Was the action performed on a host with maximum high risk score?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 5cffe48d-c7c2-4584-a43f-4b126a8829d6
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 20,
+          "y": -800.625
+        }
+      }
+  "54":
+    continueonerrortype: ""
+    id: "54"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "82"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "max_high_risk_host", "Score": 1, "Comment": "The action
+          performed on a host with maximum high risk score"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that the action was performed on a host with a
+        high risk score.
+      id: afb06310-ba0e-49fa-ad08-b986c49c71e5
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: The action performed on a host with maximum high risk score'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: afb06310-ba0e-49fa-ad08-b986c49c71e5
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 20,
+          "y": -632.9166564941406
+        }
+      }
+  "55":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: FileEnrichment.TIMScore
+          operator: isNotEmpty
+      - - left:
+            iscontext: true
+            value:
+              simple: |
+                FileEnrichment.TIMScore
+          operator: isEqualNumber
+          right:
+            value:
+              simple: "3"
+      label: Malicious
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: FileEnrichment.TIMScore
+          operator: isNotEmpty
+      - - left:
+            iscontext: true
+            value:
+              simple: |
+                FileEnrichment.TIMScore
+          operator: isEqualNumber
+          right:
+            value:
+              simple: "2"
+      label: Suspicious
+    continueonerrortype: ""
+    id: "55"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "82"
+      Malicious:
+      - "56"
+      Suspicious:
+      - "57"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the CGO process has a malicious or suspicious reputation.
+      id: 8addbb35-73cd-4ad7-9d53-ddb7a40d0c91
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Is the process reputation malicious or suspicious?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 8addbb35-73cd-4ad7-9d53-ddb7a40d0c91
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1071.375,
+          "y": -800.625
+        }
+      }
+  "56":
+    continueonerrortype: ""
+    id: "56"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "82"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "malicious_process_reputation", "Score": 3, "Comment": "A
+          malicious process was detected based on its reputation"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that a process with a malicious reputation was
+        detected in the causality chain.
+      id: 00388642-4f54-453a-8216-412f1d521483
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: A malicious process was detected based on its reputation'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 00388642-4f54-453a-8216-412f1d521483
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1343.5416870117188,
+          "y": -638.1249694824219
+        }
+      }
+  "57":
+    continueonerrortype: ""
+    id: "57"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "82"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "suspicious_process_reputation", "Score": 1.5, "Comment":
+          "A suspicious process was detected based on its reputation"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that a process with a suspicious reputation was
+        detected in the causality chain.
+      id: bcae6316-9e79-456d-8ebc-fd93493b59a0
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: A suspicious process was detected based on its reputation'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: bcae6316-9e79-456d-8ebc-fd93493b59a0
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1071.875,
+          "y": -491.2500114440918
+        }
+      }
+  "58":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: alert.cgosignature
+          operator: isEqualString
+          right:
+            value:
+              simple: SIGNATURE_UNSIGNED
+        - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: alert.osparentsignature
+          operator: isEqualString
+          right:
+            value:
+              simple: SIGNATURE_UNSIGNED
+        - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: alert.initiatorsignature
+          operator: isEqualString
+          right:
+            value:
+              simple: SIGNATURE_UNSIGNED
+      label: "yes"
+    continueonerrortype: ""
+    id: "58"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "82"
+      "yes":
+      - "60"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks if there are any unsigned processes in the causality chain.
+      id: 2eb79eff-b67d-422f-950d-9c8b79d42c79
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Were there any unsigned processes in the causality chain?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 2eb79eff-b67d-422f-950d-9c8b79d42c79
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -820,
+          "y": -800.625
+        }
+      }
+  "60":
+    continueonerrortype: ""
+    id: "60"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "82"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "unsigned_processes", "Score": 1, "Comment": "Unsigned processes
+          involved in sensitive shadow copy access or creation"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that unsigned processes were involved in the sensitive
+        shadow copy operation.
+      id: 242e48ff-2d88-498c-9020-645442b0c2a0
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: Unsigned processes involved in sensitive shadow copy access
+        or creation'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 242e48ff-2d88-498c-9020-645442b0c2a0
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -820,
+          "y": -632.9166564941406
+        }
+      }
+  "64":
+    continueonerror: true
+    continueonerrortype: errorPath
+    id: "64"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#error#':
+      - "71"
+      '#none#':
+      - "72"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      query:
+        simple: "dataset  = xdr_data \n| filter agent_id  = \"${alert.agentid}\" and
+          (actor_process_instance_id = \"${alert.cid.[0]}\" or os_actor_process_instance_id
+          = \"${alert.cid.[0]}\" or causality_actor_causality_id = \"${alert.cid.[0]}\"
+          or causality_actor_process_instance_id = \"${alert.cid.[0]}\" or action_process_instance_id
+          = \"${alert.cid.[0]}\")\n| fields actor_process_command_line\n|alter command_lines
+          = actor_process_command_line\n| union \n(\ndataset  = xdr_data \n| filter
+          agent_id  = \"${alert.agentid}\" and (actor_process_instance_id = \"${alert.cid.[0]}\"
+          or os_actor_process_instance_id = \"${alert.cid.[0]}\" or causality_actor_causality_id
+          = \"${alert.cid.[0]}\" or causality_actor_process_instance_id = \"${alert.cid.[0]}\"
+          or action_process_instance_id = \"${alert.cid.[0]}\")\n| fields os_actor_process_command_line\n|alter
+          command_lines = os_actor_process_command_line\n)\n| union \n(\ndataset  =
+          xdr_data \n| filter agent_id  = \"${alert.agentid}\" and (actor_process_instance_id
+          = \"${alert.cid.[0]}\" or os_actor_process_instance_id = \"${alert.cid.[0]}\"
+          or causality_actor_causality_id = \"${alert.cid.[0]}\" or causality_actor_process_instance_id
+          = \"${alert.cid.[0]}\" or action_process_instance_id = \"${alert.cid.[0]}\")\n|
+          fields causality_actor_process_command_line \n|alter command_lines = causality_actor_process_command_line\n)\n|
+          union \n(\ndataset  = xdr_data \n| filter agent_id  = \"${alert.agentid}\"
+          and (actor_process_instance_id = \"${alert.cid.[0]}\" or os_actor_process_instance_id
+          = \"${alert.cid.[0]}\" or causality_actor_causality_id = \"${alert.cid.[0]}\"
+          or causality_actor_process_instance_id = \"${alert.cid.[0]}\" or action_process_instance_id
+          = \"${alert.cid.[0]}\")\n| fields action_process_image_command_line \n|alter
+          command_lines = action_process_image_command_line \n)\n|fields command_lines
+          \n|dedup command_lines"
+      query_name:
+        simple: Retrieve_command_lines_from_same_causality
+      time_frame:
+        simple: between ${XQL.Retrieve_command_lines_from_same_causality.QueryStartTime}
+          and ${XQL.Retrieve_command_lines_from_same_causality.QueryEndTime}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Retrieves the command lines of all processes within the same causality
+        chain as the alert.
+      id: 56e61468-6f91-4e18-ad1b-9355a7f85d6b
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: 'XQL: Query to retrieve command line under the same causality'
+      playbooktaskmissingcomponent: null
+      script: '|||xdr-xql-generic-query'
+      type: regular
+      version: -1
+    taskid: 56e61468-6f91-4e18-ad1b-9355a7f85d6b
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 4466.875,
+          "y": -308.125
+        }
+      }
+  "65":
+    continueonerrortype: ""
+    id: "65"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "66"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: XQL.Retrieve_command_lines_from_same_causality.QueryStartTime
+      value:
+        complex:
+          accessor: timestamp
+          root: alert
+          transformers:
+          - args:
+              variation:
+                value:
+                  simple: 60 min ago
+            operator: ModifyDateTime
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Sets the start time for the XQL query to search for related process
+        events.
+      id: b7cf596d-ffec-41ab-8348-0c067a5536ee
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Set XQL query start time
+      playbooktaskmissingcomponent: null
+      script: Set
+      type: regular
+      version: -1
+    taskid: b7cf596d-ffec-41ab-8348-0c067a5536ee
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 4466.875,
+          "y": -603.1250305175781
+        }
+      }
+  "66":
+    continueonerrortype: ""
+    id: "66"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "64"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: XQL.Retrieve_command_lines_from_same_causality.QueryEndTime
+      value:
+        complex:
+          accessor: timestamp
+          root: alert
+          transformers:
+          - args:
+              variation:
+                value:
+                  simple: in 5 min
+            operator: ModifyDateTime
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Sets the end time for the XQL query to search for related process
+        events.
+      id: 4010910f-513f-4508-8111-cad67559f4fd
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Set XQL query end time
+      playbooktaskmissingcomponent: null
+      script: Set
+      type: regular
+      version: -1
+    taskid: 4010910f-513f-4508-8111-cad67559f4fd
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 4466.875,
+          "y": -455.625
+        }
+      }
+  "68":
+    continueonerrortype: ""
+    id: "68"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "82"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "malicious_causality_command_line", "Score": 3, "Comment":
+          "Malicious command line detected in the causality chain"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that a malicious command line was detected in
+        the causality chain.
+      id: e4e90122-2242-4dd5-8dbe-40cd5ef1db87
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: Malicious command line detected in the causality chain'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: e4e90122-2242-4dd5-8dbe-40cd5ef1db87
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 4230.2083740234375,
+          "y": 311.875
+        }
+      }
+  "69":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: CommandLineAnalysisXQLResults.score
+          operator: greaterThan
+          right:
+            value:
+              simple: "50"
+        - left:
+            iscontext: true
+            value:
+              simple: CommandLineAnalysisXQLResults.analysis.original.custom_patterns
+          operator: isNotEmpty
+      label: Malicious
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: score
+                root: CommandLineAnalysisXQLResults
+                transformers:
+                - args:
+                    descending:
+                      value:
+                        simple: "true"
+                  operator: sort
+                - operator: FirstArrayElement
+          operator: InRange
+          right:
+            value:
+              simple: 26,50
+      label: Suspicious
+    continueonerrortype: ""
+    id: "69"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "82"
+      Malicious:
+      - "68"
+      Suspicious:
+      - "70"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks if the command line analysis detected high-risk patterns
+        or scored above the risk threshold.
+      id: 5fed2101-c1ad-436b-bb46-8f9cb77a153e
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Found Malicious Command line?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 5fed2101-c1ad-436b-bb46-8f9cb77a153e
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 4466.875,
+          "y": 156.04150390625
+        }
+      }
+  "70":
+    continueonerrortype: ""
+    id: "70"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "82"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "suspicious_causality_command_line", "Score": 1, "Comment":
+          "Suspicious command line detected in the causality chain"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that a suspicious command line was detected in
+        the causality chain.
+      id: 3a4a2828-4893-4595-8739-beebb287e7e1
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: Suspicious command line detected in the causality chain'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 3a4a2828-4893-4595-8739-beebb287e7e1
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 4460.2083740234375,
+          "y": 311.875
+        }
+      }
+  "71":
+    continueonerrortype: ""
+    id: "71"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "72"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Errors
+      value:
+        simple: '{"Name": "XQL_Retrieve_command_lines_from_same_causality", "Comment":
+          "XQL task failed to retrieve command line under the same causality"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records an error message if the XQL query failed to retrieve command
+        line data.
+      id: 2749995c-228e-44ea-8ff3-8ede4afb8b46
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Error: XQL task failed to retrieve command line under the same causality'
+      playbooktaskmissingcomponent: null
+      script: Set
+      type: regular
+      version: -1
+    taskid: 2749995c-228e-44ea-8ff3-8ede4afb8b46
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 4065.625,
+          "y": -148.125
+        }
+      }
+  "72":
+    continueonerrortype: ""
+    id: "72"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "69"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      command_line:
+        complex:
+          accessor: '[0]'
+          root: alert.cgocmd
+          transformers:
+          - args:
+              item:
+                iscontext: true
+                value:
+                  simple: alert.osparentcmd.[0]
+              raw: {}
+            operator: AppendIfNotEmpty
+          - args:
+              item:
+                iscontext: true
+                value:
+                  simple: alert.initiatorcmd.[0]
+              raw: {}
+            operator: AppendIfNotEmpty
+          - args:
+              item:
+                iscontext: true
+                value:
+                  simple: PaloAltoNetworksXQL.GenericQuery.results.command_lines
+              raw: {}
+            operator: AppendIfNotEmpty
+          - args:
+              empty_values: {}
+              remove_keys:
+                value:
+                  simple: "true"
+            operator: RemoveEmpty
+          - operator: uniq
+      custom_patterns:
+        simple: |-
+          (?i)ADMIN\$|VolumeShadowCopy.+\.hiv|zip|127\.0\.0\.1|list shadows|reg save|curl|Rclone|WinSCP|FileZilla|scp|sftp|ftp|expose|tar|Compress-Archive|7z|rar|Invoke-WebRequest
+          |Invoke-RestMethod|wget|certutil|bitsadmin|UploadFile|mount|mklink|GLOBALROOT|copy.\\\\\?\\|Copy-Item
+      extend-context:
+        simple: CommandLineAnalysisXQLResults=
+      ignore-outputs:
+        simple: "true"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |-
+        This script evaluates command-line threats by analyzing both original and decoded inputs. It assigns weighted scores to detected patterns, such as AMSI bypass or credential dumping, and applies risk combination bonuses for multiple detections. The total score is normalized to a 0-100 scale, with risk levels categorized as follows:
+
+        * 0-25: Low Risk
+        * 26-50: Medium Risk
+        * 51-90: High Risk
+        * 91-100: Critical Risk
+
+        The scoring mechanism provides a comprehensive risk assessment, considering both the severity and frequency of malicious behaviors.
+      id: 9b9087b0-bbb2-4eb7-a936-f0ece3213906
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Command Line Analysis
+      playbooktaskmissingcomponent: null
+      script: CommandLineAnalysis
+      type: regular
+      version: -1
+    taskid: 9b9087b0-bbb2-4eb7-a936-f0ece3213906
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 4466.875,
+          "y": 13.75
+        }
+      }
+  "73":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: alert.cid.[0]
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "73"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "82"
+      "yes":
+      - "65"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the actor process instance ID not empty.
+      id: cd497647-ffe5-477d-9034-6d8c43aa3151
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Is the causality process instance ID not empty?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: cd497647-ffe5-477d-9034-6d8c43aa3151
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 4476.875,
+          "y": -798.125
+        }
+      }
+  "74":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              complex:
+                accessor: cgocmd
+                root: alert
+                transformers:
+                - args:
+                    item:
+                      iscontext: true
+                      value:
+                        simple: alert.osparentcmd
+                    raw: {}
+                  operator: AppendIfNotEmpty
+                - args:
+                    item:
+                      iscontext: true
+                      value:
+                        simple: alert.initiatorcmd
+                    raw: {}
+                  operator: AppendIfNotEmpty
+                - operator: uniq
+                - args:
+                    error_if_no_match: {}
+                    ignore_case: {}
+                    multi_line: {}
+                    period_matches_newline: {}
+                    regex:
+                      value:
+                        simple: (?i)\b(?:cymulate|safebreach|attackiq|verodin|attackforge|picus|caldera|T1036|atomic[
+                          _-]?red[ _-]?team)
+                    unpack_matches: {}
+                  operator: RegexExtractAll
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "74"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "82"
+      "yes":
+      - "75"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the process was triggered by a known attack simulation
+        tool.
+      id: 950c3976-6c0c-4ae9-8310-da836207b582
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Was the issue triggered by attack simulation tool?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 950c3976-6c0c-4ae9-8310-da836207b582
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -1679.375,
+          "y": -798.125
+        }
+      }
+  "75":
+    continueonerrortype: ""
+    id: "75"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "82"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "attack_simulation_tool", "Score": 3, "Comment": "The action
+          performed by attack simulation tool"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that the activity was triggered by an attack simulation
+        tool.
+      id: f88160e6-4899-4e46-84d2-eb064c1de686
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: The action performed by attack simulation tool'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: f88160e6-4899-4e46-84d2-eb064c1de686
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -1679.375,
+          "y": -632.9166564941406
+        }
+      }
+  "76":
+    continueonerror: true
+    continueonerrortype: ""
+    id: "76"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "33"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      host_id:
+        simple: ${alert.hostname}
+    separatecontext: false
+    skipunavailable: true
+    task:
+      brand: ""
+      description: Retrieves the risk score for the host associated with the alert.
+        the highest risk score in the environment along with the reason affecting
+        each score.
+      id: 47e7cbd4-ea58-426c-86bb-26e7e9584b63
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Get host risk score
+      playbooktaskmissingcomponent: null
+      script: '|||core-list-risky-hosts'
+      type: regular
+      version: -1
+    taskid: 47e7cbd4-ea58-426c-86bb-26e7e9584b63
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -37.5,
+          "y": -1565.625
+        }
+      }
+  "78":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              complex:
+                accessor: cgopath
+                root: alert
+                transformers:
+                - args:
+                    item:
+                      iscontext: true
+                      value:
+                        simple: Core.OriginalAlert.event.os_actor_process_image_path
+                    raw: {}
+                  operator: AppendIfNotEmpty
+                - args:
+                    item:
+                      iscontext: true
+                      value:
+                        simple: alert.initiatorpath
+                    raw: {}
+                  operator: AppendIfNotEmpty
+                - operator: uniq
+                - args:
+                    empty_values: {}
+                    remove_keys:
+                      value:
+                        simple: "true"
+                  operator: RemoveEmpty
+                - args:
+                    error_if_no_match: {}
+                    ignore_case: {}
+                    multi_line: {}
+                    period_matches_newline: {}
+                    regex:
+                      value:
+                        simple: (?i)\b(document|downloads|desktop)
+                    unpack_matches: {}
+                  operator: RegexExtractAll
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "78"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "82"
+      "yes":
+      - "79"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether any processes in the causality chain were executed
+        from a suspicious path.
+      id: 4e4f3cbe-5814-4204-8459-f02caf017c37
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Were the processes executed from a suspicious path?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 4e4f3cbe-5814-4204-8459-f02caf017c37
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -1252.5,
+          "y": -799.1666259765625
+        }
+      }
+  "79":
+    continueonerrortype: ""
+    id: "79"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "82"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "suspicious_execution_path", "Score": 1, "Comment": "The
+          action process executed from a suspicious path"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that the causality process was executed from a
+        suspicious or uncommon path.
+      id: 250e627d-8288-461a-aa20-1717ea354bcd
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: The action process executed from a suspicious path'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 250e627d-8288-461a-aa20-1717ea354bcd
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -1252.5,
+          "y": -626.6666259765625
+        }
+      }
+  "80":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: Core.OriginalAlert.event.is_src_host_dc_server
+          operator: isEqualString
+          right:
+            value:
+              simple: "true"
+      label: "Yes"
+    continueonerrortype: ""
+    id: "80"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "82"
+      "Yes":
+      - "81"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the host is a domain controller.
+      id: 678dca30-fe9e-476a-96ee-49b1c22baa42
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Was the action performed on DC server?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 678dca30-fe9e-476a-96ee-49b1c22baa42
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": -800.625
+        }
+      }
+  "81":
+    continueonerrortype: ""
+    id: "81"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "82"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "action_performed_on_dc", "Score": 0.5, "Comment": "The
+          action performed on DC server"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that the host is a domain controller.
+      id: f0e796b8-1e6b-4146-bb5e-6c931c245d55
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: The action performed on DC server'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: f0e796b8-1e6b-4146-bb5e-6c931c245d55
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": -632.9166564941406
+        }
+      }
+  "82":
+    continueonerrortype: ""
+    id: "82"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "107"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 1f09a725-16a2-40c2-8bb8-5de0154d01fa
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Verdict
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 1f09a725-16a2-40c2-8bb8-5de0154d01fa
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 725,
+          "y": 560
+        }
+      }
+  "84":
+    continueonerrortype: ""
+    id: "84"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "82"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "attack_simulation_tool", "Score": -1, "Comment": "Previous
+          alerts with the same causality and actor processes were closed as false
+          positives"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that similar previous alerts involving the same
+        processes were closed as false positives.
+      id: 190caf3c-8322-41d3-9f7d-03b28cd85b79
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: Previous alerts with the same causality and actor processes
+        were closed as false positives'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 190caf3c-8322-41d3-9f7d-03b28cd85b79
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -2635,
+          "y": -472.9166564941406
+        }
+      }
+  "85":
+    continueonerrortype: ""
+    id: "85"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "82"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "non_prevalent_process", "Score": 0.5, "Comment": "Non-prevalent
+          process in the causality chain"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that the causality process has a low prevalence
+        across the organization.
+      id: 113d865c-2296-4717-8bfb-30794a6b3003
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: Non-prevalent process in the causality chain'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 113d865c-2296-4717-8bfb-30794a6b3003
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -2168.625,
+          "y": -472.9166564941406
+        }
+      }
+  "86":
+    continueonerrortype: ""
+    id: "86"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "87"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      extend-context:
+        simple: SuspiciousRelatedAlerts=
+      fromdate:
+        simple: 5 hours ago
+      ignore-outputs:
+        simple: "true"
+      includeinformational:
+        simple: "true"
+      query:
+        simple: |+
+          agentid:${alert.agentid} and (name:"Behavioral Threat" or name:"Possible Overpass-the-Hash" or name:"Uncommon sensitive filesystem registry hive access by a lolbin actor in a shadow copy folder" or name:"Dumping Registry hives with passwords" or name:"Uncommon sensitive registry hive dump" or name:"Possible DCSync by an unusual user" or name:"Remote account enumeration on domain accounts" or name:"Uncommon SSH session was established to an internal IP" or name:"Ping executed with loopback address" or name:"Abnormal User Login to Domain Controller" or name:"A disabled user attempted to log in" or name:"Suspicious Admin Login - Possible Silver Ticket Attack" or name:"Non-browser process downloads content from GitHub" or name:"Uncommon sensitive filesystem registry hive access by a rare unsigned actor in a shadow copy folder" or name:"Uncommon sensitive registry hive dump by remote actor" or name:"Suspicious dump of ntds.dit using Shadow Copy with ntdsutil/vssadmin" or name:"NTDS.dit file written by a rare executable to a suspicious path" or name:"Ntdsutil.exe accessing ntds.dit file")
+
+      todate:
+        simple: now
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Searches for related alerts on the endpoint that could indicate
+        suspicious shadow copy activity.
+      id: 70f4bf4c-553c-4aa2-b29a-32f3e6fc8d16
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Search alerts related to ntds.dit shadow copies indicating suspicious
+        activity
+      playbooktaskmissingcomponent: null
+      script: SearchAlertsV2
+      type: regular
+      version: -1
+    taskid: 70f4bf4c-553c-4aa2-b29a-32f3e6fc8d16
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 2794.375,
+          "y": -268.125
+        }
+      }
+  "87":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: SuspiciousRelatedAlerts
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "87"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "82"
+      "yes":
+      - "88"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether related alerts were found indicating suspicious
+        activity involving NTDS.dit shadow copies. were found.
+      id: 8fd583ff-5045-48bd-b320-804307e3921a
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Found related alerts to ntds.dit shadow copies indicating suspicious activity?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 8fd583ff-5045-48bd-b320-804307e3921a
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 2794.375,
+          "y": -108.12496948242188
+        }
+      }
+  "88":
+    continueonerrortype: ""
+    id: "88"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "82"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "suspicious_related_alerts", "Score": 1.5, "Comment": "Alerts
+          related to NTDS.dit shadow copies indicating suspicious activity were found"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that related alerts indicating suspicious activity
+        involving NTDS.dit shadow copies were found.
+      id: 76f95134-ea5e-48f6-a7eb-f5a389b09910
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: Alerts related to NTDS.dit shadow copies indicating suspicious
+        activity were found'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 76f95134-ea5e-48f6-a7eb-f5a389b09910
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 2794.375,
+          "y": 38.7499885559082
+        }
+      }
+  "89":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: MaliciousRelatedAlerts
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "89"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "86"
+      "yes":
+      - "90"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether any related alerts indicate a malicious dump of
+        the NTDS.dit file was found.
+      id: 02848f39-32de-4d4b-8013-a25d91b3ca3f
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Found related alerts to ntds.dit shadow copies indicating malicious activity?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 02848f39-32de-4d4b-8013-a25d91b3ca3f
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 2704.375,
+          "y": -472.9166564941406
+        }
+      }
+  "90":
+    continueonerrortype: ""
+    id: "90"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "82"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "malicious_related_alerts", "Score": 3, "Comment": "Alerts
+          related to NTDS.dit shadow copies indicating malicious activity were found"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that related alerts indicating malicious activity
+        involving NTDS.dit shadow copies were found.
+      id: ba642145-2ad8-4004-aaa8-513871ec0591
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: Alerts related to NTDS.dit shadow copies indicating malicious
+        activity were found'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: ba642145-2ad8-4004-aaa8-513871ec0591
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 2376.25,
+          "y": -268.125
+        }
+      }
+  "91":
+    continueonerrortype: ""
+    id: "91"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "89"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      extend-context:
+        simple: MaliciousRelatedAlerts=
+      ignore-outputs:
+        simple: "true"
+      query:
+        complex:
+          accessor: parentXDRIncident
+          root: alert
+          transformers:
+          - args:
+              delimiter:
+                value:
+                  simple: '-'
+              fields:
+                value:
+                  simple: "2"
+            operator: Cut
+          - args:
+              prefix:
+                value:
+                  simple: '(name:"Credential Gathering Protection - 1525656032" or
+                    name:"Credential Gathering Protection - 1428024063" or name:"Credential
+                    Gathering Protection - 1876742813" or name:"Credential Gathering
+                    Protection - 2177907616" or name:"Credential Gathering Protection
+                    - 2288259711" or name:"Credential Gathering Protection - 2616217867"
+                    or name:"Credential Gathering Protection - 3598738926" or name:"Credential
+                    Gathering Protection - 401793466" or name:"Credential Gathering
+                    Protection - 4277311073" or name:"Credential Gathering Protection
+                    - 439618157" or name:"Credential Gathering Protection - 657061549"
+                    or name:"Credential Gathering Protection - 769377214" or name:"Credential
+                    Gathering Protection - 791046769" or name:"Credential Gathering
+                    Protection - 797899178" or name:"Data Exfiltration - 354362866"
+                    or name:"Evasion Technique - 1891897646" or name:"Evasion Technique
+                    - 1967904343" or name:"Malicious Registry Operation - 2401089680"
+                    or name:"Malicious Registry Operation - 2833283495" or name:"Malicious
+                    Registry Operation - 2644573400" or name:"SYNC - Credential Gathering
+                    - 1082701410" or name:"SYNC - Credential Gathering - 2237270456"
+                    or name:"SYNC - Credential Gathering - 3406296443" or name:"Lateral
+                    Movement - 2357622005" or name:"SYNC - Remote Activity - 152206032"
+                    or name:"SYNC - Remote Activity - 3456368549" or name:"Credential
+                    Gathering Protection - 3359209147" or name:"Credential Gathering
+                    Protection - 447298187" or name:"Credential Gathering Protection
+                    - 2348199462" or name:"Memory dumping with comsvcs.dll" or name:"WildFire
+                    Malware" or name:"Local Analysis Malware" or name:"Lsass Dump
+                    Attempt - 773095356" or name:"Credential Gathering Protection
+                    - 446170513" or name:"Credential Gathering Protection - 1205500612"
+                    or name:"LSASS dump file written to disk" or name:"*Staged Malware
+                    Activity*" or name:"*Script Activity*" or name:"*Powershell Activity*")
+                    and caseid:'
+              suffix: {}
+            operator: concat
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Searches for related alerts on the endpoint that could indicate
+        malicious activity associated with the shadow copy operation.
+      id: 36b2404e-218f-4879-8089-d6963a78dfbb
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Search alerts related to ntds.dit shadow copies indicating malicious activity
+      playbooktaskmissingcomponent: null
+      script: SearchAlertsV2
+      type: regular
+      version: -1
+    taskid: 36b2404e-218f-4879-8089-d6963a78dfbb
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 2704.375,
+          "y": -632.9166564941406
+        }
+      }
+  "92":
+    continueonerrortype: ""
+    id: "92"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "82"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "mmc_usage_on_server", "Score": -0.5, "Comment": "MMC process
+          executed on a server"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that the Microsoft Management Console (MMC) process
+        was executed on a server.
+      id: 01044cba-f01b-4088-bcd4-2bddfe516b6f
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: MMC process executed on a server'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 01044cba-f01b-4088-bcd4-2bddfe516b6f
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -3070,
+          "y": -632.9166564941406
+        }
+      }
+  "93":
+    continueonerror: true
+    continueonerrortype: errorPath
+    id: "93"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#error#':
+      - "98"
+      '#none#':
+      - "96"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      query:
+        simple: "dataset  = xdr_data | filter (lowercase(action_file_name) =\"ntds.dit\"
+          or lowercase(action_file_name) =\"sam\" or lowercase(action_file_name) =\"system\"
+          or lowercase(action_file_name) =\"security\" or lowercase(action_file_name)
+          =\"sam.save\" or lowercase(action_file_name) =\"system.save\" or lowercase(action_file_name)
+          =\"security.save\") and event_type = FILE and event_sub_type = FILE_WRITE
+          and (action_file_path not contains \":\\Windows\\NTDS\\ntds.dit\") and (action_file_path
+          not contains \":\\Windows\\System32\\config\\SECURITY\") and (action_file_path
+          not contains \":\\Windows\\System32\\config\\SYSTEM\") and (action_file_path
+          not contains \":\\Windows\\System32\\config\\SAM\")\n| filter actor_process_image_name
+          != \"VSSVC.exe\" and action_file_path not contains \"\\Device\\HarddiskVolumeShadowCopy\"\n|
+          fields action_file_name, action_file_path , action_file_sha256, agent_id
+          , actor_process_image_name ,causality_actor_process_image_name , event_type
+          , event_sub_type\n| dedup action_file_path , agent_id "
+      query_name:
+        simple: Retrieve_file_written_events
+      time_frame:
+        simple: between ${FileWriteQueryStartTime} and ${FileWriteQueryEndTime}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Queries for file write events related to NTDS.dit, SAM, SYSTEM,
+        or SECURITY hive files to identify potential credential theft activity.
+      id: b103adc1-600f-4812-9924-456033deae6a
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: 'XQL: Query to retrieve NTDS.dit file written events'
+      playbooktaskmissingcomponent: null
+      script: '|||xdr-xql-generic-query'
+      type: regular
+      version: -1
+    taskid: b103adc1-600f-4812-9924-456033deae6a
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 3624.999755859375,
+          "y": -494.1666259765625
+        }
+      }
+  "94":
+    continueonerrortype: ""
+    id: "94"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "95"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: FileWriteQueryStartTime
+      value:
+        complex:
+          accessor: timestamp
+          root: alert
+          transformers:
+          - args:
+              variation:
+                value:
+                  simple: 5 min ago
+            operator: ModifyDateTime
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Sets the start time for the XQL query window.
+      id: 21679725-d61b-4e30-a50f-9604398d9b6c
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Set XQL query start time
+      playbooktaskmissingcomponent: null
+      script: Set
+      type: regular
+      version: -1
+    taskid: 21679725-d61b-4e30-a50f-9604398d9b6c
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 3624.999755859375,
+          "y": -798.1249694824219
+        }
+      }
+  "95":
+    continueonerrortype: ""
+    id: "95"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "93"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: FileWriteQueryEndTime
+      value:
+        complex:
+          accessor: timestamp
+          root: alert
+          transformers:
+          - args:
+              variation:
+                value:
+                  simple: in 5 min
+            operator: ModifyDateTime
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Sets the end time for the XQL query window.
+      id: f5a66fd1-1dc5-4849-85aa-24ad20f5d535
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Set XQL query end time
+      playbooktaskmissingcomponent: null
+      script: Set
+      type: regular
+      version: -1
+    taskid: f5a66fd1-1dc5-4849-85aa-24ad20f5d535
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 3624.999755859375,
+          "y": -651.2500114440918
+        }
+      }
+  "96":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: PaloAltoNetworksXQL.GenericQuery.results.action_file_path
+          operator: isNotEmpty
+          right:
+            value: {}
+      - - left:
+            iscontext: true
+            value:
+              simple: PaloAltoNetworksXQL.GenericQuery.results.agent_id
+          operator: isNotEmpty
+      label: "yes"
+    continueonerrortype: ""
+    id: "96"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "82"
+      "yes":
+      - "97"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the XQL query found any file write events involving
+        NTDS.dit, SAM, SYSTEM, or SECURITY hive files. the XQL query.
+      id: 1b762f55-4b86-4ccd-b7a5-080b4a862b03
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Found ntds.dit or sam or system or security hive file written event?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 1b762f55-4b86-4ccd-b7a5-080b4a862b03
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 3624.999755859375,
+          "y": -344.1666259765625
+        }
+      }
+  "97":
+    continueonerrortype: ""
+    id: "97"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "82"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "ntds.dit_sam_security_system_file_write_evets_found", "Score":
+          1.5, "Comment": "ntds.dit file or Security or System or SAM hive file write
+          events were found"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that file write events for NTDS.dit or sensitive
+        registry hives were found.
+      id: 08f13300-d6ad-479e-9766-8a21545d8a30
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: ntds.dit file or Security or System or SAM hive file write
+        events were found'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 08f13300-d6ad-479e-9766-8a21545d8a30
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 3624.999755859375,
+          "y": -157.4996337890625
+        }
+      }
+  "98":
+    continueonerrortype: ""
+    id: "98"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "82"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Errors
+      value:
+        simple: '{"Name": "xql_failed_retrieve_ file_write_events", "Comment": "XQL
+          task failed to retrieve file write events"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Set a value in context under the key you entered.
+      id: 182b4855-ea7f-4322-a110-e197fb9eb5fa
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Error: XQL task failed to retrieve file write events'
+      playbooktaskmissingcomponent: null
+      script: Set
+      type: regular
+      version: -1
+    taskid: 182b4855-ea7f-4322-a110-e197fb9eb5fa
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 3214.999755859375,
+          "y": -348.125
+        }
+      }
+  "99":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: alert.filename.[0]
+          operator: isEqualString
+          right:
+            value:
+              simple: ntds.dit
+      label: ntds.dit
+    continueonerrortype: ""
+    id: "99"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "100"
+      ntds.dit:
+      - "91"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the action file name is ntds.dit or one of the SAM,
+        SECURITY, or SYSTEM hives.
+      id: 6d36c7da-5982-488b-9361-ae0f51b46a42
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Is the action file name ntds.dit or one of the SAM, SECURITY, or SYSTEM
+        hives?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 6d36c7da-5982-488b-9361-ae0f51b46a42
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 2294.375,
+          "y": -798.125
+        }
+      }
+  "100":
+    continueonerrortype: ""
+    id: "100"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "101"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      extend-context:
+        simple: MaliciousRelatedAlerts=
+      ignore-outputs:
+        simple: "true"
+      query:
+        complex:
+          accessor: parentXDRIncident
+          root: alert
+          transformers:
+          - args:
+              delimiter:
+                value:
+                  simple: '-'
+              fields:
+                value:
+                  simple: "2"
+            operator: Cut
+          - args:
+              prefix:
+                value:
+                  simple: '(name:"WildFire Malware" or name:"Local Analysis Malware"
+                    or name:"Memory dumping with comsvcs.dll" or name:"Lsass Dump
+                    Attempt - 773095356" or name:"Evasion Technique - 3048798454"
+                    or name:"Evasion Technique - 3879014096" or name:"Evasion Technique
+                    - 745940465" or name:"Credential Gathering Protection - 446170513"
+                    or name:"Credential Gathering Protection - 1205500612" or name:"Credential
+                    Gathering Protection - 1428024063" or name:"Credential Gathering
+                    Protection - 1876742813" or name:"Credential Gathering Protection
+                    - 2288259711" or name:"Credential Gathering Protection - 2616217867"
+                    or name:"Credential Gathering Protection - 3598738926" or name:"Credential
+                    Gathering Protection - 401793466" or name:"Credential Gathering
+                    Protection - 439618157" or name:"Credential Gathering Protection
+                    - 657061549" or name:"Credential Gathering Protection - 769377214"
+                    or name:"Credential Gathering Protection - 797899178" or name:"Data
+                    Exfiltration - 354362866" or name:"Evasion Technique - 1891897646"
+                    or name:"Evasion Technique - 1967904343" or name:"Powershell Activity
+                    - 3083271452" or name:"Lateral Movement - 2357622005" or name:"SYNC
+                    - Remote Activity - 152206032" or name:"SYNC - Remote Activity
+                    - 3456368549" or name:"Credential Gathering Protection - 3359209147"
+                    or name:"Credential Gathering Protection - 447298187" or name:"Credential
+                    Gathering Protection - 873781325" or name:"Credential Gathering
+                    Protection - 2348199462" or name:"Credential Gathering Protection
+                    - 3121678175" or name:"LSASS dump file written to disk" or name:"Suspicious
+                    dump of ntds.dit using Shadow Copy with ntdsutil/vssadmin" or
+                    name:"NTDS.dit file written by a rare executable to a suspicious
+                    path" or name:"Ntdsutil.exe accessing ntds.dit file" or name:"*Script
+                    Activity*" or name:"*Powershell Activity*" or name:"*Staged Malware
+                    Activity*") and caseid:'
+              suffix: {}
+            operator: concat
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Searches for related alerts that could indicate malicious activity
+        associated with the access of SAM, SECURITY, or SYSTEM registry hives via
+        shadow copy.
+      id: 184166f6-37c2-4d9f-a457-c9e6b63cb606
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Search alerts related to SAM, SECURITY, or SYSTEM shadow copies indicating
+        malicious activity
+      playbooktaskmissingcomponent: null
+      script: SearchAlertsV2
+      type: regular
+      version: -1
+    taskid: 184166f6-37c2-4d9f-a457-c9e6b63cb606
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1886.25,
+          "y": -632.9166564941406
+        }
+      }
+  "101":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: MaliciousRelatedAlerts
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "101"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "102"
+      "yes":
+      - "103"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether related alerts indicating malicious access to sensitive
+        shadow copies (SAM, SECURITY, or SYSTEM) were found. the NTDS.dit file was
+        found.
+      id: e243414c-7630-4fab-a366-a03d9315bb1f
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Found related alerts to SAM, SECURITY, or SYSTEM shadow copies indicating
+        malicious activity
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: e243414c-7630-4fab-a366-a03d9315bb1f
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1886.25,
+          "y": -472.9166564941406
+        }
+      }
+  "102":
+    continueonerrortype: ""
+    id: "102"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "104"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      extend-context:
+        simple: SuspiciousRelatedAlerts=
+      fromdate:
+        simple: 5 hours ago
+      ignore-outputs:
+        simple: "true"
+      includeinformational:
+        simple: "true"
+      query:
+        simple: agentid:${alert.agentid} and (name:"SYNC - Credential Gathering -
+          1082701410" or name:"SYNC - Credential Gathering - 2237270456" or name:"SYNC
+          - Credential Gathering - 3406296443" or name:"Uncommon sensitive filesystem
+          registry hive access by a rare unsigned actor in a shadow copy folder" or
+          name:"Suspicious Admin Login - Possible Silver Ticket Attack" or name:"Dumping
+          Registry hives with passwords" or name:"Non-browser process downloads content
+          from GitHub" or name:"Behavioral Threat" or name:"Possible Overpass-the-Hash"
+          or name:"Uncommon sensitive filesystem registry hive access by a lolbin
+          actor in a shadow copy folder" or name:"Uncommon sensitive registry hive
+          dump" or name:"Possible DCSync by an unusual user" or name:"Remote account
+          enumeration on domain accounts" or name:"Uncommon SSH session was established
+          to an internal IP" or name:"Ping executed with loopback address" or name:"Abnormal
+          User Login to Domain Controller" or name:"A disabled user attempted to log
+          in")
+      todate:
+        simple: now
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Searches for related alerts on the endpoint that could indicate
+        suspicious activity related to shadow copy creation or access.
+      id: 4c5a2604-47c4-4d2f-b118-0c910fcc9ba0
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Search alerts related to SAM, SECURITY, or SYSTEM shadow copies indicating
+        suspicious activity
+      playbooktaskmissingcomponent: null
+      script: SearchAlertsV2
+      type: regular
+      version: -1
+    taskid: 4c5a2604-47c4-4d2f-b118-0c910fcc9ba0
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1974.375,
+          "y": -268.125
+        }
+      }
+  "103":
+    continueonerrortype: ""
+    id: "103"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "82"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "malicious_related_alerts", "Score": 3, "Comment": "Alerts
+          related to SAM, SECURITY, or SYSTEM shadow copies indicating malicious activity
+          were found"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that related alerts indicating malicious access
+        to sensitive shadow copies were found.
+      id: 294be52e-6398-4cb1-972a-8b7dc42140e2
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: Alerts related to SAM, SECURITY, or SYSTEM shadow copies indicating
+        malicious activity were found'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 294be52e-6398-4cb1-972a-8b7dc42140e2
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1546.25,
+          "y": -268.125
+        }
+      }
+  "104":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: SuspiciousRelatedAlerts
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "104"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "82"
+      "yes":
+      - "105"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether related alerts indicating suspicious access to sensitive
+        shadow copies (SAM, SECURITY, or SYSTEM) were found. were found.
+      id: 6860ba48-793b-42fe-a754-f185798c8b08
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Found related alerts to SAM, SECURITY, or SYSTEM shadow copies indicating
+        suspicious activity
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 6860ba48-793b-42fe-a754-f185798c8b08
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1975,
+          "y": -123.75
+        }
+      }
+  "105":
+    continueonerrortype: ""
+    id: "105"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "82"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "suspicious_related_alerts", "Score": 1.5, "Comment": "Alerts
+          related to SAM, SECURITY, or SYSTEM shadow copies indicating suspicious
+          activity were found"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that related alerts indicating suspicious access
+        to sensitive shadow copies were found.
+      id: 245de223-6b28-43aa-9c2b-5c5592efa9cd
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: Alerts related to SAM, SECURITY, or SYSTEM shadow copies indicating
+        suspicious activity were found'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 245de223-6b28-43aa-9c2b-5c5592efa9cd
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1975,
+          "y": 23.124958038330078
+        }
+      }
+  "106":
+    continueonerrortype: ""
+    id: "106"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "111"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: b79c7076-0a29-4515-8b20-b5140f486e75
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Inconclusive
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: b79c7076-0a29-4515-8b20-b5140f486e75
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 1235,
+          "y": 884.1666259765625
+        }
+      }
+  "107":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: Score
+                root: Evidence
+                transformers:
+                - args:
+                    applyIfEmpty: {}
+                    defaultValue:
+                      value:
+                        simple: "0"
+                  operator: SetIfEmpty
+                - operator: SumList
+          operator: greaterThanOrEqual
+          right:
+            value:
+              simple: "3"
+      label: "Yes"
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: Score
+                root: Evidence
+                transformers:
+                - args:
+                    applyIfEmpty: {}
+                    defaultValue:
+                      value:
+                        simple: "0"
+                  operator: SetIfEmpty
+                - operator: SumList
+          operator: lessThanOrEqual
+          right:
+            value:
+              simple: "0"
+      - - left:
+            iscontext: true
+            value:
+              simple: Errors
+          operator: isEmpty
+      label: False Positive
+    continueonerrortype: ""
+    id: "107"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "106"
+      False Positive:
+      - "109"
+      "Yes":
+      - "16"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether any malicious or suspicious evidence was found during
+        the investigation. If malicious evidence is identified, the playbook proceeds
+        to remediation; if suspicious evidence is found, it proceeds to analyst decision;
+        and if no evidence is found, it is marked as a false positive.
+      id: da762467-13ca-4afe-af67-82ca32b4caed
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Any evidence found requiring remediation?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: da762467-13ca-4afe-af67-82ca32b4caed
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 725,
+          "y": 704.1666259765625
+        }
+      }
+  "108":
+    continueonerrortype: ""
+    id: "108"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "114"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      closeNotes:
+        simple: Found common false-positive behavior or previous similar alerts closed
+          as False Positive. Therefore, this alert will be classified as a False Positive.
+          Handled by the playbook "Uncommon creation or access operation of sensitive
+          shadow copy by a high-risk process".
+      closeReason:
+        simple: Resolved - False Positive
+      id:
+        simple: ${alert.id}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: Closes the investigation and marks the alert's verdict as a False
+        Positive.
+      id: 47e1a3c7-990b-4eaf-90d2-df8deea20268
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Close Alert as False Positive
+      playbooktaskmissingcomponent: null
+      script: Builtin|||closeInvestigation
+      type: regular
+      version: -1
+    taskid: 47e1a3c7-990b-4eaf-90d2-df8deea20268
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1825,
+          "y": 1355
+        }
+      }
+  "109":
+    continueonerrortype: ""
+    id: "109"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "108"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 5a1af8b3-01df-4d76-8abc-f287e4abb3ca
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: False Positive
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 5a1af8b3-01df-4d76-8abc-f287e4abb3ca
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 1825,
+          "y": 884.1666259765625
+        }
+      }
+  "111":
+    continueonerrortype: ""
+    form:
+      description: ""
+      expired: false
+      questions:
+      - defaultrows: []
+        fieldassociated: ""
+        gridcolumns: []
+        id: "0"
+        label: ""
+        labelarg:
+          simple: "During the investigation phase, the playbook identified the following
+            suspicious evidence.Although the combined evidence does not conclusively
+            confirm a true positive, it still warrants suspicion. Please review the
+            evidence below and select the appropriate action.\n\n### Evidence found:\n${Evidence.Comment(val.length
+            > 0) =>\"- \" + val.join(\"\\n - \")} \n\n### Decision Required:\nPlease
+            choose the action you want to perform:\n\n- **False Positive** - Close
+            the alert as a false positive.\n- **True Positive** - Handle the alert
+            as a true positive by:\n       1. Terminates the CGO process\n       2.
+            Logs off and disables the user\n       3. Blocks malicious processes\n
+            \      4. Deletes the relevant shadow copies\n        5. Isoloates the
+            host\n**(Note: During the remediation stage, you will need to approve
+            actions that affect the user)**"
+        options: []
+        optionsarg:
+        - simple: False Positive
+        - simple: True Positive
+        placeholder: ""
+        readonly: false
+        required: false
+        tooltip: ""
+        type: singleSelect
+      sender: Your SOC team
+      title: Analyst Decision
+      totalanswers: 0
+    id: "111"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    message:
+      bcc: null
+      body: null
+      cc: null
+      format: ""
+      methods: []
+      subject: null
+      timings:
+        completeafterreplies: 1
+        completeaftersla: false
+        completeafterv2: true
+        retriescount: 2
+        retriesinterval: 360
+      to: null
+    nexttasks:
+      '#none#':
+      - "112"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: a40ecb94-6c6a-4c03-853c-c433d3a0c97d
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Analyst Decision
+      playbooktaskmissingcomponent: null
+      type: collection
+      version: -1
+    taskid: a40ecb94-6c6a-4c03-853c-c433d3a0c97d
+    timertriggers: []
+    type: collection
+    view: |-
+      {
+        "position": {
+          "x": 1235,
+          "y": 1019.1666259765625
+        }
+      }
+  "112":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: Analyst Decision.Answers.0
+          operator: isEqualString
+          right:
+            value:
+              simple: True Positive
+      label: True Positive
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: Analyst Decision.Answers.0
+          operator: isEqualString
+          right:
+            value:
+              simple: False Positive
+      label: False Positive
+    continueonerrortype: ""
+    id: "112"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "115"
+      False Positive:
+      - "108"
+      True Positive:
+      - "16"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks the analyst's decision from the manual review step to determine
+        the next action.
+      id: 7fabd609-2302-45ed-8163-39cbd45bf99a
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Checks Analyst Decision
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 7fabd609-2302-45ed-8163-39cbd45bf99a
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1235,
+          "y": 1164.1666259765625
+        }
+      }
+  "113":
+    continueonerrortype: ""
+    id: "113"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: bf7a9aed-a73d-420b-87b8-490627953819
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Done
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: bf7a9aed-a73d-420b-87b8-490627953819
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 1235,
+          "y": 1491.6666259765625
+        }
+      }
+  "114":
+    continueonerrortype: ""
+    id: "114"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: c516ac9d-cd9a-4df0-890c-280d84e91542
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Done
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: c516ac9d-cd9a-4df0-890c-280d84e91542
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 1825,
+          "y": 1491.6666259765625
+        }
+      }
+  "115":
+    continueonerrortype: ""
+    id: "115"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "113"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      value:
+        simple: Inconclusive
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Prints a message to the War Room indicating the investigation was
+        closed as inconclusive after analyst review.
+      id: abba7249-82cb-4499-8d2f-17f2e9ca8423
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Print: Inconclusive after analyst review'
+      playbooktaskmissingcomponent: null
+      script: Print
+      type: regular
+      version: -1
+    taskid: abba7249-82cb-4499-8d2f-17f2e9ca8423
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1235,
+          "y": 1356.0416259765625
+        }
+      }
+  "116":
+    continueonerrortype: ""
+    id: "116"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "120"
+      - "121"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 0096cbab-07a0-43ba-8e60-61c66260f93f
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: User Remediation
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 0096cbab-07a0-43ba-8e60-61c66260f93f
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": -199.99998474121094,
+          "y": 1812.4998779296875
+        }
+      }
+  "117":
+    continueonerror: true
+    continueonerrortype: ""
+    id: "117"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "128"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      brands:
+        simple: Active Directory Query v2
+      user_name:
+        simple: ${Core.OriginalAlert.event.causality_actor_primary_username}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Performs remediation by disabling the user account involved in
+        the alert across integrated services.
+      id: 1195f04b-c34a-4916-babe-1d67d1a8f026
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Disable User
+      playbooktaskmissingcomponent: null
+      script: disable-user
+      type: regular
+      version: -1
+    taskid: 1195f04b-c34a-4916-babe-1d67d1a8f026
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -449.5833740234375,
+          "y": 2430.8331298828125
+        }
+      }
+  "118":
+    continueonerrortype: ""
+    id: "118"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    message:
+      bcc: null
+      body:
+        simple: 'Should the following user be disabled using the ''Active Directory''
+          integration: ${Core.OriginalAlert.event.causality_actor_primary_username}
+          ?'
+      cc: null
+      format: ""
+      methods: []
+      replyOptions:
+      - "Yes"
+      - "No"
+      subject: null
+      timings:
+        completeafterreplies: 1
+        completeaftersla: false
+        completeafterv2: true
+        retriescount: 2
+        retriesinterval: 360
+      to: null
+    nexttasks:
+      '#default#':
+      - "130"
+      "Yes":
+      - "117"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the analyst has approved disabling the user account.
+      id: a2082bca-d645-4121-919b-d9086d58e0ae
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Analyst approval for disable user
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: a2082bca-d645-4121-919b-d9086d58e0ae
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -449.5833740234375,
+          "y": 2268.3331298828125
+        }
+      }
+  "119":
+    continueonerrortype: ""
+    id: "119"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "123"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: UsernameWithoutPrefix
+      value:
+        complex:
+          accessor: causality_actor_primary_username
+          root: Core.OriginalAlert.event
+          transformers:
+          - args:
+              error_if_no_match: {}
+              ignore_case: {}
+              multi_line: {}
+              period_matches_newline: {}
+              regex:
+                value:
+                  simple: (?<=\\)[^\\]+$
+              unpack_matches: {}
+            operator: RegexExtractAll
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Extracts the username from the UPN and saves it to the context,
+        removing the domain prefix.
+      id: 0e3c0353-3b5c-4601-a3b9-9230b3357f68
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Save username without domain prefix
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 0e3c0353-3b5c-4601-a3b9-9230b3357f68
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 38.7498779296875,
+          "y": 2100.8331298828125
+        }
+      }
+  "120":
+    continueonerrortype: ""
+    id: "120"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "127"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 015695ce-49db-41a1-8d76-5669f7b27bbe
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Disable User
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 015695ce-49db-41a1-8d76-5669f7b27bbe
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": -449.5833740234375,
+          "y": 1968.3331298828125
+        }
+      }
+  "121":
+    continueonerrortype: ""
+    id: "121"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "119"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: cf0f2811-24f1-4dbc-81b9-35515ec2bda0
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: User Logoff
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: cf0f2811-24f1-4dbc-81b9-35515ec2bda0
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 38.7498779296875,
+          "y": 1955.8331298828125
+        }
+      }
+  "122":
+    continueonerror: true
+    continueonerrortype: errorPath
+    id: "122"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#error#':
+      - "126"
+      '#none#':
+      - "125"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      command:
+        complex:
+          filters:
+          - - ignorecase: true
+              left:
+                iscontext: true
+                value:
+                  simple: Core.ScriptResult.results.executed_command.command_output
+              operator: containsGeneral
+              right:
+                iscontext: true
+                value:
+                  simple: UsernameWithoutPrefix
+          - - ignorecase: true
+              left:
+                iscontext: true
+                value:
+                  simple: Core.ScriptResult.results.executed_command.command_output
+              operator: containsGeneral
+              right:
+                value:
+                  simple: Active
+          root: Core.ScriptResult.results.executed_command.command_output
+          transformers:
+          - args:
+              error_if_no_match: {}
+              ignore_case: {}
+              multi_line: {}
+              period_matches_newline: {}
+              regex:
+                value:
+                  simple: (?<=\bconsole\s+)\d+
+              unpack_matches: {}
+            operator: RegexExtractAll
+          - args:
+              prefix:
+                value:
+                  simple: 'logoff '
+              suffix: {}
+            operator: concat
+      command_type:
+        simple: powershell
+      endpoint_ids:
+        simple: ${alert.agentid}
+      is_raw_command:
+        simple: "true"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Performs remediation by logging off the user from the affected
+        host.
+      id: c974f265-5625-4fba-b6d6-09183eef074f
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Logoff user from host
+      playbooktaskmissingcomponent: null
+      script: '|||core-execute-command'
+      type: regular
+      version: -1
+    taskid: c974f265-5625-4fba-b6d6-09183eef074f
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 38.7498779296875,
+          "y": 2589.9996337890625
+        }
+      }
+  "123":
+    continueonerror: true
+    continueonerrortype: errorPath
+    id: "123"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#error#':
+      - "126"
+      '#none#':
+      - "124"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      command:
+        simple: quser ${UsernameWithoutPrefix}
+      endpoint_ids:
+        simple: ${alert.agentid}
+      is_raw_command:
+        simple: "true"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Retrieves active user sessions from the host to determine if the
+        involved user is currently logged on.
+      id: 3a49df5b-92d4-4591-96ca-963fd9b76184
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Execute get user sessions
+      playbooktaskmissingcomponent: null
+      script: '|||core-execute-command'
+      type: regular
+      version: -1
+    taskid: 3a49df5b-92d4-4591-96ca-963fd9b76184
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 38.7498779296875,
+          "y": 2252.0831298828125
+        }
+      }
+  "124":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                filters:
+                - - ignorecase: true
+                    left:
+                      iscontext: true
+                      value:
+                        simple: Core.ScriptResult.results.executed_command.command_output
+                    operator: containsGeneral
+                    right:
+                      value:
+                        simple: Active
+                - - ignorecase: true
+                    left:
+                      iscontext: true
+                      value:
+                        simple: Core.ScriptResult.results.executed_command.command_output
+                    operator: containsGeneral
+                    right:
+                      iscontext: true
+                      value:
+                        simple: UsernameWithoutPrefix
+                root: Core.ScriptResult.results.executed_command.command_output
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: Active
+    continueonerrortype: ""
+    id: "124"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "130"
+      Active:
+      - "122"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the execution results indicate an active session
+        for the user, confirming the user is currently logged in.
+      id: 935e26fb-6f09-4797-805e-12d6ca579fdf
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Check for active session of the user
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 935e26fb-6f09-4797-805e-12d6ca579fdf
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 38.7498779296875,
+          "y": 2395.8331298828125
+        }
+      }
+  "125":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              complex:
+                accessor: execution_status
+                filters:
+                - - ignorecase: true
+                    left:
+                      iscontext: true
+                      value:
+                        simple: Core.ScriptResult.results.executed_command.standard_output
+                    operator: containsGeneral
+                    right:
+                      value:
+                        simple: logoff
+                root: Core.ScriptResult.results.executed_command
+          operator: isEqualString
+          right:
+            value:
+              simple: COMPLETED_SUCCESSFULLY
+      label: "Yes"
+    continueonerrortype: ""
+    id: "125"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "126"
+      "Yes":
+      - "130"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the previously executed command completed without
+        errors.
+      id: 8a9f0a28-2e3c-499d-8896-0edaaa18f9fd
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Command executed successfully?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 8a9f0a28-2e3c-499d-8896-0edaaa18f9fd
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 38.7498779296875,
+          "y": 2742.3331298828125
+        }
+      }
+  "126":
+    continueonerrortype: ""
+    id: "126"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "130"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: "Dear Analyst,\n\nPlease note that during the remediation process,
+        the playbook did not log off the user: ${Core.OriginalAlert.event.causality_actor_primary_username}
+        from the following host: ${alert.hostname} \n\nPlease manually log off the
+        user to complete the containment and remediation process."
+      id: 93b18987-292a-4467-bc05-682e19e93af9
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Manual remediation actions required to log off the user
+      playbooktaskmissingcomponent: null
+      type: regular
+      version: -1
+    taskid: 93b18987-292a-4467-bc05-682e19e93af9
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 345,
+          "y": 2906.875
+        }
+      }
+  "127":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: Core.OriginalAlert.event.causality_actor_primary_username
+          operator: isNotEmpty
+          right:
+            value: {}
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: Core.OriginalAlert.event.causality_actor_primary_username
+          operator: isNotEqualString
+          right:
+            value:
+              simple: NT AUTHORITY\SYSTEM
+      label: "yes"
+    continueonerrortype: ""
+    id: "127"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "130"
+      "yes":
+      - "118"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the involved user is a non-system account before
+        proceeding with user-based remediation.
+      id: f5748cb8-02af-4171-9233-94fb2acdaa07
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Check if User Is a Non-System Account
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: f5748cb8-02af-4171-9233-94fb2acdaa07
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -449.5833740234375,
+          "y": 2100.8331298828125
+        }
+      }
+  "128":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: DisableUser.Result
+          operator: isEqualString
+          right:
+            value:
+              simple: Success
+      label: "Yes"
+    continueonerrortype: ""
+    id: "128"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "129"
+      "Yes":
+      - "130"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the previously executed command completed without
+        errors.
+      id: a665846f-d36a-4049-8e75-cc36d722fbb8
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Command executed successfully?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: a665846f-d36a-4049-8e75-cc36d722fbb8
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -449.5833740234375,
+          "y": 2589.9996337890625
+        }
+      }
+  "129":
+    continueonerrortype: ""
+    id: "129"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "130"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |-
+        Dear Analyst,
+
+        Please note that during the remediation process, the playbook did not disable the user: ${Core.OriginalAlert.event.causality_actor_primary_username}
+
+        Please manually disable the user to complete the containment and remediation process.
+      id: d9c6a52e-a63f-4eaf-b47b-04a598b0fd53
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Manual remediation actions required to log off the user
+      playbooktaskmissingcomponent: null
+      type: regular
+      version: -1
+    taskid: d9c6a52e-a63f-4eaf-b47b-04a598b0fd53
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -449.5833740234375,
+          "y": 2792.4998779296875
+        }
+      }
+  "130":
+    continueonerrortype: ""
+    id: "130"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "147"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 7242f8f1-babe-47ae-86ec-1faafd16fc0b
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Done - User Remediation
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 7242f8f1-babe-47ae-86ec-1faafd16fc0b
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": -199.99998474121094,
+          "y": 3052.4998779296875
+        }
+      }
+  "131":
+    continueonerrortype: ""
+    id: "131"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "134"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      comment:
+        simple: Malicious files were blocked by the playbook 'Suspicious Powershell
+          Command Execution'.
+      hash_list:
+        complex:
+          accessor: Value
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: FileEnrichment.TIMScore
+              operator: isEqualNumber
+              right:
+                value:
+                  simple: "3"
+          root: FileEnrichment
+          transformers:
+          - operator: uniq
+      incident_id:
+        complex:
+          accessor: parentXDRIncident
+          root: alert
+          transformers:
+          - args:
+              delimiter:
+                value:
+                  simple: '-'
+              fields:
+                value:
+                  simple: "2"
+            operator: Cut
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Cortex Core - IR
+      description: Block lists requested files which have not already been block listed
+        or added to allow lists.
+      id: 0cf67c24-da89-428f-9b09-da0a25b06ada
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Block malicious file Indicators
+      playbooktaskmissingcomponent: null
+      script: Cortex Core - IR|||core-blocklist-files
+      type: regular
+      version: -1
+    taskid: 0cf67c24-da89-428f-9b09-da0a25b06ada
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1284.375,
+          "y": 2150
+        }
+      }
+  "132":
+    continueonerrortype: ""
+    id: "132"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "133"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 569da8ef-3dc0-4efa-a8a4-2d61733631a4
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Block Malicious Processes
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 569da8ef-3dc0-4efa-a8a4-2d61733631a4
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 1284.375,
+          "y": 1805.8331298828125
+        }
+      }
+  "133":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: FileEnrichment.TIMScore
+          operator: isEqualNumber
+          right:
+            value:
+              simple: "3"
+      label: "yes"
+    continueonerrortype: ""
+    id: "133"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "134"
+      "yes":
+      - "131"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether any malicious file hashes were found that need to
+        be blocked.
+      id: e59bff91-5263-4d03-933b-ee28ce68d4a4
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Were any malicious SHA-256 hashes detected?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: e59bff91-5263-4d03-933b-ee28ce68d4a4
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1284.375,
+          "y": 1953.3331298828125
+        }
+      }
+  "134":
+    continueonerrortype: ""
+    id: "134"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "147"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: e0767d54-9180-4b85-8bf4-ab54edbdbdeb
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Done - Block Malicious Indicators
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: e0767d54-9180-4b85-8bf4-ab54edbdbdeb
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 1284.375,
+          "y": 2343.3331298828125
+        }
+      }
+  "136":
+    continueonerrortype: ""
+    id: "136"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "26"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 16178ca7-91d4-439e-88a1-5e27ce2bab7a
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Terminate process
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 16178ca7-91d4-439e-88a1-5e27ce2bab7a
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 721.875,
+          "y": 1812.4998779296875
+        }
+      }
+  "137":
+    continueonerrortype: ""
+    id: "137"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "147"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 476f1a7d-07d4-4643-8d1e-4d82f1bc25cf
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Done - Terminate process
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 476f1a7d-07d4-4643-8d1e-4d82f1bc25cf
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 721.875,
+          "y": 2343.3331298828125
+        }
+      }
+  "138":
+    continueonerrortype: ""
+    id: "138"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "141"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: ab3bc46d-1ebc-4d51-898f-3442454b1684
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Isolate Endpoint
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: ab3bc46d-1ebc-4d51-898f-3442454b1684
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": -1075,
+          "y": 1811.875
+        }
+      }
+  "139":
+    continueonerror: true
+    continueonerrortype: ""
+    id: "139"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "143"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      brands:
+        simple: Cortex Core - IR
+      endpoint_id:
+        simple: ${alert.agentid}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: This script isolates endpoints using multiple integrations and
+        returns a success or failure message.
+      id: fae0e1ee-f7f6-486c-829b-3b14a8dd2a4f
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Isolate Endpoint
+      playbooktaskmissingcomponent: null
+      script: isolate-endpoint
+      type: regular
+      version: -1
+    taskid: fae0e1ee-f7f6-486c-829b-3b14a8dd2a4f
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -1075,
+          "y": 2306.875
+        }
+      }
+  "140":
+    continueonerrortype: ""
+    id: "140"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    message:
+      bcc: null
+      body:
+        simple: Should perform isolation on the endpoint ${alert.hostname} ?
+      cc: null
+      format: ""
+      methods: []
+      replyOptions:
+      - "Yes"
+      - "No"
+      subject: null
+      timings:
+        completeafterreplies: 1
+        completeaftersla: false
+        completeafterv2: true
+        retriescount: 2
+        retriesinterval: 360
+      to: null
+    nexttasks:
+      '#default#':
+      - "144"
+      "Yes":
+      - "139"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the analyst has approved isolating the endpoint.
+      id: db151507-8b61-422d-864b-cb568b3f5562
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Analyst approval for isolation
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: db151507-8b61-422d-864b-cb568b3f5562
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -1075,
+          "y": 2136.875
+        }
+      }
+  "141":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: EndpointData.AdditionalFields.endpoint_type
+          operator: containsString
+          right:
+            value:
+              simple: WORKSTATION
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: EndpointData.AdditionalFields.endpoint_status
+          operator: isEqualString
+          right:
+            value:
+              simple: CONNECTED
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: EndpointData.AdditionalFields.is_isolated
+          operator: isEqualString
+          right:
+            value:
+              simple: AGENT_UNISOLATED
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: Core.OriginalAlert.event.is_src_host_dc_server
+          operator: isEqualString
+          right:
+            value:
+              simple: "false"
+      label: Isolate
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: EndpointData.AdditionalFields.is_isolated
+          operator: isEqualString
+          right:
+            value:
+              simple: AGENT_ISOLATED
+      label: Already isolated
+    continueonerrortype: ""
+    id: "141"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "142"
+      Already isolated:
+      - "144"
+      Isolate:
+      - "140"
+    note: false
+    quietmode: 2
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the endpoint is eligible for isolation by verifying
+        it is not already isolated, disconnected, or a server. isolation state, and
+        OS type.
+      id: 8635cf82-e986-403d-8065-e629de084413
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Verify endpoint isn't isolated, disconnected, or a server
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 8635cf82-e986-403d-8065-e629de084413
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -1075,
+          "y": 1964.375
+        }
+      }
+  "142":
+    continueonerrortype: ""
+    id: "142"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "144"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: "Dear Analyst,\n\nPlease note that during the remediation process,
+        the playbook didn't isolated the following host: ${alert.hostname} \n\nThis
+        is due to one of the following reasons:\n- The device disconnected.\n- The
+        device has been identified as a server. \n\n**Note**: If the host is a Domain
+        Controller (DC), the playbook does not perform automatic isolation to avoid
+        disrupting domain services.\n\nPlease take manual action to contain the attack
+        and prevent the attacker from executing lateral movement or exfiltration before
+        closing this alert."
+      id: 8a1b2c47-ca8a-413b-8b4b-01f6a883b757
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Manual remediation actions for a server or a disconnected endpoint
+      playbooktaskmissingcomponent: null
+      type: regular
+      version: -1
+    taskid: 8a1b2c47-ca8a-413b-8b4b-01f6a883b757
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -1295,
+          "y": 2626.875
+        }
+      }
+  "143":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: IsolateEndpoint.Result
+          operator: isEqualString
+          right:
+            value:
+              simple: Success
+      label: "yes"
+    continueonerrortype: ""
+    id: "143"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "142"
+      "yes":
+      - "144"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the endpoint was successfully isolated.
+      id: 6eada196-ae16-4008-8fb6-a24ac51d959d
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Was the endpoint isolation successful?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 6eada196-ae16-4008-8fb6-a24ac51d959d
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -1075,
+          "y": 2459.375
+        }
+      }
+  "144":
+    continueonerrortype: ""
+    id: "144"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "147"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: e09a3bc5-c9cc-4059-85cb-44b20f197bc1
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Done - Isolate Endpoint
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: e09a3bc5-c9cc-4059-85cb-44b20f197bc1
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": -1075,
+          "y": 2856.875
+        }
+      }
+  "145":
+    continueonerrortype: ""
+    id: "145"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "146"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      closeNotes:
+        simple: Resolved as True Positive - Handled by the playbook "Uncommon creation
+          or access operation of sensitive shadow copy by a high-risk process"
+      closeReason:
+        simple: Resolved - True Positive
+      id:
+        complex:
+          accessor: id
+          root: alert
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: Closes the investigation and marks the alert's verdict as a True
+        Positive.
+      id: 0d9ff28b-f143-4398-9470-adf5d9ccff02
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Close Alert as True Positive
+      playbooktaskmissingcomponent: null
+      script: Builtin|||closeInvestigation
+      type: regular
+      version: -1
+    taskid: 0d9ff28b-f143-4398-9470-adf5d9ccff02
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 963.5416870117188,
+          "y": 3700
+        }
+      }
+  "146":
+    continueonerrortype: ""
+    id: "146"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: fa1f867b-fd2f-4266-8c69-27d5bdb54a69
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Done
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: fa1f867b-fd2f-4266-8c69-27d5bdb54a69
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 721.875,
+          "y": 3890
+        }
+      }
+  "147":
+    continueonerrortype: ""
+    id: "147"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "148"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: Updates the alert with investigation findings and sets a final
+        verdict.
+      id: ff4330fe-7632-442a-8a2a-7f6b2a2fd905
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Update Alert
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: ff4330fe-7632-442a-8a2a-7f6b2a2fd905
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 721.875,
+          "y": 3209.375
+        }
+      }
+  "148":
+    continueonerrortype: ""
+    form:
+      description: ""
+      expired: false
+      questions:
+      - defaultrows: []
+        fieldassociated: ""
+        gridcolumns: []
+        id: "0"
+        label: ""
+        labelarg:
+          simple: |-
+            The playbook analysis has classified this alert as a True Positive and executed remediation actions to mitigate the threat.
+
+            Please review the applied remediation and classification.
+
+            Note: Resolving this issue might close the case, provided all other issues in the case are resolved.
+        options: []
+        optionsarg:
+        - {}
+        - simple: Resolve Issue
+        - simple: Keep Open for Review
+        placeholder: ""
+        readonly: false
+        required: false
+        tooltip: ""
+        type: singleSelect
+      sender: ""
+      title: Should Resolve True Positive Alert
+      totalanswers: 0
+    id: "148"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    message:
+      bcc: null
+      body: null
+      cc: null
+      format: ""
+      methods: []
+      subject: null
+      timings:
+        completeafterreplies: 1
+        completeaftersla: false
+        completeafterv2: true
+        retriescount: 2
+        retriesinterval: 360
+      to: null
+    nexttasks:
+      '#none#':
+      - "149"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Get analyst approval for resolving the alert
+      id: 562a5038-c7ef-4d3d-85aa-ad303724f8e1
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Manual Review: True Positive Confirmed'
+      playbooktaskmissingcomponent: null
+      type: collection
+      version: -1
+    taskid: 562a5038-c7ef-4d3d-85aa-ad303724f8e1
+    timertriggers: []
+    type: collection
+    view: |-
+      {
+        "position": {
+          "x": 721.875,
+          "y": 3357.5
+        }
+      }
+  "149":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: Should Resolve True Positive Alert.Answers.0
+          operator: isEqualString
+          right:
+            value:
+              simple: Resolve Issue
+      label: Resolve Alert
+    continueonerrortype: ""
+    id: "149"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "146"
+      Resolve Alert:
+      - "145"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks the analyst's decision from the manual review task.
+      id: 2870dccc-6b13-4b9e-833f-3391c83696da
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Check Analyst Decision for resolve decision
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 2870dccc-6b13-4b9e-833f-3391c83696da
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 721.875,
+          "y": 3517.49951171875
+        }
+      }
+  "150":
+    continueonerrortype: ""
+    id: "150"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "152"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: ShadowCopyIndex
+      value:
+        complex:
+          accessor: '[0]'
+          root: alert.filepath
+          transformers:
+          - args:
+              error_if_no_match: {}
+              ignore_case: {}
+              multi_line: {}
+              period_matches_newline: {}
+              regex:
+                value:
+                  simple: HarddiskVolumeShadowCopy\d+
+              unpack_matches: {}
+            operator: RegexExtractAll
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Sets the retrieved shadow copy index in the context for use in
+        subsequent tasks. is entered, the script doesn't do anything.\n\nThis automation
+        runs using the default Limited User role, unless you explicitly change the
+        permissions.\nFor more information, see the section about permissions here:\n-
+        For Cortex XSOAR 6 see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/6.x/Cortex-XSOAR-Playbook-Design-Guide/Automations
+        \n- For Cortex XSOAR 8 Cloud see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8/Cortex-XSOAR-Cloud-Documentation/Create-a-script\n-
+        For Cortex XSOAR 8.7 On-prem see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8.7/Cortex-XSOAR-On-prem-Documentation/Create-a-script"
+      id: 20b39864-678a-4d30-a063-1d9bd31c3744
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Set Shadow copy index
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 20b39864-678a-4d30-a063-1d9bd31c3744
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 2610,
+          "y": 1930.8331298828125
+        }
+      }
+  "151":
+    continueonerrortype: ""
+    id: "151"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "150"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 7bfd1c4e-8f91-46df-8e64-1840c34ce69c
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Shadow Copy Deletion
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 7bfd1c4e-8f91-46df-8e64-1840c34ce69c
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 2610,
+          "y": 1805.8331298828125
+        }
+      }
+  "152":
+    continueonerror: true
+    continueonerrortype: errorPath
+    id: "152"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#error#':
+      - "162"
+      '#none#':
+      - "159"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      command:
+        simple: (Get-WmiObject Win32_ShadowCopy | Where-Object {$_.DeviceObject -like
+          "*${ShadowCopyIndex}*"}).ID
+      command_type:
+        simple: powershell
+      endpoint_ids:
+        simple: ${alert.agentid}
+      is_raw_command:
+        simple: "true"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Executes a command on the endpoint to list available shadow copies
+        and retrieve their index numbers.
+      id: 4930d827-1109-4250-a88c-c62bb5f76c5c
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Execute command to retrieve the shadow copy Index
+      playbooktaskmissingcomponent: null
+      script: '|||core-execute-command'
+      type: regular
+      version: -1
+    taskid: 4930d827-1109-4250-a88c-c62bb5f76c5c
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 2610,
+          "y": 2061.875
+        }
+      }
+  "153":
+    continueonerrortype: ""
+    id: "153"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "154"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: cf41140c-d4fc-4650-84f6-1276a3f5a0ad
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Remediation for files on mounted volumes
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: cf41140c-d4fc-4650-84f6-1276a3f5a0ad
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 1900,
+          "y": 1805.8331298828125
+        }
+      }
+  "154":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: Evidence.Name
+          operator: containsGeneral
+          right:
+            value:
+              simple: ntds.dit_sam_security_system_file_write_evets_found
+      label: "yes"
+    continueonerrortype: ""
+    id: "154"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "156"
+      "yes":
+      - "155"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the preceding query found file write events involving
+        sensitive hive files like NTDS.dit, SAM, SYSTEM, or SECURITY. the XQL query.
+      id: bad3f73f-f8e7-47db-95f0-c79f7182cff9
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Found ntds.dit or sam or system or security hive file written event?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: bad3f73f-f8e7-47db-95f0-c79f7182cff9
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1900,
+          "y": 1953.3331298828125
+        }
+      }
+  "155":
+    continueonerrortype: ""
+    id: "155"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "156"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: "Dear Analyst,\n\nDuring the investigation, the playbook identified
+        a file write event involving a sensitive file (NTDS.dit, SAM, SECURITY, or
+        SYSTEM) on the following path:\nPath: \n${PaloAltoNetworksXQL.GenericQuery.results.action_file_path}\n\nThe
+        event was observed on the following agent IDs:\n${PaloAltoNetworksXQL.GenericQuery.results.agent_id}\n\nThese
+        files contain critical system and credential information, making them high-risk
+        targets for lateral movement, privilege escalation, or data exfiltration.\n\n**Action**:
+        Manual remediation is required to contain the activity and prevent further
+        compromise.\n\nYou can use the following XQL query to search for similar events:\n```\ndataset
+        \ = xdr_data | filter (lowercase(action_file_name) =\"ntds.dit\" or lowercase(action_file_name)
+        =\"sam\" or lowercase(action_file_name) =\"system\" or lowercase(action_file_name)
+        =\"security\" or lowercase(action_file_name) =\"sam.save\" or lowercase(action_file_name)
+        =\"system.save\" or lowercase(action_file_name) =\"security.save\") and event_type
+        = FILE and event_sub_type = FILE_WRITE and (action_file_path not contains
+        \":\\Windows\\NTDS\\ntds.dit\") and (action_file_path not contains \":\\Windows\\System32\\config\\SECURITY\")
+        and (action_file_path not contains \":\\Windows\\System32\\config\\SYSTEM\")
+        and (action_file_path not contains \":\\Windows\\System32\\config\\SAM\")\n|
+        filter actor_process_image_name != \"VSSVC.exe\" and action_file_path not
+        contains \"\\Device\\HarddiskVolumeShadowCopy\"\n| fields action_file_name,
+        action_file_path , action_file_sha256, agent_id , actor_process_image_name
+        ,causality_actor_process_image_name , event_type , event_sub_type\n| dedup
+        action_file_path , agent_id \n```"
+      id: a27ee5a4-22db-4019-a84d-541ff4fce240
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Manual remediation actions required
+      playbooktaskmissingcomponent: null
+      type: regular
+      version: -1
+    taskid: a27ee5a4-22db-4019-a84d-541ff4fce240
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1900,
+          "y": 2150
+        }
+      }
+  "156":
+    continueonerrortype: ""
+    id: "156"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "147"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: b6b1674b-03ca-4e88-b815-5a60d52be2e7
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Done - Remediation for files on mounted volumes
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: b6b1674b-03ca-4e88-b815-5a60d52be2e7
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 1900,
+          "y": 2330
+        }
+      }
+  "158":
+    continueonerrortype: ""
+    id: "158"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "160"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: ShadowCopyID
+      value:
+        complex:
+          accessor: standard_output
+          root: Core.ScriptResult.results.executed_command
+          transformers:
+          - args:
+              error_if_no_match: {}
+              ignore_case: {}
+              multi_line: {}
+              period_matches_newline: {}
+              regex:
+                value:
+                  simple: \{[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}\}
+              unpack_matches: {}
+            operator: RegexExtractAll
+          - operator: uniq
+          - args:
+              delimiter: {}
+            operator: split
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Sets the ID of the shadow copy identified for deletion into the
+        context. is entered, the script doesn't do anything.\n\nThis automation runs
+        using the default Limited User role, unless you explicitly change the permissions.\nFor
+        more information, see the section about permissions here:\n- For Cortex XSOAR
+        6 see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/6.x/Cortex-XSOAR-Playbook-Design-Guide/Automations
+        \n- For Cortex XSOAR 8 Cloud see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8/Cortex-XSOAR-Cloud-Documentation/Create-a-script\n-
+        For Cortex XSOAR 8.7 On-prem see https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8.7/Cortex-XSOAR-On-prem-Documentation/Create-a-script"
+      id: 2f9b1535-58e7-4461-89c1-fd713a45b1ef
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Set shadow copy to delete
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 2f9b1535-58e7-4461-89c1-fd713a45b1ef
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 2610,
+          "y": 2381.875
+        }
+      }
+  "159":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: Core.ScriptResult.results.executed_command.standard_output
+          operator: isNotEmpty
+      label: "yes"
+    continueonerrortype: ""
+    id: "159"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "162"
+      "yes":
+      - "158"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the command to list shadow copies returned any results.
+      id: 7dac0626-87bd-4871-be35-26d9585cc0c1
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Is the execute command output not empty?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 7dac0626-87bd-4871-be35-26d9585cc0c1
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 2610,
+          "y": 2211.875
+        }
+      }
+  "160":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: ShadowCopyID
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "160"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "162"
+      "yes":
+      - "161"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether a shadow copy ID was identified and set for deletion.
+      id: f91aed49-4a03-44f5-8510-3554d595293c
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Are there any shadow copies that need to be deleted?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: f91aed49-4a03-44f5-8510-3554d595293c
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 2610,
+          "y": 2534.375
+        }
+      }
+  "161":
+    continueonerror: true
+    continueonerrortype: errorPath
+    id: "161"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#error#':
+      - "162"
+      '#none#':
+      - "163"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      command:
+        complex:
+          root: ShadowCopyID
+          transformers:
+          - args:
+              prefix:
+                value:
+                  simple: vssadmin delete shadows /Shadow=
+              suffix:
+                value:
+                  simple: ' /quiet'
+            operator: concat
+      command_type:
+        simple: native
+      endpoint_ids:
+        simple: ${alert.agentid}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Performs remediation by executing a command on the endpoint to
+        delete the identified shadow copy.
+      id: 0c31c706-58a4-4572-93f6-16d86f4fb6de
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Execute command to delete the shadow copies
+      playbooktaskmissingcomponent: null
+      script: '|||core-execute-command'
+      type: regular
+      version: -1
+    taskid: 0c31c706-58a4-4572-93f6-16d86f4fb6de
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 2610,
+          "y": 2717.4998779296875
+        }
+      }
+  "162":
+    continueonerrortype: ""
+    id: "162"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "163"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |-
+        Dear Analyst,
+
+        Please note that during the remediation process, the playbook was unable to delete the shadow copy due to one of the following errors:
+        - The host was unreachable.
+        - No shadow copy was found in the shadow copy list.
+
+        Please take manual action to contain the activity and prevent potential data exfiltration or credential theft before closing this alert.
+      id: 3aaafae7-8615-43cb-afc6-0db47b01f90a
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Manually remediate by deleting the shadow copies or snapshots
+      playbooktaskmissingcomponent: null
+      type: regular
+      version: -1
+    taskid: 3aaafae7-8615-43cb-afc6-0db47b01f90a
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 2160,
+          "y": 2867.4998779296875
+        }
+      }
+  "163":
+    continueonerrortype: ""
+    id: "163"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "147"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 267a12bd-ce0d-4093-9953-d24abbfd5284
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Shadow Copy Deletion - Done
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 267a12bd-ce0d-4093-9953-d24abbfd5284
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 2610,
+          "y": 3040
+        }
+      }
+version: -1
+view: |-
+  {
+    "linkLabelsPosition": {
+      "160_161_yes": 0.57,
+      "26_27_#error#": 0.57,
+      "50_40_yes": 0.42,
+      "51_52_yes": 0.41
+    },
+    "paper": {
+      "dimensions": {
+        "height": 5795,
+        "width": 7926.875,
+        "x": -3070,
+        "y": -1845
+      }
+    }
+  }
