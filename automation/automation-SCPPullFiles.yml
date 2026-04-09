@@ -1,0 +1,81 @@
+args:
+- default: true
+  description: A JSON object mapping RemoteAccess instances to filepaths.
+  name: systems2files
+  required: true
+  supportedModules: []
+comment: Take a list of devices and pull a specific file (given by path) from each
+  using SCP.
+commonfields:
+  id: SCPPullFiles
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 5.0.0
+    isoverridable: false
+    itemVersion: 1.21.4
+    packID: CommonScripts
+    packName: Common Scripts
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+dependson:
+  must:
+  - copy-from
+dockerimage: demisto/python3:3.12.12.5490952
+engineinfo: {}
+mainengineinfo: {}
+name: SCPPullFiles
+nativeimage:
+- "8.8"
+- "8.6"
+pswd: ""
+restrictioncenter: {}
+runas: DBotWeakRole
+runonce: false
+script: |
+  register_module_line('SCPPullFiles', 'start', __line__())
+  CONSTANT_PACK_VERSION = '1.21.4'
+  demisto.debug('pack id = CommonScripts, pack version = 1.21.4')
+
+
+
+
+  def scp_pull_files(args):
+      res = []  # type: ignore
+      s2f = demisto.get(args, "systems2files")
+      if s2f:
+          s2f = json.loads(s2f)
+          if not isinstance(s2f, dict):
+              res = {
+                  "Type": entryTypes["error"],
+                  "ContentsFormat": formats["text"],  # type: ignore
+                  "Contents": "Wrong argument provided. Not a dict. Dump of args: " + json.dumps(args, indent=4),
+              }
+          else:
+              for k in s2f:
+                  res += demisto.executeCommand("copy-from", {"using": k, "file": s2f[k]})
+                  demisto.info("Copying file " + s2f[k] + " from device " + k)
+      return res
+
+
+  def main():
+      args = demisto.args()
+      demisto.results(scp_pull_files(args))
+
+
+  if __name__ in ["__main__", "builtin", "builtins"]:
+      main()
+
+  register_module_line('SCPPullFiles', 'end', __line__())
+scripttarget: 0
+signature: TjJmGQ4/dPw23PRUfDk2kvocNjxMSsj3RrVAE/gUb8BioW86Z+5eRGcOsiu2Fgq77Zy9gx7YStyc/gdHiS22s39NjZeUKO/J6yobvuUkrBoPKUkZETlc9cDFUq8JS4jFHRiH123I8znvTU2FvFus6KRMdGzbVjU7k1KfCBgK5S4770ZvVBL82Jksp0nmsRBpqhlY25qDWL+ZB49nzOuVAhbvqulrTlFriZeemmfSdOgDDn8Bcp9z/QDAuDWvN9JMW/jDgS5AvTejpYpV2Y0NGWB2lhwQ2aqKWy3eIFjcmbjcN6h06WBXmlP4ft1J+ESGN0YY1y96CM5aHgKLx02BVg==
+subtype: python3
+system: true
+tags:
+- Utility
+type: python
