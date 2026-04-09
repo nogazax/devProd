@@ -1,0 +1,66 @@
+args:
+- auto: PREDEFINED
+  default: true
+  defaultValue: "false"
+  description: Whether to only return non-system fields. If "true", will only output
+    non-system fields. The default value is "false".
+  name: exclude_system_fields
+  predefined:
+  - "true"
+  - "false"
+  supportedModules: []
+- auto: PREDEFINED
+  defaultValue: "true"
+  description: Whether to shorten the incident field names. If "true", will cause
+    output to use shortened field names. The default value is "true".
+  name: short_names
+  predefined:
+  - "true"
+  - "false"
+  supportedModules: []
+comment: Returns a dict of all incident fields that exist in the system.
+commonfields:
+  id: IncidentFields
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 5.0.0
+    isoverridable: false
+    itemVersion: 1.21.4
+    packID: CommonScripts
+    packName: Common Scripts
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+dependson:
+  must:
+  - '|||core-api-get'
+deprecated: true
+dockerimage: demisto/python3:3.12.12.5490952
+enabled: true
+engineinfo: {}
+mainengineinfo: {}
+name: IncidentFields
+nativeimage:
+- "8.8"
+- "8.6"
+pswd: ""
+restrictioncenter: {}
+runas: DBotWeakRole
+runonce: false
+script: |-
+  register_module_line('IncidentFields', 'start', __line__())
+
+  return_results(demisto.executeCommand('AlertFields', demisto.args()))
+
+  register_module_line('IncidentFields', 'end', __line__())
+scripttarget: 0
+signature: B48gXGUWPHjjnnvYwaTwsjdnRRN6fBz72PBzd+uiw6IokypLwZO8c3NhMjh8AcHvtrO7VvDPu2mOnKlEbF8tvB5TO4mi7r3022Hxdnef/QdjNpG+RK1TYhhjs/+QiyeSCHQhOG7Ie/HDqOlPlv9QLzgZBLqy5DAdUbrRUCLTVV/ggrJRqVRhfKT4OHhgyYM8nCPRM87eVkAHtb3CO5x2Tt/hSe4ZMmUlmW9m4L8WzLf7FJQZ00YDjOpmCwFq8kMEAQRBN/cr/BoquyJEy/Eku4H6JyMKsz5IFyB5p54qvuNlbHWjaxITyRLtmhS4uJCF/akItB7AzaR3y6M2C7P/tw==
+subtype: python3
+system: true
+tags: []
+type: python
