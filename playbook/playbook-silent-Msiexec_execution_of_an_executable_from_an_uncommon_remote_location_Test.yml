@@ -1,0 +1,3607 @@
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 8.9.0
+    isoverridable: false
+    itemVersion: 1.3.37
+    packID: CortexResponseAndRemediation
+    packName: Cortex Response And Remediation
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+description: "This playbook addresses the following alerts:\n \n- Msiexec execution
+  of an executable from an uncommon remote location with a specific port\n- Msiexec
+  execution of an executable from an uncommon remote location without properties\n
+  \nPlaybook Stages:\n  \nAnalysis: \n \n- Check extracted URL reputation:\n  - Determine
+  if the MSI package was installed from a malicious source\n  - If the URL is found
+  to be malicious, the playbook will proceed directly to remediation steps\n \nInvestigation:\n\n-
+  Check extracted domain's prevalence and causality process signature status:\n  -
+  Evaluate the prevalence of the domain from which the MSI package was downloaded\n
+  \ - Verify if the causality process (CGO) is signed or unsigned\n  - If the domain
+  is found malicious and the causality process is unsigned, the playbook will proceed
+  directly to remediation steps\n\n- Check for the following related alerts: \n  -
+  Local Analysis Malware\n  - Mitre Techniques:\n    - T1140 - Deobfuscate/Decode
+  Files or Information\n    - T1059 - Command and Scripting Interpreter \n\n- Analyze
+  CGO command line for defense evasion techniques:\n  - Evaluate the command line
+  for suspicious patterns which indicates attempts to bypass security controls\n\n-
+  If the command line contains suspicious patterns or related alerts are found, the
+  playbook will proceed directly to remediation steps\n\nContainment:\n \n- Terminate
+  causality process\n- Block maliciou URL (Manual approval)\n  - Implement URL blocking
+  using PAN-OS through Custom URL Categories\n- Isolate endpoint (Manual approval)\n
+  \nRequirements: \n \nFor any response action, you need the following integration:\n
+  \n- PAN-OS."
+id: silent-Msiexec execution of an executable from an uncommon remote location Test
+inputs: []
+issilent: true
+name: silent-Msiexec execution of an executable from an uncommon remote location Test
+outlinetasks: {}
+outputs: []
+possibleresponses: []
+starttaskid: "0"
+system: true
+tags:
+- TA0005 - Defense Evasion
+- T1218 - System Binary Proxy Execution
+tasks:
+  "0":
+    continueonerrortype: ""
+    id: "0"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "4"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 22dbb547-0fdf-497b-8204-d6551597a55e
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: ""
+      playbooktaskmissingcomponent: null
+      version: -1
+    taskid: 22dbb547-0fdf-497b-8204-d6551597a55e
+    timertriggers: []
+    type: start
+    view: |-
+      {
+        "position": {
+          "x": 960,
+          "y": -1110
+        }
+      }
+  "1":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: URLEnrichment.TIMScore
+          operator: isEqualNumber
+          right:
+            value:
+              simple: "3"
+      label: Malicious
+    continueonerrortype: ""
+    id: "1"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "75"
+      Malicious:
+      - "48"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Check reputation of the remote URL from which the MSI was downloaded
+        and installed.
+      id: cb1fad05-0db2-408c-8671-1d61226babd1
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Check extracted remote URL's reputation
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: cb1fad05-0db2-408c-8671-1d61226babd1
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 670,
+          "y": 30
+        }
+      }
+  "4":
+    continueonerrortype: ""
+    id: "4"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "46"
+      - "71"
+      - "91"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 26564f84-253b-4ac3-86f1-33922d96f343
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Data Collection
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 26564f84-253b-4ac3-86f1-33922d96f343
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 960,
+          "y": -965
+        }
+      }
+  "8":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: CommandLineAnalysis.risk
+          operator: containsString
+          right:
+            value:
+              simple: High Risk
+        - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: CommandLineAnalysis.risk
+          operator: containsString
+          right:
+            value:
+              simple: Critical Risk
+      label: Malicious
+    continueonerrortype: ""
+    id: "8"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "75"
+      Malicious:
+      - "98"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Check if there are any related alerts that indicate malicious msiexec
+        activity or if the command line analysis indicates high risk.
+      id: a8fd6942-2683-4b9c-82e1-870177659bf4
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Check if defense evasion techniques exist
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: a8fd6942-2683-4b9c-82e1-870177659bf4
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 2370,
+          "y": -180
+        }
+      }
+  "11":
+    continueonerrortype: ""
+    id: "11"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "21"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      domain_name:
+        simple: ${ExtractedIndicators.Domain}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Retrieves the prevalence of the domain from which the MSI package
+        was downloaded.
+      id: bc8e6e81-0ac2-4987-8e5c-b8842d7943e5
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Check domain prevalence
+      playbooktaskmissingcomponent: null
+      script: '|||core-get-domain-analytics-prevalence'
+      type: regular
+      version: -1
+    taskid: bc8e6e81-0ac2-4987-8e5c-b8842d7943e5
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -180,
+          "y": -170
+        }
+      }
+  "13":
+    continueonerrortype: ""
+    id: "13"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "53"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      extend-context:
+        simple: caseRelatedAlerts=
+      ignore-outputs:
+        simple: "true"
+      query:
+        complex:
+          accessor: parentXDRIncident
+          root: alert
+          transformers:
+          - args:
+              delimiter:
+                value:
+                  simple: '-'
+              fields:
+                value:
+                  simple: "2"
+            operator: Cut
+          - args:
+              prefix:
+                value:
+                  simple: '((mitreattcktechnique:*T1059* or mitreattcktechnique:*1140*
+                    or name:"Local Analysis Malware" or name:"Rare process execution
+                    by user" or name:"Suspicious Process Creation" or name:"WildFire
+                    Malware" or name:"Evasion Technique - 3491705805" or name:"Script
+                    Engine Activity - 454473407" or name:"Execution of masqueraded
+                    third-party automation utility") and caseid:'
+              suffix:
+                value:
+                  simple: )
+            operator: concat
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |-
+        Search related suspicious alerts:
+        Rare process execution by user
+        Suspicious Process Creation
+        Local Analysis Malware
+        WildFire Malware
+        Evasion Technique - 3491705805
+        Script Engine Activity - 454473407
+        Mitre techniques 1059 and 1140
+      id: cefc4c2e-c41a-4d04-806c-09b8306bacf4
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Search for suspicious-related alerts
+      playbooktaskmissingcomponent: null
+      script: SearchAlertsV2
+      type: regular
+      version: -1
+    taskid: cefc4c2e-c41a-4d04-806c-09b8306bacf4
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1420,
+          "y": -390
+        }
+      }
+  "14":
+    continueonerrortype: ""
+    id: "14"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "85"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: Close the current alert.
+      id: e764f33e-8784-4170-8aa0-cd3ba3852b1e
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Update Alert
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: e764f33e-8784-4170-8aa0-cd3ba3852b1e
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 960,
+          "y": 3970
+        }
+      }
+  "21":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              complex:
+                accessor: value
+                root: Core.AnalyticsPrevalence.Domain
+                transformers:
+                - operator: uniq
+          operator: containsGeneral
+          right:
+            value:
+              simple: "False"
+        - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: value
+                root: Core.AnalyticsPrevalence.Ip
+                transformers:
+                - operator: uniq
+          operator: containsGeneral
+          right:
+            value:
+              simple: "False"
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: alert.cgosignature
+          operator: isNotEqualString
+          right:
+            value:
+              simple: SIGNATURE_SIGNED
+      label: Malicious
+    continueonerrortype: ""
+    id: "21"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "75"
+      Malicious:
+      - "50"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: This condition checks if the domain prevalence is not False (i.e.,
+        the domain is prevalent) and if the causality process is signed. If both conditions
+        are met, the task is considered malicious.
+      id: c9992c2b-8a52-4282-82d0-ae1201982065
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Check if domain is not prevalent AND CGO process is unsigned
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: c9992c2b-8a52-4282-82d0-ae1201982065
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 40,
+          "y": 30
+        }
+      }
+  "25":
+    continueonerrortype: ""
+    id: "25"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "1"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      external_enrichment:
+        simple: "true"
+      url_list:
+        simple: ${ExtractedIndicators.URL}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Enriches the extracted URL by gathering reputation data from multiple
+        threat intelligence sources.
+      id: be22bc34-c760-4f19-8e82-9794b831a53d
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Get URL Reputation Verdict
+      playbooktaskmissingcomponent: null
+      script: url-enrichment
+      type: regular
+      version: -1
+    taskid: be22bc34-c760-4f19-8e82-9794b831a53d
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 670,
+          "y": -170
+        }
+      }
+  "30":
+    continueonerrortype: ""
+    id: "30"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "102"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      endpoint_id:
+        simple: ${alert.agentid}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Performs remediation by isolating the affected endpoint from the
+        network.
+      id: b16d5adb-4887-4af8-82e5-c66f1d97d39a
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Isolate endpoint
+      playbooktaskmissingcomponent: null
+      script: isolate-endpoint
+      type: regular
+      version: -1
+    taskid: b16d5adb-4887-4af8-82e5-c66f1d97d39a
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 720,
+          "y": 3610
+        }
+      }
+  "31":
+    continueonerrortype: ""
+    id: "31"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "8"
+    note: false
+    quietmode: 0
+    reputationcalc: 2
+    scriptarguments:
+      command_line:
+        complex:
+          accessor: cgocmd
+          root: alert
+          transformers:
+          - args:
+              delimiter:
+                value:
+                  simple: |2+
+
+            operator: splitAndTrim
+          - args:
+              empty_values: {}
+              remove_keys:
+                value:
+                  simple: "true"
+            operator: RemoveEmpty
+          - args:
+              separator: {}
+            operator: join
+      custom_patterns:
+        simple: '(?i)(cmd|type)<?\s*\w+\.\w{1,3}(\|cmd)?(\:\w+)? '
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Analyses the causality process (CGO) command line for suspicious
+        patterns and defense evasion techniques.
+      id: cff748ae-c554-46f0-8212-b5ef90b0d4c4
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Check CGO command for defense evasion techniques
+      playbooktaskmissingcomponent: null
+      script: CommandLineAnalysis
+      type: regular
+      version: -1
+    taskid: cff748ae-c554-46f0-8212-b5ef90b0d4c4
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 2370,
+          "y": -390
+        }
+      }
+  "33":
+    continueonerror: true
+    continueonerrortype: ""
+    id: "33"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "99"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      agent_id:
+        simple: ${alert.agentid}
+      causality_id:
+        simple: ${alert.cid}
+      timeout_in_seconds:
+        simple: "180"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Terminate a process tree by its causality ID.
+      id: f5c208d2-808d-4a7d-8a4a-3e04b79f3cb1
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Terminate Causality (CGO)
+      playbooktaskmissingcomponent: null
+      script: '|||core-terminate-causality'
+      type: regular
+      version: -1
+    taskid: f5c208d2-808d-4a7d-8a4a-3e04b79f3cb1
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 960,
+          "y": 2055
+        }
+      }
+  "35":
+    continueonerrortype: ""
+    form:
+      description: 'Endpoint Isolation is recommended since a true positive verdict
+        is determined for the current alert:'
+      expired: false
+      questions:
+      - defaultrows: []
+        fieldassociated: ""
+        gridcolumns: []
+        id: "0"
+        label: ""
+        labelarg:
+          simple: Should Isolate the endpoint?
+        options: []
+        optionsarg:
+        - simple: "No"
+        - simple: "Yes"
+        placeholder: ""
+        readonly: false
+        required: false
+        tooltip: ""
+        type: singleSelect
+      - defaultrows: []
+        fieldassociated: ""
+        gridcolumns: []
+        id: "1"
+        label: ""
+        labelarg:
+          simple: "Should Block the following malicious URL using PAN-OS? \n- ${URL.Data}
+            \  "
+        options: []
+        optionsarg:
+        - simple: "No"
+        - simple: "Yes"
+        placeholder: ""
+        readonly: false
+        required: false
+        tooltip: This will block URLs using Palo Alto Networks Panorama or Firewall
+          through Custom URL Categories. The playbook checks whether the input URL
+          category already exists, and if the URLs are a part of this category. Otherwise,
+          it will create the category, block the URLs, and commit the configuration.
+        type: singleSelect
+      - defaultrows: []
+        fieldassociated: ""
+        gridcolumns: []
+        id: "2"
+        label: ""
+        labelarg:
+          simple: 'Should the following user be disabled using the ''Active Directory''
+            integration: ${Core.OriginalAlert.event.actor_primary_username} ?'
+        options: []
+        optionsarg:
+        - {}
+        - simple: "Yes"
+        - simple: "No"
+        placeholder: ""
+        readonly: false
+        required: false
+        tooltip: ""
+        type: singleSelect
+      sender: Your SOC team
+      title: RemediationApproval
+      totalanswers: 0
+    id: "35"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    message:
+      bcc: null
+      body: null
+      cc: null
+      format: ""
+      methods: []
+      replyOptions:
+      - "Yes"
+      - "No"
+      subject: null
+      timings:
+        completeafterreplies: 1
+        completeaftersla: false
+        completeafterv2: true
+        retriescount: 2
+        retriesinterval: 360
+      to: null
+    nexttasks:
+      '#none#':
+      - "36"
+      - "89"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |-
+        Endpoint Isolation is recommended since the following verdicts have been confirmed:
+
+         - MSI package was installed from a malicious remote URL
+      id: 78e33520-b34e-4430-b177-aca830e11241
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Approve the endpoint isolation & Block URL
+      playbooktaskmissingcomponent: null
+      type: collection
+      version: -1
+    taskid: 78e33520-b34e-4430-b177-aca830e11241
+    timertriggers: []
+    type: collection
+    view: |-
+      {
+        "position": {
+          "x": 960,
+          "y": 2850
+        }
+      }
+  "36":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: RemediationApproval.Answers.0
+          operator: isEqualString
+          right:
+            value:
+              simple: "Yes"
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: RemediationApproval.Answers.1
+          operator: isEqualString
+          right:
+            value:
+              simple: "Yes"
+      label: Isolate & Block
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: RemediationApproval.Answers.0
+          operator: isEqualString
+          right:
+            value:
+              simple: "Yes"
+      label: Isolate Only
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: RemediationApproval.Answers.1
+          operator: isEqualString
+          right:
+            value:
+              simple: "Yes"
+      - - left:
+            iscontext: true
+            value:
+              simple: URL.Data
+          operator: isNotEmpty
+      label: Block URL Only
+    continueonerrortype: ""
+    id: "36"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "14"
+      Block URL Only:
+      - "40"
+      Isolate & Block:
+      - "38"
+      Isolate Only:
+      - "39"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Check the analyst's answers to the early containment approval form
+        and execute the appropriate actions based on the responses.
+      id: aca3267e-6363-409b-8008-a28f02d88c35
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Check analyst answers
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: aca3267e-6363-409b-8008-a28f02d88c35
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 960,
+          "y": 3010
+        }
+      }
+  "38":
+    continueonerrortype: ""
+    id: "38"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "41"
+      - "95"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 4527b73e-2146-4e12-89e9-0c1cfcf232a6
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Isolate & Block
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 4527b73e-2146-4e12-89e9-0c1cfcf232a6
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 960,
+          "y": 3185
+        }
+      }
+  "39":
+    continueonerrortype: ""
+    id: "39"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "95"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: fdae42ed-d807-4de9-882a-c597d6715e2c
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Isolate Only
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: fdae42ed-d807-4de9-882a-c597d6715e2c
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 530,
+          "y": 3185
+        }
+      }
+  "40":
+    continueonerrortype: ""
+    id: "40"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "41"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 9e98e4cc-618b-42ab-8716-ff5811102dad
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Block URL Only
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 9e98e4cc-618b-42ab-8716-ff5811102dad
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 1390,
+          "y": 3185
+        }
+      }
+  "41":
+    continueonerrortype: ""
+    id: "41"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    loop:
+      exitCondition: ""
+      iscommand: false
+      max: 100
+      wait: 1
+    nexttasks:
+      '#none#':
+      - "100"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      AutoCommit:
+        simple: "Yes"
+      CustomURLCategory:
+        simple: XSIAM - Malicious URLs
+      URL:
+        complex:
+          accessor: URL}
+          root: ${ExtractedIndicators
+          transformers:
+          - operator: uniq
+      pre-post:
+        simple: pre-rulebase
+      type:
+        simple: URL List
+    separatecontext: true
+    skipunavailable: true
+    task:
+      brand: ""
+      description: Performs remediation by blocking the malicious URL using a PAN-OS
+        custom URL category.
+      id: 8e3f29e7-77b3-44ae-8141-8c9c8ab2c45e
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: PAN-OS - Block URL - Custom URL Category
+      playbookName: PAN-OS - Block URL - Custom URL Category
+      playbooktaskmissingcomponent: null
+      type: playbook
+      version: -1
+    taskid: 8e3f29e7-77b3-44ae-8141-8c9c8ab2c45e
+    timertriggers: []
+    type: playbook
+    view: |-
+      {
+        "position": {
+          "x": 1170,
+          "y": 3352.499755859375
+        }
+      }
+  "42":
+    continueonerrortype: ""
+    id: "42"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "33"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 1f8a09ff-ca8a-48f9-891c-aa54cd1d247e
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Remediation
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 1f8a09ff-ca8a-48f9-891c-aa54cd1d247e
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 960,
+          "y": 1910
+        }
+      }
+  "43":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: ExtractedIndicators.Domain
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: Domain
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                filters:
+                - - left:
+                      iscontext: true
+                      value:
+                        simple: ExtractedIndicators.IP
+                    operator: notIn
+                    right:
+                      value:
+                        simple: alert.hostip
+                root: ExtractedIndicators.IP
+          operator: isNotEmpty
+      label: IP
+    continueonerrortype: ""
+    id: "43"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "75"
+      Domain:
+      - "11"
+      IP:
+      - "44"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether prevalence data can be retrieved for the extracted
+        domain or IP indicators.
+      id: 5d615f3c-8a8f-4609-8dfb-28b12855f2bf
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Check If prevalence can be run on
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 5d615f3c-8a8f-4609-8dfb-28b12855f2bf
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 40,
+          "y": -390
+        }
+      }
+  "44":
+    continueonerrortype: ""
+    id: "44"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "21"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      ip_address:
+        complex:
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: ExtractedIndicators.IP
+              operator: notIn
+              right:
+                value:
+                  simple: alert.hostip
+          root: ExtractedIndicators.IP
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Retrieves the prevalence of the remote IP address associated with
+        the MSI download location.
+      id: 03a3d6ad-7c6f-46c8-8d43-d1cf19686b9e
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Check IP prevalence
+      playbooktaskmissingcomponent: null
+      script: '|||core-get-IP-analytics-prevalence'
+      type: regular
+      version: -1
+    taskid: 03a3d6ad-7c6f-46c8-8d43-d1cf19686b9e
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 240,
+          "y": -170
+        }
+      }
+  "45":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: ExtractedIndicators.URL
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: "yes"
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: alert.severity
+          operator: isEqualString
+          right:
+            value:
+              simple: "3"
+      label: Error
+    continueonerrortype: ""
+    id: "45"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "75"
+      Error:
+      - "49"
+      "yes":
+      - "25"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Check if URL exist
+      id: da8af581-6714-42e3-8803-d713677ad22b
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Check if URL exist
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: da8af581-6714-42e3-8803-d713677ad22b
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 670,
+          "y": -390
+        }
+      }
+  "46":
+    continueonerrortype: ""
+    id: "46"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "47"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      text:
+        simple: ${alert.targetprocesscmd}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: Extracts URL, domain, and IP indicators from the msiexec command
+        line for further enrichment and analysis.
+      id: c581f560-40ea-46c0-81a3-abb44e88947c
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Extract Indicators
+      playbooktaskmissingcomponent: null
+      script: Builtin|||extractIndicators
+      type: regular
+      version: -1
+    taskid: c581f560-40ea-46c0-81a3-abb44e88947c
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 550,
+          "y": -780
+        }
+      }
+  "47":
+    continueonerrortype: ""
+    id: "47"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "45"
+      - "13"
+      - "31"
+      - "43"
+      - "54"
+      - "64"
+      - "72"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 81ed7394-8ab5-4ef6-8c10-b0ad18956a91
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Investigation
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 81ed7394-8ab5-4ef6-8c10-b0ad18956a91
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 960,
+          "y": -580
+        }
+      }
+  "48":
+    continueonerrortype: ""
+    id: "48"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "75"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "malicious_url", "Score": 3, "Comment": "A malicious URL
+          was identified"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that a malicious URL was identified during the
+        investigation.
+      id: 8af784ff-63c8-413b-81b0-f9e5c0a1afa0
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: Malicious URL was found'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 8af784ff-63c8-413b-81b0-f9e5c0a1afa0
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 670,
+          "y": 243.75
+        }
+      }
+  "49":
+    continueonerrortype: ""
+    id: "49"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "75"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: Errors
+      value:
+        simple: '{"Name": "failed_extract_indicators", "Comment": "Extraction of indicators
+          failed"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records a finding that indicator extraction from the command line
+        failed.
+      id: 7a758f08-9570-46fa-8a4d-cb8d03d80dd8
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Set error for indicator extraction failure '
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 7a758f08-9570-46fa-8a4d-cb8d03d80dd8
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1110,
+          "y": -170
+        }
+      }
+  "50":
+    continueonerrortype: ""
+    id: "50"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "75"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "non_prevalent_domain_ip_unsigned_cgo", "Score": 1, "Comment":
+          "A non-prevalent domain or IP was observed with unsigned CGO executing msiexec"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that a non-prevalent domain or IP was observed
+        in conjunction with an unsigned causality process.
+      id: cfc04f50-d353-4535-8288-9c9abaae0758
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: Non prevalent domain or IP with unsigned CGO'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: cfc04f50-d353-4535-8288-9c9abaae0758
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 40,
+          "y": 243.75
+        }
+      }
+  "51":
+    continueonerrortype: ""
+    id: "51"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "75"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "suspicious_related_alerts", "Score": 1, "Comment": "Suspicious
+          related alerts were identified"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that suspicious related alerts were found on the
+        host.
+      id: a58bb079-baa3-44e7-8b48-669c7a6e61c8
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: Suspicious related alerts were found'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: a58bb079-baa3-44e7-8b48-669c7a6e61c8
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1680,
+          "y": 30
+        }
+      }
+  "53":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                root: caseRelatedAlerts
+                transformers:
+                - operator: count
+          operator: greaterThanOrEqual
+          right:
+            value:
+              simple: "1"
+        - left:
+            iscontext: true
+            value:
+              complex:
+                root: agentRelatedAlerts
+                transformers:
+                - operator: count
+          operator: greaterThanOrEqual
+          right:
+            value:
+              simple: "1"
+      label: "yes"
+    continueonerrortype: ""
+    id: "53"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "75"
+      "yes":
+      - "51"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks if any suspicious alerts were found.
+      id: 6c337b03-bcda-4716-825a-ed36009e8539
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Found suspicious alerts?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 6c337b03-bcda-4716-825a-ed36009e8539
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1680,
+          "y": -170
+        }
+      }
+  "54":
+    continueonerrortype: ""
+    id: "54"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "53"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      extend-context:
+        simple: agentRelatedAlerts=
+      fromdate:
+        complex:
+          accessor: timestamp
+          root: alert
+          transformers:
+          - args:
+              variation:
+                value:
+                  simple: 3 hours ago
+            operator: ModifyDateTime
+      ignore-outputs:
+        simple: "true"
+      query:
+        complex:
+          accessor: agentid
+          root: alert
+          transformers:
+          - args:
+              prefix:
+                value:
+                  simple: '((mitreattcktechnique:*T1059* or mitreattcktechnique:*1140*
+                    or name:"Local Analysis Malware" or name:"Rare process execution
+                    by user" or name:"Suspicious Process Creation" or name:"WildFire
+                    Malware" or name:"Evasion Technique - 3491705805" or name:"Script
+                    Engine Activity - 454473407" or name:"Execution of masqueraded
+                    third-party automation utility") and agentid:'
+              suffix:
+                value:
+                  simple: )
+            operator: concat
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |-
+        Search related suspicious alerts:
+        Rare process execution by user
+        Suspicious Process Creation
+        Local Analysis Malware
+        WildFire Malware
+        Evasion Technique - 3491705805
+        Script Engine Activity - 454473407
+        Mitre techniques 1059 and 1140
+      id: f9c92b97-0032-4d55-8555-4a26edd6ef96
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Search for suspicious-related alerts by agent
+      playbooktaskmissingcomponent: null
+      script: SearchAlertsV2
+      type: regular
+      version: -1
+    taskid: f9c92b97-0032-4d55-8555-4a26edd6ef96
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1895,
+          "y": -390
+        }
+      }
+  "56":
+    continueonerror: true
+    continueonerrortype: errorPath
+    id: "56"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#error#':
+      - "62"
+      '#none#':
+      - "57"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      query:
+        simple: "dataset = xdr_data \n| filter event_sub_type = ENUM.FILE_WRITE and
+          agent_hostname contains \"${alert.hostname}\" and action_file_name ~=  \"^MSI[0-9a-fA-F]{1,5}\\.tmp$\"\n|
+          fields action_file_sha256"
+      query_name:
+        simple: xql_temp_msi_file_write
+      time_frame:
+        simple: between ${5_min_window} and now
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: XQL Query Engine
+      description: Executes an XQL query to search for file write events related to
+        temporary MSI files created by the msiexec.exe process.
+      id: 934941d5-6a52-42d2-8c3a-95916e33be42
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Check for temporary MSI file write events
+      playbooktaskmissingcomponent: null
+      script: XQL Query Engine|||xdr-xql-generic-query
+      type: regular
+      version: -1
+    taskid: 934941d5-6a52-42d2-8c3a-95916e33be42
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -691.6666666269302,
+          "y": 30
+        }
+      }
+  "57":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: results.action_file_sha256
+                filters:
+                - - left:
+                      iscontext: true
+                      value:
+                        simple: PaloAltoNetworksXQL.GenericQuery.query_name
+                    operator: isEqualString
+                    right:
+                      value:
+                        simple: xql_temp_msi_file_write
+                root: PaloAltoNetworksXQL.GenericQuery
+                transformers:
+                - operator: count
+          operator: greaterThan
+          right:
+            value:
+              simple: "0"
+      label: "yes"
+    continueonerrortype: ""
+    id: "57"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "75"
+      "yes":
+      - "65"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the XQL query found any temporary MSI file write
+        events.
+      id: 92e86e05-e7dc-4842-8b6d-0e7f63ada384
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Found temporary MSI write events?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 92e86e05-e7dc-4842-8b6d-0e7f63ada384
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -691.6666666269302,
+          "y": 243.75
+        }
+      }
+  "59":
+    continueonerrortype: ""
+    id: "59"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "75"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "malicious_tmp_msi_file", "Score": 3, "Comment": "Found
+          evidence for malicious temporary MSI file"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that a malicious temporary MSI file was found
+        on the host.
+      id: cb3a819c-0f79-4a98-803c-416870761c17
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: Set evidence for malicious MSI file'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: cb3a819c-0f79-4a98-803c-416870761c17
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -691.6666666269302,
+          "y": 830
+        }
+      }
+  "62":
+    continueonerrortype: ""
+    id: "62"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "75"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Errors
+      value:
+        simple: '{"Name": "xql_temp_msi_file_write", "Comment": "XQL task failed to
+          check for temporary MSI file write"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Sets an error message indicating that the XQL query to check for
+        temporary MSI file write events failed.
+      id: e32bae9f-0728-4f02-8620-98b0ac61d763
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Error: XQL task failed to check for temporary MSI file write'
+      playbooktaskmissingcomponent: null
+      script: Set
+      type: regular
+      version: -1
+    taskid: e32bae9f-0728-4f02-8620-98b0ac61d763
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -275,
+          "y": 448.125
+        }
+      }
+  "63":
+    continueonerrortype: ""
+    id: "63"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "56"
+      - "67"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: 5_min_window
+      value:
+        complex:
+          accessor: timestamp
+          root: alert
+          transformers:
+          - args:
+              variation:
+                value:
+                  simple: 5 minutes ago
+            operator: ModifyDateTime
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Sets a 5-minute time window prior to the alert's timestamp for
+        subsequent queries.
+      id: 324c7d76-3e27-4939-8e6e-1e26765f5d8d
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Set 5 minutes window since alert was triggered
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 324c7d76-3e27-4939-8e6e-1e26765f5d8d
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -691.6666666269302,
+          "y": -170
+        }
+      }
+  "64":
+    continueonerrortype: ""
+    id: "64"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "63"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 1b39e417-fcce-4f9a-8dac-bcc402982da9
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: XQL investigation
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 1b39e417-fcce-4f9a-8dac-bcc402982da9
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": -691.6666666269302,
+          "y": -382.5
+        }
+      }
+  "65":
+    continueonerrortype: ""
+    id: "65"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "66"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      extend-context:
+        simple: tempMSIEnrich=
+      file_hash:
+        complex:
+          accessor: action_file_sha256
+          root: PaloAltoNetworksXQL.GenericQuery.results
+          transformers:
+          - operator: uniq
+          - args:
+              separator:
+                value:
+                  simple: ','
+            operator: join
+      ignore-outputs:
+        simple: "true"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Enriches the temporary MSI file's hash to determine its reputation.
+      id: 68883237-c3ba-4f6a-8967-e7ba5028ef1a
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Enrich temporary msi file hash
+      playbooktaskmissingcomponent: null
+      script: file-enrichment
+      type: regular
+      version: -1
+    taskid: 68883237-c3ba-4f6a-8967-e7ba5028ef1a
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -691.6666666269302,
+          "y": 448.125
+        }
+      }
+  "66":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: tempMSIEnrich.TIMScore
+          operator: greaterThan
+          right:
+            value:
+              simple: "2"
+      label: "yes"
+    continueonerrortype: ""
+    id: "66"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "75"
+      "yes":
+      - "59"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the causality actor or actor process has a malicious
+        reputation.
+      id: 2904484c-1757-48d2-83c2-ca8d0322c17f
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Found malicious causality or actor?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 2904484c-1757-48d2-83c2-ca8d0322c17f
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -691.6666666269302,
+          "y": 635
+        }
+      }
+  "67":
+    continueonerror: true
+    continueonerrortype: errorPath
+    id: "67"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#error#':
+      - "70"
+      '#none#':
+      - "68"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      query:
+        simple: "dataset = xdr_data \n| filter event_type = ENUM.PROCESS and agent_hostname
+          contains \"${alert.hostname}\" and actor_process_command_line contains \"MsiExec.exe
+          -Embedding \" and action_process_image_name in (\"powershell.exe\", \"pwsh.exe\",
+          \"cmd.exe\", \"wscript.exe\", \"cscript.exe\", \"certutil.exe\", \"bitsadmin.exe\",
+          \"mshta.exe\", \"rundll32.exe\", \"regsvr32.exe\", \"scrcons.exe\", \"schtasks.exe\",
+          \"whoami.exe\", \"net.exe\", \"net1.exe\", \"nltest.exe\", \"systeminfo.exe\",
+          \"sc.exe\", \"curl.exe\", \"wget.exe\")\n| fields action_process_image_command_line"
+      query_name:
+        simple: xql_suspicious_child_process_msiexec
+      time_frame:
+        simple: between ${5_min_window} and now
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: XQL Query Engine
+      description: Executes an XQL query to search for suspicious child processes
+        spawned by the msiexec.exe process.
+      id: 47784a8a-94c8-4c1e-8444-3ede42826e75
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Check for suspicious sub processes of MSIexec
+      playbooktaskmissingcomponent: null
+      script: XQL Query Engine|||xdr-xql-generic-query
+      type: regular
+      version: -1
+    taskid: 47784a8a-94c8-4c1e-8444-3ede42826e75
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -1232.5,
+          "y": 30
+        }
+      }
+  "68":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: number_of_results
+                filters:
+                - - left:
+                      iscontext: true
+                      value:
+                        simple: PaloAltoNetworksXQL.GenericQuery.query_name
+                    operator: isEqualString
+                    right:
+                      value:
+                        simple: xql_suspicious_child_process_msiexec
+                root: PaloAltoNetworksXQL.GenericQuery
+          operator: greaterThan
+          right:
+            value:
+              simple: "0"
+      label: "yes"
+    continueonerrortype: ""
+    id: "68"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "75"
+      "yes":
+      - "69"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether suspicious child processes of the msiexec.exe process
+        were found.
+      id: d1f28a67-b136-42d2-8fe0-7cb419ed1836
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Found temporary MSI write events?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: d1f28a67-b136-42d2-8fe0-7cb419ed1836
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -1232.5,
+          "y": 243.75
+        }
+      }
+  "69":
+    continueonerrortype: ""
+    id: "69"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "75"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "suspicious_child_process_msiexec", "Score": 1, "Comment":
+          "Found evidence for suspicious child process of MSIexec"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that a suspicious child process of msiexec.exe
+        was found.'
+      id: 427f74d0-fda6-4899-83ac-6b223c9caede
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: Set evidence for suspicious child process of MSIexec'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 427f74d0-fda6-4899-83ac-6b223c9caede
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -1232.5,
+          "y": 448.125
+        }
+      }
+  "70":
+    continueonerrortype: ""
+    id: "70"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "75"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Errors
+      value:
+        simple: '{"Name": "xql_suspicious_child_process_msiexec", "Comment": "XQL
+          task failed to check for suspicious child process of MSIexec"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Sets an error message indicating that the XQL query to check for
+        suspicious child processes of msiexec.exe failed.
+      id: 49576270-7656-44fb-8a06-f74565bc032d
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Error: XQL task failed to check for suspicious child processes of MSIexec'
+      playbooktaskmissingcomponent: null
+      script: Set
+      type: regular
+      version: -1
+    taskid: 49576270-7656-44fb-8a06-f74565bc032d
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -1680,
+          "y": 448.125
+        }
+      }
+  "71":
+    continueonerrortype: ""
+    id: "71"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "47"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      additional_fields:
+        simple: "true"
+      endpoint_id:
+        simple: ${alert.agentid}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Retrieves and consolidates information about the associated endpoint.
+      id: a09d027b-b6a7-4136-8f45-02d8527aa2fd
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Get information about the associated endpoint
+      playbooktaskmissingcomponent: null
+      script: get-endpoint-data
+      type: regular
+      version: -1
+    taskid: a09d027b-b6a7-4136-8f45-02d8527aa2fd
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 960,
+          "y": -780
+        }
+      }
+  "72":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: EndpointData.RiskLevel
+          operator: isEqualString
+          right:
+            value:
+              simple: HIGH
+      label: "yes"
+    continueonerrortype: ""
+    id: "72"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "75"
+      "yes":
+      - "73"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the endpoint has a high risk score.
+      id: 5b781d97-7aea-468c-857b-2666e2e747d5
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: High host risk score?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 5b781d97-7aea-468c-857b-2666e2e747d5
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 2840,
+          "y": -390
+        }
+      }
+  "73":
+    continueonerrortype: ""
+    id: "73"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "75"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "high_host_risk_score", "Score": 1, "Comment": "Host has
+          high risk score"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that the endpoint has a high risk score.
+      id: 99879752-a32c-4e3e-857f-7dff8c9955df
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: Set evidence for high host risk score'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 99879752-a32c-4e3e-857f-7dff8c9955df
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 2840,
+          "y": -180
+        }
+      }
+  "74":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: Score
+                root: Evidence
+                transformers:
+                - args:
+                    applyIfEmpty: {}
+                    defaultValue:
+                      value:
+                        simple: "0"
+                  operator: SetIfEmpty
+                - operator: SumList
+          operator: greaterThanOrEqual
+          right:
+            value:
+              simple: "3"
+      label: Remediation
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: Evidence
+          operator: isNotEmpty
+        - left:
+            iscontext: true
+            value:
+              simple: Errors
+          operator: isNotEmpty
+      label: Inconclusive
+    continueonerrortype: ""
+    id: "74"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "79"
+      Inconclusive:
+      - "77"
+      Remediation:
+      - "42"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: 'Checks the investigation''s verdict score to determine the next
+        step: automated remediation, analyst review, or closing as a false positive.'
+      id: 899ede18-98a4-4d49-836c-bd62e8b3972c
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Should remediate?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 899ede18-98a4-4d49-836c-bd62e8b3972c
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 960,
+          "y": 1278.75
+        }
+      }
+  "75":
+    continueonerrortype: ""
+    id: "75"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "74"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 3b50b1b4-f2f5-446b-80e3-023cadd244e8
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Verdict
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 3b50b1b4-f2f5-446b-80e3-023cadd244e8
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 960,
+          "y": 1078.75
+        }
+      }
+  "77":
+    continueonerrortype: ""
+    form:
+      description: ""
+      expired: false
+      questions:
+      - defaultrows: []
+        fieldassociated: ""
+        gridcolumns: []
+        id: "0"
+        label: ""
+        labelarg:
+          simple: "During the investigation phase, the playbook identified the following
+            suspicious evidence. Although the combined evidence does not conclusively
+            confirm a true positive, it still warrants suspicion. Please review the
+            evidence below and select the appropriate action.\n\n### Evidence found:\n${Evidence.Comment(val.length
+            > 0) =>\"- \" + val.join(\"\\n - \")} \n\n### Decision Required:\nPlease
+            choose the action you want to perform:\n\n- **False Positive** - Close
+            the alert as a false positive.\n- **True Positive** - Handle the alert
+            as a true positive by:\n        1. Terminating the CGO processes\n        2.
+            Disabling the acting user\n        3. Isolate the relevant host\n        4.
+            Block the Remote URL.\n**(Note: Further approval might be required as
+            part of the remediation measures)**"
+        options: []
+        optionsarg:
+        - {}
+        - simple: False Positive
+        - simple: True Positive
+        placeholder: ""
+        readonly: false
+        required: false
+        tooltip: ""
+        type: singleSelect
+      sender: Your SOC team
+      title: Analyst Decision
+      totalanswers: 0
+    id: "77"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    message:
+      bcc: null
+      body: null
+      cc: null
+      format: ""
+      methods: []
+      subject: null
+      timings:
+        completeafterreplies: 1
+        completeaftersla: false
+        completeafterv2: true
+        retriescount: 2
+        retriesinterval: 360
+      to: null
+    nexttasks:
+      '#none#':
+      - "78"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: Message
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Analyst review is required to determine whether to take remediation
+        actions, or to close the alert as a false positive.
+      id: e77789e4-55b1-498a-8abd-fc89fee51f3b
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Manual Task - Analyst Decision
+      playbooktaskmissingcomponent: null
+      tags:
+      - analyst_decision
+      type: collection
+      version: -1
+    taskid: e77789e4-55b1-498a-8abd-fc89fee51f3b
+    timertriggers: []
+    type: collection
+    view: |-
+      {
+        "position": {
+          "x": 1590,
+          "y": 1470
+        }
+      }
+  "78":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: Analyst Decision.Answers.0
+          operator: isEqualString
+          right:
+            value:
+              simple: False Positive
+      label: False Positive
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: Analyst Decision.Answers.0
+          operator: isEqualString
+          right:
+            value:
+              simple: True Positive
+      label: True Positive
+    continueonerrortype: ""
+    id: "78"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "14"
+      False Positive:
+      - "79"
+      True Positive:
+      - "42"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks the analyst's decision to determine whether to remediate
+        or close the investigation.
+      id: a0418e9f-5fb9-45a1-8551-3948eb7965ee
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Check Analyst Decision
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: a0418e9f-5fb9-45a1-8551-3948eb7965ee
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1590,
+          "y": 1682.5
+        }
+      }
+  "79":
+    continueonerrortype: ""
+    id: "79"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "80"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: bbe8dc68-ed70-4843-8fa0-bad928cea2f8
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: False Positive
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: bbe8dc68-ed70-4843-8fa0-bad928cea2f8
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 2110.5,
+          "y": 1480.25
+        }
+      }
+  "80":
+    continueonerrortype: ""
+    id: "80"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "81"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      closeNotes:
+        simple: Resolved as False Positive - Handled by the playbook "Msiexec execution
+          of an executable from an uncommon remote location".
+      closeReason:
+        simple: Resolved - False Positive
+      id:
+        simple: ${alert.id}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: Closes the investigation with a reason of 'False Positive'.
+      id: f7bb4f69-91fb-406c-84f6-873105cd8704
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Close Alert as False Positive
+      playbooktaskmissingcomponent: null
+      script: Builtin|||closeInvestigation
+      type: regular
+      version: -1
+    taskid: f7bb4f69-91fb-406c-84f6-873105cd8704
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 2110.5,
+          "y": 1636.25
+        }
+      }
+  "81":
+    continueonerrortype: ""
+    id: "81"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: e6655281-0f90-4111-8ed0-147e5404808d
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Done
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: e6655281-0f90-4111-8ed0-147e5404808d
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 2110.5,
+          "y": 1796.25
+        }
+      }
+  "83":
+    continueonerrortype: ""
+    id: "83"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "84"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      closeNotes:
+        simple: Resolved as True Positive - Handled by the playbook "Msiexec execution
+          of an executable from an uncommon remote location".
+      closeReason:
+        simple: Resolved - True Positive
+      id:
+        simple: ${alert.id}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: Closes the investigation as a true positive.
+      id: 92c57e60-f323-4335-887a-37208799c34b
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Close Alert as True Positive
+      playbooktaskmissingcomponent: null
+      script: Builtin|||closeInvestigation
+      type: regular
+      version: -1
+    taskid: 92c57e60-f323-4335-887a-37208799c34b
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 960,
+          "y": 4606.25
+        }
+      }
+  "84":
+    continueonerrortype: ""
+    id: "84"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 9fc0ca6d-d77b-45a5-8ebf-f1da8588683f
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Done
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 9fc0ca6d-d77b-45a5-8ebf-f1da8588683f
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 960,
+          "y": 4836.25
+        }
+      }
+  "85":
+    continueonerrortype: ""
+    form:
+      description: ""
+      expired: false
+      questions:
+      - defaultrows: []
+        fieldassociated: ""
+        gridcolumns: []
+        id: "0"
+        label: ""
+        labelarg:
+          simple: |-
+            The playbook analysis has classified this alert as a True Positive and executed remediation actions to mitigate the threat.
+
+            Please review the applied remediation and classification.
+
+            Note: Resolving this issue might close the case, provided all other issues in the case are resolved.
+        options: []
+        optionsarg:
+        - {}
+        - simple: Resolve Issue
+        - simple: Keep Open for Review
+        placeholder: ""
+        readonly: false
+        required: false
+        tooltip: ""
+        type: singleSelect
+      sender: ""
+      title: Should Resolve True Positive Alert
+      totalanswers: 0
+    id: "85"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    message:
+      bcc: null
+      body: null
+      cc: null
+      format: ""
+      methods: []
+      subject: null
+      timings:
+        completeafterreplies: 1
+        completeaftersla: false
+        completeafterv2: true
+        retriescount: 2
+        retriesinterval: 360
+      to: null
+    nexttasks:
+      '#none#':
+      - "86"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Prompts an analyst for approval to proceed with containment actions.
+      id: 4e15ee72-f570-42af-8672-390c92b73ee2
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Manual Review: True Positive Confirmed'
+      playbooktaskmissingcomponent: null
+      type: collection
+      version: -1
+    taskid: 4e15ee72-f570-42af-8672-390c92b73ee2
+    timertriggers: []
+    type: collection
+    view: |-
+      {
+        "position": {
+          "x": 960,
+          "y": 4146.25
+        }
+      }
+  "86":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: Should Resolve True Positive Alert.Answers.0
+          operator: isEqualString
+          right:
+            value:
+              simple: Resolve Issue
+      label: Resolve Alert
+    continueonerrortype: ""
+    id: "86"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "84"
+      Resolve Alert:
+      - "83"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the analyst approved the proposed containment actions.
+      id: c02f02c7-285a-4010-8270-a729fe063c25
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Check Analyst Decision for resolve decision
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: c02f02c7-285a-4010-8270-a729fe063c25
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 960,
+          "y": 4366.24951171875
+        }
+      }
+  "87":
+    continueonerror: true
+    continueonerrortype: errorPath
+    id: "87"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#error#':
+      - "97"
+      '#none#':
+      - "103"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      brands:
+        simple: Active Directory Query v2
+      user_name:
+        simple: ${Core.OriginalAlert.event.actor_primary_username}
+    separatecontext: false
+    skipunavailable: true
+    task:
+      brand: ""
+      description: Performs remediation by disabling the actor's user account.
+      id: 1d10d58f-9767-46cf-83a7-736121e77fa3
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Disable User
+      playbooktaskmissingcomponent: null
+      script: disable-user
+      type: regular
+      version: -1
+    taskid: 1d10d58f-9767-46cf-83a7-736121e77fa3
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1842.5,
+          "y": 3492.5
+        }
+      }
+  "89":
+    continueonerrortype: ""
+    id: "89"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "90"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 7d50adee-3bd4-4310-804a-b9467b269e2d
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Disable User
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 7d50adee-3bd4-4310-804a-b9467b269e2d
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 1842.5,
+          "y": 3185
+        }
+      }
+  "90":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: Core.OriginalAlert.event.actor_primary_username
+          operator: isNotEmpty
+          right:
+            value: {}
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: Core.OriginalAlert.event.actor_primary_username
+          operator: isNotEqualString
+          right:
+            value:
+              simple: NT AUTHORITY\SYSTEM
+      - - left:
+            iscontext: true
+            value:
+              simple: RemediationApproval.Answers.2
+          operator: isEqualString
+          right:
+            value:
+              simple: "Yes"
+      label: "yes"
+    continueonerrortype: ""
+    id: "90"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "14"
+      "yes":
+      - "87"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Validates that the user is a non-system account.
+      id: 86104d2b-91ce-47eb-8c11-e592444db543
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Check if User Is a Non-System Account
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 86104d2b-91ce-47eb-8c11-e592444db543
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1842.5,
+          "y": 3330
+        }
+      }
+  "91":
+    continueonerrortype: ""
+    id: "91"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "92"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      alert_ids:
+        simple: ${alert.id}
+      filter_alert_fields:
+        simple: "false"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Cortex Core - IR
+      description: Retrieves the full original alert data to access additional fields
+        not available in the main alert context.
+      id: 5db4e707-de6f-4eae-86dd-8762a4ac61b7
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Get alert's extra data
+      playbooktaskmissingcomponent: null
+      script: Cortex Core - IR|||core-get-cloud-original-alerts
+      type: regular
+      version: -1
+    taskid: 5db4e707-de6f-4eae-86dd-8762a4ac61b7
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1410,
+          "y": -851.25
+        }
+      }
+  "92":
+    continueonerrortype: ""
+    id: "92"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "47"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: actor_effective_username
+      value:
+        complex:
+          accessor: actor_effective_username
+          root: Core.OriginalAlert.event
+          transformers:
+          - args:
+              delimiter:
+                value:
+                  simple: \
+              fields:
+                value:
+                  simple: "2"
+            operator: Cut
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Extracts the username from the actor\'s effective username, removing
+        any domain information.
+      id: 1db2f36f-93d4-4510-8170-d7e2c0ecb417
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Extract the username
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 1db2f36f-93d4-4510-8170-d7e2c0ecb417
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1410,
+          "y": -701.25
+        }
+      }
+  "93":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: Evidence.Name
+          operator: containsGeneral
+          right:
+            value:
+              simple: malicious_tmp_msi_file
+      label: "yes"
+    continueonerrortype: ""
+    id: "93"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "35"
+      "yes":
+      - "94"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether a malicious MSI file hash has been identified for
+        blocklisting.
+      id: 9983f4be-cc92-49cd-83b6-afc619e1a4ad
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Is a malicious MSI identified?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 9983f4be-cc92-49cd-83b6-afc619e1a4ad
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 960,
+          "y": 2380
+        }
+      }
+  "94":
+    continueonerrortype: ""
+    id: "94"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "105"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      hash_list:
+        complex:
+          accessor: action_file_sha256
+          root: PaloAltoNetworksXQL.GenericQuery.results
+          transformers:
+          - operator: uniq
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Performs remediation by adding the SHA256 hash of the malicious
+        MSI file to the block list.
+      id: e67a209c-b488-499b-8109-7384163b5813
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Block sha256 of malicious MSI
+      playbooktaskmissingcomponent: null
+      script: '|||core-blocklist-files'
+      type: regular
+      version: -1
+    taskid: e67a209c-b488-499b-8109-7384163b5813
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 960,
+          "y": 2530
+        }
+      }
+  "95":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: EndpointData.AdditionalFields.endpoint_status
+          operator: isEqualString
+          right:
+            value:
+              simple: CONNECTED
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: EndpointData.AdditionalFields.is_isolated
+          operator: isEqualString
+          right:
+            value:
+              simple: AGENT_UNISOLATED
+      label: Isolate
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: EndpointData.AdditionalFields.is_isolated
+          operator: isEqualString
+          right:
+            value:
+              simple: AGENT_ISOLATED
+      label: Already isolated
+    continueonerrortype: ""
+    id: "95"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "96"
+      Already isolated:
+      - "14"
+      Isolate:
+      - "30"
+    note: false
+    quietmode: 2
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the endpoint is already isolated or disconnected
+        to prevent redundant isolation attempts.
+      id: ee144501-34aa-462a-8a88-de64efd40385
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Verify endpoint isn't isolated or disconnected
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: ee144501-34aa-462a-8a88-de64efd40385
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 720,
+          "y": 3352.499755859375
+        }
+      }
+  "96":
+    continueonerrortype: ""
+    id: "96"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "101"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |-
+        During the execution of the automated response, the system was unable to isolate host ${alert.hostname}.
+
+        Recommendation: It is recommended that an analyst manually isolate this endpoint immediately. This action is necessary to mitigate the risk of lateral movement while the investigation continues.
+      id: 16ab3a94-a1f5-4eff-8dbb-db60813b5e1d
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Manual remediation actions for endpoint
+      playbooktaskmissingcomponent: null
+      type: regular
+      version: -1
+    taskid: 16ab3a94-a1f5-4eff-8dbb-db60813b5e1d
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 290,
+          "y": 3610
+        }
+      }
+  "97":
+    continueonerrortype: ""
+    id: "97"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "104"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |-
+        During the execution of the automated response, the system was unable to disable the user ${Core.OriginalAlert.event.actor_primary_username}.
+
+        Recommendation: It is recommended that an analyst manually disable this user immediately. This action is necessary to mitigate the risk of lateral movement while the investigation continues.
+      id: 69869535-726b-4807-8b14-329295df1c7c
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Manual remediation actions for user
+      playbooktaskmissingcomponent: null
+      type: regular
+      version: -1
+    taskid: 69869535-726b-4807-8b14-329295df1c7c
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1842.5,
+          "y": 3655
+        }
+      }
+  "98":
+    continueonerrortype: ""
+    id: "98"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "75"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "cgo_defense_evasion", "Score": 1, "Comment": "CGO defense
+          evasion techniques are idetified"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that defense evasion techniques were identified
+        in the causality process command line.
+      id: 924c3263-19eb-4684-8f0b-58a68de7a6b1
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: CGO defense evasion techniques'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 924c3263-19eb-4684-8f0b-58a68de7a6b1
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 2370,
+          "y": 30
+        }
+      }
+  "99":
+    continueonerrortype: ""
+    id: "99"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "93"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Remediation
+      value:
+        simple: '{"Name": "terminate_cgo", "Comment": "The causality actor process
+          was terminated"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that the causality process was terminated.
+      id: e6c97d21-8925-4e8a-8702-c4c95016e61f
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Remediation: Terminate causality actor process'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: e6c97d21-8925-4e8a-8702-c4c95016e61f
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 960,
+          "y": 2225.833251953125
+        }
+      }
+  "100":
+    continueonerrortype: ""
+    id: "100"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "14"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Remediation
+      value:
+        simple: '{"Name": "block_url_pan_os", "Comment": "The URL was blocked using
+          PAN OS integration"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that the malicious URL was blocked using the PAN-OS
+        integration.
+      id: 09bc42af-3d43-426c-be79-4fea6e982753
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Remediation: Block URL PAN-OS'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 09bc42af-3d43-426c-be79-4fea6e982753
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1170,
+          "y": 3492.5
+        }
+      }
+  "101":
+    continueonerrortype: ""
+    id: "101"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "14"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Remediation
+      value:
+        simple: '{"Name": "manual_endpoint_isolation", "Comment": "The affected endpoint
+          was isolated manually."}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that the affected endpoint was isolated manually.
+      id: 5dc7d921-d195-42ad-bb3b-1593416880c6
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Remediation: Manual endpoint isolation'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 5dc7d921-d195-42ad-bb3b-1593416880c6
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 290,
+          "y": 3755.833251953125
+        }
+      }
+  "102":
+    continueonerrortype: ""
+    id: "102"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "14"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Remediation
+      value:
+        simple: '{"Name": "endpoint_isolation", "Comment": "The affected endpoint
+          was isolated."}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that the affected endpoint was isolated.
+      id: 8edda605-0824-43c7-aba3-d5a7f848d019
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Remediation: Endpoint isolation'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 8edda605-0824-43c7-aba3-d5a7f848d019
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 720,
+          "y": 3755.833251953125
+        }
+      }
+  "103":
+    continueonerrortype: ""
+    id: "103"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "14"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Remediation
+      value:
+        simple: '{"Name": "disable_user", "Comment": "The acting user was disabled."}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that the actor's user account was disabled.
+      id: 0305d7f6-79e2-41c8-9229-de63c98e9819
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Remediation: Disable user'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 0305d7f6-79e2-41c8-9229-de63c98e9819
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1436.6666259765625,
+          "y": 3655
+        }
+      }
+  "104":
+    continueonerrortype: ""
+    id: "104"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "14"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Remediation
+      value:
+        simple: '{"Name": "manual_disable_user", "Comment": "The acting user was disabled
+          manually."}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that the actor's user account was disabled manually.
+      id: c3511020-50e9-4ebb-8a57-738f4872eb29
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Remediation: Manual disable user'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: c3511020-50e9-4ebb-8a57-738f4872eb29
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1842.5,
+          "y": 3815.833251953125
+        }
+      }
+  "105":
+    continueonerrortype: ""
+    id: "105"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "35"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Remediation
+      value:
+        simple: '{"Name": "msi_file_hash_block", "Comment": "The remote MSI file''s
+          hash was blocked."}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that the remote MSI file's hash was blocked.
+      id: b50967f9-27a5-4615-827e-84f1fc86b5f5
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Remediation: MSI file was block'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: b50967f9-27a5-4615-827e-84f1fc86b5f5
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 960,
+          "y": 2690.833251953125
+        }
+      }
+version: -1
+view: |-
+  {
+    "linkLabelsPosition": {
+      "45_25_yes": 0.52,
+      "95_14_Already isolated": 0.5
+    },
+    "paper": {
+      "dimensions": {
+        "height": 6006.25,
+        "width": 4900,
+        "x": -1680,
+        "y": -1110
+      }
+    }
+  }
