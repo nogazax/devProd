@@ -1,0 +1,71 @@
+args:
+- description: Email addresses to exclude (separated by commas)
+  isArray: true
+  name: excludedEmails
+  supportedModules: []
+comment: Gets all email addresses in context, excluding ones given.
+commonfields:
+  id: ContextGetEmails
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 5.0.0
+    isoverridable: false
+    itemVersion: 1.21.4
+    packID: CommonScripts
+    packName: Common Scripts
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+enabled: true
+engineinfo: {}
+mainengineinfo: {}
+name: ContextGetEmails
+pswd: ""
+restrictioncenter: {}
+runas: DBotWeakRole
+runonce: false
+script: |+
+  // pack version: 1.21.4
+  var excludedEmails;
+  if (args.excludedEmails) {
+      excludedEmails = args.excludedEmails.split(',');
+  }
+  var flat = {};
+  var res = [];
+  var currentValue;
+  flattenFields(invContext,undefined,flat);
+  keysArr = Object.keys(flat);
+  for (var i = 0; i < keysArr.length; i++) {
+      currentValue=flat[keysArr[i]];
+      if (emailRegex.test(currentValue) && res.indexOf(currentValue) === -1) {
+          if (excludedEmails) {
+              if (excludedEmails.indexOf(currentValue) === -1) {
+                  res.push(currentValue);
+              }
+          } else {
+              res.push(currentValue);
+          }
+      }
+  }
+
+  var md = '### Email addresses in context\n';
+  for (var i = 0; i<res.length; i++) {
+      md += '- ' + res[i] + '\n';
+  }
+  return {
+          Type: entryTypes.note,
+          Contents: res,
+          ContentsFormat: formats.json,
+          HumanReadable: md
+          };
+
+scripttarget: 0
+signature: druEBTejjn5JiGdikdP4LzAod6YhGtXVlc/StDOQuMZ3j6jP2rDL4mMdXDCTDqY7Eji+Ji2sq8gX+Y3JD1luu7kAcY5hTEGbH7WH6UD4ePnTQTOVDfPSQmysknjXusz/NCZbQXGXg0GZxbP9FTHDs1roFKhH6RtyBh0i18kM1MjWZ8krcGSLsOAE2M9YWbz0OoTdSKzEN69AxMil/9emtUUtmmdF2zuIEA4wre/yxQEnxMPhhhsuR308o4KBOKw3FH9HwTDZxLUR7M/OEcHQmOAXje+h5lP0ouAJhVqA8jGInEPoVJWkPijbzo/m+BYMhSpqT6HV2FLVUsNv8XABFQ==
+system: true
+tags: []
+type: javascript
