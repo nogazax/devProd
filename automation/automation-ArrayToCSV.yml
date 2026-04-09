@@ -1,0 +1,73 @@
+args:
+- default: true
+  description: An array of strings input
+  isArray: true
+  name: value
+  supportedModules: []
+comment: Converts a simple Array into a textual comma separated string
+commonfields:
+  id: ArrayToCSV
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 6.0.0
+    isoverridable: false
+    itemVersion: 1.21.4
+    packID: CommonScripts
+    packName: Common Scripts
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+dockerimage: demisto/python3:3.12.12.5490952
+enabled: true
+engineinfo: {}
+mainengineinfo: {}
+name: ArrayToCSV
+nativeimage:
+- "8.8"
+- "8.6"
+pswd: ""
+restrictioncenter: {}
+runas: DBotWeakRole
+runonce: false
+script: |
+  register_module_line('ArrayToCSV', 'start', __line__())
+  CONSTANT_PACK_VERSION = '1.21.4'
+  demisto.debug('pack id = CommonScripts, pack version = 1.21.4')
+  from traceback import format_exc
+
+
+
+
+
+  def arr_to_csv_command(array: list[str] | str) -> str:
+      csv = ",".join(array)
+      return csv
+
+
+  def main():  # pragma: no cover
+      args = demisto.args()
+      array = argToList(args.get("value"))
+      try:
+          return_results(arr_to_csv_command(array=array))
+      except Exception as e:
+          demisto.error(format_exc())
+          return_error(f"ArrToCSV command failed. Error: {e}")
+
+
+  if __name__ in ("__main__", "__builtin__", "builtins"):
+      main()
+
+  register_module_line('ArrayToCSV', 'end', __line__())
+scripttarget: 0
+signature: Tuh99GJadfcAkvtp1BWK06KPZLO7sjoD8EP6henr4/0btqS3R553eg2mUUMuQllfxz6XBetyRV4kz2m+H5BUzONtYV79LBeGa5kh98U9P0PG8PiRBtexjMFJkecu2MgN411tsqIg7tBEOKWsmcz93Kn2Pvq5wIFw7qqanV8bB1tWS7QSuZZPRXINLVRHqPEioIYP3up+27dzusaDVKg+w6MU2ij6bY1QCYVYZicyB2H4kkW1ChZnpp7UxI3OPBMU+h6oXq6jJhfve0AKmdPAsqjx51oiiGpWCHu4w6f62V/mlTW4muYOOKJSmCxAeBEDO+IlfzH4bZrhlZ7vYQBw8g==
+subtype: python3
+system: true
+tags:
+- transformer
+- general
+type: python
