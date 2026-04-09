@@ -1,0 +1,79 @@
+args:
+- description: Date value to check - Can be any time format. ex. "2020-01-01T00:00:00".
+  name: left
+  required: true
+  supportedModules: []
+- description: Relative time ex. "6 months ago".
+  name: right
+  required: true
+  supportedModules: []
+comment: Checks the given datetime has occured after the provided relative time.
+commonfields:
+  id: AfterRelativeDate
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 5.0.0
+    isoverridable: false
+    itemVersion: 1.4.17
+    packID: FiltersAndTransformers
+    packName: Filters And Transformers
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+dockerimage: demisto/python3:3.12.12.5490952
+enabled: true
+engineinfo: {}
+mainengineinfo: {}
+name: AfterRelativeDate
+nativeimage:
+- "8.8"
+- "8.6"
+pswd: ""
+restrictioncenter: {}
+runas: DBotWeakRole
+runonce: false
+script: |
+  register_module_line('AfterRelativeDate', 'start', __line__())
+  CONSTANT_PACK_VERSION = '1.4.17'
+  demisto.debug('pack id = FiltersAndTransformers, pack version = 1.4.17')
+  import dateparser
+
+
+
+
+
+
+  def check_date(value, relative_date):
+      settings = {"TO_TIMEZONE": "UTC", "RETURN_AS_TIMEZONE_AWARE": False}
+      v = dateparser.parse(value, settings=settings)  # type: ignore[arg-type]
+      da = dateparser.parse(relative_date, settings=settings)  # type: ignore[arg-type]
+      return v > da  # type: ignore
+
+
+  def main():
+      value = demisto.args().get("left")
+      if isinstance(value, list):
+          value = demisto.args().get("left")[0]
+
+      relative_date = demisto.args().get("right")
+      return_results(check_date(value, relative_date))
+
+
+  if __name__ in ("__builtin__", "builtins", "__main__"):
+      main()
+
+  register_module_line('AfterRelativeDate', 'end', __line__())
+scripttarget: 0
+signature: WC6Tga2YoGOdQDeBWI+BCNZARsJDqnysPyY1ijD6A1wzEaJweydFuwlZoV3tFiTSFWnPbEysJ9Bm/sPR6uxGs/ZVOUyt6qTRmOEOGQZXhmG7Pf5nMsi/ahDxs2Izt6Pm/4hvcmN9SpkPUVYm2Zdg/HFR7BWSRTQgHfcUpSehhukjkSi+WGIYGMIHeSVkax4+JoNIAvR7MQGUiQg3mFbCmjhejI5OFb1lK2TCFNMOVNo7AQzp58vJGhfj0e/voam3i41WP9+8uNICD+A+dzP59WkolKc3U44BRP74olUkF2hVe/+NYfnCztol+njeuxiWrNXiG4bhdHtvjwbMD39hIg==
+subtype: python3
+system: true
+tags:
+- date
+- filter
+- Condition
+type: python
