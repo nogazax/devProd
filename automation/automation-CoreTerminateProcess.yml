@@ -1,0 +1,120 @@
+args:
+- description: The agent ID.
+  name: agent_id
+  required: true
+  supportedModules: []
+- description: The instance ID.
+  isArray: true
+  name: instance_id
+  required: true
+  supportedModules: []
+- description: The process name.
+  name: process_name
+  supportedModules: []
+- description: The incident ID.
+  name: incident_id
+  supportedModules: []
+comment: A polling wrapper script; Terminate a process tree by its causality ID.
+commonfields:
+  id: CoreTerminateProcess
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 6.1.0
+    isoverridable: false
+    itemVersion: 3.5.30
+    packID: Core
+    packName: Core
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules:
+    - xsiam
+    - cloud_runtime_security
+    - edr
+    toServerVersion: ""
+dockerimage: demisto/python3:3.12.12.6391686
+enabled: true
+engineinfo: {}
+isInternal: true
+mainengineinfo: {}
+name: CoreTerminateProcess
+nativeimage:
+- "8.8"
+- "8.6"
+outputs:
+- contextPath: Core.TerminateProcess.action_id
+  description: The action ID.
+  type: String
+- contextPath: Core.GetActionStatus
+  description: The action status command results.
+  type: Unknown
+- contextPath: Core.GetActionStatus.endpoint_id
+  description: Endpoint ID.
+  type: string
+- contextPath: Core.GetActionStatus.status
+  description: The status of the specific endpoint ID.
+  type: string
+- contextPath: Core.GetActionStatus.action_id
+  description: The specified action ID.
+  type: number
+- contextPath: Core.GetActionStatus.ErrorReasons.bucket
+  description: The bucket in which the error occurred.
+  type: String
+- contextPath: Core.GetActionStatus.ErrorReasons.file_name
+  description: The name of the file that caused the error.
+  type: String
+- contextPath: Core.GetActionStatus.ErrorReasons.file_path
+  description: The path of the file that caused the error.
+  type: String
+- contextPath: Core.GetActionStatus.ErrorReasons.file_size
+  description: The size of the file that caused the error.
+  type: Number
+- contextPath: Core.GetActionStatus.ErrorReasons.missing_files
+  description: The missing files that caused the error.
+  type: Unknown
+- contextPath: Core.GetActionStatus.ErrorReasons.errorData
+  description: The error reason data.
+  type: String
+- contextPath: Core.GetActionStatus.ErrorReasons.terminated_by
+  description: The instance ID which terminated the action and caused the error.
+  type: String
+- contextPath: Core.GetActionStatus.ErrorReasons.errorDescription
+  description: The error reason description.
+  type: String
+- contextPath: Core.GetActionStatus.ErrorReasons.terminate_result
+  description: The error reason terminate result.
+  type: Unknown
+pswd: ""
+restrictioncenter: {}
+runas: DBotWeakRole
+runonce: false
+script: |
+  register_module_line('CoreTerminateProcess', 'start', __line__())
+  CONSTANT_PACK_VERSION = '3.5.30'
+  demisto.debug('pack id = Core, pack version = 3.5.30')
+
+
+
+
+  def main():
+      args = demisto.args()
+      try:
+          return_results(execute_polling_command("core-terminate-process", args))
+      except Exception as e:
+          return_error(f"Failed to execute script.\nError:\n{e!s}")
+
+
+  if __name__ in ("__main__", "__builtin__", "builtins"):
+      main()
+
+  register_module_line('CoreTerminateProcess', 'end', __line__())
+scripttarget: 0
+signature: EWlZ7mmRfzrLgeWW8rOvxVGU3sL7FARlz60f2pirva2YrmH135PZ+Nb1goS3QHaYenJDC5hQ4EsyBAusQdlG7A9sgzC2PXnSzd5bE8CLr9PcSH61q5assnzxn+Ysa/8d6cOe31b5+Nwmn6HpM+1PpfFaTH7Ay8lyP1Z9GYQaUUI32/8XKmj7swcfVf9lwKH2cuHAMpj+zQb/fU6iH4dEce93veDyASioUcZCWjMdlRKAlVe9ymraHSUyQd1zsj3qYF1DBx70Z02iIDZK7Lg13LUyIUsl9A2+4l8sWSIRfBh1ZzqmxKBDvr0oU19D6WUNsFO8A5KEKj4tEvDhXmEh3Q==
+subtype: python3
+system: true
+tags:
+- Utilities
+type: python
