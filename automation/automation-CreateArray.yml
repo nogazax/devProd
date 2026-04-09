@@ -1,0 +1,66 @@
+args:
+- default: true
+  description: 'This is the array data to create array from, should be in the format
+    of comma separator by default: val1,val2,val3'
+  name: arrayData
+  supportedModules: []
+- description: Separator to use to split arrayData, by default will be comma ',' .
+  name: separator
+  supportedModules: []
+- description: The key to place result array in context, by default will be "array".
+  name: contextKey
+  supportedModules: []
+comment: 'Will create an array object in context from given string input '
+commonfields:
+  id: CreateArray
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 5.0.0
+    isoverridable: false
+    itemVersion: 1.21.4
+    packID: CommonScripts
+    packName: Common Scripts
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+enabled: true
+engineinfo: {}
+mainengineinfo: {}
+name: CreateArray
+pswd: ""
+restrictioncenter: {}
+runas: DBotWeakRole
+runonce: false
+script: |
+  // pack version: 1.21.4
+  var data = args.arrayData;
+  var seperator = ',';
+  if (args.separator){
+      seperator = args.separator;
+  }
+  var contextKey = 'array';
+  if (args.contextKey){
+      contextKey = args.contextKey;
+  }
+  var array = data.split(seperator);
+  for (var i=0; i<array.length; i++) {
+      array[i]= array[i].trim();
+  }
+  var context = {};
+  context[contextKey] = array;
+  return {Type: entryTypes.note,
+        Contents: JSON.stringify(array),
+        ContentsFormat: formats.json,
+        EntryContext: context
+  };
+scripttarget: 0
+signature: PS643dEat0ODheIl0fMF/8hG0FdmZZTgBj9P83yhW5lVOQyoFGo059lq3A3FlkMOx5jNFGlqPMk7NK0bKfEN7gKsx/N3R10G/yQvSAFVZ3fAF1jP2ijG0NTZU9vmknonuOYmSTEm4TkLvRxoafMv0uLiO9/NoxPaJy+i3o8t9ENVvFpWGRtQCq59HCH1Lns0oXrWLvrY5g6EN84uhQ541PNDpBBlgm99fHpwPL9YQFrLmWizoRw2w2vDzSezddlPblP4X2IzV/Zhb5jK2e7v53tVsiW+GpJ28/gmYBcCkilSOu045Fx49IIUTadFXp36lkjJJ5IZg2fhrJ3XOeGfjg==
+system: true
+tags:
+- Utility
+type: javascript
