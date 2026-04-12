@@ -3,7 +3,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 8.9.0
     isoverridable: false
-    itemVersion: 1.3.37
+    itemVersion: 1.3.38
     packID: CortexResponseAndRemediation
     packName: Cortex Response And Remediation
     packPropagationLabels:
@@ -481,7 +481,7 @@ tasks:
       id: 5f8249a9-347e-44e7-bc95-8429ddb40cee
       iscommand: false
       istaskmissingcomponenterrordismissed: false
-      name: Check Findings
+      name: Verdict
       playbooktaskmissingcomponent: null
       type: title
       version: -1
@@ -722,8 +722,8 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      description: Checks whether any related alerts indicating a suspicious dump
-        of the NTDS.dit file were found.
+      description: Checks whether any related alerts indicating a suspicious activity
+        were found.
       id: 79e39114-6f77-4dc6-b260-8104fcf79e53
       iscommand: false
       istaskmissingcomponenterrordismissed: false
