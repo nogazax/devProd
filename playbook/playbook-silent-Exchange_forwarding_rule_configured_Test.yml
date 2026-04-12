@@ -3,7 +3,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 8.9.0
     isoverridable: false
-    itemVersion: 1.3.37
+    itemVersion: 1.3.38
     packID: CortexResponseAndRemediation
     packName: Cortex Response And Remediation
     packPropagationLabels:
@@ -12,28 +12,55 @@ contentitemexportablefields:
     propagationLabels: []
     supportedModules: []
     toServerVersion: ""
-description: "This playbook addresses the following alerts:\n\n- External Exchange
-  inbox forwarding rule configured.\n- Suspicious Exchange inbox forwarding rule configured.\n-
-  Suspicious Exchange email-hiding inbox rule.\n- Possible BEC Exchange email-hiding
-  inbox rule.\n- Exchange email-hiding transport rule based on message keywords.\n-
-  Suspicious Exchange email-hiding transport rule.\n- Exchange transport forwarding
-  rule configured.\n- Suspicious Exchange transport forwarding rule configured.\n\nPlaybook
-  Stages:\n \nTriage: \n\n- The playbook retrieves the caller's IP, the forwarding
-  email address, and the domain.\n\nEarly Containment:\n\n- The playbook checks if
-  the IP or domain of the forwarding email address is malicious. If so, it suggests
-  blocking the IP using PAN-OS while continuing the investigation in parallel.\n\nInvestigation:\n\n-
-  The playbook checks for suspicious behaviors, including whether an Exchange admin
-  created the rule outside of working hours, from unusual geolocation, or if the user
-  who created the rule has a high-risk score. It then aggregates all evidence collected
-  during the investigation.\n\nContainment:\n\n- Soft Response Actions: If at least
-  two suspicious pieces of evidence are identified, the playbook will execute soft
-  response actions. These actions include signing the user out and disabling the forwarding
-  rule configured in the user's account mailbox.\n- Hard Response Actions: If more
-  than two suspicious pieces of evidence are identified, the playbook escalates to
-  hard response actions. These actions include disabling the user account upon analyst
-  decision and removing the forwarding rule from the user's account mailbox.\n\nRequirements:
-  \n\nFor any response action, you need the following integrations:\n- EWS Extension
-  Online Powershell v3 integration.\n- Azure Active Directory Users."
+description: |-
+  This playbook addresses the following alerts:
+
+  - External Exchange inbox forwarding rule configured
+  - Suspicious Exchange inbox forwarding rule configured
+  - Suspicious Exchange email-hiding inbox rule
+  - Possible BEC Exchange email-hiding inbox rule
+  - Exchange email-hiding transport rule based on message keywords
+  - Suspicious Exchange email-hiding transport rule
+  - Exchange transport forwarding rule configured
+  - Suspicious Exchange transport forwarding rule configured
+
+  Playbook Stages:
+
+  Data Collection:
+
+  - The playbook retrieves the original alert data, including the caller's IP address, the forwarding email address, and the forwarding domain.
+
+  Investigation:
+
+  - The playbook performs the following checks in parallel:
+    - **IP Reputation**: Enriches the caller's IP address and checks if it is malicious.
+    - **Domain Reputation**: Enriches the forwarding address domain and checks if it is malicious.
+    - **Working Hours**: Determines whether the rule was configured outside of business hours (22:00–06:00).
+    - **Geolocation Anomalies**: Checks whether the caller's IP geolocation or ASN is anomalous (never seen before).
+    - **User Risk**: Retrieves user account details and evaluates whether the user has a high-risk score.
+    - **Similar Forwarding Rules**: Searches for additional forwarding rules configured within the past 24 hours.
+    - **Similar Email-Hiding Rules**: Searches for additional email-hiding rules configured within the past 24 hours.
+    - **Alert Severity**: Evaluates the current alert severity level as additional evidence.
+
+  Verdict:
+
+  - The playbook aggregates all evidence collected during the investigation. If the combined evidence score meets the malicious threshold, the playbook proceeds to remediation. If the evidence is inconclusive, the analyst is prompted to manually review the findings and decide whether to proceed with remediation or close the alert as a false positive.
+
+  Remediation:
+
+  - **Severity Adjustment**: The alert severity is increased based on the current level (Low → Medium, Medium → High).
+  - **Clear User Session**: The playbook clears the sessions of the user who configured the rule.
+  - **Disable User Account**: Upon analyst approval, the playbook disables the user account via Microsoft Graph.
+  - **Disable or Delete Rule**: Depending on the rule type:
+    - **Inbox Rule**: Disables the rule via EWS Extension Online Powershell, or deletes it via Microsoft Graph Mail if EWS is unavailable.
+    - **Transport Rule**: Disables the mail flow transport rule via EWS Extension Online Powershell.
+
+  Requirements:
+
+  For response actions, the following integrations are required:
+  - EWS Extension Online Powershell v3 (for disabling inbox and transport rules).
+  - Microsoft Graph User (for disabling user accounts and clearing sessions).
+  - Microsoft Graph Mail (as a fallback for deleting inbox rules if EWS is unavailable).
 id: silent-Exchange forwarding rule configured Test
 inputSections:
 - description: Generic group for inputs.
@@ -67,27 +94,27 @@ tasks:
     isoversize: false
     nexttasks:
       '#none#':
-      - "1"
+      - "55"
     note: false
     quietmode: 0
     separatecontext: false
     skipunavailable: false
     task:
       brand: ""
-      id: d8b9f650-e109-4dd6-886d-da90aef71bff
+      id: d0facf29-6068-45c8-8727-58f29dbf7a60
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: ""
       playbooktaskmissingcomponent: null
       version: -1
-    taskid: d8b9f650-e109-4dd6-886d-da90aef71bff
+    taskid: d0facf29-6068-45c8-8727-58f29dbf7a60
     timertriggers: []
     type: start
     view: |-
       {
         "position": {
           "x": 643,
-          "y": -249
+          "y": -899
         }
       }
   "1":
@@ -98,9 +125,7 @@ tasks:
     isoversize: false
     nexttasks:
       '#none#':
-      - "28"
       - "6"
-      - "49"
     note: false
     quietmode: 0
     scriptarguments:
@@ -112,23 +137,24 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      description: Returns information about each alert ID.
-      id: 3fa5a92e-3b86-4a05-8b86-53cd466bb1cb
+      description: Retrieves the original alert data, which includes details like
+        the **caller's IP address and the forwarding email address**.
+      id: 8d79be58-03b4-4eeb-8128-79fde89f5f7b
       iscommand: true
       istaskmissingcomponenterrordismissed: false
-      name: Get caller IP and forwarding mail address
+      name: Get Extended Alert Data
       playbooktaskmissingcomponent: null
       script: '|||core-get-cloud-original-alerts'
       type: regular
       version: -1
-    taskid: 3fa5a92e-3b86-4a05-8b86-53cd466bb1cb
+    taskid: 8d79be58-03b4-4eeb-8128-79fde89f5f7b
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
           "x": 643,
-          "y": -137
+          "y": -539
         }
       }
   "2":
@@ -140,7 +166,7 @@ tasks:
     isoversize: false
     nexttasks:
       '#none#':
-      - "4"
+      - "65"
     note: false
     quietmode: 0
     scriptarguments:
@@ -156,24 +182,24 @@ tasks:
     skipunavailable: true
     task:
       brand: ""
-      description: This script gathers IP reputation data from multiple integrations
-        and returns an IP entity with consolidated information to the context.
-      id: db47bc64-bb2b-4ff5-97a5-7fa88deef97a
+      description: Enriches the IP address by gathering reputation data from multiple
+        threat intelligence integrations.
+      id: 57488c2d-74e3-4f1e-88d8-cd3d435e3d63
       iscommand: false
       istaskmissingcomponenterrordismissed: false
-      name: 'Check caller IP reputation '
+      name: Enrich IP Address
       playbooktaskmissingcomponent: null
       script: ip-enrichment
       type: regular
       version: -1
-    taskid: db47bc64-bb2b-4ff5-97a5-7fa88deef97a
+    taskid: 57488c2d-74e3-4f1e-88d8-cd3d435e3d63
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
-          "x": 392,
-          "y": 130
+          "x": -1098,
+          "y": 181
         }
       }
   "3":
@@ -185,14 +211,14 @@ tasks:
     isoversize: false
     nexttasks:
       '#none#':
-      - "4"
+      - "61"
     note: false
     quietmode: 0
     scriptarguments:
       domain_list:
         complex:
           accessor: forwarding_domain_with_tld
-          root: Core.OriginalAlert.raw_abioc.event
+          root: Core.OriginalAlert.event
           transformers:
           - operator: uniq
       external_enrichment:
@@ -201,129 +227,24 @@ tasks:
     skipunavailable: true
     task:
       brand: ""
-      description: This script gathers domain reputation data from multiple integrations
-        and returns a "DomainEnrichment" object with consolidated information to the
-        context output.
-      id: 89868693-523d-4a49-ab2d-d30fc3377ae9
+      description: Enriches the forwarding address domain by gathering reputation
+        data from multiple threat intelligence integrations.
+      id: 2d7517ba-89ee-4866-a747-dd9014798050
       iscommand: false
       istaskmissingcomponenterrordismissed: false
-      name: Check forwarding email Domain reputation
+      name: Enrich Forwarding Address Domain
       playbooktaskmissingcomponent: null
       script: domain-enrichment
       type: regular
       version: -1
-    taskid: 89868693-523d-4a49-ab2d-d30fc3377ae9
+    taskid: 2d7517ba-89ee-4866-a747-dd9014798050
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
-          "x": 916,
-          "y": 130
-        }
-      }
-  "4":
-    conditions:
-    - condition:
-      - - left:
-            iscontext: true
-            value:
-              complex:
-                accessor: Value
-                filters:
-                - - ignorecase: true
-                    left:
-                      iscontext: true
-                      value:
-                        simple: IPEnrichment.TIMScore
-                    operator: greaterThanOrEqual
-                    right:
-                      value:
-                        simple: "3"
-                root: IPEnrichment
-          operator: isNotEmpty
-          right:
-            value: {}
-        - left:
-            iscontext: true
-            value:
-              complex:
-                accessor: Value
-                filters:
-                - - left:
-                      iscontext: true
-                      value:
-                        simple: DomainEnrichment.TIMScore
-                    operator: greaterThanOrEqual
-                    right:
-                      value:
-                        simple: "3"
-                root: DomainEnrichment
-          operator: isNotEmpty
-      label: "yes"
-    continueonerrortype: ""
-    id: "4"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#default#':
-      - "6"
-      "yes":
-      - "5"
-    note: false
-    quietmode: 0
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      id: df8b6ae1-ba4b-4319-8b09-a6b6084147a1
-      iscommand: false
-      istaskmissingcomponenterrordismissed: false
-      name: Evaluate IP address & domain reputation
-      playbooktaskmissingcomponent: null
-      type: condition
-      version: -1
-    taskid: df8b6ae1-ba4b-4319-8b09-a6b6084147a1
-    timertriggers: []
-    type: condition
-    view: |-
-      {
-        "position": {
-          "x": 392,
-          "y": 258
-        }
-      }
-  "5":
-    continueonerrortype: ""
-    id: "5"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#none#':
-      - "54"
-    note: false
-    quietmode: 0
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      id: 4592715d-e397-4035-8f6a-aa8adebe4d8b
-      iscommand: false
-      istaskmissingcomponenterrordismissed: false
-      name: Early Containment
-      playbooktaskmissingcomponent: null
-      type: title
-      version: -1
-    taskid: 4592715d-e397-4035-8f6a-aa8adebe4d8b
-    timertriggers: []
-    type: title
-    view: |-
-      {
-        "position": {
-          "x": -600,
-          "y": 388
+          "x": -1584,
+          "y": 181
         }
       }
   "6":
@@ -334,70 +255,36 @@ tasks:
     isoversize: false
     nexttasks:
       '#none#':
-      - "10"
-      - "9"
-      - "8"
-      - "40"
+      - "72"
+      - "84"
+      - "79"
+      - "78"
+      - "66"
+      - "63"
+      - "60"
+      - "29"
+      - "101"
     note: false
     quietmode: 0
     separatecontext: false
     skipunavailable: false
     task:
       brand: ""
-      id: 3147a19e-41fd-493f-823d-87582c61e37b
+      id: 312f67e6-6ee6-4200-80bd-41e891fc94ea
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Investigation
       playbooktaskmissingcomponent: null
       type: title
       version: -1
-    taskid: 3147a19e-41fd-493f-823d-87582c61e37b
+    taskid: 312f67e6-6ee6-4200-80bd-41e891fc94ea
     timertriggers: []
     type: title
     view: |-
       {
         "position": {
-          "x": 636,
-          "y": 388
-        }
-      }
-  "8":
-    continueonerror: true
-    continueonerrortype: ""
-    id: "8"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#none#':
-      - "21"
-    note: false
-    quietmode: 0
-    scriptarguments:
-      user_name:
-        simple: ${Core.OriginalAlert.raw_abioc.event.identity_normalized.identity}
-    separatecontext: false
-    skipunavailable: true
-    task:
-      brand: ""
-      description: This script gathers user data from multiple integrations and returns
-        an Account entity with consolidated information to the context.
-      id: 46aef42c-1ee7-4d61-b6df-d2869b8bcb59
-      iscommand: false
-      istaskmissingcomponenterrordismissed: false
-      name: Get user risk score
-      playbooktaskmissingcomponent: null
-      script: get-user-data
-      type: regular
-      version: -1
-    taskid: 46aef42c-1ee7-4d61-b6df-d2869b8bcb59
-    timertriggers: []
-    type: regular
-    view: |-
-      {
-        "position": {
-          "x": 881,
-          "y": 527
+          "x": 642.95361328125,
+          "y": -351.5
         }
       }
   "9":
@@ -409,7 +296,7 @@ tasks:
     isoversize: false
     nexttasks:
       '#none#':
-      - "23"
+      - "77"
     note: false
     quietmode: 0
     scriptarguments:
@@ -429,36 +316,55 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      description: Checks whether the given value is within the specified time (hour)
-        range.
-      id: 146faa60-9405-4cf2-8f7c-7ce02160a0c4
+      description: Determines if the event occurred during off-hours (22:00-06:00).
+      id: a4184630-7c46-440c-82eb-e7b2b9e766f1
       iscommand: false
       istaskmissingcomponenterrordismissed: false
-      name: Check if rule creation occurred outside business hours
+      name: Check if Rule Configured Outside of Business Hours
       playbooktaskmissingcomponent: null
       script: BetweenHours
       type: regular
       version: -1
-    taskid: 146faa60-9405-4cf2-8f7c-7ce02160a0c4
+    taskid: a4184630-7c46-440c-82eb-e7b2b9e766f1
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
-          "x": 101,
-          "y": 527
+          "x": -128,
+          "y": 181
         }
       }
   "10":
-    continueonerror: true
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: Core.OriginalAlert.event.saas_caller_ip_geolocation_days_seen_count
+          operator: isEqualNumber
+          right:
+            value:
+              simple: "0"
+        - left:
+            iscontext: true
+            value:
+              simple: Core.OriginalAlert.event.service_caller_ip_asn_days_seen_count
+          operator: isEqualNumber
+          right:
+            value:
+              simple: "0"
+      label: "yes"
     continueonerrortype: ""
     id: "10"
     ignoreworker: false
     isautoswitchedtoquietmode: false
     isoversize: false
     nexttasks:
-      '#none#':
-      - "22"
+      '#default#':
+      - "29"
+      "yes":
+      - "80"
     note: false
     quietmode: 0
     scriptarguments:
@@ -472,106 +378,63 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      description: 'Returns all elements from the left side that have a substring
-        that is equal to an element from the right side. Note: This filter is case-insensitive.'
-      id: cdba5566-f4de-4815-85ba-46d04083adf2
+      id: 0a756e78-9009-4376-8b78-ed1caefddc03
       iscommand: false
       istaskmissingcomponenterrordismissed: false
-      name: Analyze geolocation anomalies
+      name: Is the Connection's Geolocation Anomalous?
       playbooktaskmissingcomponent: null
-      script: AnyMatch
-      type: regular
+      type: condition
       version: -1
-    taskid: cdba5566-f4de-4815-85ba-46d04083adf2
+    taskid: 0a756e78-9009-4376-8b78-ed1caefddc03
     timertriggers: []
-    type: regular
+    type: condition
     view: |-
       {
         "position": {
-          "x": 491,
-          "y": 527
-        }
-      }
-  "14":
-    continueonerrortype: ""
-    id: "14"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#none#':
-      - "18"
-    note: false
-    quietmode: 0
-    scriptarguments:
-      closeNotes:
-        simple: Handled by the playbook "Exchange forwarding rule configured".
-      closeReason:
-        simple: Resolved - True Positive
-      id:
-        complex:
-          accessor: id
-          root: alert
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: Builtin
-      description: commands.local.cmd.close.inv
-      id: c0812731-773a-47eb-8176-b1694f6919c4
-      iscommand: true
-      istaskmissingcomponenterrordismissed: false
-      name: Close Alert
-      playbooktaskmissingcomponent: null
-      script: Builtin|||closeInvestigation
-      type: regular
-      version: -1
-    taskid: c0812731-773a-47eb-8176-b1694f6919c4
-    timertriggers: []
-    type: regular
-    view: |-
-      {
-        "position": {
-          "x": 420,
-          "y": 1879
+          "x": 362,
+          "y": 361
         }
       }
   "17":
-    continueonerrortype: ""
+    continueonerror: true
+    continueonerrortype: errorPath
     id: "17"
     ignoreworker: false
     isautoswitchedtoquietmode: false
     isoversize: false
     nexttasks:
+      '#error#':
+      - "96"
       '#none#':
-      - "14"
+      - "18"
     note: false
     quietmode: 0
     scriptarguments:
       identity:
-        simple: ${Core.OriginalAlert.raw_abioc.event.exchange_rule_name}
+        simple: ${Core.OriginalAlert.event.exchange_rule_name}
       mailbox:
-        simple: ${Core.OriginalAlert.raw_abioc.event.identity_name}
+        simple: ${Core.OriginalAlert.event.identity_name}
     separatecontext: false
     skipunavailable: true
     task:
       brand: ""
-      description: Disable an existing inbox rule in a given mailbox.
-      id: 08bbda77-f3ca-482f-83bb-6590a059f649
+      description: Disables an existing inbox rule in the user's mailbox using EWS.
+      id: 59e928f2-44f6-4b8b-a8e2-d43fa232f8d2
       iscommand: true
       istaskmissingcomponenterrordismissed: false
-      name: Disable the Exchange forwarding inbox rule
+      name: Disable Inbox Rule via EWS
       playbooktaskmissingcomponent: null
       script: '|||ews-rule-disable'
       type: regular
       version: -1
-    taskid: 08bbda77-f3ca-482f-83bb-6590a059f649
+    taskid: 59e928f2-44f6-4b8b-a8e2-d43fa232f8d2
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
-          "x": 874,
-          "y": 1732
+          "x": 2850,
+          "y": 2540
         }
       }
   "18":
@@ -586,284 +449,21 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      id: 58ed5fd7-71b7-4865-8de2-a4b02de08967
+      id: 51396ef0-c35e-490e-9e2b-a8bbe4e745be
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Done
       playbooktaskmissingcomponent: null
       type: title
       version: -1
-    taskid: 58ed5fd7-71b7-4865-8de2-a4b02de08967
+    taskid: 51396ef0-c35e-490e-9e2b-a8bbe4e745be
     timertriggers: []
     type: title
     view: |-
       {
         "position": {
-          "x": 1262,
-          "y": 2000
-        }
-      }
-  "21":
-    continueonerrortype: ""
-    id: "21"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#none#':
-      - "29"
-    note: false
-    quietmode: 0
-    scriptarguments:
-      append:
-        simple: "true"
-      key:
-        simple: Evidences
-      value:
-        complex:
-          root: .
-          transformers:
-          - args:
-              condition:
-                value:
-                  simple: lhs==rhs
-              conditionB: {}
-              conditionInBetween: {}
-              else: {}
-              equals: {}
-              lhs:
-                iscontext: true
-                value:
-                  simple: UserData.RiskLevel
-              lhsB: {}
-              options: {}
-              optionsB: {}
-              rhs:
-                value:
-                  simple: HIGH
-              rhsB: {}
-              then:
-                value:
-                  simple: The user risk level is high.
-            operator: If-Then-Else
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      description: |-
-        Set a value in context under the key you entered. If no value is entered, the script doesn't do anything.
-
-        This script runs using the default Limited User role, unless you explicitly change the permissions.
-        For more information, see the section about script permissions here:
-        https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8/Cortex-XSOAR-Cloud-Documentation/Create-a-script
-      id: 3551faf2-9e47-4c2b-ae7a-61f2cd7ebc5f
-      iscommand: false
-      istaskmissingcomponenterrordismissed: false
-      name: Set risky user to aggregated evidences
-      playbooktaskmissingcomponent: null
-      script: SetAndHandleEmpty
-      type: regular
-      version: -1
-    taskid: 3551faf2-9e47-4c2b-ae7a-61f2cd7ebc5f
-    timertriggers: []
-    type: regular
-    view: |-
-      {
-        "position": {
-          "x": 881,
-          "y": 648
-        }
-      }
-  "22":
-    continueonerrortype: ""
-    id: "22"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#none#':
-      - "29"
-    note: false
-    quietmode: 0
-    scriptarguments:
-      append:
-        simple: "true"
-      key:
-        simple: Evidences
-      value:
-        complex:
-          accessor: '}'
-          root: ${
-          transformers:
-          - args:
-              condition:
-                value:
-                  simple: lhs==rhs
-              conditionB: {}
-              conditionInBetween: {}
-              else: {}
-              equals: {}
-              lhs:
-                iscontext: true
-                value:
-                  simple: IsAbnormalGeolocation.[0]
-              lhsB: {}
-              options: {}
-              optionsB: {}
-              rhs:
-                value:
-                  simple: "True"
-              rhsB: {}
-              then:
-                value:
-                  simple: The user connected from an unusual geolocation.
-            operator: If-Then-Else
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      description: |-
-        Set a value in context under the key you entered. If no value is entered, the script doesn't do anything.
-
-        This script runs using the default Limited User role, unless you explicitly change the permissions.
-        For more information, see the section about script permissions here:
-        https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8/Cortex-XSOAR-Cloud-Documentation/Create-a-script
-      id: 44ae1921-e62d-4ace-8ad6-604f750b32e0
-      iscommand: false
-      istaskmissingcomponenterrordismissed: false
-      name: Set abnormal geolocation to aggregated evidences
-      playbooktaskmissingcomponent: null
-      script: SetAndHandleEmpty
-      type: regular
-      version: -1
-    taskid: 44ae1921-e62d-4ace-8ad6-604f750b32e0
-    timertriggers: []
-    type: regular
-    view: |-
-      {
-        "position": {
-          "x": 491,
-          "y": 648
-        }
-      }
-  "23":
-    continueonerrortype: ""
-    id: "23"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#none#':
-      - "29"
-    note: false
-    quietmode: 0
-    scriptarguments:
-      append:
-        simple: "true"
-      key:
-        simple: Evidences
-      value:
-        complex:
-          accessor: '}'
-          root: ${
-          transformers:
-          - args:
-              condition:
-                value:
-                  simple: lhs==rhs
-              conditionB: {}
-              conditionInBetween: {}
-              else: {}
-              equals: {}
-              lhs:
-                iscontext: true
-                value:
-                  simple: IsOutOfWorkingHours
-              lhsB: {}
-              options: {}
-              optionsB: {}
-              rhs:
-                value:
-                  simple: "true"
-              rhsB: {}
-              then:
-                value:
-                  simple: User created forwarding rule outside of business hours.
-            operator: If-Then-Else
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      description: |-
-        Set a value in context under the key you entered. If no value is entered, the script doesn't do anything.
-
-        This script runs using the default Limited User role, unless you explicitly change the permissions.
-        For more information, see the section about script permissions here:
-        https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8/Cortex-XSOAR-Cloud-Documentation/Create-a-script
-      id: 347eeeb4-facc-4e53-8832-013274dac80f
-      iscommand: false
-      istaskmissingcomponenterrordismissed: false
-      name: Set abnormal working hours to aggregated evidences
-      playbooktaskmissingcomponent: null
-      script: SetAndHandleEmpty
-      type: regular
-      version: -1
-    taskid: 347eeeb4-facc-4e53-8832-013274dac80f
-    timertriggers: []
-    type: regular
-    view: |-
-      {
-        "position": {
-          "x": 101,
-          "y": 648
-        }
-      }
-  "25":
-    conditions:
-    - condition:
-      - - left:
-            iscontext: true
-            value:
-              complex:
-                root: Evidences
-                transformers:
-                - operator: count
-          operator: greaterThanOrEqual
-          right:
-            value:
-              simple: "3"
-      label: "Yes"
-    continueonerrortype: ""
-    id: "25"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#default#':
-      - "48"
-      "Yes":
-      - "50"
-    note: false
-    quietmode: 0
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      id: 81129f5e-eca1-4467-96a7-2ffd2fb87762
-      iscommand: false
-      istaskmissingcomponenterrordismissed: false
-      name: Checking soft remediation conditions
-      playbooktaskmissingcomponent: null
-      type: condition
-      version: -1
-    taskid: 81129f5e-eca1-4467-96a7-2ffd2fb87762
-    timertriggers: []
-    type: condition
-    view: |-
-      {
-        "position": {
-          "x": 1014,
-          "y": 1055
+          "x": 643,
+          "y": 3426
         }
       }
   "28":
@@ -872,7 +472,7 @@ tasks:
       - - left:
             iscontext: true
             value:
-              simple: Core.OriginalAlert.raw_abioc.event.forwarding_domain_with_tld
+              simple: Core.OriginalAlert.event.forwarding_domain_with_tld
           operator: isNotEmpty
           right:
             value: {}
@@ -884,7 +484,7 @@ tasks:
     isoversize: false
     nexttasks:
       '#default#':
-      - "6"
+      - "29"
       "yes":
       - "3"
     note: false
@@ -893,21 +493,21 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      id: b09a9327-e34b-4f81-8782-e54ae932ca27
+      id: b93e9763-5b72-42fc-a3c7-a053475d92f3
       iscommand: false
       istaskmissingcomponenterrordismissed: false
-      name: Check if a forwarding address domain exists
+      name: Does the Forwarding Address Domain Exist?
       playbooktaskmissingcomponent: null
       type: condition
       version: -1
-    taskid: b09a9327-e34b-4f81-8782-e54ae932ca27
+    taskid: b93e9763-5b72-42fc-a3c7-a053475d92f3
     timertriggers: []
     type: condition
     view: |-
       {
         "position": {
-          "x": 906,
-          "y": -8
+          "x": -1584,
+          "y": 1
         }
       }
   "29":
@@ -918,94 +518,34 @@ tasks:
     isoversize: false
     nexttasks:
       '#none#':
-      - "37"
-      - "36"
+      - "56"
     note: false
     quietmode: 0
     separatecontext: false
     skipunavailable: false
     task:
       brand: ""
-      id: 73936401-a8d4-4374-8d30-4c9bc55f590e
+      id: ac15fa74-9cd5-41de-9a11-de2cbda922c7
       iscommand: false
       istaskmissingcomponenterrordismissed: false
-      name: Evaluate investigation results
+      name: Verdict
       playbooktaskmissingcomponent: null
       type: title
       version: -1
-    taskid: 73936401-a8d4-4374-8d30-4c9bc55f590e
+    taskid: ac15fa74-9cd5-41de-9a11-de2cbda922c7
     timertriggers: []
     type: title
     view: |-
       {
         "position": {
-          "x": 636,
-          "y": 791
-        }
-      }
-  "30":
-    conditions:
-    - condition:
-      - - left:
-            iscontext: true
-            value:
-              simple: Core.OriginalAlert.severity
-          operator: isEqualString
-          right:
-            value:
-              simple: SEV_030_MEDIUM
-      - - left:
-            iscontext: true
-            value:
-              complex:
-                root: Evidences
-                transformers:
-                - operator: count
-          operator: greaterThanOrEqual
-          right:
-            value:
-              simple: "2"
-      label: "yes"
-    continueonerrortype: ""
-    id: "30"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#default#':
-      - "48"
-      "yes":
-      - "32"
-    note: false
-    quietmode: 0
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      id: 5a7d6dc0-9fda-4277-80f8-16c3c8f7b180
-      iscommand: false
-      istaskmissingcomponenterrordismissed: false
-      name: Checking medium severity conditions
-      playbooktaskmissingcomponent: null
-      type: condition
-      version: -1
-    taskid: 5a7d6dc0-9fda-4277-80f8-16c3c8f7b180
-    timertriggers: []
-    type: condition
-    view: |-
-      {
-        "position": {
-          "x": 156,
-          "y": 1188
+          "x": 643,
+          "y": 908.5
         }
       }
   "32":
     continueonerrortype: ""
     form:
-      description: The investigation revealed several suspicious indicators suggesting
-        the user who created the forwarding rule may be compromised. The associated
-        forwarding email and filters have been automatically removed. Please decide
-        whether to take any additional recommended actions.
+      description: ""
       expired: false
       questions:
       - defaultrows: []
@@ -1014,19 +554,32 @@ tasks:
         id: "0"
         label: ""
         labelarg:
-          simple: "The following evidence was found: \n\n${Evidences}\n\nWould you
-            like to disable the account ${Core.OriginalAlert.raw_abioc.event.identity_name}?"
+          simple: "The investigation revealed several **suspicious indicators** suggesting
+            the user who configured this rule may be compromised. \n\n### Evidence
+            Found:\n${.=((function() { var e = val.Evidence ? [].concat(val.Evidence)
+            : []; var f = e.filter(x => x.Comment && x.Comment.length > 0); return
+            f.length > 0 ? f.map(item => \"1. +\" + item.Name.replace(/_/g, \" \").replace(/\\b\\w+\\b/g,
+            (w) => [\"IP\", \"DC\", \"CA\", \"DNS\", \"AI\", \"SMB\", \"XQL\", \"ID\",
+            \"URL\", \"CVE\", \"MITRE\", \"OS\", \"RDP\", \"SSH\", \"WMI\", \"VNC\",
+            \"TOR\", \"DLL\", \"MD5\", \"SHA1\", \"SHA256\", \"HTTP\", \"HTTPS\",
+            \"TCP\", \"UDP\", \"ICMP\", \"URI\", \"AD\", \"SID\", \"GUID\", \"UUID\",
+            \"MAC\", \"VM\", \"API\", \"JSON\", \"XML\", \"ISP\", \"AWS\", \"GCP\",
+            \"EXE\", \"MSI\", \"BAT\"].includes(w.toUpperCase()) ? w.toUpperCase()
+            : w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()) + \"+ - \" + item.Comment).join(\"\\n\")
+            : \"  No Evidence Found.\"; })())}\n\nWould you like to disable the account
+            ${Core.OriginalAlert.raw_abioc.event.identity_name}?"
         options: []
         optionsarg:
+        - {}
         - simple: "Yes"
         - simple: "No"
         placeholder: ""
         readonly: false
-        required: false
+        required: true
         tooltip: ""
         type: singleSelect
       sender: ""
-      title: Select user account containment steps
+      title: Disable User Containment
       totalanswers: 0
     id: "32"
     ignoreworker: false
@@ -1055,21 +608,21 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      id: 6cc4ec9a-a36d-48e5-852b-a5c1bc1b782f
+      id: 3951986f-ddd2-4591-a1c9-c7e572690b24
       iscommand: false
       istaskmissingcomponenterrordismissed: false
-      name: Decide whether to disable the user account
+      name: 'Manual Task: Disable User'
       playbooktaskmissingcomponent: null
       type: collection
       version: -1
-    taskid: 6cc4ec9a-a36d-48e5-852b-a5c1bc1b782f
+    taskid: 3951986f-ddd2-4591-a1c9-c7e572690b24
     timertriggers: []
     type: collection
     view: |-
       {
         "position": {
-          "x": -65,
-          "y": 1320
+          "x": 305,
+          "y": 2528.5
         }
       }
   "34":
@@ -1079,7 +632,7 @@ tasks:
           left:
             iscontext: true
             value:
-              simple: Select user account containment steps.Answers.0
+              simple: Disable User Containment.Answers.0
           operator: isEqualString
           right:
             value:
@@ -1092,7 +645,7 @@ tasks:
     isoversize: false
     nexttasks:
       '#default#':
-      - "48"
+      - "18"
       "yes":
       - "53"
     note: false
@@ -1101,53 +654,21 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      id: 65ab206a-9e3f-4b64-8efe-0ec2ba0d3e54
+      id: 5b8ff551-b1fd-4b70-8b1f-9e9aaff2cbdd
       iscommand: false
       istaskmissingcomponenterrordismissed: false
-      name: Check analyst decision
+      name: 'Analyst Decision: Disable User'
       playbooktaskmissingcomponent: null
       type: condition
       version: -1
-    taskid: 65ab206a-9e3f-4b64-8efe-0ec2ba0d3e54
+    taskid: 5b8ff551-b1fd-4b70-8b1f-9e9aaff2cbdd
     timertriggers: []
     type: condition
     view: |-
       {
         "position": {
-          "x": -65,
-          "y": 1453
-        }
-      }
-  "35":
-    continueonerrortype: ""
-    id: "35"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#none#':
-      - "14"
-    note: false
-    quietmode: 0
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      id: ed34eb8f-329b-49f1-8f12-d0e979055d77
-      iscommand: false
-      istaskmissingcomponenterrordismissed: false
-      name: Early Containment Complete
-      playbooktaskmissingcomponent: null
-      type: title
-      version: -1
-    taskid: ed34eb8f-329b-49f1-8f12-d0e979055d77
-    timertriggers: []
-    type: title
-    view: |-
-      {
-        "position": {
-          "x": -600,
-          "y": 805
+          "x": 305,
+          "y": 2708.5
         }
       }
   "36":
@@ -1158,206 +679,31 @@ tasks:
     isoversize: false
     nexttasks:
       '#none#':
-      - "41"
+      - "52"
+      - "44"
+      - "32"
+      - "18"
     note: false
     quietmode: 0
     separatecontext: false
     skipunavailable: false
     task:
       brand: ""
-      id: ec931801-d2f1-4042-84b4-0a7adf76ed05
+      id: 0c70a24c-db40-4e64-8735-9990688e921f
       iscommand: false
       istaskmissingcomponenterrordismissed: false
-      name: Hard Remediation
+      name: Remediation
       playbooktaskmissingcomponent: null
       type: title
       version: -1
-    taskid: ec931801-d2f1-4042-84b4-0a7adf76ed05
+    taskid: 0c70a24c-db40-4e64-8735-9990688e921f
     timertriggers: []
     type: title
     view: |-
       {
         "position": {
-          "x": 156,
-          "y": 938
-        }
-      }
-  "37":
-    continueonerrortype: ""
-    id: "37"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#none#':
-      - "25"
-    note: false
-    quietmode: 0
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      id: f6057cef-9260-4970-8b1d-88edb25b4059
-      iscommand: false
-      istaskmissingcomponenterrordismissed: false
-      name: Soft Remediation
-      playbooktaskmissingcomponent: null
-      type: title
-      version: -1
-    taskid: f6057cef-9260-4970-8b1d-88edb25b4059
-    timertriggers: []
-    type: title
-    view: |-
-      {
-        "position": {
-          "x": 1014,
-          "y": 933
-        }
-      }
-  "40":
-    continueonerrortype: ""
-    id: "40"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#none#':
-      - "29"
-    note: false
-    quietmode: 0
-    scriptarguments:
-      append:
-        simple: "true"
-      key:
-        simple: Evidences
-      value:
-        complex:
-          accessor: '}'
-          root: ${
-          transformers:
-          - args:
-              condition:
-                value:
-                  simple: lhs==rhs
-              conditionB: {}
-              conditionInBetween: {}
-              else: {}
-              equals: {}
-              lhs:
-                iscontext: true
-                value:
-                  simple: Core.OriginalAlert.event.service_sub_type
-              lhsB: {}
-              options: {}
-              optionsB: {}
-              rhs:
-                value:
-                  simple: ExchangeAdmin
-              rhsB: {}
-              then:
-                value:
-                  simple: The user has admin privileges.
-            operator: If-Then-Else
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      description: |-
-        Set a value in context under the key you entered. If no value is entered, the script doesn't do anything.
-
-        This script runs using the default Limited User role, unless you explicitly change the permissions.
-        For more information, see the section about script permissions here:
-        https://docs-cortex.paloaltonetworks.com/r/Cortex-XSOAR/8/Cortex-XSOAR-Cloud-Documentation/Create-a-script
-      id: 0ad3c032-8b63-40e8-8c30-edab2a540918
-      iscommand: false
-      istaskmissingcomponenterrordismissed: false
-      name: Verify if user is an Exchange admin
-      playbooktaskmissingcomponent: null
-      script: SetAndHandleEmpty
-      type: regular
-      version: -1
-    taskid: 0ad3c032-8b63-40e8-8c30-edab2a540918
-    timertriggers: []
-    type: regular
-    view: |-
-      {
-        "position": {
-          "x": 1271,
-          "y": 527
-        }
-      }
-  "41":
-    conditions:
-    - condition:
-      - - left:
-            iscontext: true
-            value:
-              complex:
-                accessor: Indicator
-                filters:
-                - - ignorecase: true
-                    left:
-                      iscontext: true
-                      value:
-                        simple: DBotScore.Type
-                    operator: isEqualString
-                    right:
-                      value:
-                        simple: ip
-                  - ignorecase: true
-                    left:
-                      iscontext: true
-                      value:
-                        simple: DBotScore.Type
-                    operator: isEqualString
-                    right:
-                      value:
-                        simple: domain
-                - - left:
-                      iscontext: true
-                      value:
-                        simple: DBotScore.Score
-                    operator: isEqualString
-                    right:
-                      value:
-                        simple: "3"
-                root: DBotScore
-          operator: isNotEmpty
-          right:
-            value: {}
-      label: "yes"
-    continueonerrortype: ""
-    id: "41"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#default#':
-      - "48"
-      - "30"
-      "yes":
-      - "51"
-    note: false
-    quietmode: 0
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      id: d7dd8118-96e2-4427-ac08-7f68b437ae63
-      iscommand: false
-      istaskmissingcomponenterrordismissed: false
-      name: Checking hard remediation conditions
-      playbooktaskmissingcomponent: null
-      type: condition
-      version: -1
-    taskid: d7dd8118-96e2-4427-ac08-7f68b437ae63
-    timertriggers: []
-    type: condition
-    view: |-
-      {
-        "position": {
-          "x": 156,
-          "y": 1048
+          "x": 643,
+          "y": 1988.5
         }
       }
   "43":
@@ -1398,109 +744,49 @@ tasks:
     isoversize: false
     nexttasks:
       '#default#':
-      - "48"
+      - "96"
       "yes":
-      - "44"
+      - "17"
     note: false
     quietmode: 0
     separatecontext: false
     skipunavailable: false
     task:
       brand: ""
-      id: 70e37f74-2f2f-41bf-88fc-463eaba78af7
+      id: 6a5c8cca-99fc-4f43-bf23-73e3e08c6cff
       iscommand: false
       istaskmissingcomponenterrordismissed: false
-      name: Check EWS Extension Online Powershell availability
+      name: Is EWS Extension Online Powershell Available?
       playbooktaskmissingcomponent: null
       type: condition
       version: -1
-    taskid: 70e37f74-2f2f-41bf-88fc-463eaba78af7
+    taskid: 6a5c8cca-99fc-4f43-bf23-73e3e08c6cff
     timertriggers: []
     type: condition
     view: |-
       {
         "position": {
-          "x": 1262,
-          "y": 1320
+          "x": 2240,
+          "y": 2348.5
         }
       }
   "44":
     conditions:
     - condition:
-      - - ignorecase: true
-          left:
+      - - left:
             iscontext: true
             value:
-              simple: alert.name
-          operator: isEqualString
+              simple: Core.OriginalAlert.event.exchange_rule_name
+          operator: isNotEmpty
           right:
-            value:
-              simple: External Exchange inbox forwarding rule configured
-        - ignorecase: true
-          left:
-            iscontext: true
-            value:
-              simple: alert.name
-          operator: isEqualString
-          right:
-            value:
-              simple: Suspicious Exchange inbox forwarding rule configured
-        - ignorecase: true
-          left:
-            iscontext: true
-            value:
-              simple: alert.name
-          operator: isEqualString
-          right:
-            value:
-              simple: Possible BEC Exchange email-hiding inbox rule
-        - ignorecase: true
-          left:
-            iscontext: true
-            value:
-              simple: alert.name
-          operator: isEqualString
-          right:
-            value:
-              simple: Suspicious Exchange email-hiding inbox rule
+            value: {}
       label: Inbox Rule
     - condition:
-      - - ignorecase: true
-          left:
+      - - left:
             iscontext: true
             value:
-              simple: alert.name
-          operator: isEqualString
-          right:
-            value:
-              simple: Exchange email-hiding transport rule based on message keywords
-        - ignorecase: true
-          left:
-            iscontext: true
-            value:
-              simple: alert.name
-          operator: isEqualString
-          right:
-            value:
-              simple: Suspicious Exchange email-hiding transport rule
-        - ignorecase: true
-          left:
-            iscontext: true
-            value:
-              simple: alert.name
-          operator: isEqualString
-          right:
-            value:
-              simple: Exchange transport forwarding rule configured
-        - ignorecase: true
-          left:
-            iscontext: true
-            value:
-              simple: alert.name
-          operator: isEqualString
-          right:
-            value:
-              simple: Suspicious Exchange transport forwarding rule configured
+              simple: Core.OriginalAlert.event.exchange_transport_rule_name
+          operator: isNotEmpty
       label: Transport Rule
     continueonerrortype: ""
     id: "44"
@@ -1509,43 +795,44 @@ tasks:
     isoversize: false
     nexttasks:
       '#default#':
-      - "18"
+      - "93"
       Inbox Rule:
-      - "46"
+      - "43"
       Transport Rule:
-      - "47"
+      - "94"
     note: false
     quietmode: 0
     separatecontext: false
     skipunavailable: false
     task:
       brand: ""
-      id: f89e9955-3dd9-4670-8a5e-08f041d3414b
+      id: 5f840f0e-0687-4eb3-ac2f-8ef0294cc35a
       iscommand: false
       istaskmissingcomponenterrordismissed: false
-      name: Check Alert type
+      name: What is the Rule Type?
       playbooktaskmissingcomponent: null
       type: condition
       version: -1
-    taskid: f89e9955-3dd9-4670-8a5e-08f041d3414b
+    taskid: 5f840f0e-0687-4eb3-ac2f-8ef0294cc35a
     timertriggers: []
     type: condition
     view: |-
       {
         "position": {
-          "x": 1262,
-          "y": 1453
+          "x": 923,
+          "y": 2168.5
         }
       }
   "45":
-    continueonerrortype: ""
+    continueonerror: true
+    continueonerrortype: errorPath
     id: "45"
     ignoreworker: false
     isautoswitchedtoquietmode: false
     isoversize: false
     nexttasks:
-      '#none#':
-      - "14"
+      '#error#':
+      - "95"
     note: false
     quietmode: 0
     scriptarguments:
@@ -1555,140 +842,24 @@ tasks:
     skipunavailable: true
     task:
       brand: ""
-      description: Disable a mail flow rule (transport rule) in the organization.
-      id: cce63e53-a02d-4d25-89ec-3684f0de635e
+      description: Disables the specified mail flow transport rule in the organization
+        using EWS.
+      id: ea4d0d57-1875-43af-b062-dd3950c6701e
       iscommand: true
       istaskmissingcomponenterrordismissed: false
-      name: Disable the Exchange forwarding transport rule
+      name: Disable Transport Rule
       playbooktaskmissingcomponent: null
       script: '|||ews-mail-flow-rule-disable'
       type: regular
       version: -1
-    taskid: cce63e53-a02d-4d25-89ec-3684f0de635e
+    taskid: ea4d0d57-1875-43af-b062-dd3950c6701e
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
-          "x": 1669,
-          "y": 1732
-        }
-      }
-  "46":
-    conditions:
-    - condition:
-      - - left:
-            iscontext: true
-            value:
-              simple: Core.OriginalAlert.raw_abioc.event.exchange_rule_name
-          operator: isNotEmpty
-          right:
-            value: {}
-      label: "yes"
-    continueonerrortype: ""
-    id: "46"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#default#':
-      - "18"
-      "yes":
-      - "17"
-    note: false
-    quietmode: 0
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      description: Checks if there is a rule name in the context.
-      id: 040c3bcd-4166-4768-847f-e4d09303d1f5
-      iscommand: false
-      istaskmissingcomponenterrordismissed: false
-      name: Check if inbox rule name is not empty
-      playbooktaskmissingcomponent: null
-      type: condition
-      version: -1
-    taskid: 040c3bcd-4166-4768-847f-e4d09303d1f5
-    timertriggers: []
-    type: condition
-    view: |-
-      {
-        "position": {
-          "x": 1051,
-          "y": 1586
-        }
-      }
-  "47":
-    conditions:
-    - condition:
-      - - left:
-            iscontext: true
-            value:
-              simple: Core.OriginalAlert.raw_abioc.event.exchange_transport_rule_name
-          operator: isNotEmpty
-      label: "yes"
-    continueonerrortype: ""
-    id: "47"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#default#':
-      - "18"
-      "yes":
-      - "45"
-    note: false
-    quietmode: 0
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      description: Checks if there is a transport rule name in the context.
-      id: a5bf70e3-c221-4511-8166-f205c7ee13b6
-      iscommand: false
-      istaskmissingcomponenterrordismissed: false
-      name: Check if transport rule name is not empty
-      playbooktaskmissingcomponent: null
-      type: condition
-      version: -1
-    taskid: a5bf70e3-c221-4511-8166-f205c7ee13b6
-    timertriggers: []
-    type: condition
-    view: |-
-      {
-        "position": {
-          "x": 1499,
-          "y": 1586
-        }
-      }
-  "48":
-    continueonerrortype: ""
-    id: "48"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    note: false
-    quietmode: 0
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      id: 08f4e462-9c50-4514-9984-38c19c91dc42
-      iscommand: false
-      istaskmissingcomponenterrordismissed: false
-      name: Done
-      playbooktaskmissingcomponent: null
-      type: title
-      version: -1
-    taskid: 08f4e462-9c50-4514-9984-38c19c91dc42
-    timertriggers: []
-    type: title
-    view: |-
-      {
-        "position": {
-          "x": 156,
-          "y": 1591
+          "x": 1620,
+          "y": 2528.5
         }
       }
   "49":
@@ -1709,7 +880,7 @@ tasks:
     isoversize: false
     nexttasks:
       '#default#':
-      - "6"
+      - "29"
       "yes":
       - "2"
     note: false
@@ -1718,150 +889,78 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      description: Check if a forwarding IP address exists
-      id: f9abb6cd-cf63-42cb-95b7-477b61104b66
+      description: Checks whether the IP address of the user who configured the rule
+        is available.
+      id: 8c4e3ac5-2c8f-4339-b00e-f19b18594ea5
       iscommand: false
       istaskmissingcomponenterrordismissed: false
-      name: Check if a forwarding IP address exists
+      name: Does the Rule Setter's IP Exist?
       playbooktaskmissingcomponent: null
       type: condition
       version: -1
-    taskid: f9abb6cd-cf63-42cb-95b7-477b61104b66
+    taskid: 8c4e3ac5-2c8f-4339-b00e-f19b18594ea5
     timertriggers: []
     type: condition
     view: |-
       {
         "position": {
-          "x": 392,
-          "y": -8
-        }
-      }
-  "50":
-    continueonerrortype: ""
-    id: "50"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#none#':
-      - "43"
-      - "52"
-    note: false
-    quietmode: 0
-    scriptarguments:
-      severity:
-        simple: Medium
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      description: Optionally increases the alert severity to the new value if it
-        is greater than the existing severity.
-      id: ec668c8c-1949-43cb-a444-962413520eb5
-      iscommand: false
-      istaskmissingcomponenterrordismissed: false
-      name: Increase alert severity
-      playbooktaskmissingcomponent: null
-      script: IncreaseAlertSeverity
-      type: regular
-      version: -1
-    taskid: ec668c8c-1949-43cb-a444-962413520eb5
-    timertriggers: []
-    type: regular
-    view: |-
-      {
-        "position": {
-          "x": 1017,
-          "y": 1198
-        }
-      }
-  "51":
-    continueonerrortype: ""
-    id: "51"
-    ignoreworker: false
-    isautoswitchedtoquietmode: false
-    isoversize: false
-    nexttasks:
-      '#none#':
-      - "32"
-    note: false
-    quietmode: 0
-    scriptarguments:
-      severity:
-        simple: Medium
-    separatecontext: false
-    skipunavailable: false
-    task:
-      brand: ""
-      description: Optionally increases the alert severity to the new value if it
-        is greater than the existing severity.
-      id: c66fcdad-363d-4233-89ea-9b28404b1d0e
-      iscommand: false
-      istaskmissingcomponenterrordismissed: false
-      name: Increase alert severity
-      playbooktaskmissingcomponent: null
-      script: IncreaseAlertSeverity
-      type: regular
-      version: -1
-    taskid: c66fcdad-363d-4233-89ea-9b28404b1d0e
-    timertriggers: []
-    type: regular
-    view: |-
-      {
-        "position": {
-          "x": -267,
-          "y": 1188
+          "x": -1098,
+          "y": 1
         }
       }
   "52":
-    continueonerrortype: ""
+    continueonerror: true
+    continueonerrortype: errorPath
     id: "52"
     ignoreworker: false
     isautoswitchedtoquietmode: false
     isoversize: false
     nexttasks:
+      '#error#':
+      - "89"
       '#none#':
-      - "14"
+      - "92"
     note: false
     quietmode: 0
     scriptarguments:
-      brands:
-        simple: Microsoft Graph User
+      severity:
+        simple: High
       user_name:
         simple: ${Core.OriginalAlert.event.identity_name}
     separatecontext: false
     skipunavailable: false
     task:
       brand: ""
-      description: This script clears user sessions across multiple integrations for
-        a list of usernames.
-      id: cc09ac7a-309c-4fa3-a6ab-e13a1db45980
+      id: 03bd443b-c35c-4321-8362-e6898dc919fd
       iscommand: false
       istaskmissingcomponenterrordismissed: false
-      name: Clear user session
+      name: Clear User Session
       playbooktaskmissingcomponent: null
       script: clear-user-session
       type: regular
       version: -1
-    taskid: cc09ac7a-309c-4fa3-a6ab-e13a1db45980
+    taskid: 03bd443b-c35c-4321-8362-e6898dc919fd
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
-          "x": 850,
-          "y": 1320
+          "x": -388,
+          "y": 2888.5
         }
       }
   "53":
-    continueonerrortype: ""
+    continueonerror: true
+    continueonerrortype: errorPath
     id: "53"
     ignoreworker: false
     isautoswitchedtoquietmode: false
     isoversize: false
     nexttasks:
+      '#error#':
+      - "90"
       '#none#':
-      - "14"
+      - "91"
     note: false
     quietmode: 0
     scriptarguments:
@@ -1873,100 +972,2392 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      description: This script disables users for multiple services.
-      id: 5ad1ce61-98a8-4d89-b7b1-0da3a18f05a5
+      id: d0c441bd-6409-4757-9b9d-ae475d35a4c5
       iscommand: false
       istaskmissingcomponenterrordismissed: false
-      name: Disable user account via MS-Graph
+      name: Disable User
       playbooktaskmissingcomponent: null
       script: disable-user
       type: regular
       version: -1
-    taskid: 5ad1ce61-98a8-4d89-b7b1-0da3a18f05a5
+    taskid: d0c441bd-6409-4757-9b9d-ae475d35a4c5
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
-          "x": -267,
-          "y": 1586
+          "x": 305,
+          "y": 2888.5
         }
       }
-  "54":
+  "55":
     continueonerrortype: ""
-    id: "54"
+    id: "55"
     ignoreworker: false
     isautoswitchedtoquietmode: false
     isoversize: false
     nexttasks:
       '#none#':
-      - "35"
+      - "1"
     note: false
     quietmode: 0
-    results:
-    - push_job_id
-    - commit_job_id
-    - panorama_responses
-    - executed_brands
-    scriptarguments:
-      ip_list:
-        simple: ${Core.OriginalAlert.event.caller_ip}
     separatecontext: false
     skipunavailable: false
     task:
       brand: ""
-      description: The script blocks a list of IP addresses in supported integrations.
-      id: 38630e4e-3c63-4d16-9857-dcf7725dfa8a
+      id: dd53ca83-df23-43b3-af4d-dbfae94e7642
       iscommand: false
       istaskmissingcomponenterrordismissed: false
-      name: Block external IP
+      name: Data Collection
       playbooktaskmissingcomponent: null
-      script: block-external-ip
+      type: title
+      version: -1
+    taskid: dd53ca83-df23-43b3-af4d-dbfae94e7642
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 643,
+          "y": -719
+        }
+      }
+  "56":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: Score
+                root: Evidence
+                transformers:
+                - args:
+                    applyIfEmpty: {}
+                    defaultValue:
+                      value:
+                        simple: "0"
+                  operator: SetIfEmpty
+                - operator: SumList
+          operator: greaterThanOrEqual
+          right:
+            value:
+              simple: "3"
+      label: Malicious
+    continueonerrortype: ""
+    id: "56"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "103"
+      Malicious:
+      - "57"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Verifies malicious indicators to initiate remediation. If evidence
+        is inconclusive, the analyst is prompted to review and manually decide on
+        the next steps.
+      id: 8a9fec11-0e47-4fbc-b1e7-f8c1c4acd74e
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Is Malicious Evidence Found?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 8a9fec11-0e47-4fbc-b1e7-f8c1c4acd74e
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 643,
+          "y": 1081
+        }
+      }
+  "57":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: alert.severity
+          operator: isEqualNumber
+          right:
+            value:
+              simple: "2"
+      label: Medium
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: alert.severity
+          operator: isEqualNumber
+          right:
+            value:
+              simple: "1"
+      label: Low
+    continueonerrortype: ""
+    id: "57"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "36"
+      Low:
+      - "59"
+      Medium:
+      - "58"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 51b7437f-f2f4-4ad0-8ffd-ef69a8e79f3f
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: What is the Current Severity Level?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 51b7437f-f2f4-4ad0-8ffd-ef69a8e79f3f
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 643,
+          "y": 1621
+        }
+      }
+  "58":
+    continueonerrortype: ""
+    id: "58"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "36"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      severity:
+        simple: High
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 46b00993-c9fc-4a8a-8bf4-3ef05d6ced86
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Increase Alert Severity to High
+      playbooktaskmissingcomponent: null
+      script: IncreaseAlertSeverity
       type: regular
       version: -1
-    taskid: 38630e4e-3c63-4d16-9857-dcf7725dfa8a
+    taskid: 46b00993-c9fc-4a8a-8bf4-3ef05d6ced86
     timertriggers: []
     type: regular
     view: |-
       {
         "position": {
-          "x": -600,
-          "y": 527
+          "x": 923,
+          "y": 1793.5
+        }
+      }
+  "59":
+    continueonerrortype: ""
+    id: "59"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "36"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      severity:
+        simple: Medium
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: a8988230-f6fd-4a71-8ad9-c8c17bfa92ba
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Increase Alert Severity to Medium
+      playbooktaskmissingcomponent: null
+      script: IncreaseAlertSeverity
+      type: regular
+      version: -1
+    taskid: a8988230-f6fd-4a71-8ad9-c8c17bfa92ba
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1374,
+          "y": 1793.5
+        }
+      }
+  "60":
+    continueonerrortype: ""
+    id: "60"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "28"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 5085d149-00e8-44fe-8a68-dc570c2b267e
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Domain Reputation
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 5085d149-00e8-44fe-8a68-dc570c2b267e
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": -1584,
+          "y": -171.5
+        }
+      }
+  "61":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: Value
+                filters:
+                - - left:
+                      iscontext: true
+                      value:
+                        simple: DomainEnrichment.TIMScore
+                    operator: greaterThan
+                    right:
+                      value:
+                        simple: "2"
+                root: DomainEnrichment
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "61"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "29"
+      "yes":
+      - "62"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 49412391-729f-436a-8e95-234450d2bbd4
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Was Malicious Domain Identified?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 49412391-729f-436a-8e95-234450d2bbd4
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -1584,
+          "y": 361
+        }
+      }
+  "62":
+    continueonerrortype: ""
+    id: "62"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "29"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: Evidence
+      value:
+        simple: "{\n    \"Name\": \"malicious_domain\", \n    \"Score\": 3, \n    \"Comment\":
+          \"A malicious domain was detected in the forwarding address: ${Core.OriginalAlert.event.forwarding_domain_with_tld}.\"\n}"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: b1d5066f-bced-4953-90b9-8164817c0eb5
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: Malicious Domain'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: b1d5066f-bced-4953-90b9-8164817c0eb5
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -1584,
+          "y": 721
+        }
+      }
+  "63":
+    continueonerrortype: ""
+    id: "63"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "49"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 4b2ff79b-9101-488a-a9a7-e92a12f22208
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: IP Reputation
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 4b2ff79b-9101-488a-a9a7-e92a12f22208
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": -1098,
+          "y": -171.5
+        }
+      }
+  "64":
+    continueonerrortype: ""
+    id: "64"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "29"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: Evidence
+      value:
+        simple: "{\n    \"Name\": \"malicious_ip\", \n    \"Score\": 1, \n    \"Comment\":
+          \"The user who configured the rule is risky and may have been compromised.\"\n}"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 4924606d-a82b-4ca9-885c-d8fe8973a1e2
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: Malicious IP'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 4924606d-a82b-4ca9-885c-d8fe8973a1e2
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -1098,
+          "y": 721
+        }
+      }
+  "65":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: Value
+                filters:
+                - - left:
+                      iscontext: true
+                      value:
+                        simple: IPEnrichment.TIMScore
+                    operator: greaterThan
+                    right:
+                      value:
+                        simple: "2"
+                root: IPEnrichment
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "65"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "29"
+      "yes":
+      - "64"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 5918da1e-7571-41cd-8eaa-e793dbf2c148
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Was Malicious IP Identified?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 5918da1e-7571-41cd-8eaa-e793dbf2c148
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -1098,
+          "y": 361
+        }
+      }
+  "66":
+    continueonerrortype: ""
+    id: "66"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "68"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 1f260eb7-2a60-4712-8067-2ad2ce093928
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: User Risk
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 1f260eb7-2a60-4712-8067-2ad2ce093928
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": -617,
+          "y": -171.5
+        }
+      }
+  "67":
+    continueonerrortype: ""
+    id: "67"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "29"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: Evidence
+      value:
+        simple: "{\n    \"Name\": \"high_risk_user\", \n    \"Score\": 1, \n    \"Comment\":
+          \"The user who configured the rule is risky and may have been compromised.\"\n}"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 7a36ee95-2992-45eb-a238-7e0c54dfe3b9
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: High-Risk User'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 7a36ee95-2992-45eb-a238-7e0c54dfe3b9
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -617,
+          "y": 721
+        }
+      }
+  "68":
+    continueonerror: true
+    continueonerrortype: ""
+    id: "68"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "69"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      user_id:
+        simple: ${Core.OriginalAlert.event.identity_name}
+      user_name:
+        simple: ${alert.username.[0]}
+    separatecontext: false
+    skipunavailable: true
+    task:
+      brand: ""
+      description: Retrieves and consolidates user account details from available
+        integrations.
+      id: 44de9402-913f-4054-8996-90539af7d6e8
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Get User Data
+      playbooktaskmissingcomponent: null
+      script: get-user-data
+      type: regular
+      version: -1
+    taskid: 44de9402-913f-4054-8996-90539af7d6e8
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -617,
+          "y": 181
+        }
+      }
+  "69":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                filters:
+                - - ignorecase: true
+                    left:
+                      iscontext: true
+                      value:
+                        simple: UserData.RiskLevel
+                    operator: containsGeneral
+                    right:
+                      value:
+                        simple: High
+                root: UserData.RiskLevel
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "69"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "29"
+      "yes":
+      - "67"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: f2605ef6-3735-4fb7-8e62-334725f96884
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Is the User High-Risk?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: f2605ef6-3735-4fb7-8e62-334725f96884
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -617,
+          "y": 361
+        }
+      }
+  "70":
+    continueonerror: true
+    continueonerrortype: errorPath
+    id: "70"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#error#':
+      - "73"
+      '#none#':
+      - "74"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      query:
+        simple: "dataset = saas_audit_logs \n| filter service_type = ENUM.Exchange
+          \n  and service_sub_type in (ENUM.ExchangeAdmin, ENUM.ExchangeItem)\n  and
+          operation_name_orig in (\"New-InboxRule\", \"Set-InboxRule\", \"UpdateInboxRules\",
+          \"New-TransportRule\", \"Set-TransportRule\")\n  and operation_status =
+          ENUM.SUCCESS\n  and identity_name != \"${Core.OriginalAlert.event.identity_name}\"\n|
+          alter parameters_array = json_extract_array(raw_log, \"$.Parameters\")\n|
+          alter forward_params = arrayfilter(parameters_array, json_extract_scalar(\"@element\",
+          \"$.Name\") in (\"ForwardTo\", \"ForwardAsAttachmentTo\", \"RedirectTo\"))\n|
+          alter forwarding_address = json_extract_scalar(arrayindex(forward_params,
+          0), \"$.Value\")\n| filter forwarding_address = \"${Core.OriginalAlert.event.forwarding_address}\"\n|
+          fields _time, event_id, identity_name, forwarding_address"
+      query_name:
+        simple: additional_forwarding_rules
+      time_frame:
+        simple: 1 day
+    separatecontext: false
+    skipunavailable: true
+    task:
+      brand: ""
+      description: Searches for other similar forwarding rules that were configured
+        in the past 24 hours.
+      id: 9a67e649-c399-4b41-9567-7aaadbc6e8e6
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Search for Additional Forwarding Rules
+      playbooktaskmissingcomponent: null
+      script: '|||xdr-xql-generic-query'
+      type: regular
+      version: -1
+    taskid: 9a67e649-c399-4b41-9567-7aaadbc6e8e6
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 930,
+          "y": 181
+        }
+      }
+  "71":
+    continueonerrortype: ""
+    id: "71"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "75"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: AdditionalForwardingRules
+      value:
+        complex:
+          accessor: results
+          filters:
+          - - ignorecase: true
+              left:
+                iscontext: true
+                value:
+                  simple: PaloAltoNetworksXQL.GenericQuery.query_name
+              operator: isEqualString
+              right:
+                value:
+                  simple: additional_forwarding_rules
+          root: PaloAltoNetworksXQL.GenericQuery
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: eb79b844-f6c6-4c4c-b235-5be7a1bab0c6
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Save the Additional Forwarding Rules
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: eb79b844-f6c6-4c4c-b235-5be7a1bab0c6
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 930,
+          "y": 541
+        }
+      }
+  "72":
+    continueonerrortype: ""
+    id: "72"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "81"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 280968f9-0737-43df-806a-3ab7a7f03a2d
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Similar Forwarding Rules
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 280968f9-0737-43df-806a-3ab7a7f03a2d
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 930,
+          "y": -171.5
+        }
+      }
+  "73":
+    continueonerrortype: ""
+    id: "73"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "29"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: Errors
+      value:
+        simple: '{"Name": "Search for Additional Forwarding Rules", "Comment": "Failed
+          retrieving other forwarding rules that were configured in the past 24 hours
+          using XQL query search."}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: eb32a590-840d-4b28-aeaa-594389d74cb4
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Error: Search for Additional Forwarding Rules'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: eb32a590-840d-4b28-aeaa-594389d74cb4
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1374,
+          "y": 721
+        }
+      }
+  "74":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: results
+                filters:
+                - - ignorecase: true
+                    left:
+                      iscontext: true
+                      value:
+                        simple: PaloAltoNetworksXQL.GenericQuery.query_name
+                    operator: isEqualString
+                    right:
+                      value:
+                        simple: additional_forwarding_rules
+                root: PaloAltoNetworksXQL.GenericQuery
+                transformers:
+                - operator: count
+          operator: greaterThan
+          right:
+            value:
+              simple: "0"
+      label: "yes"
+    continueonerrortype: ""
+    id: "74"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "29"
+      "yes":
+      - "71"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 8a50437d-8832-479b-9210-4c94bfc0b45a
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Have any other Forwarding Rules configured within the past day?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 8a50437d-8832-479b-9210-4c94bfc0b45a
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 930,
+          "y": 361
+        }
+      }
+  "75":
+    continueonerrortype: ""
+    id: "75"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "29"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "similar_forwarding_rules", "Score": 3, "Comment": "Identified
+          additional rules with the same forwarding address (`${Core.OriginalAlert.event.forwarding_address}`)
+          in other mailboxes (`${AdditionalForwardingRules.identity_name}`) that have
+          been configured within the last 24 hours."}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: ce4a8c99-4896-4354-b48e-7aa0563aca7d
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: Similar Forwarding Rules'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: ce4a8c99-4896-4354-b48e-7aa0563aca7d
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 930,
+          "y": 721
+        }
+      }
+  "76":
+    continueonerrortype: ""
+    id: "76"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "29"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: Evidence
+      value:
+        simple: "{\n    \"Name\": \"abnormal_working_hours\", \n    \"Score\": 1,
+          \n    \"Comment\": \"Configuring a rule outside of business hours may indicate
+          malicious activity by an attacker.\"\n}"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 27a2a210-76e7-4bfb-9c3e-581d21fe105b
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: Abnormal Working Hours'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 27a2a210-76e7-4bfb-9c3e-581d21fe105b
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -128,
+          "y": 721
+        }
+      }
+  "77":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: IsOutOfWorkingHours
+          operator: isTrue
+      label: "yes"
+    continueonerrortype: ""
+    id: "77"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "29"
+      "yes":
+      - "76"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: eaf71272-fc4e-44f8-b2c7-2c33999b5362
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Was the Rule Configured Outside of Business Hours?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: eaf71272-fc4e-44f8-b2c7-2c33999b5362
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -128,
+          "y": 361
+        }
+      }
+  "78":
+    continueonerrortype: ""
+    id: "78"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "9"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: edca0b87-c194-4a6b-99ff-678fe52b6cea
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Working Hours
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: edca0b87-c194-4a6b-99ff-678fe52b6cea
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": -128,
+          "y": -171.5
+        }
+      }
+  "79":
+    continueonerrortype: ""
+    id: "79"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "10"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: ef7fce8b-17d2-40f0-b2af-0a29da95bfd4
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Geolocation Anomalies
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: ef7fce8b-17d2-40f0-b2af-0a29da95bfd4
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 362,
+          "y": -171.5
+        }
+      }
+  "80":
+    continueonerrortype: ""
+    id: "80"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "29"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: Evidence
+      value:
+        simple: "{\n    \"Name\": \"abnormal_geolocation\", \n    \"Score\": 1, \n
+          \   \"Comment\": \"Connection detected from an anomalous geolocation.\"\n}"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: df8e63e6-ac0e-4af2-8b30-68213b52e4bb
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: Abnormal Geolocation'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: df8e63e6-ac0e-4af2-8b30-68213b52e4bb
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 362,
+          "y": 721
+        }
+      }
+  "81":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: Core.OriginalAlert.event.forwarding_address
+          operator: isNotEmpty
+      label: "yes"
+    continueonerrortype: ""
+    id: "81"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "29"
+      "yes":
+      - "70"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 77013499-db9e-415b-a128-894a1cfac267
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Does the Forwarding Address Exist?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 77013499-db9e-415b-a128-894a1cfac267
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 930,
+          "y": 1
+        }
+      }
+  "82":
+    continueonerror: true
+    continueonerrortype: errorPath
+    id: "82"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#error#':
+      - "85"
+      '#none#':
+      - "86"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      query:
+        simple: "dataset = saas_audit_logs \n| filter service_type = ENUM.Exchange
+          \n  and service_sub_type in (ENUM.ExchangeAdmin, ENUM.ExchangeItem)\n  and
+          operation_name_orig in (\"New-InboxRule\", \"Set-InboxRule\", \"UpdateInboxRules\",
+          \"New-TransportRule\", \"Set-TransportRule\")\n  and operation_status =
+          ENUM.SUCCESS\n  and identity_name != \"${Core.OriginalAlert.event.identity_name}\"\n|
+          alter parameters_array = json_extract_array(raw_log, \"$.Parameters\")\n|
+          alter contains_words_params = arrayfilter(parameters_array, json_extract_scalar(\"@element\",
+          \"$.Name\") in (\"BodyContainsWords\", \"SubjectContainsWords\", \"SubjectOrBodyContainsWords\"))\n|
+          alter contains_words = json_extract_scalar(arrayindex(contains_words_params,
+          0), \"$.Value\")\n| filter contains_words = \"${Core.OriginalAlert.event.exchange_rule_keywords}\"\n|
+          fields _time, event_id, identity_name, contains_words"
+      query_name:
+        simple: additional_email_hiding_rules
+      time_frame:
+        simple: 1 day
+    separatecontext: false
+    skipunavailable: true
+    task:
+      brand: ""
+      description: Searches for other similar email-hiding rules that were configured
+        in the past 24 hours.
+      id: 0f584826-2c29-40de-b956-8f2dad4b3627
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Search for Additional Email-Hiding Rules
+      playbooktaskmissingcomponent: null
+      script: '|||xdr-xql-generic-query'
+      type: regular
+      version: -1
+    taskid: 0f584826-2c29-40de-b956-8f2dad4b3627
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1826.25,
+          "y": 181
+        }
+      }
+  "83":
+    continueonerrortype: ""
+    id: "83"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "87"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: AdditionalEmailHidingRules
+      value:
+        complex:
+          accessor: results
+          filters:
+          - - ignorecase: true
+              left:
+                iscontext: true
+                value:
+                  simple: PaloAltoNetworksXQL.GenericQuery.query_name
+              operator: isEqualString
+              right:
+                value:
+                  simple: additional_email_hiding_rules
+          root: PaloAltoNetworksXQL.GenericQuery
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 5f57db39-a0e7-4d56-bbfc-369e338ca4db
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Save the Additional Email-Hiding Rules
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 5f57db39-a0e7-4d56-bbfc-369e338ca4db
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1826.25,
+          "y": 540.625
+        }
+      }
+  "84":
+    continueonerrortype: ""
+    id: "84"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "88"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: ac905788-2619-49d6-bd26-cb89a390c409
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Similar Email-Hiding Rules
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: ac905788-2619-49d6-bd26-cb89a390c409
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 1826.25,
+          "y": -171.5
+        }
+      }
+  "85":
+    continueonerrortype: ""
+    id: "85"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "29"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: Errors
+      value:
+        simple: '{"Name": "Search for Additional Email-Hiding Rules", "Comment": "Failed
+          retrieving other email-hiding rules that were configured in the past 24
+          hours using XQL query search."}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 1dcef11c-30c3-4f90-a939-4284390c35ac
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Error: Search for Additional Email-Hiding Rules'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 1dcef11c-30c3-4f90-a939-4284390c35ac
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 2275.25,
+          "y": 721
+        }
+      }
+  "86":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: results
+                filters:
+                - - ignorecase: true
+                    left:
+                      iscontext: true
+                      value:
+                        simple: PaloAltoNetworksXQL.GenericQuery.query_name
+                    operator: isEqualString
+                    right:
+                      value:
+                        simple: additional_email_hiding_rules
+                root: PaloAltoNetworksXQL.GenericQuery
+                transformers:
+                - operator: count
+          operator: greaterThan
+          right:
+            value:
+              simple: "0"
+      label: "yes"
+    continueonerrortype: ""
+    id: "86"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "29"
+      "yes":
+      - "83"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 5b4604db-e600-4da7-af8a-a10d321392d5
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Have any other Email-Hiding Rules configured within the past day?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 5b4604db-e600-4da7-af8a-a10d321392d5
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1826.25,
+          "y": 361
+        }
+      }
+  "87":
+    continueonerrortype: ""
+    id: "87"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "29"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "similar_email_hiding_rules", "Score": 3, "Comment": "Identified
+          additional rules with the same email-hiding keywords (`${Core.OriginalAlert.event.exchange_rule_keywords}`)
+          in other mailboxes (`${AdditionalEmailHidingRules.identity_name}`) that
+          have been configured within the last 24 hours."}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 2cc9b8eb-d41a-4a15-b4c4-df5140e7fdbe
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: Similar Email-Hiding Rules'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 2cc9b8eb-d41a-4a15-b4c4-df5140e7fdbe
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1826.25,
+          "y": 721
+        }
+      }
+  "88":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: Core.OriginalAlert.event.exchange_rule_keywords
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "88"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "29"
+      "yes":
+      - "82"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 846ee894-1223-4c95-afd8-e0491a062d3d
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Does the Rule have configured Keywords?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 846ee894-1223-4c95-afd8-e0491a062d3d
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1826.25,
+          "y": 1
+        }
+      }
+  "89":
+    continueonerrortype: ""
+    id: "89"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "18"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: Errors
+      value:
+        simple: '{"Name": "Clear User Session", "Comment": "Failed to clear the user''s
+          session. If the account is compromised, it is necessary that you clear the
+          session to ensure the user is logged out."}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 5aaac99d-5248-415a-bb0a-d9993b22eb79
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Error: Clear User Session'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 5aaac99d-5248-415a-bb0a-d9993b22eb79
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -657,
+          "y": 3238.5
+        }
+      }
+  "90":
+    continueonerrortype: ""
+    id: "90"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "18"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Errors
+      value:
+        simple: '{"Name": "Disable User", "Comment": "Failed to disable the user in
+          Microsoft Graph. Check if the integration is configured correctly, if the
+          user exists, and if the user is not already disabled."}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 413248cd-17fc-4421-ac26-63812dd2ea26
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Error: Disable User'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 413248cd-17fc-4421-ac26-63812dd2ea26
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 3,
+          "y": 3238.5
+        }
+      }
+  "91":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: DisableUser.Result
+          operator: isExists
+          right:
+            value: {}
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: DisableUser.Result
+          operator: isEqualString
+          right:
+            value:
+              simple: Success
+      label: "Yes"
+    continueonerrortype: ""
+    id: "91"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "90"
+      "Yes":
+      - "18"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: f94f8a26-a883-402b-a0d5-e3ba75e86ae7
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Was the MS Graph User Disabled Successfully?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: f94f8a26-a883-402b-a0d5-e3ba75e86ae7
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 305,
+          "y": 3068.5
+        }
+      }
+  "92":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: SessionClearResults.Result
+          operator: isExists
+          right:
+            value: {}
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: SessionClearResults.Result
+          operator: isEqualString
+          right:
+            value:
+              simple: Success
+      label: "Yes"
+    continueonerrortype: ""
+    id: "92"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "89"
+      "Yes":
+      - "18"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 8fed2c1c-7128-4521-af73-8cde73956af2
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Was User Session Cleared Successful?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 8fed2c1c-7128-4521-af73-8cde73956af2
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -388,
+          "y": 3068.5
+        }
+      }
+  "93":
+    continueonerrortype: ""
+    id: "93"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "18"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: Errors
+      value:
+        simple: '{"Name": "Rule Type Not Found", "Comment": "Failed to retrieve the
+          rule type. Please verify if the rule name is available. If the rule is suspicious,
+          you must disable it manually."}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: f0f5ffc8-8fd9-4bf8-90f8-57052f628b5d
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Error: Rule Type Not Found'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: f0f5ffc8-8fd9-4bf8-90f8-57052f628b5d
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 923,
+          "y": 3238.5
+        }
+      }
+  "94":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                filters:
+                - - ignorecase: true
+                    left:
+                      iscontext: true
+                      value:
+                        simple: modules.brand
+                    operator: isEqualString
+                    right:
+                      value:
+                        simple: EWS Extension Online Powershell v3
+                - - ignorecase: true
+                    left:
+                      iscontext: true
+                      value:
+                        simple: modules.state
+                    operator: isEqualString
+                    right:
+                      value:
+                        simple: active
+                root: modules
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "94"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "95"
+      "yes":
+      - "45"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: d18a98f4-39c8-4be9-8df1-e7866c5092c8
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Is EWS Extension Online Powershell Available?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: d18a98f4-39c8-4be9-8df1-e7866c5092c8
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1620,
+          "y": 2348.5
+        }
+      }
+  "95":
+    continueonerrortype: ""
+    id: "95"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "18"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: Errors
+      value:
+        simple: '{"Name": "Disable Transport Rule", "Comment": "Failed to disable
+          the transport rule. Please verify that the integration (EWS) is configured
+          correctly, the rule exists, and that it isn''t already disabled."}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 294a9af5-402c-410e-b3e7-d5007b0ab144
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Error: Disable Transport Rule'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 294a9af5-402c-410e-b3e7-d5007b0ab144
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1374,
+          "y": 3238.5
+        }
+      }
+  "96":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                filters:
+                - - ignorecase: true
+                    left:
+                      iscontext: true
+                      value:
+                        simple: modules.brand
+                    operator: isEqualString
+                    right:
+                      value:
+                        simple: MicrosoftGraphMail
+                - - ignorecase: true
+                    left:
+                      iscontext: true
+                      value:
+                        simple: modules.state
+                    operator: isEqualString
+                    right:
+                      value:
+                        simple: active
+                root: modules
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "96"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "98"
+      "yes":
+      - "99"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 3f87a650-408c-4b15-8a8b-39d8d7a1cef6
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Is MS Graph Mail Available?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 3f87a650-408c-4b15-8a8b-39d8d7a1cef6
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 2240,
+          "y": 2708.5
+        }
+      }
+  "97":
+    continueonerror: true
+    continueonerrortype: errorPath
+    id: "97"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#error#':
+      - "98"
+      '#none#':
+      - "18"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      rule_id:
+        complex:
+          accessor: id
+          filters:
+          - - ignorecase: true
+              left:
+                iscontext: true
+                value:
+                  simple: MSGraphMail.Rule.displayName
+              operator: isEqualString
+              right:
+                iscontext: true
+                value:
+                  simple: Core.OriginalAlert.event.exchange_rule_name
+          root: MSGraphMail.Rule
+          transformers:
+          - operator: uniq
+      user_id:
+        simple: ${Core.OriginalAlert.event.identity_name}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Deletes a specific email rule by ID from a user's mailbox using
+        the Microsoft Graph API.
+      id: 1f0d85c7-5957-414d-8026-5e8c4fe2519e
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Delete Inbox Rule via MS Graph
+      playbooktaskmissingcomponent: null
+      script: '|||msgraph-mail-delete-rule'
+      type: regular
+      version: -1
+    taskid: 1f0d85c7-5957-414d-8026-5e8c4fe2519e
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 2240,
+          "y": 3068.5
+        }
+      }
+  "98":
+    continueonerrortype: ""
+    id: "98"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "18"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: Errors
+      value:
+        simple: '{"Name": "Disable Inbox Rule", "Comment": "Failed to disable the
+          inbox rule. Please verify that the integration (EWS or MS Graph Mail) is
+          configured correctly, the rule exists, and that it isn''t already disabled."}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 560977a5-010c-4a65-aae9-b5c92539f470
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Error: Disable Inbox Rule'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 560977a5-010c-4a65-aae9-b5c92539f470
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1870,
+          "y": 3238.5
+        }
+      }
+  "99":
+    continueonerror: true
+    continueonerrortype: errorPath
+    id: "99"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#error#':
+      - "98"
+      '#none#':
+      - "97"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      user_id:
+        simple: ${Core.OriginalAlert.event.identity_name}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Lists all email inbox rules for the user's mailbox using the Microsoft
+        Graph API.
+      id: 97fa531c-b625-45a1-acb2-b75dc7c28af9
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: List Inbox Rules
+      playbooktaskmissingcomponent: null
+      script: '|||msgraph-mail-list-rules'
+      type: regular
+      version: -1
+    taskid: 97fa531c-b625-45a1-acb2-b75dc7c28af9
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 2240,
+          "y": 2888.5
+        }
+      }
+  "100":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: alert.severity
+          operator: isEqualNumber
+          right:
+            value:
+              simple: "2"
+      label: "yes"
+    continueonerrortype: ""
+    id: "100"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "29"
+      "yes":
+      - "102"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      extend-context:
+        simple: IsAbnormalGeolocation=
+      left:
+        simple: ${Core.OriginalAlert.event.saas_caller_ip_geolocation_days_seen_count},${Core.OriginalAlert.event.service_caller_ip_asn_days_seen_count}
+      right:
+        simple: "0"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: f19681e3-493b-44f1-b146-2a2bf320aa57
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Is the Current Severity Level Medium?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: f19681e3-493b-44f1-b146-2a2bf320aa57
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -2071.7979736328125,
+          "y": 361
+        }
+      }
+  "101":
+    continueonerrortype: ""
+    id: "101"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "100"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 398f153a-91cd-4f9e-b58f-a18e26980d3b
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Medium Alert
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 398f153a-91cd-4f9e-b58f-a18e26980d3b
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": -2071.7979736328125,
+          "y": -171.5
+        }
+      }
+  "102":
+    continueonerrortype: ""
+    id: "102"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "29"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: Evidence
+      value:
+        simple: "{\n    \"Name\": \"medium_alert\", \n    \"Score\": 1, \n    \"Comment\":
+          \"A Medium severity indicates that the detector has identified additional
+          anomalies that may corroborate a potential attack.\"\n}"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 5867c59d-a3d1-426f-858b-d820b9f04eb3
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: Medium Alert'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 5867c59d-a3d1-426f-858b-d820b9f04eb3
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -2071.7979736328125,
+          "y": 721
+        }
+      }
+  "103":
+    continueonerrortype: ""
+    form:
+      description: ""
+      expired: false
+      questions:
+      - defaultrows: []
+        fieldassociated: ""
+        gridcolumns: []
+        id: "0"
+        label: ""
+        labelarg:
+          simple: |-
+            During the investigation phase, the playbook identified the following suspicious evidence. Although the combined evidence does not conclusively confirm a true positive, it still warrants suspicion. Please review the evidence below and select the appropriate action.
+
+            ### Evidence Found:
+            ${.=((function() { var e = val.Evidence ? [].concat(val.Evidence) : []; var f = e.filter(x => x.Comment && x.Comment.length > 0); return f.length > 0 ? f.map(item => "1. +" + item.Name.replace(/_/g, " ").replace(/\b\w+\b/g, (w) => ["IP", "DC", "CA", "DNS", "AI", "SMB", "XQL", "ID", "URL", "CVE", "MITRE", "OS", "RDP", "SSH", "WMI", "VNC", "TOR", "DLL", "MD5", "SHA1", "SHA256", "HTTP", "HTTPS", "TCP", "UDP", "ICMP", "URI", "AD", "SID", "GUID", "UUID", "MAC", "VM", "API", "JSON", "XML", "ISP", "AWS", "GCP", "EXE", "MSI", "BAT"].includes(w.toUpperCase()) ? w.toUpperCase() : w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()) + "+ - " + item.Comment).join("\n") : "  No Evidence Found."; })())}
+
+            ### Investigation Errors:
+            ${.=((function() { var e = val.Errors? [].concat(val.Errors) : []; var f = e.filter(x => x.Comment && x.Comment.length > 0); return f.length > 0 ? f.map(item => "1. +" + item.Name.replace(/_/g, " ").replace(/\b\w+\b/g, (w) => ["IP", "DC", "CA", "DNS", "AI", "SMB", "XQL", "ID", "URL", "CVE", "MITRE", "OS", "RDP", "SSH", "WMI", "VNC", "TOR", "DLL", "MD5", "SHA1", "SHA256", "HTTP", "HTTPS", "TCP", "UDP", "ICMP", "URI", "AD", "SID", "GUID", "UUID", "MAC", "VM", "API", "JSON", "XML", "ISP", "AWS", "GCP", "EXE", "MSI", "BAT"].includes(w.toUpperCase()) ? w.toUpperCase() : w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()) + "+ - " + item.Comment).join("\n") : "  No Errors Found."; })())}
+
+            ### Decision Required:
+            Confirm Alert Disposition: Is this activity malicious?
+
+            - **No** - Close the alert as a False Positive.
+            - **Yes** - Handle the alert by:
+
+                1. Increasing alert severity.
+                2. Clearing user sessions for the user who configured the rule.
+                3. Disabling the user account that configured the rule.
+                4. Disabling or deleting the rule.
+
+            **Note: During the remediation stage, you will need to approve each hard remediation action.**
+        options: []
+        optionsarg:
+        - {}
+        - simple: "Yes"
+        - simple: "No"
+        placeholder: ""
+        readonly: false
+        required: true
+        tooltip: ""
+        type: singleSelect
+      sender: ""
+      title: Inconclusive Verdict
+      totalanswers: 0
+    id: "103"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    message:
+      bcc: null
+      body: null
+      cc: null
+      format: ""
+      methods: []
+      subject: null
+      timings:
+        completeafterreplies: 1
+        completeaftersla: false
+        completeafterv2: true
+        retriescount: 2
+        retriesinterval: 360
+      to: null
+    nexttasks:
+      '#none#':
+      - "104"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: d11cdfbf-070a-4d0c-b2ee-e00424732a3a
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Manual Task: Inconclusive Verdict'
+      playbooktaskmissingcomponent: null
+      type: collection
+      version: -1
+    taskid: d11cdfbf-070a-4d0c-b2ee-e00424732a3a
+    timertriggers: []
+    type: collection
+    view: |-
+      {
+        "position": {
+          "x": 185,
+          "y": 1261
+        }
+      }
+  "104":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: Inconclusive Verdict.Answers.0
+          operator: isEqualString
+          right:
+            value:
+              simple: "Yes"
+      label: "Yes"
+    continueonerrortype: ""
+    id: "104"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "105"
+      "Yes":
+      - "57"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 233ad146-a818-4b00-aa1b-2ff1fc314a51
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Analyst Decision: Inconclusive Verdict'
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 233ad146-a818-4b00-aa1b-2ff1fc314a51
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 185,
+          "y": 1441
+        }
+      }
+  "105":
+    continueonerrortype: ""
+    id: "105"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "106"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      closeNotes:
+        simple: Handled by the playbook "Exchange forwarding rule configured".
+      closeReason:
+        simple: Resolved - False Positive
+      id:
+        simple: ${alert.id}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      id: 0508123f-59c0-4c15-b2b2-5075b9157d88
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Close Alert as False Positive
+      playbooktaskmissingcomponent: null
+      script: Builtin|||closeInvestigation
+      type: regular
+      version: -1
+    taskid: 0508123f-59c0-4c15-b2b2-5075b9157d88
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 185,
+          "y": 1621
+        }
+      }
+  "106":
+    continueonerrortype: ""
+    id: "106"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 083dd9db-2aae-4742-bc55-45c56eecba7d
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: False Positive
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 083dd9db-2aae-4742-bc55-45c56eecba7d
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 185,
+          "y": 1808.5
         }
       }
 version: -1
 view: |-
   {
     "linkLabelsPosition": {
-      "25_48_#default#": 0.1,
-      "25_50_Yes": 0.44,
+      "100_29_#default#": 0.1,
+      "104_57_Yes": 0.41,
+      "10_29_#default#": 0.49,
+      "28_29_#default#": 0.1,
       "28_3_yes": 0.62,
-      "28_6_#default#": 0.44,
-      "30_32_yes": 0.3,
-      "30_48_#default#": 0.48,
-      "34_48_#default#": 0.25,
-      "41_48_#default#": 0.56,
-      "41_51_yes": 0.55,
-      "43_44_yes": 0.47,
-      "43_48_#default#": 0.21,
-      "44_18_#default#": 0.35,
-      "44_46_Inbox Rule": 0.45,
-      "44_47_Transport Rule": 0.45,
-      "46_17_yes": 0.66,
-      "46_18_#default#": 0.22,
-      "47_18_#default#": 0.23,
-      "47_45_yes": 0.57,
+      "34_18_#default#": 0.19,
+      "43_17_yes": 0.44,
+      "43_96_#default#": 0.4,
+      "44_93_#default#": 0.33,
+      "45_95_#error#": 0.24,
+      "49_29_#default#": 0.11,
       "49_2_yes": 0.5,
-      "49_6_#default#": 0.41,
-      "4_5_yes": 0.38,
-      "4_6_#default#": 0.33
+      "56_57_Malicious": 0.24,
+      "57_36_#default#": 0.36,
+      "61_29_#default#": 0.11,
+      "65_29_#default#": 0.14,
+      "69_29_#default#": 0.18,
+      "74_29_#default#": 0.37,
+      "77_29_#default#": 0.27,
+      "81_29_#default#": 0.24,
+      "86_29_#default#": 0.16,
+      "88_29_#default#": 0.15,
+      "91_18_Yes": 0.1,
+      "92_18_Yes": 0.27,
+      "94_95_#default#": 0.33,
+      "96_98_#default#": 0.35,
+      "97_98_#error#": 0.36,
+      "99_98_#error#": 0.43
     },
     "paper": {
       "dimensions": {
-        "height": 2309,
-        "width": 2650,
-        "x": -600,
-        "y": -249
+        "height": 4385,
+        "width": 5301.7979736328125,
+        "x": -2071.7979736328125,
+        "y": -899
       }
     }
   }
