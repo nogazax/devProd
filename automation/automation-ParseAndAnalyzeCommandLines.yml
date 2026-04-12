@@ -23,7 +23,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 8.9.0
     isoverridable: false
-    itemVersion: 1.3.37
+    itemVersion: 1.3.38
     packID: CortexResponseAndRemediation
     packName: Cortex Response And Remediation
     packPropagationLabels:
@@ -46,8 +46,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('ParseAndAnalyzeCommandLines', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.3.37'
-  demisto.debug('pack id = CortexResponseAndRemediation, pack version = 1.3.37')
+  CONSTANT_PACK_VERSION = '1.3.38'
+  demisto.debug('pack id = CortexResponseAndRemediation, pack version = 1.3.38')
   """Parse and analyze command lines from input data."""
 
   import json
