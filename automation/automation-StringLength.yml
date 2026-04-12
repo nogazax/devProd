@@ -12,7 +12,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.21.4
+    itemVersion: 1.21.5
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -33,7 +33,7 @@ restrictioncenter: {}
 runas: DBotWeakRole
 runonce: false
 script: |
-  // pack version: 1.21.4
+  // pack version: 1.21.5
   setContext('StringLength.Result', args.str.length);
   return {
       Type: entryTypes.note,
