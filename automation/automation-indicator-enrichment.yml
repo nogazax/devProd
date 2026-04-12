@@ -74,7 +74,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 8.0.0
     isoverridable: false
-    itemVersion: 1.3.32
+    itemVersion: 1.3.33
     packID: AggregatedScripts
     packName: Aggregated Scripts
     packPropagationLabels:
@@ -1186,8 +1186,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('indicator-enrichment', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.3.32'
-  demisto.debug('pack id = AggregatedScripts, pack version = 1.3.32')
+  CONSTANT_PACK_VERSION = '1.3.33'
+  demisto.debug('pack id = AggregatedScripts, pack version = 1.3.33')
 
 
 
