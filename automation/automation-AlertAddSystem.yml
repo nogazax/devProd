@@ -48,7 +48,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.21.4
+    itemVersion: 1.21.5
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -65,7 +65,7 @@ restrictioncenter: {}
 runas: DBotWeakRole
 runonce: false
 script: |
-  // pack version: 1.21.4
+  // pack version: 1.21.5
   return executeCommand('addSystem',args);
 scripttarget: 0
 signature: pJnkSLcirzWWfph+THcACfcy96BZSI3Vd3whGhuIbdVAWiKlYaA29tx5OKyH17GKVCi1KBosNiAT/Khwv+xw9NC3EmvU/gXO7fdyBpFf3uQiyIKmVThd/pw6pXazMqR40AjxpanSqA7wzao1xe6lRFyRUlFJK1MXn4XQlpoDiarcvi4KoXFYz1+/l95/4aYx6QX3F+Uu+xAm7AvuXqYjhUBJh/ditG5HmDg0RbZxqoOrdiA5VMUuq2wrZ8NghiR145Wn+tgVO+1H4KI3L5xa9H2EjxjcQRNz1wJxZnkHYbM4Ih7TfYe04dQDP+hHBgl1m0rxGa/jgbEzdi9nBJmytg==
