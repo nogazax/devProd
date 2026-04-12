@@ -19,7 +19,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.9.0
     isoverridable: false
-    itemVersion: 1.21.4
+    itemVersion: 1.21.5
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -45,8 +45,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('BMCTool', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.21.4'
-  demisto.debug('pack id = CommonScripts, pack version = 1.21.4')
+  CONSTANT_PACK_VERSION = '1.21.5'
+  demisto.debug('pack id = CommonScripts, pack version = 1.21.5')
   # This tool was developed by "https://github.com/ANSSI-FR/bmc-tools" - Thank you for your hardwork!
   from struct import pack, unpack
   from typing import AnyStr, Generic
