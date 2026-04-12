@@ -27,7 +27,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.21.4
+    itemVersion: 1.21.5
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -50,7 +50,7 @@ restrictioncenter: {}
 runas: DBotWeakRole
 runonce: false
 script: |
-  // pack version: 1.21.4
+  // pack version: 1.21.5
   var data = (typeof args.data) === 'string' ? args.data : JSON.stringify(args.data);
   var flags = args.flags ? args.flags : 'gim';
   var r = new RegExp(args.regex, flags);
