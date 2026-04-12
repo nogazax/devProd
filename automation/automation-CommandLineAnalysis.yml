@@ -25,7 +25,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.10.0
     isoverridable: false
-    itemVersion: 1.21.4
+    itemVersion: 1.21.5
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -137,7 +137,7 @@ restrictioncenter: {}
 runas: DBotWeakRole
 runonce: false
 script: "register_module_line('CommandLineAnalysis', 'start', __line__())\nCONSTANT_PACK_VERSION
-  = '1.21.4'\ndemisto.debug('pack id = CommonScripts, pack version = 1.21.4')\n\n\n\nimport
+  = '1.21.5'\ndemisto.debug('pack id = CommonScripts, pack version = 1.21.5')\n\n\n\nimport
   base64\nimport ipaddress\nimport json\nimport re\nfrom typing import Any\nfrom collections.abc
   import Callable\n\n\nKNOWN_POWERSHELL_COMMANDS_BREAKPOINTS = [\n    \"[Convert]::FromBase64String\",\n
   \   \"::ASCII\",\n    \"Replace\",\n    \"ForEach-Object\",\n    \"powershell\",\n
