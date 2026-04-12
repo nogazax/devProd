@@ -16,7 +16,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.21.4
+    itemVersion: 1.21.5
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -39,8 +39,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('PrintRaw', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.21.4'
-  demisto.debug('pack id = CommonScripts, pack version = 1.21.4')
+  CONSTANT_PACK_VERSION = '1.21.5'
+  demisto.debug('pack id = CommonScripts, pack version = 1.21.5')
 
 
 
