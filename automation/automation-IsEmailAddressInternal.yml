@@ -26,7 +26,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.21.4
+    itemVersion: 1.21.5
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -57,7 +57,7 @@ restrictioncenter: {}
 runas: DBotWeakRole
 runonce: false
 script: |
-  // pack version: 1.21.4
+  // pack version: 1.21.5
   function toBoolean(value) {
       if (typeof (value) === 'string') {
           if (['yes', 'true'].indexOf(value.toLowerCase()) != -1) {
