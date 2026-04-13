@@ -14,8 +14,8 @@
 		"incidenttype",
 		"playbook",
 		"classifier",
-		"modelingrule",
-		"parsingrule"
+		"parsingrule",
+		"modelingrule"
 	],
 	"contentItems": {
 		"agentixaction": null,
@@ -88,6 +88,23 @@
 				"fromversion": "8.4.0",
 				"id": "HelloWorldEventCollector",
 				"name": "HelloWorld Event Collector (Community Contribution)",
+				"supportedModules": [
+					"xsiam"
+				],
+				"toversion": ""
+			},
+			{
+				"category": "Data Enrichment \u0026 Threat Intelligence",
+				"commands": [
+					{
+						"description": "Gets indicators from the feed.",
+						"name": "helloworld-get-indicators"
+					}
+				],
+				"description": "This is the Feed Hello World integration for getting started with your feed integration.",
+				"fromversion": "5.5.0",
+				"id": "HelloWorld Feed",
+				"name": "HelloWorld Feed (Community Contribution)",
 				"toversion": ""
 			},
 			{
@@ -161,20 +178,6 @@
 				"id": "HelloWorld",
 				"name": "HelloWorld (Community Contribution)",
 				"toversion": ""
-			},
-			{
-				"category": "Data Enrichment \u0026 Threat Intelligence",
-				"commands": [
-					{
-						"description": "Gets indicators from the feed.",
-						"name": "helloworld-get-indicators"
-					}
-				],
-				"description": "This is the Feed Hello World integration for getting started with your feed integration.",
-				"fromversion": "5.5.0",
-				"id": "HelloWorld Feed",
-				"name": "HelloWorld Feed (Community Contribution)",
-				"toversion": ""
 			}
 		],
 		"layoutscontainer": null,
@@ -204,17 +207,17 @@
 		],
 		"playbook": [
 			{
-				"description": "This is a playbook which will handle the alerts coming from the Hello World service",
-				"fromversion": "6.8.0",
-				"id": "Handle Hello World Alert",
-				"name": "Handle Hello World Alert",
-				"tags": []
-			},
-			{
 				"description": "Deprecated. No available replacement.",
 				"fromversion": "5.0.0",
 				"id": "HelloWorld Scan",
 				"name": "HelloWorld Scan",
+				"tags": []
+			},
+			{
+				"description": "This is a playbook which will handle the alerts coming from the Hello World service",
+				"fromversion": "6.8.0",
+				"id": "Handle Hello World Alert",
+				"name": "Handle Hello World Alert",
 				"tags": []
 			}
 		],
@@ -224,7 +227,7 @@
 		"wizard": null
 	},
 	"created": "2025-03-29T09:38:42Z",
-	"currentVersion": "4.0.2",
+	"currentVersion": "4.0.3",
 	"defaultDataSource": {
 		"id": "HelloWorldEventCollector",
 		"name": "HelloWorld Event Collector"
@@ -296,7 +299,7 @@
 		}
 	],
 	"isOverridable": false,
-	"itemVersion": "4.0.2",
+	"itemVersion": "4.0.3",
 	"keywords": [],
 	"legacy": true,
 	"modules": [],
@@ -326,15 +329,15 @@
 		"xsiam"
 	],
 	"tags": [
-		"Getting Started",
-		"Data Source",
 		"Collection",
+		"Data Source",
+		"Getting Started",
 		"TIM"
 	],
 	"toServerVersion": "",
-	"updated": "2026-04-12T15:40:37Z",
+	"updated": "2026-04-13T10:18:31Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "8195766",
+	"versionInfo": "8210013",
 	"videos": []
 }
