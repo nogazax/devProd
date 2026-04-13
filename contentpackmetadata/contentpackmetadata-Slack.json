@@ -31,10 +31,10 @@
 		"agentixagent": null,
 		"automation": [
 			{
-				"description": "Sends a message (question) to either user (in a direct message) or to a channel. The message includes predefined reply options. The response can also close a task (might be conditional) in a playbook. Note: a message maximum length is 3000 characters enforced by Slack API.",
-				"fromversion": "5.5.0",
-				"id": "SlackAskV2",
-				"name": "SlackAskV2",
+				"description": "Sends a message (question) to either user (in a direct message) or to a channel. The message includes predefined reply options. The response can also close a task (might be conditional) in a playbook.",
+				"fromversion": "5.0.0",
+				"id": "SlackAsk",
+				"name": "SlackAsk",
 				"tags": [
 					"slack"
 				]
@@ -49,19 +49,19 @@
 				]
 			},
 			{
-				"description": "GetSlackBlockBuilderResponse will format a SlackBlockBuilder response and insert it into an incident's context.",
-				"fromversion": "6.10.0",
-				"id": "GetSlackBlockBuilderResponse",
-				"name": "GetSlackBlockBuilderResponse",
+				"description": "Sends a message (question) to either user (in a direct message) or to a channel. The message includes predefined reply options. The response can also close a task (might be conditional) in a playbook. Note: a message maximum length is 3000 characters enforced by Slack API.",
+				"fromversion": "5.5.0",
+				"id": "SlackAskV2",
+				"name": "SlackAskV2",
 				"tags": [
 					"slack"
 				]
 			},
 			{
-				"description": "Sends a message (question) to either user (in a direct message) or to a channel. The message includes predefined reply options. The response can also close a task (might be conditional) in a playbook.",
-				"fromversion": "5.0.0",
-				"id": "SlackAsk",
-				"name": "SlackAsk",
+				"description": "GetSlackBlockBuilderResponse will format a SlackBlockBuilder response and insert it into an incident's context.",
+				"fromversion": "6.10.0",
+				"id": "GetSlackBlockBuilderResponse",
+				"name": "GetSlackBlockBuilderResponse",
 				"tags": [
 					"slack"
 				]
@@ -108,7 +108,6 @@
 				"id": "Slack Event Collector",
 				"name": "Slack Event Collector",
 				"supportedModules": [
-					"agentix",
 					"xsiam"
 				],
 				"toversion": ""
@@ -355,10 +354,10 @@
 		],
 		"playbook": [
 			{
-				"description": "This is an example of how to use the SlackBlockBuilder within a playbook.",
-				"fromversion": "6.10.0",
-				"id": "SlackBlockBuilderResponseExample",
-				"name": "SlackBlockBuilderResponseExample",
+				"description": "Investigates a failed login event. The playbook interacts with the user via the Slack integration, checks whether the logins were a result of the user's attempts or an attack, raises the severity, and expires the user's password according to the user's replies.",
+				"fromversion": "5.0.0",
+				"id": "Slack - General Failed Logins v2.1",
+				"name": "Slack - General Failed Logins v2.1",
 				"supportedModules": [
 					"agentix",
 					"xsiam"
@@ -366,10 +365,10 @@
 				"tags": []
 			},
 			{
-				"description": "Investigates a failed login event. The playbook interacts with the user via the Slack integration, checks whether the logins were a result of the user's attempts or an attack, raises the severity, and expires the user's password according to the user's replies.",
-				"fromversion": "5.0.0",
-				"id": "Slack - General Failed Logins v2.1",
-				"name": "Slack - General Failed Logins v2.1",
+				"description": "This is an example of how to use the SlackBlockBuilder within a playbook.",
+				"fromversion": "6.10.0",
+				"id": "SlackBlockBuilderResponseExample",
+				"name": "SlackBlockBuilderResponseExample",
 				"supportedModules": [
 					"agentix",
 					"xsiam"
@@ -383,7 +382,7 @@
 		"wizard": null
 	},
 	"created": "2025-03-29T09:23:34Z",
-	"currentVersion": "3.5.47",
+	"currentVersion": "3.5.48",
 	"defaultDataSource": {
 		"id": "Slack Event Collector",
 		"name": "Slack Event Collector"
@@ -401,7 +400,7 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.41.68",
+			"minVersion": "1.41.71",
 			"name": "Base"
 		},
 		"CommonTypes": {
@@ -475,10 +474,35 @@
 			"id": "SlackV3",
 			"imagePath": "content/packs/Slack/SlackV3_image.png",
 			"name": "Slack v3"
+		},
+		{
+			"id": "Microsoft Teams",
+			"imagePath": "content/packs/MicrosoftTeams/MicrosoftTeams_image.png",
+			"name": "Microsoft Teams"
+		},
+		{
+			"id": "Microsoft Teams Management",
+			"imagePath": "content/packs/MicrosoftTeams/MicrosoftTeamsManagement_image.png",
+			"name": "Microsoft Teams Management"
+		},
+		{
+			"id": "Microsoft Teams via Webhook",
+			"imagePath": "content/packs/MicrosoftTeams/MicrosoftTeamsviaWebhook_image.png",
+			"name": "Microsoft Teams via Webhook"
+		},
+		{
+			"id": "Active Directory Query v2",
+			"imagePath": "content/packs/Active_Directory_Query/ActiveDirectoryQueryv2_image.png",
+			"name": "Active Directory Query v2"
+		},
+		{
+			"id": "Syslog Sender",
+			"imagePath": "content/packs/Syslog/SyslogSender_image.png",
+			"name": "Syslog Sender"
 		}
 	],
 	"isOverridable": false,
-	"itemVersion": "3.5.47",
+	"itemVersion": "3.5.48",
 	"keywords": [
 		"Slack"
 	],
@@ -518,10 +542,10 @@
 		"Data Source"
 	],
 	"toServerVersion": "",
-	"updated": "2026-03-23T11:35:32Z",
+	"updated": "2026-04-13T10:22:15Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "7850318",
+	"versionInfo": "8210013",
 	"videos": [
 		"https://www.youtube.com/watch?v=rt3lvsI_0-4"
 	]
