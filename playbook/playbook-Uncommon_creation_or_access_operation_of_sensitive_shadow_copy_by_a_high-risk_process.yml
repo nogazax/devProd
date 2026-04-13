@@ -3,7 +3,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 8.8.0
     isoverridable: false
-    itemVersion: 1.3.38
+    itemVersion: 1.3.39
     packID: CortexResponseAndRemediation
     packName: Cortex Response And Remediation
     packPropagationLabels:
@@ -701,8 +701,7 @@ tasks:
     skipunavailable: false
     task:
       brand: ""
-      description: Terminate a process tree by its causality ID. Available only for
-        Cortex XSIAM 2.4.
+      description: Terminate a process tree by its causality ID.
       id: 17338ce2-c9a1-4e55-89d8-c380573be240
       iscommand: true
       istaskmissingcomponenterrordismissed: false
