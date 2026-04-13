@@ -90,7 +90,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.5.0
     isoverridable: false
-    itemVersion: 3.5.47
+    itemVersion: 3.5.48
     packID: Slack
     packName: Slack
     packPropagationLabels:
@@ -116,8 +116,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('SlackAskV2', 'start', __line__())
-  CONSTANT_PACK_VERSION = '3.5.47'
-  demisto.debug('pack id = Slack, pack version = 3.5.47')
+  CONSTANT_PACK_VERSION = '3.5.48'
+  demisto.debug('pack id = Slack, pack version = 3.5.48')
   import dateparser
 
 
