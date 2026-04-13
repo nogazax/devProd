@@ -7,7 +7,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 8.8.0
     isoverridable: false
-    itemVersion: 1.3.38
+    itemVersion: 1.3.39
     packID: CortexResponseAndRemediation
     packName: Cortex Response And Remediation
     packPropagationLabels:
@@ -27,6 +27,6 @@ is_auto_enabled: false
 name: ""
 packid: CortexResponseAndRemediation
 packname: Cortex Response And Remediation
-packversion: 1.3.38
+packversion: 1.3.39
 playbook_id: Office process creates a scheduled task via file access
 subtype: trigger
