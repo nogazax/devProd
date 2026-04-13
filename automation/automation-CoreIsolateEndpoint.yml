@@ -25,7 +25,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.1.0
     isoverridable: false
-    itemVersion: 3.5.30
+    itemVersion: 3.5.32
     packID: Core
     packName: Core
     packPropagationLabels:
@@ -56,8 +56,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('CoreIsolateEndpoint', 'start', __line__())
-  CONSTANT_PACK_VERSION = '3.5.30'
-  demisto.debug('pack id = Core, pack version = 3.5.30')
+  CONSTANT_PACK_VERSION = '3.5.32'
+  demisto.debug('pack id = Core, pack version = 3.5.32')
 
 
 
