@@ -7,7 +7,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 8.4.0
     isoverridable: false
-    itemVersion: 4.0.1
+    itemVersion: 4.0.2
     packID: HelloWorld
     packName: HelloWorld
     packPropagationLabels:
@@ -62,6 +62,6 @@ is_auto_enabled: false
 name: HelloWorld Modeling Rule
 packid: HelloWorld
 packname: HelloWorld
-packversion: 4.0.1
+packversion: 4.0.2
 playbook_id: ""
 subtype: modelingrule
