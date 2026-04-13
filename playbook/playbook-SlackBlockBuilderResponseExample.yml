@@ -3,7 +3,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.10.0
     isoverridable: false
-    itemVersion: 3.5.47
+    itemVersion: 3.5.48
     packID: Slack
     packName: Slack
     packPropagationLabels:
