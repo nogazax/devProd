@@ -125,7 +125,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.41.70
+    itemVersion: 1.41.71
     packID: Base
     packName: Base
     packPropagationLabels:
