@@ -7,7 +7,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.41.70
+    itemVersion: 1.41.71
     packID: Base
     packName: Base
     packPropagationLabels:
@@ -25,8 +25,8 @@ restrictioncenter: {}
 runas: DBotWeakRole
 runonce: false
 script: |
-  CONSTANT_PACK_VERSION = '1.41.70'
-  demisto.debug('pack id = Base, pack version = 1.41.70')
+  CONSTANT_PACK_VERSION = '1.41.71'
+  demisto.debug('pack id = Base, pack version = 1.41.71')
   """Common functions script
   This script will be appended to each server script before being executed.
   Please notice that to add custom common code, add it to the CommonServerUserPython script.
@@ -2433,9 +2433,10 @@ script: |
       if not headers and isinstance(t, dict) and len(t.keys()) == 1:
           # in case of a single key, create a column table where each element is in a different row.
           headers = list(t.keys())
-          # if the value of the single key is a list, unpack it for creating a column table.
-          if isinstance(list(t.values())[0], list):
-              t = list(t.values())[0]
+          # if the value of the single key is a non-empty list, unpack it for creating a column table.
+          single_value = list(t.values())[0]
+          if isinstance(single_value, list) and single_value:
+              t = single_value
 
       if not isinstance(t, list):
           t = [t]
