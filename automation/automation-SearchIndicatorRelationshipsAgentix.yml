@@ -151,7 +151,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.6.0
     isoverridable: false
-    itemVersion: 1.41.70
+    itemVersion: 1.41.71
     packID: Base
     packName: Base
     packPropagationLabels:
@@ -217,8 +217,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('SearchIndicatorRelationshipsAgentix', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.41.70'
-  demisto.debug('pack id = Base, pack version = 1.41.70')
+  CONSTANT_PACK_VERSION = '1.41.71'
+  demisto.debug('pack id = Base, pack version = 1.41.71')
 
 
 
