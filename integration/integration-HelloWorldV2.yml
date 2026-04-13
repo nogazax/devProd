@@ -32,6 +32,14 @@ configuration:
   section: Connect
   supportedModules: []
   type: 8
+- defaultvalue: "1"
+  display: Events Fetch Interval
+  name: eventFetchInterval
+  required: false
+  section: Collect
+  supportedModules:
+  - xsiam
+  type: 19
 - additionalinfo: The minimum HelloWorld score required to mark an IP as malicious
     (0-100).
   advanced: true
@@ -100,14 +108,16 @@ configuration:
   name: isFetchEvents
   required: false
   section: Collect
-  supportedModules: []
+  supportedModules:
+  - xsiam
   type: 8
 - defaultvalue: "1000"
   display: Maximum number of events per fetch
   name: max_events_fetch
   required: false
   section: Collect
-  supportedModules: []
+  supportedModules:
+  - xsiam
   type: 0
 - display: Fetch assets and vulnerabilities
   name: isFetchAssets
@@ -115,14 +125,6 @@ configuration:
   section: Collect
   supportedModules: []
   type: 8
-- advanced: true
-  defaultvalue: "1"
-  display: Events Fetch Interval
-  name: eventFetchInterval
-  required: false
-  section: Collect
-  supportedModules: []
-  type: 19
 - advanced: true
   defaultvalue: "1"
   display: Assets Fetch Interval
@@ -136,7 +138,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.8.0
     isoverridable: false
-    itemVersion: 4.0.1
+    itemVersion: 4.0.2
     packID: HelloWorld
     packName: HelloWorld
     packPropagationLabels:
@@ -495,8 +497,8 @@ script:
   runonce: false
   script: |
     register_module_line('HelloWorldV2', 'start', __line__())
-    CONSTANT_PACK_VERSION = '4.0.1'
-    demisto.debug('pack id = HelloWorld, pack version = 4.0.1')
+    CONSTANT_PACK_VERSION = '4.0.2'
+    demisto.debug('pack id = HelloWorld, pack version = 4.0.2')
     # ruff: noqa: F401,N805
     import asyncio
     import json
