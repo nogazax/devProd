@@ -7,7 +7,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 8.4.0
     isoverridable: false
-    itemVersion: 4.0.2
+    itemVersion: 4.0.3
     packID: HelloWorld
     packName: HelloWorld
     packPropagationLabels:
@@ -31,6 +31,6 @@ is_auto_enabled: false
 name: HelloWorld Parsing Rule
 packid: HelloWorld
 packname: HelloWorld
-packversion: 4.0.2
+packversion: 4.0.3
 playbook_id: ""
 subtype: parsingrule
