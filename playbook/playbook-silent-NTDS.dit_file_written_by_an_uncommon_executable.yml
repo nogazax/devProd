@@ -3,7 +3,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 8.9.0
     isoverridable: false
-    itemVersion: 1.3.38
+    itemVersion: 1.3.39
     packID: CortexResponseAndRemediation
     packName: Cortex Response And Remediation
     packPropagationLabels:
@@ -4197,7 +4197,6 @@ tasks:
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: PAN-OS - Block IP
-      playbookId: PAN-OS - Block IP
       playbookName: PAN-OS - Block IP
       playbooktaskmissingcomponent: null
       type: playbook
