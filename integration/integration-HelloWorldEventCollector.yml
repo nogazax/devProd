@@ -58,7 +58,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 8.4.0
     isoverridable: false
-    itemVersion: 4.0.1
+    itemVersion: 4.0.2
     packID: HelloWorld
     packName: HelloWorld
     packPropagationLabels:
@@ -121,8 +121,8 @@ script:
   runonce: false
   script: |
     register_module_line('HelloWorldEventCollector', 'start', __line__())
-    CONSTANT_PACK_VERSION = '4.0.1'
-    demisto.debug('pack id = HelloWorld, pack version = 4.0.1')
+    CONSTANT_PACK_VERSION = '4.0.2'
+    demisto.debug('pack id = HelloWorld, pack version = 4.0.2')
     import uuid
 
 
