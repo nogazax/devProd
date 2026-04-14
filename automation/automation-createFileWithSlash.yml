@@ -49,7 +49,7 @@ script: |
       'Contents': '',
       'ContentsFormat': 'text',
       'Type': 3,
-      'File': 'Faktura Fm/9880/2026.eml',
+      'File': 'Faktura Fm\/9880.eml',
       'FileID': temp_id
   })
 scripttarget: 0
