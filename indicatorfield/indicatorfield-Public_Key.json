@@ -172,7 +172,7 @@
 	"ipVersion": "",
 	"isOverridable": false,
 	"isReadOnly": true,
-	"itemVersion": "3.10.5",
+	"itemVersion": "3.10.6",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "Public Key",
@@ -186,7 +186,7 @@
 		"all"
 	],
 	"placeholder": "",
-	"pretty_name": "",
+	"pretty_name": "Public Key",
 	"propagationLabels": [],
 	"required": false,
 	"runScriptAfterUpdate": false,
