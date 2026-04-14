@@ -26,21 +26,30 @@ runonce: false
 script: |
   import os
 
-  # Create a temp file with content
   temp_id = demisto.uniqueFile()
   inv_id = demisto.investigation()['id']
   filename = inv_id + '_' + temp_id
 
-  with open(filename, 'w') as f:
-      f.write("This is test content simulating an email file")
+  # Write a valid .eml file
+  eml_content = """From: sender@example.com
+  To: recipient@example.com
+  Subject: Test Email
+  Date: Mon, 13 Apr 2026 10:00:00 +0000
+  MIME-Version: 1.0
+  Content-Type: text/plain; charset="utf-8"
+  Content-Transfer-Encoding: 7bit
 
-  # Return a file result with "/" in the File name
-  # This simulates what happens when an email has a name like "Faktura Fm / 9880 / 2026.eml"
+  This is a test email body for testing slash in filename.
+  """
+
+  with open(filename, 'w') as f:
+      f.write(eml_content)
+
   demisto.results({
       'Contents': '',
       'ContentsFormat': 'text',
       'Type': 3,
-      'File': 'Faktura Fm / 9880 / 2026.eml',
+      'File': 'Faktura Fm//9880//2026.eml',
       'FileID': temp_id
   })
 scripttarget: 0
