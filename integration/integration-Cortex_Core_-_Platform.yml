@@ -16,7 +16,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.2.0
     isoverridable: false
-    itemVersion: 3.5.32
+    itemVersion: 3.5.33
     packID: Core
     packName: Core
     packPropagationLabels:
@@ -5044,8 +5044,8 @@ script:
   runonce: false
   script: |
     register_module_line('Cortex Core - Platform', 'start', __line__())
-    CONSTANT_PACK_VERSION = '3.5.32'
-    demisto.debug('pack id = Core, pack version = 3.5.32')
+    CONSTANT_PACK_VERSION = '3.5.33'
+    demisto.debug('pack id = Core, pack version = 3.5.33')
     from typing import Any
 
 
@@ -13876,7 +13876,7 @@ script:
 
         if script_name:
             scripts_results = list_scripts_command(client, {"script_name": script_name})
-            scripts = scripts_results[0].outputs.get("Scripts", [])  # type: ignore
+            scripts: list = scripts_results[0].outputs or []  # type: ignore
             number_of_returned_scripts = len(scripts)
             demisto.debug(f"Scripts results: {scripts}")
             if number_of_returned_scripts > 1:
