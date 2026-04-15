@@ -61,7 +61,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.21.5
+    itemVersion: 1.21.6
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -79,7 +79,7 @@ restrictioncenter: {}
 runas: DBotWeakRole
 runonce: false
 script: |-
-  // pack version: 1.21.5
+  // pack version: 1.21.6
   /**
    * GenericPollingScheduledTask
    *   This task is ment to be scheduled by the ScheduleGenericPolling automation
