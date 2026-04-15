@@ -8,7 +8,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.0.0
     isoverridable: false
-    itemVersion: 1.4.0
+    itemVersion: 1.4.1
     packID: DemistoRESTAPI
     packName: Cortex REST API
     packPropagationLabels:
@@ -30,8 +30,8 @@ runas: DBotRole
 runonce: false
 script: |
   register_module_line('SetIRProceduresMarkdown', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.4.0'
-  demisto.debug('pack id = DemistoRESTAPI, pack version = 1.4.0')
+  CONSTANT_PACK_VERSION = '1.4.1'
+  demisto.debug('pack id = DemistoRESTAPI, pack version = 1.4.1')
 
 
   SECTIONS_TO_KEEP = ("Threat Hunting", "Mitigation", "Remediation", "Eradication")
