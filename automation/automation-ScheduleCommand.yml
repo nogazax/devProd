@@ -27,7 +27,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.21.5
+    itemVersion: 1.21.6
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -44,7 +44,7 @@ restrictioncenter: {}
 runas: DBotWeakRole
 runonce: false
 script: |
-  // pack version: 1.21.5
+  // pack version: 1.21.6
   return executeCommand("scheduleEntry", args);
 scripttarget: 0
 signature: ONHFzRSMzDuh6OJaQhKuFRziNRJej4qyn6bqe6qyd9n3Ym/sCJZJwZyTJmlnGTjKKAGnYLFfKTPKeczLCJIUACvinlhvhkpWbPyqoHyOrshcX0m0bYeaFRoAEHr0GsrreMVZp+GRE+1cRtlO7xgvlT2AmUm7mgglsBsHRqaAqAUKWCjE51k/wT7JslVwODr/FJrAxbLYW7ByXStsCZ6+Qx2gD5jir97Ip0OIYccYu6DoNzBr9YWqebX/QsMId3x/c4FAJehB5UcYK8RGrCtarofDO4S6ahAFSgfT2G1dHTSV3v/siFK0gDrWVq3EXHh+FZMZfbQsG5VgarscrPbP5A==
