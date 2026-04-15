@@ -22,7 +22,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.21.5
+    itemVersion: 1.21.6
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -40,7 +40,7 @@ restrictioncenter: {}
 runas: DBotWeakRole
 runonce: false
 script: |
-  // pack version: 1.21.5
+  // pack version: 1.21.6
   var entry = executeCommand("getEntry", {"id":args.entryId});
   var key=args.contextKey;
   var comments=entry[0].Contents;
