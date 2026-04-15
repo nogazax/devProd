@@ -3,7 +3,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.5.0
     isoverridable: false
-    itemVersion: 2.1.74
+    itemVersion: 2.1.75
     packID: Palo_Alto_Networks_WildFire
     packName: WildFire by Palo Alto Networks
     packPropagationLabels:
