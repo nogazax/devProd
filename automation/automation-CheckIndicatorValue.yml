@@ -22,7 +22,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.5.0
     isoverridable: false
-    itemVersion: 1.21.5
+    itemVersion: 1.21.6
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -55,8 +55,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('CheckIndicatorValue', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.21.5'
-  demisto.debug('pack id = CommonScripts, pack version = 1.21.5')
+  CONSTANT_PACK_VERSION = '1.21.6'
+  demisto.debug('pack id = CommonScripts, pack version = 1.21.6')
   import base64
   import urllib.parse
   from typing import Any
