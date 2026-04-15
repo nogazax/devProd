@@ -94,7 +94,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 2.1.74
+    itemVersion: 2.1.75
     packID: Palo_Alto_Networks_WildFire
     packName: WildFire by Palo Alto Networks
     packPropagationLabels:
@@ -1406,8 +1406,8 @@ script:
   runonce: false
   script: |
     register_module_line('WildFire-v2', 'start', __line__())
-    CONSTANT_PACK_VERSION = '2.1.74'
-    demisto.debug('pack id = Palo_Alto_Networks_WildFire, pack version = 2.1.74')
+    CONSTANT_PACK_VERSION = '2.1.75'
+    demisto.debug('pack id = Palo_Alto_Networks_WildFire, pack version = 2.1.75')
     import contextlib
     import io
     import shutil
