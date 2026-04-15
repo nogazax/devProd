@@ -7,7 +7,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.4.0
+    itemVersion: 1.4.1
     packID: DemistoRESTAPI
     packName: Cortex REST API
     packPropagationLabels:
@@ -29,7 +29,7 @@ restrictioncenter: {}
 runas: DBotWeakRole
 runonce: false
 script: |
-  // pack version: 1.4.0
+  // pack version: 1.4.1
   return executeCommand('core-api-download', {uri: '/log/bundle'});
 scripttarget: 0
 signature: DgKecnGhgxBWVEHALPLtDFSO6Va9HM09OMOhHLz9zsTeuHJvXP7xo+4TlXYuV3wyhbb8c7C8x9eQ9IB5sSm18itnonBME5mGDNEmU3aTdDbNGddegs2yC4TYkvng84WXs2cnk/Lk6IqB+B4l+iCbHSQ7xEcEM5rNRHCPs4E28HSDvJWaZ7uKLqrNd4oTt5vcNAluJI5Hww6auo7jBQpBFxe5bCW3G/qjjlF7tjgQOcKBeQqaoMnPqigozWbP3V76NJ4xsiHG44zFkp32tbXL6LrlnKAlvepBSApARCsN2GPn5El3Ayum4wJo4WlVNjZgFGsgKtiloF21dIOfPcDKMg==
