@@ -20,7 +20,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.4.0
+    itemVersion: 1.4.1
     packID: DemistoRESTAPI
     packName: Cortex REST API
     packPropagationLabels:
