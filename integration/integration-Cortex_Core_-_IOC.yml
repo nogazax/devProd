@@ -50,7 +50,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.5.0
     isoverridable: false
-    itemVersion: 3.5.32
+    itemVersion: 3.5.33
     packID: Core
     packName: Core
     packPropagationLabels:
@@ -135,8 +135,8 @@ script:
   runonce: false
   script: |
     register_module_line('Cortex Core - IOC', 'start', __line__())
-    CONSTANT_PACK_VERSION = '3.5.32'
-    demisto.debug('pack id = Core, pack version = 3.5.32')
+    CONSTANT_PACK_VERSION = '3.5.33'
+    demisto.debug('pack id = Core, pack version = 3.5.33')
     import secrets
     import tempfile
     from datetime import UTC, timedelta
