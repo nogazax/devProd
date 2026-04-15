@@ -7,7 +7,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.4.0
+    itemVersion: 1.4.1
     packID: DemistoRESTAPI
     packName: Cortex REST API
     packPropagationLabels:
@@ -29,7 +29,7 @@ restrictioncenter: {}
 runas: DBotWeakRole
 runonce: false
 script: |
-  // pack version: 1.4.0
+  // pack version: 1.4.1
   function addEntry(text) {
       entry =  [{ContentsFormat: formats.markdown, Type: entryTypes.note, Contents: text}];
       executeCommand("addEntries", {"entries":JSON.stringify(entry)});
