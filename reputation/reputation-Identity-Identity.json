@@ -15,7 +15,7 @@
 	"fromServerVersion": "6.5.0",
 	"id": "Identity",
 	"isOverridable": false,
-	"itemVersion": "3.10.6",
+	"itemVersion": "3.10.7",
 	"layout": "Identity",
 	"legacyNames": null,
 	"locked": false,
