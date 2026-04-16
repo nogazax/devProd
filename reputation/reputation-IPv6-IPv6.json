@@ -210,7 +210,7 @@
 	"fromServerVersion": "5.5.0",
 	"id": "IPv6",
 	"isOverridable": false,
-	"itemVersion": "3.10.6",
+	"itemVersion": "3.10.7",
 	"layout": "ipRep",
 	"legacyNames": null,
 	"locked": false,
