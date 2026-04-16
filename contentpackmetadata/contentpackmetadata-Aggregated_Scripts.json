@@ -35,19 +35,19 @@
 		"agentixagent": null,
 		"automation": [
 			{
-				"description": "Enriches Domain indicators with reputation data from multiple integrations and outputs a consolidated DomainEnrichment object. This script exclusively supports indicators of type Domain and will automatically create the indicator in TIM if it is not already exists.",
+				"description": "Enriches CVE indicators with reputation data from multiple integrations and outputs a consolidated CVEEnrichment object. This script exclusively supports indicators of type CVE and will automatically create the indicator in TIM if it is not already exists.",
 				"fromversion": "8.0.0",
-				"id": "domain-enrichment",
-				"name": "domain-enrichment",
+				"id": "cve-enrichment",
+				"name": "cve-enrichment",
 				"tags": [
 					"basescript"
 				]
 			},
 			{
-				"description": "This script gathers endpoint data from multiple integrations and returns an endpoint entity with consolidated information to the context.",
+				"description": "This script disables users for multiple services.",
 				"fromversion": "6.10.0",
-				"id": "get-endpoint-data",
-				"name": "get-endpoint-data",
+				"id": "disable-user",
+				"name": "disable-user",
 				"tags": []
 			},
 			{
@@ -58,10 +58,10 @@
 				"tags": []
 			},
 			{
-				"description": "This script disables users for multiple services.",
+				"description": "This script isolates endpoints using multiple integrations and returns a success or failure message.",
 				"fromversion": "6.10.0",
-				"id": "disable-user",
-				"name": "disable-user",
+				"id": "isolate-endpoint",
+				"name": "isolate-endpoint",
 				"tags": []
 			},
 			{
@@ -72,20 +72,22 @@
 				"tags": []
 			},
 			{
-				"description": "Enriches File indicators with reputation data from multiple integrations and outputs a consolidated FileEnrichment object. This script exclusively supports indicators of type File and will automatically create the indicator in TIM if it is not already exists. Note: The script runs core-get-hash-analytics-prevalence on SHA256 values only.",
+				"description": "Enriches IP indicators with reputation data from multiple integrations and outputs a consolidated IPEnrichment object. This script exclusively supports indicators of type IP and will automatically create the indicator in TIM if it is not already exists. Note: If enabled, get-endpoint-data is executed only for internal IP addresses.",
 				"fromversion": "8.0.0",
-				"id": "file-enrichment",
-				"name": "file-enrichment",
+				"id": "ip-enrichment",
+				"name": "ip-enrichment",
 				"tags": [
 					"basescript"
 				]
 			},
 			{
-				"description": "This script expires users password for multiple services.",
-				"fromversion": "6.10.0",
-				"id": "expire-password",
-				"name": "expire-password",
-				"tags": []
+				"description": "Enriches Domain indicators with reputation data from multiple integrations and outputs a consolidated DomainEnrichment object. This script exclusively supports indicators of type Domain and will automatically create the indicator in TIM if it is not already exists.",
+				"fromversion": "8.0.0",
+				"id": "domain-enrichment",
+				"name": "domain-enrichment",
+				"tags": [
+					"basescript"
+				]
 			},
 			{
 				"description": "Enriches indicators from a provided list or a block of free text. This script detects the indicator type and runs the correct underlying enrichment script. Currently supports: IP, URL, Domain, CVE, and File.",
@@ -98,6 +100,22 @@
 				]
 			},
 			{
+				"description": "This script expires users password for multiple services.",
+				"fromversion": "6.10.0",
+				"id": "expire-password",
+				"name": "expire-password",
+				"tags": []
+			},
+			{
+				"description": "Enriches File indicators with reputation data from multiple integrations and outputs a consolidated FileEnrichment object. This script exclusively supports indicators of type File and will automatically create the indicator in TIM if it is not already exists. Note: The script runs core-get-hash-analytics-prevalence on SHA256 values only.",
+				"fromversion": "8.0.0",
+				"id": "file-enrichment",
+				"name": "file-enrichment",
+				"tags": [
+					"basescript"
+				]
+			},
+			{
 				"description": "Enriches URL indicators with reputation data from multiple integrations and outputs a consolidated URLEnrichment object. This script exclusively supports indicators of type URL and will automatically create the indicator in TIM if it is not already exists.",
 				"fromversion": "8.0.0",
 				"id": "url-enrichment",
@@ -107,26 +125,10 @@
 				]
 			},
 			{
-				"description": "Enriches CVE indicators with reputation data from multiple integrations and outputs a consolidated CVEEnrichment object. This script exclusively supports indicators of type CVE and will automatically create the indicator in TIM if it is not already exists.",
-				"fromversion": "8.0.0",
-				"id": "cve-enrichment",
-				"name": "cve-enrichment",
-				"tags": [
-					"basescript"
-				]
-			},
-			{
-				"description": "This script isolates endpoints using multiple integrations and returns a success or failure message.",
+				"description": "This script gathers endpoint data from multiple integrations and returns an endpoint entity with consolidated information to the context.",
 				"fromversion": "6.10.0",
-				"id": "isolate-endpoint",
-				"name": "isolate-endpoint",
-				"tags": []
-			},
-			{
-				"description": "The script blocks a list of IP addresses in supported integrations.",
-				"fromversion": "6.1.0",
-				"id": "block-external-ip",
-				"name": "block-external-ip",
+				"id": "get-endpoint-data",
+				"name": "get-endpoint-data",
 				"tags": []
 			},
 			{
@@ -137,13 +139,11 @@
 				"tags": []
 			},
 			{
-				"description": "Enriches IP indicators with reputation data from multiple integrations and outputs a consolidated IPEnrichment object. This script exclusively supports indicators of type IP and will automatically create the indicator in TIM if it is not already exists. Note: If enabled, get-endpoint-data is executed only for internal IP addresses.",
-				"fromversion": "8.0.0",
-				"id": "ip-enrichment",
-				"name": "ip-enrichment",
-				"tags": [
-					"basescript"
-				]
+				"description": "The script blocks a list of IP addresses in supported integrations.",
+				"fromversion": "6.1.0",
+				"id": "block-external-ip",
+				"name": "block-external-ip",
+				"tags": []
 			}
 		],
 		"casefield": null,
@@ -164,7 +164,7 @@
 		"wizard": null
 	},
 	"created": "2025-06-18T20:34:03Z",
-	"currentVersion": "1.3.33",
+	"currentVersion": "1.3.34",
 	"defaultDataSource": {
 		"id": "",
 		"name": ""
@@ -175,21 +175,21 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.41.70",
+			"minVersion": "1.41.71",
 			"name": "Base"
 		},
 		"Core": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "3.5.30",
+			"minVersion": "3.5.33",
 			"name": "Core"
 		},
 		"Palo_Alto_Networks_WildFire": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "2.1.74",
+			"minVersion": "2.1.75",
 			"name": "WildFire by Palo Alto Networks"
 		}
 	},
@@ -210,16 +210,6 @@
 	"installMessage": "",
 	"integrations": [
 		{
-			"id": "WildFire-Reports",
-			"imagePath": "content/packs/Palo_Alto_Networks_WildFire/WildFire-Reports_image.png",
-			"name": "Palo Alto Networks WildFire Reports"
-		},
-		{
-			"id": "WildFire-v2",
-			"imagePath": "content/packs/Palo_Alto_Networks_WildFire/WildFire-v2_image.png",
-			"name": "Palo Alto Networks WildFire v2"
-		},
-		{
 			"id": "Cortex Core - Platform",
 			"imagePath": "content/packs/Core/CortexCore-Platform_image.png",
 			"name": "Cortex Platform - Core"
@@ -238,10 +228,20 @@
 			"id": "XQL Query Engine",
 			"imagePath": "content/packs/Core/XQLQueryEngine_image.png",
 			"name": "XQL Query Engine"
+		},
+		{
+			"id": "WildFire-Reports",
+			"imagePath": "content/packs/Palo_Alto_Networks_WildFire/WildFire-Reports_image.png",
+			"name": "Palo Alto Networks WildFire Reports"
+		},
+		{
+			"id": "WildFire-v2",
+			"imagePath": "content/packs/Palo_Alto_Networks_WildFire/WildFire-v2_image.png",
+			"name": "Palo Alto Networks WildFire v2"
 		}
 	],
 	"isOverridable": false,
-	"itemVersion": "1.3.33",
+	"itemVersion": "1.3.34",
 	"keywords": [],
 	"legacy": true,
 	"modules": [],
@@ -277,9 +277,9 @@
 		"Core"
 	],
 	"toServerVersion": "",
-	"updated": "2026-04-10T11:40:24Z",
+	"updated": "2026-04-15T19:52:41Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "8165060",
+	"versionInfo": "8288718",
 	"videos": []
 }
