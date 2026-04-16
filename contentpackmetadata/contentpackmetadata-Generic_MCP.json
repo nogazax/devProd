@@ -1,0 +1,133 @@
+{
+	"author": "Cortex",
+	"authorImage": "content/packs/Base/Author_image.png",
+	"beta": false,
+	"cacheVersn": 0,
+	"categories": [
+		"Utilities"
+	],
+	"certification": "certified",
+	"contentItemTypes": [
+		"integration"
+	],
+	"contentItems": {
+		"agentixaction": null,
+		"agentixagent": null,
+		"automation": null,
+		"casefield": null,
+		"classifier": null,
+		"dashboard": null,
+		"genericfield": null,
+		"generictype": null,
+		"incidentfield": null,
+		"incidenttype": null,
+		"indicatorfield": null,
+		"integration": [
+			{
+				"category": "Utilities",
+				"commands": [
+					{
+						"description": "Retrieves a list of available tools in the MCP server.",
+						"name": "list-tools"
+					},
+					{
+						"description": "Calls a specific tool on the MCP server with optional input parameters.",
+						"name": "call-tool"
+					},
+					{
+						"description": "Generate an authentication login URL.",
+						"name": "generic-mcp-generate-login-url"
+					},
+					{
+						"description": "Test the authentication configuration with the MCP server.",
+						"name": "generic-mcp-auth-test"
+					}
+				],
+				"description": "Use this integration to connect to an MCP server and automatically discover its available tools.",
+				"fromversion": "8.13.0",
+				"id": "Generic MCP",
+				"name": "Generic MCP",
+				"toversion": ""
+			}
+		],
+		"layoutscontainer": null,
+		"list": null,
+		"playbook": null,
+		"report": null,
+		"reputation": null,
+		"widget": null,
+		"wizard": null
+	},
+	"created": "2026-01-07T18:23:56Z",
+	"currentVersion": "1.0.2",
+	"defaultDataSource": {
+		"id": "",
+		"name": ""
+	},
+	"definitionId": "",
+	"dependencies": {
+		"Base": {
+			"author": "Cortex",
+			"certification": "certified",
+			"mandatory": true,
+			"minVersion": "1.41.61",
+			"name": "Base"
+		}
+	},
+	"deprecated": false,
+	"description": "This content pack provides a generic integration with Model Context Protocol (MCP) servers. By connecting to any external MCP server, the system automatically discovers the tools exposed by that server and generates corresponding agentic system actions, enabling Cortex agents to immediately use new capabilities without manual configuration.",
+	"downloads": 0,
+	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
+	"firstCreated": "2026-01-07T18:23:56Z",
+	"fromServerVersion": "8.13.0",
+	"general": [
+		"generalFieldCertified",
+		"generalFieldFree",
+		"generalFieldSupportIncluded",
+		"generalFieldSupportModule"
+	],
+	"hybrid": false,
+	"id": "GenericMCP",
+	"installMessage": "",
+	"integrations": [
+		{
+			"id": "Generic MCP",
+			"imagePath": "content/packs/GenericMCP/GenericMCP_image.png",
+			"name": "Generic MCP"
+		}
+	],
+	"isOverridable": false,
+	"itemVersion": "1.0.2",
+	"keywords": [],
+	"legacy": true,
+	"modules": [],
+	"name": "Generic MCP",
+	"packID": "GenericMCP",
+	"packName": "",
+	"premium": false,
+	"previewOnly": false,
+	"price": 0,
+	"propagationLabels": [
+		"all"
+	],
+	"rawKeywords": null,
+	"rawTags": null,
+	"rawUseCases": null,
+	"searchRank": 0,
+	"serverMaxVersion": "",
+	"serverMinVersion": "8.13.0",
+	"support": "xsoar",
+	"supportDetails": {
+		"email": "",
+		"url": "https://www.paloaltonetworks.com/cortex"
+	},
+	"tags": [
+		"MCP"
+	],
+	"toServerVersion": "",
+	"updated": "2026-02-16T18:17:15Z",
+	"useCases": [],
+	"version": -1,
+	"versionInfo": "7178553",
+	"videos": []
+}
