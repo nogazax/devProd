@@ -7,7 +7,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.11.0
     isoverridable: false
-    itemVersion: 1.41.71
+    itemVersion: 1.41.72
     packID: Base
     packName: Base
     packPropagationLabels:
@@ -24,7 +24,7 @@ restrictioncenter: {}
 runas: DBotWeakRole
 runonce: false
 script: |
-  // pack version: 1.41.71
+  // pack version: 1.41.72
   // Common functions script
   // =======================
   // This script will be appended to each server script before being executed.
