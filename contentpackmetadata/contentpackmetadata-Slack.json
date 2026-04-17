@@ -13,8 +13,8 @@
 		"playbook",
 		"classifier",
 		"agentixaction",
-		"modelingrule",
-		"parsingrule"
+		"parsingrule",
+		"modelingrule"
 	],
 	"contentItems": {
 		"agentixaction": [
@@ -40,19 +40,19 @@
 				]
 			},
 			{
-				"description": "SlackBlockBuilder will format a given Slack block into a format readable by the SlackV3 integration. The script will also send the block to the given destination. Make sure to mark **Trust any certificate** and fill the **XSOAR API Key integration** parameters if you want to get a response to the incident context.",
-				"fromversion": "6.2.0",
-				"id": "SlackBlockBuilder",
-				"name": "SlackBlockBuilder",
+				"description": "Sends a message (question) to either user (in a direct message) or to a channel. The message includes predefined reply options. The response can also close a task (might be conditional) in a playbook. Note: a message maximum length is 3000 characters enforced by Slack API.",
+				"fromversion": "5.5.0",
+				"id": "SlackAskV2",
+				"name": "SlackAskV2",
 				"tags": [
 					"slack"
 				]
 			},
 			{
-				"description": "Sends a message (question) to either user (in a direct message) or to a channel. The message includes predefined reply options. The response can also close a task (might be conditional) in a playbook. Note: a message maximum length is 3000 characters enforced by Slack API.",
-				"fromversion": "5.5.0",
-				"id": "SlackAskV2",
-				"name": "SlackAskV2",
+				"description": "SlackBlockBuilder will format a given Slack block into a format readable by the SlackV3 integration. The script will also send the block to the given destination. Make sure to mark **Trust any certificate** and fill the **XSOAR API Key integration** parameters if you want to get a response to the incident context.",
+				"fromversion": "6.2.0",
+				"id": "SlackBlockBuilder",
+				"name": "SlackBlockBuilder",
 				"tags": [
 					"slack"
 				]
@@ -109,6 +109,130 @@
 				"name": "Slack Event Collector",
 				"supportedModules": [
 					"xsiam"
+				],
+				"toversion": ""
+			},
+			{
+				"category": "Messaging and Conferencing",
+				"commands": [
+					{
+						"description": "Deprecated. Use the \"mirror-investigation\" command instead.",
+						"name": "slack-mirror-investigation"
+					},
+					{
+						"description": "Mirrors the investigation between Slack and the Demisto War Room.",
+						"name": "mirror-investigation"
+					},
+					{
+						"description": "Sends a message to a user, group, or channel.",
+						"name": "send-notification"
+					},
+					{
+						"description": "Deprecated. Use the \"send-notification\" command instead.",
+						"name": "slack-send"
+					},
+					{
+						"description": "Deprecated. Use the \"close-channel\" command instead.",
+						"name": "slack-close-channel"
+					},
+					{
+						"description": "Archives a Slack channel.",
+						"name": "close-channel"
+					},
+					{
+						"description": "Sends a file to a user, channel, or group. If not specified, the file is sent to the mirrored investigation channel (if the channel exists).",
+						"name": "slack-send-file"
+					},
+					{
+						"description": "Sets the topic for a channel.",
+						"name": "slack-set-channel-topic"
+					},
+					{
+						"description": "Creates a channel in Slack.",
+						"name": "slack-create-channel"
+					},
+					{
+						"description": "Invites users to join a channel.",
+						"name": "slack-invite-to-channel"
+					},
+					{
+						"description": "Removes users from the specified channel.",
+						"name": "slack-kick-from-channel"
+					},
+					{
+						"description": "Renames a channel in Slack.",
+						"name": "slack-rename-channel"
+					},
+					{
+						"description": "Get details about a specified user.",
+						"name": "slack-get-user-details"
+					},
+					{
+						"description": "Returns the integration context as a file. Use this command for debug purposes only.",
+						"name": "slack-get-integration-context"
+					},
+					{
+						"description": "Returns a list of channels matching criteria",
+						"name": "slack-filter-channels"
+					}
+				],
+				"deprecated": true,
+				"description": "Deprecated. Use SlackV3 instead.",
+				"fromversion": "5.0.0",
+				"id": "SlackV2",
+				"name": "Slack v2 (Deprecated)",
+				"supportedModules": [
+					"xsiam",
+					"agentix"
+				],
+				"toversion": ""
+			},
+			{
+				"category": "Identity and Access Management",
+				"commands": [
+					{
+						"description": "Creates a user.",
+						"name": "iam-create-user"
+					},
+					{
+						"description": "Updates an existing user with the data passed in the user-profile argument.",
+						"name": "iam-update-user"
+					},
+					{
+						"description": "Retrieves a single user resource.",
+						"name": "iam-get-user"
+					},
+					{
+						"description": "Disable an active user.",
+						"name": "iam-disable-user"
+					},
+					{
+						"description": "Creates an empty group.",
+						"name": "iam-create-group"
+					},
+					{
+						"description": "Retrieves the group information including members.",
+						"name": "iam-get-group"
+					},
+					{
+						"description": "Permanently removes a group.",
+						"name": "iam-delete-group"
+					},
+					{
+						"description": "Updates an existing group resource. This command allows individual (or groups of) users to be added or removed from the group with a single operation. A max of 15,000 users can be modified in 1 call.",
+						"name": "iam-update-group"
+					}
+				],
+				"description": "Integrate with Slack's services to execute CRUD operations for employee lifecycle processes.",
+				"fromversion": "6.0.0",
+				"id": "Slack IAM",
+				"name": "Slack IAM",
+				"supportedModules": [
+					"xsiam",
+					"agentix",
+					"edr",
+					"cloud",
+					"cloud_runtime_security"
 				],
 				"toversion": ""
 			},
@@ -189,133 +313,9 @@
 					}
 				],
 				"description": "Send messages and notifications to your Slack team.",
-				"fromversion": "5.5.0",
+				"fromversion": "8.14.0",
 				"id": "SlackV3",
 				"name": "Slack v3",
-				"toversion": ""
-			},
-			{
-				"category": "Identity and Access Management",
-				"commands": [
-					{
-						"description": "Creates a user.",
-						"name": "iam-create-user"
-					},
-					{
-						"description": "Updates an existing user with the data passed in the user-profile argument.",
-						"name": "iam-update-user"
-					},
-					{
-						"description": "Retrieves a single user resource.",
-						"name": "iam-get-user"
-					},
-					{
-						"description": "Disable an active user.",
-						"name": "iam-disable-user"
-					},
-					{
-						"description": "Creates an empty group.",
-						"name": "iam-create-group"
-					},
-					{
-						"description": "Retrieves the group information including members.",
-						"name": "iam-get-group"
-					},
-					{
-						"description": "Permanently removes a group.",
-						"name": "iam-delete-group"
-					},
-					{
-						"description": "Updates an existing group resource. This command allows individual (or groups of) users to be added or removed from the group with a single operation. A max of 15,000 users can be modified in 1 call.",
-						"name": "iam-update-group"
-					}
-				],
-				"description": "Integrate with Slack's services to execute CRUD operations for employee lifecycle processes.",
-				"fromversion": "6.0.0",
-				"id": "Slack IAM",
-				"name": "Slack IAM",
-				"supportedModules": [
-					"xsiam",
-					"agentix",
-					"edr",
-					"cloud",
-					"cloud_runtime_security"
-				],
-				"toversion": ""
-			},
-			{
-				"category": "Messaging and Conferencing",
-				"commands": [
-					{
-						"description": "Deprecated. Use the \"mirror-investigation\" command instead.",
-						"name": "slack-mirror-investigation"
-					},
-					{
-						"description": "Mirrors the investigation between Slack and the Demisto War Room.",
-						"name": "mirror-investigation"
-					},
-					{
-						"description": "Sends a message to a user, group, or channel.",
-						"name": "send-notification"
-					},
-					{
-						"description": "Deprecated. Use the \"send-notification\" command instead.",
-						"name": "slack-send"
-					},
-					{
-						"description": "Deprecated. Use the \"close-channel\" command instead.",
-						"name": "slack-close-channel"
-					},
-					{
-						"description": "Archives a Slack channel.",
-						"name": "close-channel"
-					},
-					{
-						"description": "Sends a file to a user, channel, or group. If not specified, the file is sent to the mirrored investigation channel (if the channel exists).",
-						"name": "slack-send-file"
-					},
-					{
-						"description": "Sets the topic for a channel.",
-						"name": "slack-set-channel-topic"
-					},
-					{
-						"description": "Creates a channel in Slack.",
-						"name": "slack-create-channel"
-					},
-					{
-						"description": "Invites users to join a channel.",
-						"name": "slack-invite-to-channel"
-					},
-					{
-						"description": "Removes users from the specified channel.",
-						"name": "slack-kick-from-channel"
-					},
-					{
-						"description": "Renames a channel in Slack.",
-						"name": "slack-rename-channel"
-					},
-					{
-						"description": "Get details about a specified user.",
-						"name": "slack-get-user-details"
-					},
-					{
-						"description": "Returns the integration context as a file. Use this command for debug purposes only.",
-						"name": "slack-get-integration-context"
-					},
-					{
-						"description": "Returns a list of channels matching criteria",
-						"name": "slack-filter-channels"
-					}
-				],
-				"deprecated": true,
-				"description": "Deprecated. Use SlackV3 instead.",
-				"fromversion": "5.0.0",
-				"id": "SlackV2",
-				"name": "Slack v2 (Deprecated)",
-				"supportedModules": [
-					"xsiam",
-					"agentix"
-				],
 				"toversion": ""
 			}
 		],
@@ -382,7 +382,7 @@
 		"wizard": null
 	},
 	"created": "2025-03-29T09:23:34Z",
-	"currentVersion": "3.5.48",
+	"currentVersion": "3.6.0",
 	"defaultDataSource": {
 		"id": "Slack Event Collector",
 		"name": "Slack Event Collector"
@@ -400,14 +400,14 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.41.71",
+			"minVersion": "1.41.72",
 			"name": "Base"
 		},
 		"CommonTypes": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "3.10.5",
+			"minVersion": "3.10.7",
 			"name": "Common Types"
 		},
 		"FiltersAndTransformers": {
@@ -476,6 +476,11 @@
 			"name": "Slack v3"
 		},
 		{
+			"id": "Syslog Sender",
+			"imagePath": "content/packs/Syslog/SyslogSender_image.png",
+			"name": "Syslog Sender"
+		},
+		{
 			"id": "Microsoft Teams",
 			"imagePath": "content/packs/MicrosoftTeams/MicrosoftTeams_image.png",
 			"name": "Microsoft Teams"
@@ -494,15 +499,10 @@
 			"id": "Active Directory Query v2",
 			"imagePath": "content/packs/Active_Directory_Query/ActiveDirectoryQueryv2_image.png",
 			"name": "Active Directory Query v2"
-		},
-		{
-			"id": "Syslog Sender",
-			"imagePath": "content/packs/Syslog/SyslogSender_image.png",
-			"name": "Syslog Sender"
 		}
 	],
 	"isOverridable": false,
-	"itemVersion": "3.5.48",
+	"itemVersion": "3.6.0",
 	"keywords": [
 		"Slack"
 	],
@@ -538,14 +538,14 @@
 		"edr"
 	],
 	"tags": [
-		"Collection",
-		"Data Source"
+		"Data Source",
+		"Collection"
 	],
 	"toServerVersion": "",
-	"updated": "2026-04-13T10:22:15Z",
+	"updated": "2026-04-16T19:51:42Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "8210013",
+	"versionInfo": "8315166",
 	"videos": [
 		"https://www.youtube.com/watch?v=rt3lvsI_0-4"
 	]
