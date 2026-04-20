@@ -18,7 +18,7 @@
 	"hoursR": 0,
 	"id": "Hello World Alert",
 	"isOverridable": false,
-	"itemVersion": "4.0.3",
+	"itemVersion": "4.0.4",
 	"layout": "Hello World Alert",
 	"locked": false,
 	"name": "Hello World Alert",
