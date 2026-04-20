@@ -138,14 +138,15 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.8.0
     isoverridable: false
-    itemVersion: 4.0.3
+    itemVersion: 4.0.4
     packID: HelloWorld
     packName: HelloWorld
     packPropagationLabels:
     - all
     prevname: ""
     propagationLabels: []
-    supportedModules: []
+    supportedModules:
+    - xsiam
     toServerVersion: ""
 defaultclassifier: HelloWorld
 defaultmapperin: HelloWorld-mapper
@@ -497,8 +498,8 @@ script:
   runonce: false
   script: |
     register_module_line('HelloWorldV2', 'start', __line__())
-    CONSTANT_PACK_VERSION = '4.0.3'
-    demisto.debug('pack id = HelloWorld, pack version = 4.0.3')
+    CONSTANT_PACK_VERSION = '4.0.4'
+    demisto.debug('pack id = HelloWorld, pack version = 4.0.4')
     # ruff: noqa: F401,N805
     import asyncio
     import json
