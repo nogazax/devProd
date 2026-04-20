@@ -14,8 +14,8 @@
 		"incidenttype",
 		"playbook",
 		"classifier",
-		"parsingrule",
-		"modelingrule"
+		"modelingrule",
+		"parsingrule"
 	],
 	"contentItems": {
 		"agentixaction": null,
@@ -50,17 +50,17 @@
 		"incidentfield": [
 			{
 				"description": "",
-				"name": "Hello World ID",
-				"type": "shortText"
-			},
-			{
-				"description": "",
 				"name": "Hello World Type",
 				"type": "shortText"
 			},
 			{
 				"description": "",
 				"name": "Hello World Status",
+				"type": "shortText"
+			},
+			{
+				"description": "",
+				"name": "Hello World ID",
 				"type": "shortText"
 			}
 		],
@@ -91,20 +91,6 @@
 				"supportedModules": [
 					"xsiam"
 				],
-				"toversion": ""
-			},
-			{
-				"category": "Data Enrichment \u0026 Threat Intelligence",
-				"commands": [
-					{
-						"description": "Gets indicators from the feed.",
-						"name": "helloworld-get-indicators"
-					}
-				],
-				"description": "This is the Feed Hello World integration for getting started with your feed integration.",
-				"fromversion": "5.5.0",
-				"id": "HelloWorld Feed",
-				"name": "HelloWorld Feed (Community Contribution)",
 				"toversion": ""
 			},
 			{
@@ -151,6 +137,9 @@
 				"fromversion": "6.8.0",
 				"id": "HelloWorldV2",
 				"name": "Hello World v2 (Community Contribution)",
+				"supportedModules": [
+					"xsiam"
+				],
 				"toversion": ""
 			},
 			{
@@ -177,6 +166,20 @@
 				"fromversion": "6.8.0",
 				"id": "HelloWorld",
 				"name": "HelloWorld (Community Contribution)",
+				"toversion": ""
+			},
+			{
+				"category": "Data Enrichment \u0026 Threat Intelligence",
+				"commands": [
+					{
+						"description": "Gets indicators from the feed.",
+						"name": "helloworld-get-indicators"
+					}
+				],
+				"description": "This is the Feed Hello World integration for getting started with your feed integration.",
+				"fromversion": "5.5.0",
+				"id": "HelloWorld Feed",
+				"name": "HelloWorld Feed (Community Contribution)",
 				"toversion": ""
 			}
 		],
@@ -227,7 +230,7 @@
 		"wizard": null
 	},
 	"created": "2025-03-29T09:38:42Z",
-	"currentVersion": "4.0.3",
+	"currentVersion": "4.0.4",
 	"defaultDataSource": {
 		"id": "HelloWorldEventCollector",
 		"name": "HelloWorld Event Collector"
@@ -238,7 +241,7 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.41.71",
+			"minVersion": "1.41.72",
 			"name": "Base"
 		},
 		"CommonPlaybooks": {
@@ -252,14 +255,14 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.21.5",
+			"minVersion": "1.21.7",
 			"name": "Common Scripts"
 		},
 		"CommonTypes": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "3.10.5",
+			"minVersion": "3.10.7",
 			"name": "Common Types"
 		}
 	},
@@ -299,7 +302,7 @@
 		}
 	],
 	"isOverridable": false,
-	"itemVersion": "4.0.3",
+	"itemVersion": "4.0.4",
 	"keywords": [],
 	"legacy": true,
 	"modules": [],
@@ -330,14 +333,14 @@
 	],
 	"tags": [
 		"Collection",
+		"TIM",
 		"Data Source",
-		"Getting Started",
-		"TIM"
+		"Getting Started"
 	],
 	"toServerVersion": "",
-	"updated": "2026-04-13T10:18:31Z",
+	"updated": "2026-04-19T20:19:24Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "8210013",
+	"versionInfo": "8359356",
 	"videos": []
 }
