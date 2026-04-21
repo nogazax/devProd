@@ -60,16 +60,21 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.10.0
     isoverridable: false
-    itemVersion: 1.3.34
+    itemVersion: 1.3.35
     packID: AggregatedScripts
     packName: Aggregated Scripts
     packPropagationLabels:
     - all
     prevname: ""
     propagationLabels: []
-    supportedModules: []
+    supportedModules:
+    - agentix
+    - cloud
+    - cloud_runtime_security
+    - edr
+    - xsiam
     toServerVersion: ""
-dockerimage: demisto/python3:3.12.12.5490952
+dockerimage: demisto/python3:3.12.13.8294662
 engineinfo: {}
 mainengineinfo: {}
 name: quarantine-file
@@ -103,8 +108,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('quarantine-file', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.3.34'
-  demisto.debug('pack id = AggregatedScripts, pack version = 1.3.34')
+  CONSTANT_PACK_VERSION = '1.3.35'
+  demisto.debug('pack id = AggregatedScripts, pack version = 1.3.35')
   from dataclasses import dataclass, asdict
   from enum import StrEnum
   from abc import ABC, abstractmethod
