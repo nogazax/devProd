@@ -94,7 +94,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 2.1.75
+    itemVersion: 2.1.76
     packID: Palo_Alto_Networks_WildFire
     packName: WildFire by Palo Alto Networks
     packPropagationLabels:
@@ -1406,10 +1406,11 @@ script:
   runonce: false
   script: |
     register_module_line('WildFire-v2', 'start', __line__())
-    CONSTANT_PACK_VERSION = '2.1.75'
-    demisto.debug('pack id = Palo_Alto_Networks_WildFire, pack version = 2.1.75')
+    CONSTANT_PACK_VERSION = '2.1.76'
+    demisto.debug('pack id = Palo_Alto_Networks_WildFire, pack version = 2.1.76')
     import contextlib
     import io
+    import os
     import shutil
     import tarfile
     from collections.abc import Callable
@@ -1803,7 +1804,7 @@ script:
         body = BODY_DICT
 
         file_path = demisto.getFilePath(upload)["path"]
-        file_name = demisto.getFilePath(upload)["name"]
+        file_name = os.path.basename(demisto.getFilePath(upload)["name"])
 
         try:
             shutil.copy(file_path, file_name)
@@ -1815,7 +1816,8 @@ script:
             with open(file_name, "rb") as file:
                 result = http_request(upload_file_uri, "POST", body=body, files={"file": file})
         finally:
-            shutil.rmtree(file_name, ignore_errors=True)
+            with contextlib.suppress(FileNotFoundError):
+                os.remove(file_name)
 
         upload_file_data = result["wildfire"]["upload-file-info"]
 
