@@ -622,134 +622,167 @@
 				"commands": [
 					{
 						"description": "Retrieves ticket information by ticket ID.",
+						"hidden": false,
 						"name": "servicenow-get-ticket"
 					},
 					{
 						"description": "Creates new ServiceNow ticket.",
+						"hidden": false,
 						"name": "servicenow-create-ticket"
 					},
 					{
 						"description": "Updates the specified ticket.",
+						"hidden": false,
 						"name": "servicenow-update-ticket"
 					},
 					{
 						"description": "Deletes a ticket from ServiceNow.",
+						"hidden": false,
 						"name": "servicenow-delete-ticket"
 					},
 					{
 						"description": "Delete an attachment from a ticket.",
+						"hidden": false,
 						"name": "servicenow-delete-file"
 					},
 					{
 						"description": "Retrieves ticket information according to the supplied query.",
+						"hidden": false,
 						"name": "servicenow-query-tickets"
 					},
 					{
 						"description": "Adds a link to the specified ticket.",
+						"hidden": false,
 						"name": "servicenow-add-link"
 					},
 					{
 						"description": "Adds a comment to the specified ticket, by ticket ID.",
+						"hidden": false,
 						"name": "servicenow-add-comment"
 					},
 					{
 						"description": "Uploads a file to the specified ticket.",
+						"hidden": false,
 						"name": "servicenow-upload-file"
 					},
 					{
 						"description": "Retrieves record information, by record ID.",
+						"hidden": false,
 						"name": "servicenow-get-record"
 					},
 					{
 						"description": "Queries the specified table in ServiceNow.",
+						"hidden": false,
 						"name": "servicenow-query-table"
 					},
 					{
 						"description": "Creates a new record in the specified ServiceNow table.",
+						"hidden": false,
 						"name": "servicenow-create-record"
 					},
 					{
 						"description": "Updates a record in the specified ServiceNow table.",
+						"hidden": false,
 						"name": "servicenow-update-record"
 					},
 					{
 						"description": "Deletes a record in the specified ServiceNow table.",
+						"hidden": false,
 						"name": "servicenow-delete-record"
 					},
 					{
 						"description": "Lists API fields for the specified ServiceNow table.",
+						"hidden": false,
 						"name": "servicenow-list-table-fields"
 					},
 					{
 						"description": "Queries the cmdb_ci_computer table in ServiceNow.",
+						"hidden": false,
 						"name": "servicenow-query-computers"
 					},
 					{
 						"description": "Queries the sys_user_group table in ServiceNow.",
+						"hidden": false,
 						"name": "servicenow-query-groups"
 					},
 					{
 						"description": "Queries the sys_user table in ServiceNow.",
+						"hidden": false,
 						"name": "servicenow-query-users"
 					},
 					{
 						"description": "Gets table names by a label to use in commands.",
+						"hidden": false,
 						"name": "servicenow-get-table-name"
 					},
 					{
 						"description": "Gets notes from the specified ServiceNow ticket. Notes can be retrieved either by granting \"Read permissions\" for the sys_journal_field table, or by setting the `use_display_value` parameter to true.",
+						"hidden": false,
 						"name": "servicenow-get-ticket-notes"
 					},
 					{
 						"description": "Adds a tag to a ticket. The added tag entry will be visible in the label_entry table and can be retrieved using the \"!servicenow-query-table table_name=label_entry fields=title,table,sys_id,id_display,id_type\" command.",
+						"hidden": false,
 						"name": "servicenow-add-tag"
 					},
 					{
 						"description": "Queries the sc_cat_item table in ServiceNow.",
+						"hidden": false,
 						"name": "servicenow-query-items"
 					},
 					{
 						"description": "Retrieves item details by system ID.",
+						"hidden": false,
 						"name": "servicenow-get-item-details"
 					},
 					{
 						"description": "Orders the specified catalog item.",
+						"hidden": false,
 						"name": "servicenow-create-item-order"
 					},
 					{
 						"description": "Documents a route to a queue. Requires an installation of the Advanced Work Assignments plugin. An active queue and service channel to the designated table.",
+						"hidden": false,
 						"name": "servicenow-document-route-to-queue"
 					},
 					{
 						"description": "Get remote data preview from a remote incident. This method does not update the current incident, and is used to preview the ticket which would be updated.",
+						"hidden": false,
 						"name": "get-remote-data-preview"
 					},
 					{
 						"description": "This function should be used once before running any command when using OAuth2 authentication.",
+						"hidden": false,
 						"name": "servicenow-oauth-login"
 					},
 					{
 						"description": "Test the instance configuration when using OAuth2 authentication.",
+						"hidden": false,
 						"name": "servicenow-oauth-test"
 					},
 					{
 						"description": "Create a change request from a template.",
+						"hidden": false,
 						"name": "servicenow-create-co-from-template"
 					},
 					{
 						"description": "gets the tasks associated to change request.",
+						"hidden": false,
 						"name": "servicenow-get-tasks-for-co"
 					},
 					{
 						"description": "Generic call to ServiceNow api.",
+						"hidden": false,
 						"name": "servicenow-generic-api-call"
 					},
 					{
 						"description": "Retrieves attachments from a ticket.",
+						"hidden": false,
 						"name": "servicenow-get-ticket-attachments"
 					},
 					{
 						"description": "Creates new ServiceNow ticket.",
+						"hidden": true,
 						"name": "servicenow-create-ticket-quick-action"
 					}
 				],
@@ -764,22 +797,27 @@
 				"commands": [
 					{
 						"description": "Returns events extracted from ServiceNow. This command is used for developing/debugging and is to be used with caution, as it can create events, leading to event duplication and exceeding the API request limitation.",
+						"hidden": false,
 						"name": "service-now-get-audit-logs"
 					},
 					{
 						"description": "Returns syslog transactions events extracted from ServiceNow. This command is used for developing/debugging and is to be used with caution, as it can create events, leading to event duplication and exceeding the API request limitation.",
+						"hidden": false,
 						"name": "service-now-get-syslog-transactions"
 					},
 					{
 						"description": "Returns cases extracted from ServiceNow. This command is used for developing/debugging and is to be used with caution, as it can create events, leading to event duplication and exceeding the API request limitation.",
+						"hidden": false,
 						"name": "service-now-get-case-logs"
 					},
 					{
 						"description": "Returns outbound HTTP log events extracted from ServiceNow. This command is used for developing/debugging and is to be used with caution, as it can create events, leading to event duplication and exceeding the API request limitation.",
+						"hidden": false,
 						"name": "service-now-get-outbound-http-logs"
 					},
 					{
 						"description": "Generate a refresh token using your existing credentials. Use this command if you encounter access_denied or other errors related to your access token when using OAuth 2.0.",
+						"hidden": false,
 						"name": "service-now-oauth-login"
 					}
 				],
@@ -805,126 +843,157 @@
 				"commands": [
 					{
 						"description": "Retrieve ticket information by specific ticket ID",
+						"hidden": false,
 						"name": "servicenow-get-ticket"
 					},
 					{
 						"description": "Deprecated. Use servicenow-get-ticket or servicenow-get-record instead",
+						"hidden": false,
 						"name": "servicenow-get"
 					},
 					{
 						"description": "Create new ServiceNow ticket",
+						"hidden": false,
 						"name": "servicenow-create-ticket"
 					},
 					{
 						"description": "Deprecated. Use servicenow-create-ticket or servicenow-create-record instead",
+						"hidden": false,
 						"name": "servicenow-create"
 					},
 					{
 						"description": "Create a new ServiceNow ticket",
+						"hidden": false,
 						"name": "servicenow-incident-create"
 					},
 					{
 						"description": "Update specific ticket",
+						"hidden": false,
 						"name": "servicenow-update-ticket"
 					},
 					{
 						"description": "Deprecated. Use servicenow-update-ticket or servicenow-update-record instead",
+						"hidden": false,
 						"name": "servicenow-update"
 					},
 					{
 						"description": "Deprecated. Use servicenow-update-ticket or servicenow-update-record instead",
+						"hidden": false,
 						"name": "servicenow-incident-update"
 					},
 					{
 						"description": "Delete a ticket from ServiceNow",
+						"hidden": false,
 						"name": "servicenow-delete-ticket"
 					},
 					{
 						"description": "Add a link to specific ticket",
+						"hidden": false,
 						"name": "servicenow-add-link"
 					},
 					{
 						"description": "Deprecated. Use servicenow-add-link instead.",
+						"hidden": false,
 						"name": "servicenow-incident-add-link"
 					},
 					{
 						"description": "Add comment to specific ticket by providing ticket id",
+						"hidden": false,
 						"name": "servicenow-add-comment"
 					},
 					{
 						"description": "Deprecated. Use servicenow-add-comment instead.",
+						"hidden": false,
 						"name": "servicenow-incident-add-comment"
 					},
 					{
 						"description": "Retrieve ticket info with a query",
+						"hidden": false,
 						"name": "servicenow-query-tickets"
 					},
 					{
 						"description": "Deprecated. Use servicenow-query-table or servicenow-query-tickets instead.",
+						"hidden": false,
 						"name": "servicenow-query"
 					},
 					{
 						"description": "Deprecated. Use servicenow-query-table or servicenow-query-tickets instead.",
+						"hidden": false,
 						"name": "servicenow-incidents-query"
 					},
 					{
 						"description": "Upload a file to a specific ticket",
+						"hidden": false,
 						"name": "servicenow-upload-file"
 					},
 					{
 						"description": "Deprecated. Use servicenow-upload-file instead.",
+						"hidden": false,
 						"name": "servicenow-incident-upload-file"
 					},
 					{
 						"description": "Deprecated. Use servicenow-query-groups instead.",
+						"hidden": false,
 						"name": "servicenow-get-groups"
 					},
 					{
 						"description": "Deprecated. Use servicenow-query-computers instead.",
+						"hidden": false,
 						"name": "servicenow-get-computer"
 					},
 					{
 						"description": "Retrieve record information by specific record ID",
+						"hidden": false,
 						"name": "servicenow-get-record"
 					},
 					{
 						"description": "Query a specified table in ServiceNow",
+						"hidden": false,
 						"name": "servicenow-query-table"
 					},
 					{
 						"description": "Create a new record in a specified ServiceNow table",
+						"hidden": false,
 						"name": "servicenow-create-record"
 					},
 					{
 						"description": "Update a record in a specified ServiceNow table",
+						"hidden": false,
 						"name": "servicenow-update-record"
 					},
 					{
 						"description": "Delete a record in a specified ServiceNow table",
+						"hidden": false,
 						"name": "servicenow-delete-record"
 					},
 					{
 						"description": "List API fields for a specified ServiceNow table",
+						"hidden": false,
 						"name": "servicenow-list-table-fields"
 					},
 					{
 						"description": "Query the cmdb_ci_computer table in ServiceNow",
+						"hidden": false,
 						"name": "servicenow-query-computers"
 					},
 					{
 						"description": "Query the sys_user_group table in ServiceNow",
+						"hidden": false,
 						"name": "servicenow-query-groups"
 					},
 					{
 						"description": "Query the sys_user table in ServiceNow",
+						"hidden": false,
 						"name": "servicenow-query-users"
 					},
 					{
 						"description": "Get table names by a label to use in commands",
+						"hidden": false,
 						"name": "servicenow-get-table-name"
 					},
 					{
 						"description": "Get notes from the specified ServiceNow ticket - Read permissions are required for the sys_journal_field table.",
+						"hidden": false,
 						"name": "servicenow-get-ticket-notes"
 					}
 				],
@@ -940,34 +1009,42 @@
 				"commands": [
 					{
 						"description": "Query records for a CMDB class.",
+						"hidden": false,
 						"name": "servicenow-cmdb-records-list"
 					},
 					{
 						"description": "Query attributes and relationship information for a specific record.",
+						"hidden": false,
 						"name": "servicenow-cmdb-record-get-by-id"
 					},
 					{
 						"description": "Create a record with associated relations and attributes.",
+						"hidden": false,
 						"name": "servicenow-cmdb-record-create"
 					},
 					{
 						"description": "Update a record with the given attributes.",
+						"hidden": false,
 						"name": "servicenow-cmdb-record-update"
 					},
 					{
 						"description": "Add a new relation to an existing record.",
+						"hidden": false,
 						"name": "servicenow-cmdb-record-add-relations"
 					},
 					{
 						"description": "Delete a relation of an existing record.",
+						"hidden": false,
 						"name": "servicenow-cmdb-record-delete-relations"
 					},
 					{
 						"description": "This function should be used once before running any command when using OAuth authorization.",
+						"hidden": false,
 						"name": "servicenow-cmdb-oauth-login"
 					},
 					{
 						"description": "Test the instance configuration when using OAuth authorization.",
+						"hidden": false,
 						"name": "servicenow-cmdb-oauth-test"
 					}
 				],
@@ -982,18 +1059,22 @@
 				"commands": [
 					{
 						"description": "Creates a user in ServiceNow.",
+						"hidden": false,
 						"name": "iam-create-user"
 					},
 					{
 						"description": "Updates an existing user with the data passed in the user-profile argument.",
+						"hidden": false,
 						"name": "iam-update-user"
 					},
 					{
 						"description": "Retrieves a single user resource.",
+						"hidden": false,
 						"name": "iam-get-user"
 					},
 					{
 						"description": "Disable an active user.",
+						"hidden": false,
 						"name": "iam-disable-user"
 					}
 				],
