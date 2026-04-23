@@ -29,14 +29,17 @@
 				"commands": [
 					{
 						"description": "Provides data enrichment for domains using free resources. Availability of those services may be limited.",
+						"hidden": false,
 						"name": "whois"
 					},
 					{
 						"description": "Provides data enrichment for domains.",
+						"hidden": false,
 						"name": "domain"
 					},
 					{
 						"description": "Provides data enrichment for ips.",
+						"hidden": false,
 						"name": "ip"
 					}
 				],
@@ -78,7 +81,7 @@
 		"wizard": null
 	},
 	"created": "2025-03-29T09:34:18Z",
-	"currentVersion": "1.5.38",
+	"currentVersion": "1.5.39",
 	"defaultDataSource": {
 		"id": "",
 		"name": ""
@@ -89,28 +92,28 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.41.68",
+			"minVersion": "1.41.74",
 			"name": "Base"
 		},
 		"CommonScripts": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.21.0",
+			"minVersion": "1.21.8",
 			"name": "Common Scripts"
 		},
 		"DomainTools": {
 			"author": "DomainTools",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "1.1.8",
+			"minVersion": "1.1.9",
 			"name": "DomainTools Enterprise (Deprecated)"
 		},
 		"DomainTools_Iris": {
 			"author": "DomainTools",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "2.2.7",
+			"minVersion": "2.2.8",
 			"name": "DomainTools Iris Investigate"
 		},
 		"JsonWhoIs": {
@@ -141,10 +144,25 @@
 			"id": "Whois",
 			"imagePath": "content/packs/Whois/Whois_image.png",
 			"name": "Whois"
+		},
+		{
+			"id": "JsonWhoIs",
+			"imagePath": "content/packs/JsonWhoIs/JsonWhoIs_image.png",
+			"name": "JsonWhoIs"
+		},
+		{
+			"id": "DomainTools Iris",
+			"imagePath": "content/packs/DomainTools_Iris/DomainToolsIris_image.png",
+			"name": "DomainTools Iris"
+		},
+		{
+			"id": "DomainTools",
+			"imagePath": "content/packs/DomainTools/DomainTools_image.png",
+			"name": "DomainTools (Deprecated)"
 		}
 	],
 	"isOverridable": false,
-	"itemVersion": "1.5.38",
+	"itemVersion": "1.5.39",
 	"keywords": [],
 	"legacy": true,
 	"modules": [],
@@ -174,15 +192,15 @@
 		"xsiam"
 	],
 	"tags": [
-		"TIM",
 		"Getting Started",
-		"Plug \u0026 Enrich",
-		"Free Enricher"
+		"Free Enricher",
+		"TIM",
+		"Plug \u0026 Enrich"
 	],
 	"toServerVersion": "",
-	"updated": "2026-03-22T18:00:01Z",
+	"updated": "2026-04-20T19:56:54Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "7839944",
+	"versionInfo": "8382811",
 	"videos": []
 }
