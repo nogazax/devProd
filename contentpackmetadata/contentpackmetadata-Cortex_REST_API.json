@@ -16,28 +16,28 @@
 		"agentixagent": null,
 		"automation": [
 			{
+				"description": "Get all tasks for a specific incident by the given state, name and/or tag.",
+				"fromversion": "6.10.0",
+				"id": "GetIncidentTasks",
+				"name": "GetIncidentTasks",
+				"tags": [
+					"Utility"
+				]
+			},
+			{
+				"description": "Get all tasks for a specific alert by the given state, name and/or tag.",
+				"fromversion": "6.10.0",
+				"id": "GetAlertTasks",
+				"name": "GetAlertTasks",
+				"tags": [
+					"Utility"
+				]
+			},
+			{
 				"description": "Deprecated. No available replacement.",
 				"fromversion": "5.0.0",
-				"id": "DemistoLeaveAllInvestigations",
-				"name": "DemistoLeaveAllInvestigations",
-				"tags": [
-					"DemistoAPI"
-				]
-			},
-			{
-				"description": "Deprecated. Use UploadFileV2 instead.",
-				"fromversion": "5.0.0",
-				"id": "DemistoUploadFile",
-				"name": "DemistoUploadFile",
-				"tags": [
-					"DemistoAPI"
-				]
-			},
-			{
-				"description": "Deprecated. Use UploadFile instead.",
-				"fromversion": "5.0.0",
-				"id": "DemistoUploadFileV2",
-				"name": "DemistoUploadFileV2",
+				"id": "DemistoSendInvite",
+				"name": "DemistoSendInvite",
 				"tags": [
 					"DemistoAPI"
 				]
@@ -52,30 +52,21 @@
 				]
 			},
 			{
-				"description": "Deprecated. Use GetIncidentTasksByState instead.",
+				"description": "Deprecated. Use the *DemistoUploadFileV2* script instead. Copies a file from this incident to the specified incident. The file is uploaded as an attachment to the specified incident’s Summary page, and recorded as an entry in the War Room.",
 				"fromversion": "5.0.0",
-				"id": "DemistoGetIncidentTasksByState",
-				"name": "DemistoGetIncidentTasksByState",
+				"id": "DemistoUploadFileToIncident",
+				"name": "DemistoUploadFileToIncident",
 				"tags": [
-					"Utility"
+					"DemistoAPI"
 				]
 			},
 			{
-				"description": "Deprecated. Use GetAlertTasksByState instead.",
+				"description": "Deprecated. Use the *DemistoUploadFileV2* script instead. Copies a file from this alert to the specified alert. The file is uploaded as an attachment to the specified alert’s Summary page, and recorded as an entry in the War Room.",
 				"fromversion": "5.0.0",
-				"id": "DemistoGetAlertTasksByState",
-				"name": "DemistoGetAlertTasksByState",
+				"id": "DemistoUploadFileToAlert",
+				"name": "DemistoUploadFileToAlert",
 				"tags": [
-					"Utility"
-				]
-			},
-			{
-				"description": "Groups all tasks for a specific incident according to the task headers (titles).",
-				"fromversion": "6.0.0",
-				"id": "GetTasksWithSections",
-				"name": "GetTasksWithSections",
-				"tags": [
-					"Utility"
+					"DemistoAPI"
 				]
 			},
 			{
@@ -106,6 +97,42 @@
 				]
 			},
 			{
+				"description": "Deprecated. No available replacement.",
+				"fromversion": "5.0.0",
+				"id": "DemistoLeaveAllInvestigations",
+				"name": "DemistoLeaveAllInvestigations",
+				"tags": [
+					"DemistoAPI"
+				]
+			},
+			{
+				"description": "Deprecated. Use UploadFileV2 instead.",
+				"fromversion": "5.0.0",
+				"id": "DemistoUploadFile",
+				"name": "DemistoUploadFile",
+				"tags": [
+					"DemistoAPI"
+				]
+			},
+			{
+				"description": "Deprecated. Use GetIncidentTasksByState instead.",
+				"fromversion": "5.0.0",
+				"id": "DemistoGetIncidentTasksByState",
+				"name": "DemistoGetIncidentTasksByState",
+				"tags": [
+					"Utility"
+				]
+			},
+			{
+				"description": "Deprecated. Use GetAlertTasksByState instead.",
+				"fromversion": "5.0.0",
+				"id": "DemistoGetAlertTasksByState",
+				"name": "DemistoGetAlertTasksByState",
+				"tags": [
+					"Utility"
+				]
+			},
+			{
 				"description": "Copies a file from this incident to the specified incident. The file is recorded as an entry in the specified incident’s War Room.",
 				"fromversion": "6.5.0",
 				"id": "UploadFile",
@@ -115,48 +142,21 @@
 				]
 			},
 			{
-				"description": "Deprecated. Use the *DemistoUploadFileV2* script instead. Copies a file from this incident to the specified incident. The file is uploaded as an attachment to the specified incident’s Summary page, and recorded as an entry in the War Room.",
-				"fromversion": "5.0.0",
-				"id": "DemistoUploadFileToIncident",
-				"name": "DemistoUploadFileToIncident",
-				"tags": [
-					"DemistoAPI"
-				]
-			},
-			{
-				"description": "Deprecated. Use the *DemistoUploadFileV2* script instead. Copies a file from this alert to the specified alert. The file is uploaded as an attachment to the specified alert’s Summary page, and recorded as an entry in the War Room.",
-				"fromversion": "5.0.0",
-				"id": "DemistoUploadFileToAlert",
-				"name": "DemistoUploadFileToAlert",
-				"tags": [
-					"DemistoAPI"
-				]
-			},
-			{
-				"description": "Deprecated. No available replacement.",
-				"fromversion": "5.0.0",
-				"id": "DemistoSendInvite",
-				"name": "DemistoSendInvite",
-				"tags": [
-					"DemistoAPI"
-				]
-			},
-			{
-				"description": "Get all tasks for a specific incident by the given state, name and/or tag.",
-				"fromversion": "6.10.0",
-				"id": "GetIncidentTasks",
-				"name": "GetIncidentTasks",
+				"description": "Groups all tasks for a specific incident according to the task headers (titles).",
+				"fromversion": "6.0.0",
+				"id": "GetTasksWithSections",
+				"name": "GetTasksWithSections",
 				"tags": [
 					"Utility"
 				]
 			},
 			{
-				"description": "Get all tasks for a specific alert by the given state, name and/or tag.",
-				"fromversion": "6.10.0",
-				"id": "GetAlertTasks",
-				"name": "GetAlertTasks",
+				"description": "Deprecated. Use UploadFile instead.",
+				"fromversion": "5.0.0",
+				"id": "DemistoUploadFileV2",
+				"name": "DemistoUploadFileV2",
 				"tags": [
-					"Utility"
+					"DemistoAPI"
 				]
 			}
 		],
@@ -174,82 +174,102 @@
 				"commands": [
 					{
 						"description": "Deprecated. Use core-api-post instead.",
+						"hidden": false,
 						"name": "demisto-api-post"
 					},
 					{
 						"description": "Deprecated. Use core-api-get instead.",
+						"hidden": false,
 						"name": "demisto-api-get"
 					},
 					{
 						"description": "Deprecated. Use core-api-put instead.",
+						"hidden": false,
 						"name": "demisto-api-put"
 					},
 					{
 						"description": "Deprecated. Use core-api-delete instead.",
+						"hidden": false,
 						"name": "demisto-api-delete"
 					},
 					{
 						"description": "Deprecated. Use core-api-download instead.",
+						"hidden": false,
 						"name": "demisto-api-download"
 					},
 					{
 						"description": "Deprecated. Use core-api-multipart instead.",
+						"hidden": false,
 						"name": "demisto-api-multipart"
 					},
 					{
 						"description": "Deprecated. Use core-delete-incidents instead.",
+						"hidden": false,
 						"name": "demisto-delete-incidents"
 					},
 					{
 						"description": "Deprecated. Use core-api-install-packs instead.",
+						"hidden": false,
 						"name": "demisto-api-install-packs"
 					},
 					{
 						"description": "send HTTP POST request.",
+						"hidden": false,
 						"name": "core-api-post"
 					},
 					{
 						"description": "send HTTP GET requests.",
+						"hidden": false,
 						"name": "core-api-get"
 					},
 					{
 						"description": "send HTTP PUT request.",
+						"hidden": false,
 						"name": "core-api-put"
 					},
 					{
 						"description": "send HTTP DELETE request.",
+						"hidden": false,
 						"name": "core-api-delete"
 					},
 					{
 						"description": "Download files from Core server.",
+						"hidden": false,
 						"name": "core-api-download"
 					},
 					{
 						"description": "Send HTTP Multipart request to upload files to Core server.",
+						"hidden": false,
 						"name": "core-api-multipart"
 					},
 					{
 						"description": "Delete Core incidents.",
+						"hidden": false,
 						"name": "core-delete-incidents"
 					},
 					{
 						"description": "Upload packs to the core server from the URL or marketplace.",
+						"hidden": false,
 						"name": "core-api-install-packs"
 					},
 					{
 						"description": "Upload to the incident a file that the user provided according to the entry_id or the content of the file.",
+						"hidden": false,
 						"name": "core-api-file-upload"
 					},
 					{
 						"description": "Delete a war room (investigation) file entry.",
+						"hidden": false,
 						"name": "core-api-file-delete"
 					},
 					{
 						"description": "Delete a file attachment from an incident — specifically from the incident’s file attachments.",
+						"hidden": false,
 						"name": "core-api-file-attachment-delete"
 					},
 					{
 						"description": "Check if the file exists in Cortex (Context) by entry_id.",
+						"hidden": false,
 						"name": "core-api-file-check"
 					}
 				],
@@ -269,7 +289,7 @@
 		"wizard": null
 	},
 	"created": "2025-03-29T09:43:41Z",
-	"currentVersion": "1.4.1",
+	"currentVersion": "1.4.2",
 	"defaultDataSource": {
 		"id": "",
 		"name": ""
@@ -280,7 +300,7 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.41.71",
+			"minVersion": "1.41.74",
 			"name": "Base"
 		}
 	},
@@ -307,7 +327,7 @@
 		}
 	],
 	"isOverridable": false,
-	"itemVersion": "1.4.1",
+	"itemVersion": "1.4.2",
 	"keywords": [
 		"Demisto REST API",
 		"Core REST API"
@@ -344,9 +364,9 @@
 	],
 	"tags": [],
 	"toServerVersion": "",
-	"updated": "2026-04-14T19:52:01Z",
+	"updated": "2026-04-20T19:55:24Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "8255126",
+	"versionInfo": "8382811",
 	"videos": []
 }
