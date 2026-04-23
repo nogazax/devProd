@@ -49,18 +49,22 @@
 				"commands": [
 					{
 						"description": "Retrieves a limited number of indicators.",
+						"hidden": false,
 						"name": "mitre-get-indicators"
 					},
 					{
 						"description": "Shows the feed names and IDs from TAXII.",
+						"hidden": false,
 						"name": "mitre-show-feeds"
 					},
 					{
 						"description": "Looks up the reputation of the indicator in the Enterprise collection only.",
+						"hidden": false,
 						"name": "attack-pattern"
 					},
 					{
 						"description": "Gets the Attack Pattern value from the Attack Pattern ID in the Enterprise collection only.",
+						"hidden": false,
 						"name": "mitre-get-indicator-name"
 					}
 				],
@@ -88,7 +92,7 @@
 		"wizard": null
 	},
 	"created": "2025-03-29T09:46:53Z",
-	"currentVersion": "1.2.21",
+	"currentVersion": "1.2.22",
 	"defaultDataSource": {
 		"id": "",
 		"name": ""
@@ -99,14 +103,14 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.41.70",
+			"minVersion": "1.41.74",
 			"name": "Base"
 		},
 		"CommonScripts": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.21.4",
+			"minVersion": "1.21.8",
 			"name": "Common Scripts"
 		}
 	},
@@ -133,7 +137,7 @@
 		}
 	],
 	"isOverridable": false,
-	"itemVersion": "1.2.21",
+	"itemVersion": "1.2.22",
 	"keywords": [
 		"MITRE",
 		"Feed",
@@ -179,9 +183,9 @@
 		"Plug \u0026 Fetch"
 	],
 	"toServerVersion": "",
-	"updated": "2026-03-30T12:19:21Z",
+	"updated": "2026-04-20T19:57:05Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "8009783",
+	"versionInfo": "8382811",
 	"videos": []
 }
