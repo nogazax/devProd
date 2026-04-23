@@ -28,60 +28,42 @@
 				"commands": [
 					{
 						"description": "Gets a specific lock. If the lock doesn't exist, it creates one. If the lock is already in use, the command waits until the lock is released or until timeout is reached. If timeout is reached and the lock hasn't been released, the command fails to get the lock.",
-						"name": "demisto-lock-get"
-					},
-					{
-						"description": "Release a lock.",
-						"name": "demisto-lock-release"
-					},
-					{
-						"description": "Show information on locks.",
-						"name": "demisto-lock-info"
-					},
-					{
-						"description": "Release all locks.",
-						"name": "demisto-lock-release-all"
-					}
-				],
-				"description": "Locking mechanism that prevents concurrent execution of different tasks.",
-				"fromversion": "5.0.0",
-				"id": "Demisto Lock",
-				"name": "Demisto Lock",
-				"toversion": ""
-			},
-			{
-				"category": "Utilities",
-				"commands": [
-					{
-						"description": "Gets a specific lock. If the lock doesn't exist, it creates one. If the lock is already in use, the command waits until the lock is released or until timeout is reached. If timeout is reached and the lock hasn't been released, the command fails to get the lock.",
+						"hidden": false,
 						"name": "demisto-lock-get"
 					},
 					{
 						"description": "Release a lock",
+						"hidden": false,
 						"name": "demisto-lock-release"
 					},
 					{
 						"description": "Show information on locks",
+						"hidden": false,
 						"name": "demisto-lock-info"
 					},
 					{
 						"description": "Release all locks",
+						"hidden": false,
 						"name": "demisto-lock-release-all"
 					},
 					{
 						"description": "Gets a specific lock. If the lock doesn't exist, it creates one. If the lock is already in use, the command waits until the lock is released or until timeout is reached. If timeout is reached and the lock hasn't been released, the command fails to get the lock.",
+						"hidden": false,
 						"name": "core-lock-get"
 					},
 					{
 						"description": "Release a lock",
+						"hidden": false,
 						"name": "core-lock-release"
 					},
 					{
 						"description": "Show information on locks",
+						"hidden": false,
 						"name": "core-lock-info"
 					},
 					{
 						"description": "Release all locks",
+						"hidden": false,
 						"name": "core-lock-release-all"
 					}
 				],
@@ -89,6 +71,36 @@
 				"fromversion": "5.0.0",
 				"id": "Core Lock",
 				"name": "Core Lock",
+				"toversion": ""
+			},
+			{
+				"category": "Utilities",
+				"commands": [
+					{
+						"description": "Gets a specific lock. If the lock doesn't exist, it creates one. If the lock is already in use, the command waits until the lock is released or until timeout is reached. If timeout is reached and the lock hasn't been released, the command fails to get the lock.",
+						"hidden": false,
+						"name": "demisto-lock-get"
+					},
+					{
+						"description": "Release a lock.",
+						"hidden": false,
+						"name": "demisto-lock-release"
+					},
+					{
+						"description": "Show information on locks.",
+						"hidden": false,
+						"name": "demisto-lock-info"
+					},
+					{
+						"description": "Release all locks.",
+						"hidden": false,
+						"name": "demisto-lock-release-all"
+					}
+				],
+				"description": "Locking mechanism that prevents concurrent execution of different tasks.",
+				"fromversion": "5.0.0",
+				"id": "Demisto Lock",
+				"name": "Demisto Lock",
 				"toversion": ""
 			}
 		],
@@ -101,7 +113,7 @@
 		"wizard": null
 	},
 	"created": "2025-03-29T09:34:54Z",
-	"currentVersion": "1.1.11",
+	"currentVersion": "1.1.12",
 	"defaultDataSource": {
 		"id": "",
 		"name": ""
@@ -112,7 +124,7 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.41.68",
+			"minVersion": "1.41.74",
 			"name": "Base"
 		}
 	},
@@ -144,7 +156,7 @@
 		}
 	],
 	"isOverridable": false,
-	"itemVersion": "1.1.11",
+	"itemVersion": "1.1.12",
 	"keywords": [
 		"Demisto Lock",
 		"Core Lock"
@@ -181,9 +193,9 @@
 	],
 	"tags": [],
 	"toServerVersion": "",
-	"updated": "2026-03-23T11:29:46Z",
+	"updated": "2026-04-20T20:07:10Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "7850318",
+	"versionInfo": "8382811",
 	"videos": []
 }
