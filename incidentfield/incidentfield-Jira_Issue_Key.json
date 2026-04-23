@@ -44,7 +44,7 @@
 		"all"
 	],
 	"placeholder": "",
-	"pretty_name": "",
+	"pretty_name": "Jira Issue Key",
 	"propagationLabels": [],
 	"required": false,
 	"runScriptAfterUpdate": false,
