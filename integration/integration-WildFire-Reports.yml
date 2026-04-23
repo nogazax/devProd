@@ -63,7 +63,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.5.0
     isoverridable: false
-    itemVersion: 2.1.76
+    itemVersion: 2.1.77
     packID: Palo_Alto_Networks_WildFire
     packName: WildFire by Palo Alto Networks
     packPropagationLabels:
@@ -125,8 +125,8 @@ script:
   runonce: false
   script: |
     register_module_line('WildFire-Reports', 'start', __line__())
-    CONSTANT_PACK_VERSION = '2.1.76'
-    demisto.debug('pack id = Palo_Alto_Networks_WildFire, pack version = 2.1.76')
+    CONSTANT_PACK_VERSION = '2.1.77'
+    demisto.debug('pack id = Palo_Alto_Networks_WildFire, pack version = 2.1.77')
     import urllib3
 
 
