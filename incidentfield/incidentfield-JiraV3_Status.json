@@ -42,7 +42,7 @@
 		"all"
 	],
 	"placeholder": "",
-	"pretty_name": "",
+	"pretty_name": "JiraV3 Status",
 	"propagationLabels": [],
 	"required": false,
 	"runScriptAfterUpdate": false,
