@@ -87,7 +87,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.5.38
+    itemVersion: 1.5.39
     packID: Whois
     packName: Whois
     packPropagationLabels:
@@ -1521,8 +1521,8 @@ script:
   runonce: false
   script: |
     register_module_line('Whois', 'start', __line__())
-    CONSTANT_PACK_VERSION = '1.5.38'
-    demisto.debug('pack id = Whois, pack version = 1.5.38')
+    CONSTANT_PACK_VERSION = '1.5.39'
+    demisto.debug('pack id = Whois, pack version = 1.5.39')
 
 
 
