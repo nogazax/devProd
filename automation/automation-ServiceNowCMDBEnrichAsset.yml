@@ -26,7 +26,7 @@ contentitemexportablefields:
 dockerimage: demisto/python3:3.12.11.4819260
 enabled: true
 engineinfo: {}
-isInternal: true
+internal: true
 mainengineinfo: {}
 name: ServiceNowCMDBEnrichAsset
 nativeimage:
