@@ -44,7 +44,7 @@
 		"all"
 	],
 	"placeholder": "",
-	"pretty_name": "",
+	"pretty_name": "Jira Reporter Name",
 	"propagationLabels": [],
 	"required": false,
 	"runScriptAfterUpdate": false,
