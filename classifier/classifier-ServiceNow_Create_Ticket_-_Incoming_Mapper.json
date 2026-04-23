@@ -14,7 +14,7 @@
 	"itemVersion": "2.8.24",
 	"keyTypeMap": null,
 	"locked": false,
-	"logicalVersion": 0,
+	"logicalVersion": 1,
 	"mapping": {
 		"ServiceNow Ticket": {
 			"dontMapEventToLabels": false,
