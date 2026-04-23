@@ -7,7 +7,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.10.0
     isoverridable: false
-    itemVersion: 4.4.18
+    itemVersion: 4.4.19
     packID: PrismaCloud
     packName: Prisma Cloud by Palo Alto Networks
     packPropagationLabels:
@@ -34,6 +34,6 @@ is_auto_enabled: false
 name: ""
 packid: PrismaCloud
 packname: Prisma Cloud by Palo Alto Networks
-packversion: 4.4.18
+packversion: 4.4.19
 playbook_id: ""
 subtype: layoutrule
