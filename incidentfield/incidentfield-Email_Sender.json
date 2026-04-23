@@ -79,7 +79,7 @@
 	"ipVersion": "",
 	"isOverridable": false,
 	"isReadOnly": false,
-	"itemVersion": "1.0.46",
+	"itemVersion": "1.0.47",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "Email Sender",
@@ -93,7 +93,7 @@
 		"all"
 	],
 	"placeholder": "",
-	"pretty_name": "",
+	"pretty_name": "Legacy Email Sender",
 	"propagationLabels": [
 		"all"
 	],
