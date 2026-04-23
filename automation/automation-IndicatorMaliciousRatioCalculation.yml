@@ -20,12 +20,12 @@ args:
   name: maxDisplayResults
   supportedModules: []
 - auto: PREDEFINED
-  defaultValue: "no"
+  defaultValue: "false"
   description: Generate file result.
   name: fileResult
   predefined:
-  - "yes"
-  - "no"
+  - "true"
+  - "false"
   supportedModules: []
 - description: The start date by which to filter incidents. Date format will be the
     same as in the incidents query page, for example:"2021-01-01T00:00:00").
@@ -45,7 +45,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.21.7
+    itemVersion: 1.21.9
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -68,8 +68,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('IndicatorMaliciousRatioCalculation', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.21.7'
-  demisto.debug('pack id = CommonScripts, pack version = 1.21.7')
+  CONSTANT_PACK_VERSION = '1.21.9'
+  demisto.debug('pack id = CommonScripts, pack version = 1.21.9')
   import hashlib
   import json
   import traceback
