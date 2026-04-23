@@ -40,7 +40,7 @@
 		"all"
 	],
 	"placeholder": "1 - Critical,2 - High,3 - Non-Critical",
-	"pretty_name": "",
+	"pretty_name": "ServiceNow Business Impact",
 	"propagationLabels": [],
 	"required": false,
 	"runScriptAfterUpdate": false,
