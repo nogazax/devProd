@@ -10,22 +10,22 @@ args:
   name: listname
   supportedModules: []
 - auto: PREDEFINED
-  defaultValue: "No"
+  defaultValue: "false"
   description: Whether to ignore the case of the item for which you are searching.
     Default is "No".
   name: ignorecase
   predefined:
-  - "yes"
-  - "no"
+  - "true"
+  - "false"
   supportedModules: []
 - auto: PREDEFINED
-  defaultValue: "No"
+  defaultValue: "false"
   description: Whether to match the exact item in the list, or look for any string
     that contains it. Default is "No".
   name: matchexact
   predefined:
-  - "yes"
-  - "no"
+  - "true"
+  - "false"
   supportedModules: []
 - defaultValue: ','
   description: A one-character string used to delimit fields. For example, a comma
@@ -42,7 +42,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.21.7
+    itemVersion: 1.21.9
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -75,8 +75,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('FilterByList', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.21.7'
-  demisto.debug('pack id = CommonScripts, pack version = 1.21.7')
+  CONSTANT_PACK_VERSION = '1.21.9'
+  demisto.debug('pack id = CommonScripts, pack version = 1.21.9')
 
 
 
