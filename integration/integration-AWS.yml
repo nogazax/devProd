@@ -143,7 +143,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.5.0
     isoverridable: false
-    itemVersion: 2.1.16
+    itemVersion: 2.1.17
     packID: AWS
     packName: AWS
     packPropagationLabels:
@@ -9346,8 +9346,8 @@ script:
   runonce: false
   script: |
     register_module_line('AWS', 'start', __line__())
-    CONSTANT_PACK_VERSION = '2.1.16'
-    demisto.debug('pack id = AWS, pack version = 2.1.16')
+    CONSTANT_PACK_VERSION = '2.1.17'
+    demisto.debug('pack id = AWS, pack version = 2.1.17')
     import copy
 
 
