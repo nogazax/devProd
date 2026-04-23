@@ -3,7 +3,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 2.3.6
+    itemVersion: 2.3.7
     packID: AutoFocus
     packName: AutoFocus by Palo Alto Networks
     packPropagationLabels:
