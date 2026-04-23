@@ -7,7 +7,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.10.0
     isoverridable: false
-    itemVersion: 1.7.18
+    itemVersion: 1.7.19
     packID: CommonDashboards
     packName: Common Dashboards
     packPropagationLabels:
@@ -58,6 +58,6 @@ is_auto_enabled: false
 name: ""
 packid: CommonDashboards
 packname: Common Dashboards
-packversion: 1.7.18
+packversion: 1.7.19
 playbook_id: ""
 subtype: xsiamdashboard
