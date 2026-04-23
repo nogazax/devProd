@@ -44,7 +44,7 @@
 		"all"
 	],
 	"placeholder": "",
-	"pretty_name": "",
+	"pretty_name": "Jira Labels",
 	"propagationLabels": [],
 	"required": false,
 	"runScriptAfterUpdate": false,
@@ -70,7 +70,7 @@
 	"threshold": 72,
 	"toServerVersion": "",
 	"type": "tagsSelect",
-	"unmapped": false,
+	"unmapped": true,
 	"unsearchable": true,
 	"useAsKpi": false,
 	"validatedError": "",
