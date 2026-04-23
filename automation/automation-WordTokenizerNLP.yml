@@ -1,19 +1,19 @@
 args:
 - auto: PREDEFINED
-  defaultValue: "yes"
+  defaultValue: "true"
   description: Clean html from text value?
   name: cleanHtml
   predefined:
-  - "yes"
-  - "no"
+  - "true"
+  - "false"
   supportedModules: []
 - auto: PREDEFINED
-  defaultValue: "yes"
+  defaultValue: "true"
   description: Remove line breaks?
   name: removeLineBreaks
   predefined:
-  - "yes"
-  - "no"
+  - "true"
+  - "false"
   supportedModules: []
 - defaultValue: utf-8
   description: Text encoding
@@ -23,80 +23,80 @@ args:
   name: hashWordWithSeed
   supportedModules: []
 - auto: PREDEFINED
-  defaultValue: "no"
+  defaultValue: "false"
   description: Remove non-english words
   name: removeNonEnglishWords
   predefined:
-  - "yes"
-  - "no"
+  - "true"
+  - "false"
   supportedModules: []
 - auto: PREDEFINED
-  defaultValue: "yes"
+  defaultValue: "true"
   description: Remove english stop words ("the", "a", "an", etc)
   name: removeStopWords
   predefined:
-  - "yes"
-  - "no"
+  - "true"
+  - "false"
   supportedModules: []
 - auto: PREDEFINED
-  defaultValue: "yes"
+  defaultValue: "true"
   description: Remove punctuation
   name: removePunctuation
   predefined:
-  - "yes"
-  - "no"
+  - "true"
+  - "false"
   supportedModules: []
 - auto: PREDEFINED
-  defaultValue: "yes"
+  defaultValue: "true"
   description: Replace emails with magic
   name: replaceEmails
   predefined:
-  - "yes"
-  - "no"
+  - "true"
+  - "false"
   supportedModules: []
 - auto: PREDEFINED
-  defaultValue: "yes"
+  defaultValue: "true"
   description: Replace urls with magic
   name: replaceUrls
   predefined:
-  - "yes"
-  - "no"
+  - "true"
+  - "false"
   supportedModules: []
 - auto: PREDEFINED
-  defaultValue: "yes"
+  defaultValue: "true"
   description: Replace numbers with magic
   name: replaceNumbers
   predefined:
-  - "yes"
-  - "no"
+  - "true"
+  - "false"
   supportedModules: []
 - auto: PREDEFINED
-  defaultValue: "no"
+  defaultValue: "false"
   description: Remove non-alphabetic words
   name: removeNonAlphaWords
   predefined:
-  - "yes"
-  - "no"
+  - "true"
+  - "false"
   supportedModules: []
 - auto: PREDEFINED
-  defaultValue: "yes"
+  defaultValue: "true"
   description: 'Use lemmatization. you can read more about lemma here: https://en.wikipedia.org/wiki/Lemmatisation'
   name: useLemmatization
   predefined:
-  - "yes"
-  - "no"
+  - "true"
+  - "false"
   supportedModules: []
 - description: The text value
   name: value
   required: true
   supportedModules: []
 - auto: PREDEFINED
-  defaultValue: "no"
+  defaultValue: "false"
   description: Is the input text value is json encoded?
   name: isValueJson
   predefined:
-  - "yes"
-  - "no"
+  - "true"
+  - "false"
   supportedModules: []
 - auto: PREDEFINED
   defaultValue: English
@@ -132,7 +132,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.41.73
+    itemVersion: 1.41.74
     packID: Base
     packName: Base
     packPropagationLabels:
@@ -157,8 +157,8 @@ runas: DBotWeakRole
 runonce: true
 script: |
   register_module_line('WordTokenizerNLP', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.41.73'
-  demisto.debug('pack id = Base, pack version = 1.41.73')
+  CONSTANT_PACK_VERSION = '1.41.74'
+  demisto.debug('pack id = Base, pack version = 1.41.74')
   import spacy
   import string
   from HTMLParser import HTMLParser
