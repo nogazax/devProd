@@ -20,13 +20,13 @@ args:
   name: similarCustomFields
   supportedModules: []
 - auto: PREDEFINED
-  defaultValue: "yes"
+  defaultValue: "true"
   description: Whether to ignore closed alerts as duplicate candidates. Can be "yes"
     (ignore) or "no" (don't ignore). The default value is "yes".
   name: ignoreClosedIncidents
   predefined:
-  - "yes"
-  - "no"
+  - "true"
+  - "false"
   supportedModules: []
 - defaultValue: "1000"
   description: Maximum number of alerts to query.
@@ -66,15 +66,15 @@ args:
   - OR
   supportedModules: []
 - auto: PREDEFINED
-  defaultValue: "yes"
+  defaultValue: "true"
   description: 'Whether to skip the alert if it does not have specific key. Can be
     "yes" (skip) or "no" (don''t skip). The default value is "yes". WARNING: if no
     fields exist in the alert, random alerts might be returned as results due to the
     empty condition.'
   name: skipMissingValues
   predefined:
-  - "yes"
-  - "no"
+  - "true"
+  - "false"
   supportedModules: []
 comment: "Deprecated. Use DBotFindSimilarAlerts instead.\n\nFinds similar alerts by
   common alert keys, labels, custom fields or context keys.\nIt's highly recommended
@@ -94,7 +94,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.21.7
+    itemVersion: 1.21.9
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -131,8 +131,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('FindSimilarAlerts', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.21.7'
-  demisto.debug('pack id = CommonScripts, pack version = 1.21.7')
+  CONSTANT_PACK_VERSION = '1.21.9'
+  demisto.debug('pack id = CommonScripts, pack version = 1.21.9')
 
   from dateutil import parser  # type: ignore[import]
 
