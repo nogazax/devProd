@@ -28,18 +28,22 @@
 				"commands": [
 					{
 						"description": "Enrich an IP address with Unit 42 threat intelligence context.",
+						"hidden": false,
 						"name": "ip"
 					},
 					{
 						"description": "Enrich a domain with Unit 42 threat intelligence context.",
+						"hidden": false,
 						"name": "domain"
 					},
 					{
 						"description": "Enrich a URL with Unit 42 threat intelligence context.",
+						"hidden": false,
 						"name": "url"
 					},
 					{
 						"description": "Enrich a file hash with Unit 42 threat intelligence context.",
+						"hidden": false,
 						"name": "file"
 					}
 				],
@@ -54,10 +58,12 @@
 				"commands": [
 					{
 						"description": "Gets indicators from the feed.",
+						"hidden": false,
 						"name": "unit42-get-indicators"
 					},
 					{
 						"description": "Gets threat objects from the feed.",
+						"hidden": false,
 						"name": "unit42-get-threat-objects"
 					}
 				],
@@ -77,7 +83,7 @@
 		"wizard": null
 	},
 	"created": "2025-10-15T20:34:16Z",
-	"currentVersion": "1.0.18",
+	"currentVersion": "1.0.19",
 	"defaultDataSource": {
 		"id": "",
 		"name": ""
@@ -88,14 +94,14 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.41.70",
+			"minVersion": "1.41.74",
 			"name": "Base"
 		},
 		"CommonScripts": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.21.4",
+			"minVersion": "1.21.8",
 			"name": "Common Scripts"
 		}
 	},
@@ -127,7 +133,7 @@
 		}
 	],
 	"isOverridable": false,
-	"itemVersion": "1.0.18",
+	"itemVersion": "1.0.19",
 	"keywords": [
 		"Feed",
 		"TIM",
@@ -167,14 +173,14 @@
 		"cloud_posture"
 	],
 	"tags": [
-		"Palo Alto Networks Products",
 		"Threat Intelligence Management",
+		"Palo Alto Networks Products",
 		"TIM"
 	],
 	"toServerVersion": "",
-	"updated": "2026-04-06T19:57:11Z",
+	"updated": "2026-04-20T20:08:34Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "8121169",
+	"versionInfo": "8382811",
 	"videos": []
 }
