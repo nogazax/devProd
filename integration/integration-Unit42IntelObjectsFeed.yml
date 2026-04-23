@@ -128,7 +128,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.5.0
     isoverridable: false
-    itemVersion: 1.1.5
+    itemVersion: 1.1.6
     packID: Unit42Intel
     packName: Unit 42 Intel (Deprecated)
     packPropagationLabels:
@@ -178,8 +178,8 @@ script:
   runonce: false
   script: |
     register_module_line('Unit42IntelObjectsFeed', 'start', __line__())
-    CONSTANT_PACK_VERSION = '1.1.5'
-    demisto.debug('pack id = Unit42Intel, pack version = 1.1.5')
+    CONSTANT_PACK_VERSION = '1.1.6'
+    demisto.debug('pack id = Unit42Intel, pack version = 1.1.6')
 
     import urllib3
 
