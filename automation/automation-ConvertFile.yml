@@ -10,15 +10,15 @@ args:
   name: format
   supportedModules: []
 - auto: PREDEFINED
-  defaultValue: "no"
+  defaultValue: "false"
   description: If "yes", will return all generated files. If "no", will return only
     the main file. Relevant for formats that might generate multiple files, such as
     html (which will generate image files additionally to the main html file). Default
     is "no".
   name: all_files
   predefined:
-  - "yes"
-  - "no"
+  - "true"
+  - "false"
   supportedModules: []
 comment: 'Converts a file from one format to a different format by using the convert-to
   function of Libre Office. For a list of supported input/output formats see:  https://wiki.openoffice.org/wiki/Framework/Article/Filter/FilterList_OOo_3_0'
@@ -30,7 +30,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.21.7
+    itemVersion: 1.21.9
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -68,8 +68,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('ConvertFile', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.21.7'
-  demisto.debug('pack id = CommonScripts, pack version = 1.21.7')
+  CONSTANT_PACK_VERSION = '1.21.9'
+  demisto.debug('pack id = CommonScripts, pack version = 1.21.9')
   import glob
   import os
   import shutil
