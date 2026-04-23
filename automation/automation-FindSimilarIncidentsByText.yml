@@ -18,12 +18,12 @@ args:
   name: timeFrameHours
   supportedModules: []
 - auto: PREDEFINED
-  defaultValue: "no"
+  defaultValue: "false"
   description: Ignore close incidents.
   name: ignoreClosedIncidents
   predefined:
-  - "yes"
-  - "no"
+  - "true"
+  - "false"
   supportedModules: []
 - auto: PREDEFINED
   defaultValue: occurred
@@ -66,7 +66,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.41.73
+    itemVersion: 1.41.74
     packID: Base
     packName: Base
     packPropagationLabels:
