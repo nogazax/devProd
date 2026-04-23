@@ -1,33 +1,33 @@
 args:
 - auto: PREDEFINED
   default: true
-  defaultValue: "no"
+  defaultValue: "false"
   description: Whether to check suspicious indicators. Default is "no".
   name: includeSuspicious
   predefined:
-  - "yes"
-  - "no"
+  - "true"
+  - "false"
   supportedModules: []
 - auto: PREDEFINED
-  defaultValue: "yes"
+  defaultValue: "true"
   description: Query all indicators in an investigation (relevant if running in a
     sub-playbook).
   name: queryIndicators
   predefined:
-  - "yes"
-  - "no"
+  - "true"
+  - "false"
   supportedModules: []
 - description: Whether to override the default query for malicious indicators in Demisto
     (Indicators page).
   name: maliciousQueryOverride
   supportedModules: []
 - auto: PREDEFINED
-  defaultValue: "yes"
+  defaultValue: "true"
   description: Whether to check manually edited indicators. Default is "yes".
   name: includeManual
   predefined:
-  - "yes"
-  - "no"
+  - "true"
+  - "false"
   supportedModules: []
 comment: Checks if the investigation found any malicious indicators (file, URL, IP
   address, domain, or email). Returns "yes" if at least one malicious indicator is
@@ -40,7 +40,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.21.7
+    itemVersion: 1.21.9
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -54,16 +54,16 @@ engineinfo: {}
 mainengineinfo: {}
 name: IsMaliciousIndicatorFound
 outputs:
-- contextPath: "yes"
+- contextPath: "true"
   description: Whether any malicious indicators were found in the investigation.
-- contextPath: "no"
+- contextPath: "false"
   description: Whether any malicious indicators were found in the investigation.
 pswd: ""
 restrictioncenter: {}
 runas: DBotWeakRole
 runonce: false
 script: |
-  // pack version: 1.21.7
+  // pack version: 1.21.9
   minScore = (args.includeSuspicious == 'yes') ? 2 : 3;
 
   // Gather malicious indicators
