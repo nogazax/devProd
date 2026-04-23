@@ -40,7 +40,7 @@
 		"all"
 	],
 	"placeholder": "",
-	"pretty_name": "",
+	"pretty_name": "ServiceNow Assigned To",
 	"propagationLabels": [],
 	"required": false,
 	"runScriptAfterUpdate": false,
