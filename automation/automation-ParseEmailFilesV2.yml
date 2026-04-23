@@ -57,7 +57,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.21.7
+    itemVersion: 1.21.9
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -66,7 +66,7 @@ contentitemexportablefields:
     propagationLabels: []
     supportedModules: []
     toServerVersion: ""
-dockerimage: demisto/parse-emails:0.1.48.6539219
+dockerimage: demisto/parse-emails:0.1.48.8231046
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -91,6 +91,11 @@ outputs:
   type: string
 - contextPath: Email.HTML
   description: Email 'html' body if exists.
+  type: string
+- contextPath: Email.HTMLUnescape
+  description: The HTML body with all HTML entities decoded (e.g. '&amp;' becomes
+    '&'). Use this field for indicator extraction from HTML emails to ensure URLs
+    and other indicators are correctly formed.
   type: string
 - contextPath: Email.Text
   description: Email 'text' body if exists.
@@ -158,8 +163,9 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('ParseEmailFilesV2', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.21.7'
-  demisto.debug('pack id = CommonScripts, pack version = 1.21.7')
+  CONSTANT_PACK_VERSION = '1.21.9'
+  demisto.debug('pack id = CommonScripts, pack version = 1.21.9')
+  import html
   import mimetypes
   from pathlib import Path
 
@@ -169,6 +175,30 @@ script: |
 
   logger = logging.getLogger("parse-email")  # type: ignore[assignment]
   logger.addHandler(DemistoHandler)  # type: ignore[attr-defined]
+
+
+  def html_unescape(html_body: str) -> str:
+      """
+      Unescape HTML entities in the raw HTML string returned by the email parser.
+
+      The ``parse_emails`` library returns the HTML body verbatim from the email
+      source, which means HTML entities such as ``&amp;`` (used inside attribute
+      values like ``href``) are **not** decoded.  When indicator-extraction runs
+      against this raw HTML it sees ``https://example.com?a=1&amp;b=2`` instead
+      of the real URL ``https://example.com?a=1&b=2``, causing missed or broken
+      indicators.
+
+      This function applies a single ``html.unescape()`` pass so that all named
+      and numeric character references are replaced with their Unicode equivalents
+      before the HTML is stored in context and consumed by downstream automations.
+
+      Args:
+          html_body (str): Raw HTML content as returned by the email parser.
+
+      Returns:
+          str: HTML string with all character references decoded.
+      """
+      return html.unescape(html_body)
 
 
   def remove_bom(file_path: str, file_type: str, file_name: str) -> tuple[str, Optional[str], str]:
@@ -366,6 +396,9 @@ script: |
 
               if isinstance(email.get("HTML"), bytes):
                   email["HTML"] = email.get("HTML").decode("utf-8")
+
+              if html_body := email.get("HTML"):
+                  email["HTMLUnescape"] = html_unescape(html_body)
 
               results.append(
                   CommandResults(
