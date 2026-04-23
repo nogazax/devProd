@@ -25,7 +25,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.1.45
+    itemVersion: 1.1.46
     packID: ImageOCR
     packName: Image OCR
     packPropagationLabels:
@@ -83,8 +83,8 @@ script:
   runonce: false
   script: |
     register_module_line('Image OCR', 'start', __line__())
-    CONSTANT_PACK_VERSION = '1.1.45'
-    demisto.debug('pack id = ImageOCR, pack version = 1.1.45')
+    CONSTANT_PACK_VERSION = '1.1.46'
+    demisto.debug('pack id = ImageOCR, pack version = 1.1.46')
     import subprocess
 
 
