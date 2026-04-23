@@ -21,7 +21,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.21.7
+    itemVersion: 1.21.9
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -35,16 +35,16 @@ engineinfo: {}
 mainengineinfo: {}
 name: IsGreaterThan
 outputs:
-- contextPath: "yes"
+- contextPath: "true"
   description: if first > second
-- contextPath: "no"
+- contextPath: "false"
   description: if first <= second
 pswd: ""
 restrictioncenter: {}
 runas: DBotWeakRole
 runonce: false
 script: |
-  // pack version: 1.21.7
+  // pack version: 1.21.9
   first = parseFloat(args.first);
   if (isNaN(first)) {
       throw 'first is not valid: '+args.first;
