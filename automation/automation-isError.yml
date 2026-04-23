@@ -16,7 +16,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.21.7
+    itemVersion: 1.21.9
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -30,16 +30,16 @@ engineinfo: {}
 mainengineinfo: {}
 name: isError
 outputs:
-- contextPath: "yes"
+- contextPath: "true"
   description: If one or more entries is an error
-- contextPath: "no"
+- contextPath: "false"
   description: If none of the entries is not an error
 pswd: ""
 restrictioncenter: {}
 runas: DBotWeakRole
 runonce: false
 script: |
-  // pack version: 1.21.7
+  // pack version: 1.21.9
   entryIds = (Array.isArray(args.entryId)) ? args.entryId : [args.entryId];
   for(var entryIdx=0; entryIdx < entryIds.length; ++entryIdx) {
       res = executeCommand("getEntry", {"id":entryIds[entryIdx]});
