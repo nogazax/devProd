@@ -40,7 +40,7 @@
 		"all"
 	],
 	"placeholder": "",
-	"pretty_name": "",
+	"pretty_name": "ServiceNow Resolution Code",
 	"propagationLabels": [],
 	"required": false,
 	"runScriptAfterUpdate": false,
