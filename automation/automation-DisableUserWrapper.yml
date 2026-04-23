@@ -3,13 +3,13 @@ args:
   name: username
   required: true
   supportedModules: []
-- defaultValue: "No"
+- defaultValue: "false"
   description: Whether to run the command. This is used to prevent unwanted calls
     to the command.
   name: approve_action
   predefined:
-  - "Yes"
-  - "No"
+  - "true"
+  - "false"
   supportedModules: []
 comment: 'This script allows disabling a specified user using one or more of the following
   integrations: SailPointIdentityIQ, ActiveDirectoryQuery, Okta, MicrosoftGraphUser,
@@ -22,7 +22,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.0.0
     isoverridable: false
-    itemVersion: 1.21.7
+    itemVersion: 1.21.9
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -86,8 +86,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('DisableUserWrapper', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.21.7'
-  demisto.debug('pack id = CommonScripts, pack version = 1.21.7')
+  CONSTANT_PACK_VERSION = '1.21.9'
+  demisto.debug('pack id = CommonScripts, pack version = 1.21.9')
   import traceback
 
 
