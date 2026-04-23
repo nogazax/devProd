@@ -5,22 +5,22 @@ args:
   name: value
   supportedModules: []
 - auto: PREDEFINED
-  defaultValue: "Yes"
+  defaultValue: "true"
   description: Whether to ignore the case of the item for which you are searching.
     Default is "Yes".
   name: ignore_case
   predefined:
-  - "yes"
-  - "no"
+  - "true"
+  - "false"
   supportedModules: []
 - auto: PREDEFINED
-  defaultValue: "No"
+  defaultValue: "false"
   description: Whether to match the exact item in the list, or look for any string
     that contains it. Default is "No".
   name: match_exact
   predefined:
-  - "yes"
-  - "no"
+  - "true"
+  - "false"
   supportedModules: []
 - defaultValue: \n
   description: A string used to delimit fields. For example, a new line "\n" should
@@ -44,7 +44,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.10.0
     isoverridable: false
-    itemVersion: 1.4.17
+    itemVersion: 1.4.18
     packID: FiltersAndTransformers
     packName: Filters And Transformers
     packPropagationLabels:
@@ -67,8 +67,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('RemoveMatches', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.4.17'
-  demisto.debug('pack id = FiltersAndTransformers, pack version = 1.4.17')
+  CONSTANT_PACK_VERSION = '1.4.18'
+  demisto.debug('pack id = FiltersAndTransformers, pack version = 1.4.18')
   import re
 
 
