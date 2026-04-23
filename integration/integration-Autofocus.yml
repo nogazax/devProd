@@ -37,7 +37,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 2.3.6
+    itemVersion: 2.3.7
     packID: AutoFocus
     packName: AutoFocus by Palo Alto Networks
     packPropagationLabels:
@@ -366,7 +366,7 @@ script:
     supportedModules: []
   runonce: false
   script: |
-    // pack version: 2.3.6
+    // pack version: 2.3.7
     var SERVER = params.server.replace(/[\/]+$/, '') + '/api/' + params.version + '/';
 
     function doReq(path, data) {
