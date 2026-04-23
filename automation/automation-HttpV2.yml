@@ -93,12 +93,12 @@ args:
   name: timeout_between_retries
   supportedModules: []
 - auto: PREDEFINED
-  defaultValue: "no"
+  defaultValue: "false"
   description: Save the response in a file.
   name: save_as_file
   predefined:
-  - "yes"
-  - "no"
+  - "true"
+  - "false"
   supportedModules: []
 - defaultValue: http-file
   description: filename.
@@ -129,7 +129,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.5.0
     isoverridable: false
-    itemVersion: 1.21.7
+    itemVersion: 1.21.9
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -170,8 +170,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('HttpV2', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.21.7'
-  demisto.debug('pack id = CommonScripts, pack version = 1.21.7')
+  CONSTANT_PACK_VERSION = '1.21.9'
+  demisto.debug('pack id = CommonScripts, pack version = 1.21.9')
   import json
 
 
