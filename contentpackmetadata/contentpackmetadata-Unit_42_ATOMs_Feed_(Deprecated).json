@@ -28,6 +28,7 @@
 				"commands": [
 					{
 						"description": "Retrieves a limited number of the indicators.",
+						"hidden": false,
 						"name": "unit42-get-indicators"
 					}
 				],
@@ -48,7 +49,7 @@
 		"wizard": null
 	},
 	"created": "2025-03-29T09:26:00Z",
-	"currentVersion": "1.1.10",
+	"currentVersion": "1.1.11",
 	"defaultDataSource": {
 		"id": "",
 		"name": ""
@@ -59,7 +60,7 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.41.70",
+			"minVersion": "1.41.74",
 			"name": "Base"
 		}
 	},
@@ -86,7 +87,7 @@
 		}
 	],
 	"isOverridable": false,
-	"itemVersion": "1.1.10",
+	"itemVersion": "1.1.11",
 	"keywords": [],
 	"legacy": true,
 	"modules": [],
@@ -119,9 +120,9 @@
 		"TIM"
 	],
 	"toServerVersion": "",
-	"updated": "2026-03-30T12:23:32Z",
+	"updated": "2026-04-20T20:05:24Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "8009783",
+	"versionInfo": "8382811",
 	"videos": []
 }
