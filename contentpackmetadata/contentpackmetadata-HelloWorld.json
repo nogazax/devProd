@@ -50,17 +50,17 @@
 		"incidentfield": [
 			{
 				"description": "",
-				"name": "Hello World Type",
-				"type": "shortText"
-			},
-			{
-				"description": "",
 				"name": "Hello World Status",
 				"type": "shortText"
 			},
 			{
 				"description": "",
 				"name": "Hello World ID",
+				"type": "shortText"
+			},
+			{
+				"description": "",
+				"name": "Hello World Type",
 				"type": "shortText"
 			}
 		],
@@ -81,6 +81,7 @@
 				"commands": [
 					{
 						"description": "Gets events from Hello World.",
+						"hidden": false,
 						"name": "hello-world-get-events"
 					}
 				],
@@ -94,42 +95,66 @@
 				"toversion": ""
 			},
 			{
+				"category": "Data Enrichment \u0026 Threat Intelligence",
+				"commands": [
+					{
+						"description": "Gets indicators from the feed.",
+						"hidden": false,
+						"name": "helloworld-get-indicators"
+					}
+				],
+				"description": "This is the Feed Hello World integration for getting started with your feed integration.",
+				"fromversion": "5.5.0",
+				"id": "HelloWorld Feed",
+				"name": "HelloWorld Feed (Community Contribution)",
+				"toversion": ""
+			},
+			{
 				"category": "Utilities",
 				"commands": [
 					{
 						"description": "Prints hello to a specified name.",
+						"hidden": false,
 						"name": "helloworld-say-hello"
 					},
 					{
 						"description": "Lists example alerts as they would appear in a fetch operation.",
+						"hidden": false,
 						"name": "helloworld-alert-list"
 					},
 					{
 						"description": "Create a note in the API.",
+						"hidden": false,
 						"name": "helloworld-alert-note-create"
 					},
 					{
 						"description": "The returned IP information and reputation.",
+						"hidden": false,
 						"name": "ip"
 					},
 					{
 						"description": "Retrieves alerts from the HelloWorld API. Use this command for development and debugging only, as it may produce duplicate events, exceed API rate limits, or disrupt the fetch mechanism.",
+						"hidden": false,
 						"name": "helloworld-get-events"
 					},
 					{
 						"description": "Submits a job to the HelloWorld API and polls for completion. Used for asynchronous APIs and long-running operations.",
+						"hidden": false,
 						"name": "helloworld-job-submit"
 					},
 					{
 						"description": "Polls a submitted job for completion status. This is called automatically by helloworld-job-submit.",
+						"hidden": true,
 						"name": "helloworld-job-poll"
 					},
 					{
 						"description": "Retrieves resources and assets in the HelloWorld environment.",
+						"hidden": false,
 						"name": "helloworld-get-assets"
 					},
 					{
 						"description": "Retrieves vulnerabilities found in the HelloWorld environment.",
+						"hidden": false,
 						"name": "helloworld-get-vulnerabilities"
 					}
 				],
@@ -147,18 +172,22 @@
 				"commands": [
 					{
 						"description": "Hello command - prints hello to anyone.",
+						"hidden": false,
 						"name": "helloworld-say-hello"
 					},
 					{
 						"description": "Lists the example alerts as it would be fetched from the API.",
+						"hidden": false,
 						"name": "helloworld-alert-list"
 					},
 					{
 						"description": "Example of creating a new item in the API.",
+						"hidden": false,
 						"name": "helloworld-alert-note-create"
 					},
 					{
 						"description": "Return IP information and reputation.",
+						"hidden": false,
 						"name": "ip"
 					}
 				],
@@ -166,20 +195,6 @@
 				"fromversion": "6.8.0",
 				"id": "HelloWorld",
 				"name": "HelloWorld (Community Contribution)",
-				"toversion": ""
-			},
-			{
-				"category": "Data Enrichment \u0026 Threat Intelligence",
-				"commands": [
-					{
-						"description": "Gets indicators from the feed.",
-						"name": "helloworld-get-indicators"
-					}
-				],
-				"description": "This is the Feed Hello World integration for getting started with your feed integration.",
-				"fromversion": "5.5.0",
-				"id": "HelloWorld Feed",
-				"name": "HelloWorld Feed (Community Contribution)",
 				"toversion": ""
 			}
 		],
@@ -230,7 +245,7 @@
 		"wizard": null
 	},
 	"created": "2025-03-29T09:38:42Z",
-	"currentVersion": "4.0.4",
+	"currentVersion": "4.0.5",
 	"defaultDataSource": {
 		"id": "HelloWorldEventCollector",
 		"name": "HelloWorld Event Collector"
@@ -241,28 +256,28 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.41.72",
+			"minVersion": "1.41.74",
 			"name": "Base"
 		},
 		"CommonPlaybooks": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "2.7.32",
+			"minVersion": "2.7.33",
 			"name": "Common Playbooks"
 		},
 		"CommonScripts": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.21.7",
+			"minVersion": "1.21.8",
 			"name": "Common Scripts"
 		},
 		"CommonTypes": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "3.10.7",
+			"minVersion": "3.10.8",
 			"name": "Common Types"
 		}
 	},
@@ -302,7 +317,7 @@
 		}
 	],
 	"isOverridable": false,
-	"itemVersion": "4.0.4",
+	"itemVersion": "4.0.5",
 	"keywords": [],
 	"legacy": true,
 	"modules": [],
@@ -332,15 +347,15 @@
 		"xsiam"
 	],
 	"tags": [
-		"Collection",
+		"Getting Started",
 		"TIM",
-		"Data Source",
-		"Getting Started"
+		"Collection",
+		"Data Source"
 	],
 	"toServerVersion": "",
-	"updated": "2026-04-19T20:19:24Z",
+	"updated": "2026-04-20T20:06:45Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "8359356",
+	"versionInfo": "8382811",
 	"videos": []
 }
