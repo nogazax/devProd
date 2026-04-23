@@ -79,7 +79,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 2.1.33
+    itemVersion: 2.1.34
     packID: rasterize
     packName: Rasterize
     packPropagationLabels:
@@ -486,8 +486,8 @@ script:
   runonce: false
   script: |
     register_module_line('Rasterize', 'start', __line__())
-    CONSTANT_PACK_VERSION = '2.1.33'
-    demisto.debug('pack id = rasterize, pack version = 2.1.33')
+    CONSTANT_PACK_VERSION = '2.1.34'
+    demisto.debug('pack id = rasterize, pack version = 2.1.34')
     from pathlib import Path
 
 
