@@ -25,7 +25,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.1.0
     isoverridable: false
-    itemVersion: 3.5.34
+    itemVersion: 3.5.37
     packID: Core
     packName: Core
     packPropagationLabels:
@@ -40,7 +40,7 @@ contentitemexportablefields:
 dockerimage: demisto/python3:3.12.12.5490952
 enabled: true
 engineinfo: {}
-isInternal: true
+internal: true
 mainengineinfo: {}
 name: CoreQuarantineFiles
 nativeimage:
@@ -92,8 +92,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('CoreQuarantineFiles', 'start', __line__())
-  CONSTANT_PACK_VERSION = '3.5.34'
-  demisto.debug('pack id = Core, pack version = 3.5.34')
+  CONSTANT_PACK_VERSION = '3.5.37'
+  demisto.debug('pack id = Core, pack version = 3.5.37')
 
 
 
