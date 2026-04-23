@@ -29,38 +29,47 @@
 				"commands": [
 					{
 						"description": "Retrieve results for a file hash using WildFire.",
+						"hidden": false,
 						"name": "file"
 					},
 					{
 						"description": "Uploads a file to WildFire for analysis.",
+						"hidden": false,
 						"name": "wildfire-upload"
 					},
 					{
 						"description": "Uploads the URL of a remote file to WildFire for analysis.",
+						"hidden": false,
 						"name": "wildfire-upload-file-url"
 					},
 					{
 						"description": "Retrieves results for a file hash using WildFire.",
+						"hidden": false,
 						"name": "wildfire-report"
 					},
 					{
 						"description": "Returns a verdict for a hash.",
+						"hidden": false,
 						"name": "wildfire-get-verdict"
 					},
 					{
 						"description": "Returns a verdict regarding multiple hashes, stored in a TXT file or given as a list.",
+						"hidden": false,
 						"name": "wildfire-get-verdicts"
 					},
 					{
 						"description": "Uploads a URL of a webpage to WildFire for analysis.",
+						"hidden": false,
 						"name": "wildfire-upload-url"
 					},
 					{
 						"description": "Retrieves a sample.",
+						"hidden": false,
 						"name": "wildfire-get-sample"
 					},
 					{
 						"description": "Get web artifacts for a URL webpage. An empty tgz will be returned, no matter what the verdict is, or even if the URL is malformed.",
+						"hidden": false,
 						"name": "wildfire-get-url-webartifacts"
 					}
 				],
@@ -75,6 +84,7 @@
 				"commands": [
 					{
 						"description": "Retrieves results for a file hash using WildFire.",
+						"hidden": false,
 						"name": "internal-wildfire-get-report"
 					}
 				],
@@ -88,6 +98,24 @@
 		"layoutscontainer": null,
 		"list": null,
 		"playbook": [
+			{
+				"description": "Detonate one or more files using the Wildfire v2 integration. This playbook\nreturns relevant reports to the War Room and file reputations to the context data.\nThe detonation supports the following file types -\nAPK, JAR, DOC, DOCX, RTF, XLS, XLSX, PPT, PPTX, OOXML, PE32, PE, PDF, DMG, PKG, RAR, 7Z, JS, ELF, HTA, LNK, VBS, PS1, PERL, PYTHON, SHELL.\n\nNote: Base64 encoded files are currently not supported.",
+				"fromversion": "6.10.0",
+				"id": "WildFire - Detonate file v2",
+				"name": "WildFire - Detonate file v2",
+				"tags": []
+			},
+			{
+				"description": "Detonate one or more files using the Wildfire v2 integration. This playbook returns relevant reports to the War Room and file reputations to the context data.\nThe detonation supports the following file types -\nAPK, JAR, DOC, DOCX, RTF, XLS, XLSX, PPT, PPTX, XML, PE32, PDF, DMG, PKG, RAR, 7Z.",
+				"fromversion": "6.10.0",
+				"id": "Detonate File From URL - WildFire v2",
+				"name": "Detonate File From URL - WildFire v2",
+				"supportedModules": [
+					"agentix",
+					"xsiam"
+				],
+				"tags": []
+			},
 			{
 				"description": "This playbook uploads, detonates, and analyzes files for the Wildfire sandbox.\n",
 				"fromversion": "6.5.0",
@@ -118,31 +146,6 @@
 				"tags": []
 			},
 			{
-				"description": "Detonate one or more files using the Wildfire v2 integration. This playbook\nreturns relevant reports to the War Room and file reputations to the context data.\nThe detonation supports the following file types -\nAPK, JAR, DOC, DOCX, RTF, XLS, XLSX, PPT, PPTX, OOXML, PE32, PE, PDF, DMG, PKG, RAR, 7Z, JS, ELF, HTA, LNK, VBS, PS1, PERL, PYTHON, SHELL.\n\nNote: Base64 encoded files are currently not supported.",
-				"fromversion": "6.10.0",
-				"id": "WildFire - Detonate file v2",
-				"name": "WildFire - Detonate file v2",
-				"tags": []
-			},
-			{
-				"description": "Detonate a webpage or remote file using the WildFire v2 integration. This playbook returns relevant reports to the War Room and file reputations to the context data.\nThe detonation supports the following file types:\nAPK, JAR, DOC, DOCX, RTF, OOXLS, XLSX, PPT, PPTX, XML, PE32, PDF, DMG, PKG, RAR, 7Z, JS.",
-				"fromversion": "6.10.0",
-				"id": "Detonate URL - WildFire v2.2",
-				"name": "Detonate URL - WildFire v2.2",
-				"tags": []
-			},
-			{
-				"description": "Detonate one or more files using the Wildfire v2 integration. This playbook returns relevant reports to the War Room and file reputations to the context data.\nThe detonation supports the following file types -\nAPK, JAR, DOC, DOCX, RTF, XLS, XLSX, PPT, PPTX, XML, PE32, PDF, DMG, PKG, RAR, 7Z.",
-				"fromversion": "6.10.0",
-				"id": "Detonate File From URL - WildFire v2",
-				"name": "Detonate File From URL - WildFire v2",
-				"supportedModules": [
-					"agentix",
-					"xsiam"
-				],
-				"tags": []
-			},
-			{
 				"description": "Deprecated. Use Detonate File From URL - WildFire v2 instead.",
 				"fromversion": "5.0.0",
 				"id": "detonate_file_from_url_-_wildfire",
@@ -163,6 +166,13 @@
 					"xsiam"
 				],
 				"tags": []
+			},
+			{
+				"description": "Detonate a webpage or remote file using the WildFire v2 integration. This playbook returns relevant reports to the War Room and file reputations to the context data.\nThe detonation supports the following file types:\nAPK, JAR, DOC, DOCX, RTF, OOXLS, XLSX, PPT, PPTX, XML, PE32, PDF, DMG, PKG, RAR, 7Z, JS.",
+				"fromversion": "6.10.0",
+				"id": "Detonate URL - WildFire v2.2",
+				"name": "Detonate URL - WildFire v2.2",
+				"tags": []
 			}
 		],
 		"report": null,
@@ -171,7 +181,7 @@
 		"wizard": null
 	},
 	"created": "2025-03-29T09:35:34Z",
-	"currentVersion": "2.1.76",
+	"currentVersion": "2.1.77",
 	"defaultDataSource": {
 		"id": "",
 		"name": ""
@@ -182,28 +192,28 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.41.73",
+			"minVersion": "1.41.74",
 			"name": "Base"
 		},
 		"CommonPlaybooks": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "2.7.32",
+			"minVersion": "2.7.33",
 			"name": "Common Playbooks"
 		},
 		"CommonScripts": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.21.7",
+			"minVersion": "1.21.8",
 			"name": "Common Scripts"
 		},
 		"FiltersAndTransformers": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.4.17",
+			"minVersion": "1.4.18",
 			"name": "Filters And Transformers"
 		}
 	},
@@ -235,7 +245,7 @@
 		}
 	],
 	"isOverridable": false,
-	"itemVersion": "2.1.76",
+	"itemVersion": "2.1.77",
 	"keywords": [],
 	"legacy": true,
 	"modules": [],
@@ -271,9 +281,9 @@
 		"Palo Alto Networks Products"
 	],
 	"toServerVersion": "",
-	"updated": "2026-04-20T13:43:33Z",
+	"updated": "2026-04-20T19:56:10Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "8374126",
+	"versionInfo": "8382811",
 	"videos": []
 }
