@@ -43,7 +43,7 @@
 		"all"
 	],
 	"placeholder": "",
-	"pretty_name": "",
+	"pretty_name": "ServiceNow Ticket ID",
 	"propagationLabels": [],
 	"required": false,
 	"runScriptAfterUpdate": false,
