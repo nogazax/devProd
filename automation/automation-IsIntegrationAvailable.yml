@@ -14,7 +14,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.21.7
+    itemVersion: 1.21.9
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -27,16 +27,16 @@ engineinfo: {}
 mainengineinfo: {}
 name: IsIntegrationAvailable
 outputs:
-- contextPath: "yes"
+- contextPath: "true"
   description: if integration is available.
-- contextPath: "no"
+- contextPath: "false"
   description: if there is no instance for the given brand.
 pswd: ""
 restrictioncenter: {}
 runas: DBotWeakRole
 runonce: false
 script: |
-  // pack version: 1.21.7
+  // pack version: 1.21.9
   function isIntegrationAvailable(brandName, allInstances) {
       const brandInstances = Object.keys(allInstances).filter(
           instanceName =>
