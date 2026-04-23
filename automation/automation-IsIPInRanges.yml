@@ -20,7 +20,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.21.7
+    itemVersion: 1.21.9
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -34,9 +34,9 @@ engineinfo: {}
 mainengineinfo: {}
 name: IsIPInRanges
 outputs:
-- contextPath: "yes"
+- contextPath: "true"
   description: if given value is an IP range
-- contextPath: "no"
+- contextPath: "false"
   description: if given value is not a IP range
 - contextPath: IP.Address
   description: The IP Address
@@ -47,7 +47,7 @@ restrictioncenter: {}
 runas: DBotWeakRole
 runonce: false
 script: |
-  // pack version: 1.21.7
+  // pack version: 1.21.9
   var private_subnets = [
     '172.16.0.0/12',
     '10.0.0.0/8',
