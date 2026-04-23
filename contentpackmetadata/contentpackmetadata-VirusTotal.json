@@ -48,13 +48,13 @@
 			},
 			{
 				"description": "",
-				"name": "VT Engine Detection Names",
-				"type": "tagsSelect"
+				"name": "VT Engine Detections",
+				"type": "number"
 			},
 			{
 				"description": "",
-				"name": "VT Engine Detections",
-				"type": "number"
+				"name": "VT Engine Detection Names",
+				"type": "tagsSelect"
 			}
 		],
 		"integration": [
@@ -63,86 +63,107 @@
 				"commands": [
 					{
 						"description": "Downloads file from VirusTotal.",
+						"hidden": false,
 						"name": "vt-private-download-file"
 					},
 					{
 						"description": "Creates a password-protected ZIP file containing files from VirusTotal.",
+						"hidden": false,
 						"name": "vt-private-zip-create"
 					},
 					{
 						"description": "Retrieve information about a ZIP file.",
+						"hidden": false,
 						"name": "vt-private-zip-get"
 					},
 					{
 						"description": "Download a ZIP file.",
+						"hidden": false,
 						"name": "vt-private-zip-download"
 					},
 					{
 						"description": "Extracted PCAP from a sandbox analysis.",
+						"hidden": false,
 						"name": "vt-private-file-sandbox-pcap"
 					},
 					{
 						"description": "Search for files.",
+						"hidden": false,
 						"name": "vt-private-intelligence-search"
 					},
 					{
 						"description": "Search for files.",
+						"hidden": false,
 						"name": "vt-private-search-file"
 					},
 					{
 						"description": "Retrieve VT Hunting livehunt rulesets.",
+						"hidden": false,
 						"name": "vt-private-livehunt-rules-get-by-id"
 					},
 					{
 						"description": "Retrieve VT Hunting livehunt rulesets.",
+						"hidden": false,
 						"name": "vt-private-livehunt-rules-list"
 					},
 					{
 						"description": "Create a new VT Hunting Livehunt ruleset.",
+						"hidden": false,
 						"name": "vt-private-livehunt-rules-create"
 					},
 					{
 						"description": "Update a VT Hunting Livehunt ruleset.",
+						"hidden": false,
 						"name": "vt-private-livehunt-rules-update"
 					},
 					{
 						"description": "Delete a VT Hunting Livehunt ruleset.",
+						"hidden": false,
 						"name": "vt-private-livehunt-rules-delete"
 					},
 					{
 						"description": "Retrieve VT Hunting Livehunt notifications.",
+						"hidden": false,
 						"name": "vt-private-livehunt-notifications-list"
 					},
 					{
 						"description": "Retrieve file objects for VT Hunting Livehunt notifications.",
+						"hidden": false,
 						"name": "vt-private-livehunt-notifications-files-list"
 					},
 					{
 						"description": "Retrieve file objects for VT Hunting Livehunt notifications.",
+						"hidden": false,
 						"name": "vt-private-livehunt-notifications-files-get-by-hash"
 					},
 					{
 						"description": "Get a VT Hunting Livehunt ruleset by hunting notification files relationship.",
+						"hidden": false,
 						"name": "vt-private-livehunt-rule-list-files"
 					},
 					{
 						"description": "Get a VT Hunting Livehunt ruleset by hunting notification files relationship.",
+						"hidden": false,
 						"name": "vt-private-retrohunt-jobs-list"
 					},
 					{
 						"description": "Retrieve a retrohunt job.",
+						"hidden": false,
 						"name": "vt-private-retrohunt-jobs-get-by-id"
 					},
 					{
 						"description": "Retrieve matches for a retrohunt job matching file relationship.",
+						"hidden": false,
 						"name": "vt-private-retrohunt-jobs-get-matching-files"
 					},
 					{
 						"description": "Create a new retrohunt job.",
+						"hidden": false,
 						"name": "vt-private-retrohunt-jobs-create"
 					},
 					{
 						"description": "Retrieve user's API usage.",
+						"hidden": false,
 						"name": "vt-private-quota-limits-list"
 					}
 				],
@@ -157,42 +178,172 @@
 				"commands": [
 					{
 						"description": "Checks the file reputation of the specified hash.",
+						"hidden": false,
 						"name": "file"
 					},
 					{
 						"description": "Checks the reputation of an IP address.",
+						"hidden": false,
 						"name": "ip"
 					},
 					{
 						"description": "Checks the reputation of a URL.",
+						"hidden": false,
 						"name": "url"
 					},
 					{
 						"description": "Checks the reputation of a domain.",
+						"hidden": false,
 						"name": "domain"
 					},
 					{
-						"description": "Submits a file for scanning.",
+						"description": "Submits a file for scanning. Use the vt-analysis-get command to get the scan results.",
+						"hidden": false,
 						"name": "file-scan"
 					},
 					{
-						"description": "Re-scans an already submitted file. This avoids having to upload the file again.",
+						"description": "Rescans an already submitted file. This avoids having to upload the file again. Use the vt-analysis-get command to get the scan results.",
+						"hidden": false,
 						"name": "file-rescan"
 					},
 					{
-						"description": "Scans a specified URL.",
+						"description": "Scans a specified URL. Use the vt-analysis-get command to get the scan results.",
+						"hidden": false,
 						"name": "url-scan"
 					},
 					{
 						"description": "Adds comments to files and URLs.",
+						"hidden": false,
+						"name": "vt-comments-add"
+					},
+					{
+						"description": "Premium API. Get a special URL for files larger than 32 MB.",
+						"hidden": false,
+						"name": "vt-file-scan-upload-url"
+					},
+					{
+						"description": "Delete a comment.",
+						"hidden": false,
+						"name": "vt-comments-delete"
+					},
+					{
+						"description": "Retrieves comments for a given resource.",
+						"hidden": false,
+						"name": "vt-comments-get"
+					},
+					{
+						"description": "Retrieves a comment by comment ID.",
+						"hidden": false,
+						"name": "vt-comments-get-by-id"
+					},
+					{
+						"description": "Search for an indicator in Virus Total.",
+						"hidden": false,
+						"name": "vt-search"
+					},
+					{
+						"description": "Retrieves a behavioral relationship of the given file hash.",
+						"hidden": false,
+						"name": "vt-file-sandbox-report"
+					},
+					{
+						"description": "Returns passive DNS records by indicator.",
+						"hidden": false,
+						"name": "vt-passive-dns-data"
+					},
+					{
+						"description": "Get analysis of a file submitted to VirusTotal.",
+						"hidden": false,
+						"name": "vt-analysis-get"
+					},
+					{
+						"description": "Result of the last Sigma analysis in markdown format.",
+						"hidden": false,
+						"name": "vt-file-sigma-analysis"
+					},
+					{
+						"description": "Checks the file reputation of the specified private hash.",
+						"hidden": false,
+						"name": "vt-privatescanning-file"
+					},
+					{
+						"description": "Submits a file for private scanning. Use the vt-privatescanning-analysis-get command to get the scan results.",
+						"hidden": false,
+						"name": "vt-privatescanning-file-scan"
+					},
+					{
+						"description": "Checks the reputation of a private URL.",
+						"hidden": false,
+						"name": "vt-privatescanning-url"
+					},
+					{
+						"description": "Submits an URL for private scanning. Use the vt-privatescanning-analysis-get command to get the scan results.",
+						"hidden": false,
+						"name": "vt-privatescanning-url-scan"
+					},
+					{
+						"description": "Get analysis of a private file or URL submitted to VirusTotal.",
+						"hidden": false,
+						"name": "vt-privatescanning-analysis-get"
+					}
+				],
+				"description": "Analyzes suspicious hashes, URLs, domains, and IP addresses.",
+				"fromversion": "5.5.0",
+				"id": "VirusTotal (API v3)",
+				"name": "VirusTotal (API v3) (Partner Contribution)",
+				"toversion": ""
+			},
+			{
+				"category": "Data Enrichment \u0026 Threat Intelligence",
+				"commands": [
+					{
+						"description": "Checks the file reputation of the specified hash.",
+						"hidden": false,
+						"name": "file"
+					},
+					{
+						"description": "Checks the reputation of an IP address.",
+						"hidden": false,
+						"name": "ip"
+					},
+					{
+						"description": "Checks the reputation of a URL.",
+						"hidden": false,
+						"name": "url"
+					},
+					{
+						"description": "Checks the reputation of a domain.",
+						"hidden": false,
+						"name": "domain"
+					},
+					{
+						"description": "Submits a file for scanning.",
+						"hidden": false,
+						"name": "file-scan"
+					},
+					{
+						"description": "Re-scans an already submitted file. This avoids having to upload the file again.",
+						"hidden": false,
+						"name": "file-rescan"
+					},
+					{
+						"description": "Scans a specified URL.",
+						"hidden": false,
+						"name": "url-scan"
+					},
+					{
+						"description": "Adds comments to files and URLs.",
+						"hidden": false,
 						"name": "vt-comments-add"
 					},
 					{
 						"description": "Private API. Get a special URL for files larger than 32 MB.",
+						"hidden": false,
 						"name": "vt-file-scan-upload-url"
 					},
 					{
 						"description": "Private API. Retrieves comments for a given resource.",
+						"hidden": false,
 						"name": "vt-comments-get"
 					}
 				],
@@ -208,10 +359,12 @@
 				"commands": [
 					{
 						"description": "Gets the matches from a given retrohunt job's id or the latest by default.",
+						"hidden": false,
 						"name": "vt-retrohunt-get-indicators"
 					},
 					{
 						"description": "This command will reset your fetch history.",
+						"hidden": false,
 						"name": "vt-retrohunt-reset-fetch-indicators"
 					}
 				],
@@ -226,10 +379,12 @@
 				"commands": [
 					{
 						"description": "Gets the indicators from VirusTotal Livehunt.",
+						"hidden": false,
 						"name": "vt-livehunt-get-indicators"
 					},
 					{
 						"description": "This command will reset your fetch history.",
+						"hidden": false,
 						"name": "vt-reset-fetch-indicators"
 					}
 				],
@@ -237,104 +392,6 @@
 				"fromversion": "5.5.0",
 				"id": "VirusTotal Livehunt Feed",
 				"name": "VirusTotal Livehunt Feed (Partner Contribution)",
-				"toversion": ""
-			},
-			{
-				"category": "Data Enrichment \u0026 Threat Intelligence",
-				"commands": [
-					{
-						"description": "Checks the file reputation of the specified hash.",
-						"name": "file"
-					},
-					{
-						"description": "Checks the reputation of an IP address.",
-						"name": "ip"
-					},
-					{
-						"description": "Checks the reputation of a URL.",
-						"name": "url"
-					},
-					{
-						"description": "Checks the reputation of a domain.",
-						"name": "domain"
-					},
-					{
-						"description": "Submits a file for scanning. Use the vt-analysis-get command to get the scan results.",
-						"name": "file-scan"
-					},
-					{
-						"description": "Rescans an already submitted file. This avoids having to upload the file again. Use the vt-analysis-get command to get the scan results.",
-						"name": "file-rescan"
-					},
-					{
-						"description": "Scans a specified URL. Use the vt-analysis-get command to get the scan results.",
-						"name": "url-scan"
-					},
-					{
-						"description": "Adds comments to files and URLs.",
-						"name": "vt-comments-add"
-					},
-					{
-						"description": "Premium API. Get a special URL for files larger than 32 MB.",
-						"name": "vt-file-scan-upload-url"
-					},
-					{
-						"description": "Delete a comment.",
-						"name": "vt-comments-delete"
-					},
-					{
-						"description": "Retrieves comments for a given resource.",
-						"name": "vt-comments-get"
-					},
-					{
-						"description": "Retrieves a comment by comment ID.",
-						"name": "vt-comments-get-by-id"
-					},
-					{
-						"description": "Search for an indicator in Virus Total.",
-						"name": "vt-search"
-					},
-					{
-						"description": "Retrieves a behavioral relationship of the given file hash.",
-						"name": "vt-file-sandbox-report"
-					},
-					{
-						"description": "Returns passive DNS records by indicator.",
-						"name": "vt-passive-dns-data"
-					},
-					{
-						"description": "Get analysis of a file submitted to VirusTotal.",
-						"name": "vt-analysis-get"
-					},
-					{
-						"description": "Result of the last Sigma analysis in markdown format.",
-						"name": "vt-file-sigma-analysis"
-					},
-					{
-						"description": "Checks the file reputation of the specified private hash.",
-						"name": "vt-privatescanning-file"
-					},
-					{
-						"description": "Submits a file for private scanning. Use the vt-privatescanning-analysis-get command to get the scan results.",
-						"name": "vt-privatescanning-file-scan"
-					},
-					{
-						"description": "Checks the reputation of a private URL.",
-						"name": "vt-privatescanning-url"
-					},
-					{
-						"description": "Submits an URL for private scanning. Use the vt-privatescanning-analysis-get command to get the scan results.",
-						"name": "vt-privatescanning-url-scan"
-					},
-					{
-						"description": "Get analysis of a private file or URL submitted to VirusTotal.",
-						"name": "vt-privatescanning-analysis-get"
-					}
-				],
-				"description": "Analyzes suspicious hashes, URLs, domains, and IP addresses.",
-				"fromversion": "5.5.0",
-				"id": "VirusTotal (API v3)",
-				"name": "VirusTotal (API v3) (Partner Contribution)",
 				"toversion": ""
 			}
 		],
@@ -356,10 +413,10 @@
 				"tags": []
 			},
 			{
-				"description": "Detonate a file through VirusTotal (API v3)",
-				"fromversion": "5.5.0",
-				"id": "Detonate File - VirusTotal (API v3)",
-				"name": "Detonate File - VirusTotal (API v3)",
+				"description": "Detonate one or more files using the VirusTotal integration. This playbook returns relevant reports to the War Room and file reputations to the context data.",
+				"fromversion": "5.0.0",
+				"id": "Detonate File - VirusTotal",
+				"name": "Detonate File - VirusTotal",
 				"tags": []
 			},
 			{
@@ -370,17 +427,17 @@
 				"tags": []
 			},
 			{
+				"description": "Detonate a file through VirusTotal (API v3)",
+				"fromversion": "5.5.0",
+				"id": "Detonate File - VirusTotal (API v3)",
+				"name": "Detonate File - VirusTotal (API v3)",
+				"tags": []
+			},
+			{
 				"description": "Creates a zip from given hashes exists in VirusTotal",
 				"fromversion": "5.5.0",
 				"id": "Create Zip from VirusTotal",
 				"name": "Create Zip from VirusTotal",
-				"tags": []
-			},
-			{
-				"description": "Detonate one or more files using the VirusTotal integration. This playbook returns relevant reports to the War Room and file reputations to the context data.",
-				"fromversion": "5.0.0",
-				"id": "Detonate File - VirusTotal",
-				"name": "Detonate File - VirusTotal",
 				"tags": []
 			}
 		],
@@ -390,7 +447,7 @@
 		"wizard": null
 	},
 	"created": "2025-03-29T09:35:07Z",
-	"currentVersion": "2.7.14",
+	"currentVersion": "2.7.15",
 	"defaultDataSource": {
 		"id": "VirusTotal - Premium (API v3)",
 		"name": "VirusTotal - Premium (API v3)"
@@ -401,35 +458,35 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.41.68",
+			"minVersion": "1.41.74",
 			"name": "Base"
 		},
 		"CommonPlaybooks": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "2.7.31",
+			"minVersion": "2.7.33",
 			"name": "Common Playbooks"
 		},
 		"CommonScripts": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.21.0",
+			"minVersion": "1.21.8",
 			"name": "Common Scripts"
 		},
 		"CommonTypes": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "3.10.4",
+			"minVersion": "3.10.8",
 			"name": "Common Types"
 		},
 		"CoreAlertFields": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "1.0.45",
+			"minVersion": "1.0.47",
 			"name": "Core Alert Fields"
 		}
 	},
@@ -477,7 +534,7 @@
 		}
 	],
 	"isOverridable": false,
-	"itemVersion": "2.7.14",
+	"itemVersion": "2.7.15",
 	"keywords": [],
 	"legacy": true,
 	"modules": [],
@@ -511,14 +568,14 @@
 	],
 	"tags": [
 		"Featured",
-		"TIM",
 		"Free Enricher",
+		"TIM",
 		"Data Source"
 	],
 	"toServerVersion": "",
-	"updated": "2026-03-22T18:01:36Z",
+	"updated": "2026-04-20T20:02:02Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "7839944",
+	"versionInfo": "8382811",
 	"videos": []
 }
