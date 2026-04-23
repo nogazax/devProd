@@ -44,7 +44,7 @@
 		"all"
 	],
 	"placeholder": "",
-	"pretty_name": "",
+	"pretty_name": "Jira Reporter Email",
 	"propagationLabels": [],
 	"required": false,
 	"runScriptAfterUpdate": false,
