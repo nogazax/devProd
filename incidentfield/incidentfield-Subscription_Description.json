@@ -38,7 +38,7 @@
 	"ipVersion": "",
 	"isOverridable": false,
 	"isReadOnly": false,
-	"itemVersion": "4.4.18",
+	"itemVersion": "4.4.19",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "Subscription Description",
@@ -52,7 +52,7 @@
 		"all"
 	],
 	"placeholder": "",
-	"pretty_name": "",
+	"pretty_name": "Subscription Description",
 	"propagationLabels": [],
 	"required": false,
 	"runScriptAfterUpdate": false,
