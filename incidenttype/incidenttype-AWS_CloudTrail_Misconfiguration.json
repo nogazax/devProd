@@ -18,7 +18,7 @@
 	"hoursR": 0,
 	"id": "AWS CloudTrail Misconfiguration",
 	"isOverridable": false,
-	"itemVersion": "4.4.18",
+	"itemVersion": "4.4.19",
 	"layout": "AWS CloudTrail Misconfiguration",
 	"locked": false,
 	"name": "AWS CloudTrail Misconfiguration",
