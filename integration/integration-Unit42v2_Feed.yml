@@ -131,7 +131,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.5.0
     isoverridable: false
-    itemVersion: 1.1.10
+    itemVersion: 1.1.11
     packID: FeedUnit42v2
     packName: Unit 42 ATOMs Feed (Deprecated)
     packPropagationLabels:
@@ -179,8 +179,8 @@ script:
   runonce: false
   script: |
     register_module_line('Unit42v2 Feed', 'start', __line__())
-    CONSTANT_PACK_VERSION = '1.1.10'
-    demisto.debug('pack id = FeedUnit42v2, pack version = 1.1.10')
+    CONSTANT_PACK_VERSION = '1.1.11'
+    demisto.debug('pack id = FeedUnit42v2, pack version = 1.1.11')
     import urllib3
 
     from taxii2client.common import TokenAuth
