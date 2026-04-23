@@ -11,7 +11,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.5.0
     isoverridable: false
-    itemVersion: 1.1.22
+    itemVersion: 1.1.23
     packID: ThreatIntelligenceManagement
     packName: Threat Intelligence Management
     packPropagationLabels:
@@ -33,8 +33,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('ThreatIntelManagementGetAlertsPerFeed', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.1.22'
-  demisto.debug('pack id = ThreatIntelligenceManagement, pack version = 1.1.22')
+  CONSTANT_PACK_VERSION = '1.1.23'
+  demisto.debug('pack id = ThreatIntelligenceManagement, pack version = 1.1.23')
 
 
 
