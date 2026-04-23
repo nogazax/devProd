@@ -20,13 +20,13 @@ args:
   name: hashes
   supportedModules: []
 - auto: PREDEFINED
-  defaultValue: "yes"
+  defaultValue: "true"
   description: Parses and converts all of the rows in the CSV into JSON and puts them
     into the context.
   name: parseAll
   predefined:
-  - "yes"
-  - "no"
+  - "true"
+  - "false"
   supportedModules: []
 - defaultValue: utf-8
   description: The codec type used to parse the file. (some character sets are not
@@ -43,7 +43,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.21.7
+    itemVersion: 1.21.9
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -85,8 +85,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('ParseCSV', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.21.7'
-  demisto.debug('pack id = CommonScripts, pack version = 1.21.7')
+  CONSTANT_PACK_VERSION = '1.21.9'
+  demisto.debug('pack id = CommonScripts, pack version = 1.21.9')
   import csv
 
 
