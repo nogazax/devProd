@@ -1,0 +1,136 @@
+{
+	"author": "Cortex",
+	"authorImage": "content/packs/Base/Author_image.png",
+	"beta": false,
+	"cacheVersn": 0,
+	"categories": [
+		"Utilities"
+	],
+	"certification": "certified",
+	"contentItemTypes": [
+		"integration"
+	],
+	"contentItems": {
+		"agentixaction": null,
+		"agentixagent": null,
+		"automation": null,
+		"casefield": null,
+		"classifier": null,
+		"dashboard": null,
+		"genericfield": null,
+		"generictype": null,
+		"incidentfield": null,
+		"incidenttype": null,
+		"indicatorfield": null,
+		"integration": [
+			{
+				"category": "Utilities",
+				"commands": [
+					{
+						"description": "Retrieves a list of available tools in the GitHub MCP server.",
+						"hidden": true,
+						"name": "list-tools"
+					},
+					{
+						"description": "Calls a specific tool on the GitHub MCP server with optional input parameters.",
+						"hidden": true,
+						"name": "call-tool"
+					}
+				],
+				"description": "Use this integration to connect securely with a GitHub Model Context Protocol (MCP) server and access its tools in real time.",
+				"fromversion": "8.13.0",
+				"id": "GitHub MCP",
+				"name": "GitHub MCP",
+				"toversion": ""
+			}
+		],
+		"layoutscontainer": null,
+		"list": null,
+		"playbook": null,
+		"report": null,
+		"reputation": null,
+		"widget": null,
+		"wizard": null
+	},
+	"created": "2026-01-11T10:29:35Z",
+	"currentVersion": "1.0.2",
+	"defaultDataSource": {
+		"id": "",
+		"name": ""
+	},
+	"definitionId": "",
+	"dependencies": {
+		"Base": {
+			"author": "Cortex",
+			"certification": "certified",
+			"mandatory": true,
+			"minVersion": "1.41.61",
+			"name": "Base"
+		}
+	},
+	"deprecated": false,
+	"description": "Integrate with GitHub via the Model Context Protocol (MCP) server to automate GitHub operations.",
+	"downloads": 0,
+	"eulaLink": "https://github.com/demisto/content/blob/master/LICENSE",
+	"firstCreated": "2026-01-11T10:29:35Z",
+	"fromServerVersion": "8.13.0",
+	"general": [
+		"generalFieldCertified",
+		"generalFieldFree",
+		"generalFieldSupportIncluded",
+		"generalFieldSupportModule"
+	],
+	"hybrid": false,
+	"id": "GitHubMCP",
+	"installMessage": "",
+	"integrations": [
+		{
+			"id": "GitHub MCP",
+			"imagePath": "content/packs/GitHubMCP/GitHubMCP_image.png",
+			"name": "GitHub MCP"
+		}
+	],
+	"isOverridable": false,
+	"itemVersion": "1.0.2",
+	"keywords": [],
+	"legacy": true,
+	"modules": [],
+	"name": "GitHub MCP",
+	"packID": "GitHubMCP",
+	"packName": "",
+	"premium": false,
+	"previewOnly": false,
+	"price": 0,
+	"propagationLabels": [
+		"all"
+	],
+	"rawKeywords": null,
+	"rawTags": null,
+	"rawUseCases": null,
+	"readme": "Use the GitHub MCP integration to securely connect to a GitHub Model Context Protocol (MCP) server and access GitHub tools in real time.\n\n## What does this pack do?\n\nThis pack is intended for Cortex Agentic AI.\n\nConnects to a GitHub MCP server to automatically discover tools and expose them as agentic system actions that users can enable for agents.\n\n## Tools\n\nTool availability depends on the selected toolsets and server configuration.\nThe list below reflects the tools available at the time this pack was created and may change.\n\n`download_workflow_run_artifact`  `get_code_scanning_alert`  `get_commit`  `get_copilot_space`  `get_dependabot_alert`  `get_discussion`  `get_discussion_comments`  `get_file_contents`  `get_gist`  `get_global_security_advisory`  `get_job_logs`  `get_label`  `get_latest_release`  `get_me`  `get_notification_details`  `get_project`  `get_project_field`  `get_project_item`  `get_release_by_tag`  `get_repository_tree`  `get_secret_scanning_alert`  `get_tag`  `get_team_members`  `get_teams`  `get_workflow_run`  `get_workflow_run_logs`  `get_workflow_run_usage`  `github_support_docs_search`  `issue_read`  `list_branches`  `list_code_scanning_alerts`  `list_commits`  `list_copilot_spaces`  `list_dependabot_alerts`  `list_discussion_categories`  `list_discussions`  `list_gists`  `list_global_security_advisories`  `list_issue_types`  `list_issues`  `list_label`  `list_notifications`  `list_org_repository_security_advisories`  `list_project_fields`  `list_project_items`  `list_projects`  `list_pull_requests`  `list_releases`  `list_repository_security_advisories`  `list_secret_scanning_alerts`  `list_starred_repositories`  `list_tags`  `list_workflow_jobs`  `list_workflow_run_artifacts`  `list_workflow_runs`  `list_workflows`  `pull_request_read`  `search_code`  `search_issues`  `search_orgs`  `search_pull_requests`  `search_repositories`  `search_users`\n",
+	"searchRank": 0,
+	"serverMaxVersion": "",
+	"serverMinVersion": "8.13.0",
+	"support": "xsoar",
+	"supportDetails": {
+		"email": "",
+		"url": "https://www.paloaltonetworks.com/cortex"
+	},
+	"supportedModules": [
+		"agentix",
+		"cloud_runtime_security",
+		"cloud_posture",
+		"xsiam",
+		"edr",
+		"cloud"
+	],
+	"tags": [
+		"MCP"
+	],
+	"toServerVersion": "",
+	"updated": "2026-02-16T18:08:52Z",
+	"useCases": [],
+	"version": -1,
+	"versionInfo": "7178553",
+	"videos": []
+}
