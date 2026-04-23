@@ -13,7 +13,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.11.0
     isoverridable: false
-    itemVersion: 1.4.17
+    itemVersion: 1.4.18
     packID: FiltersAndTransformers
     packName: Filters And Transformers
     packPropagationLabels:
@@ -31,7 +31,7 @@ restrictioncenter: {}
 runas: DBotWeakRole
 runonce: false
 script: |+
-  // pack version: 1.4.17
+  // pack version: 1.4.18
   function extract(values) {
       // Extracts email addresses from a list of values.
       // values: Array of strings.
