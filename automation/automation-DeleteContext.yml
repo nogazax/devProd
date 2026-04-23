@@ -7,8 +7,8 @@ args:
   description: If you choose yes - all context will be deleted.
   name: all
   predefined:
-  - "yes"
-  - "no"
+  - "true"
+  - "false"
   supportedModules: []
 - auto: PREDEFINED
   description: Specify "yes" if the context key is inside of a sub-playbook. Use **auto**
@@ -16,8 +16,8 @@ args:
     sub-playbook) or from the global context (if the playbook is the top playbook).
   name: subplaybook
   predefined:
-  - "yes"
-  - "no"
+  - "true"
+  - "false"
   - auto
   supportedModules: []
 - description: Context keys to keep when deleting all context. Supports comma separated
@@ -40,7 +40,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.21.7
+    itemVersion: 1.21.9
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -58,7 +58,7 @@ restrictioncenter: {}
 runas: DBotRole
 runonce: false
 script: |
-  // pack version: 1.21.7
+  // pack version: 1.21.9
   LINE_SEPARATOR = '\n';
 
   function errorEntry(text) {
