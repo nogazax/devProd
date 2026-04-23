@@ -28,74 +28,8 @@
 				"category": "Data Enrichment \u0026 Threat Intelligence",
 				"commands": [
 					{
-						"description": "Searches for samples in AutoFocus. To view results, run the autofocus-samples-search-results command with the returned AF Cookie. The AF Cookie expires 120 seconds after the search completes. `Autofocus Query Samples, Sessions and Tags` Playbook is recommended for querying and polling.",
-						"name": "autofocus-search-samples"
-					},
-					{
-						"description": "Searches for sessions in AutoFocus. To view results, run the autofocus-sessions-search-results command with the returned AF Cookie. The AF Cookie expires 120 seconds after the search completes. The `polling` argument was added in XSOAR 6.2.0. It enables handling the search in a single command, rather than using the `Autofocus Query Samples, Sessions and Tags` Playbook.",
-						"name": "autofocus-search-sessions"
-					},
-					{
-						"description": "Returns results of a previous samples search. `Autofocus Query Samples, Sessions and Tags` Playbook is recommended for querying and polling.",
-						"name": "autofocus-samples-search-results"
-					},
-					{
-						"description": "Returns results of a previous sessions search. `Autofocus Query Samples, Sessions and Tags` Playbook is recommended for querying and polling.",
-						"name": "autofocus-sessions-search-results"
-					},
-					{
-						"description": "Get session details by session ID.",
-						"name": "autofocus-get-session-details"
-					},
-					{
-						"description": "Returns properties, behaviors, and activities observed for a sample. Run the command a single time to get the fields and operating systems under HTTP, Coverage, Behavior, Registry, Files, Processes, Connections, and DNS.",
-						"name": "autofocus-sample-analysis"
-					},
-					{
-						"description": "Returns details about the given tag.",
-						"name": "autofocus-tag-details"
-					},
-					{
-						"description": "Performs a search to identify the most popular tags. `Autofocus Query Samples, Sessions and Tags` Playbook is recommended for querying and polling.",
-						"name": "autofocus-top-tags-search"
-					},
-					{
-						"description": "Returns the results of a previous top tags search. `Autofocus Query Samples, Sessions and Tags` Playbook is recommended for querying and polling.",
-						"name": "autofocus-top-tags-results"
-					},
-					{
-						"description": "Checks the reputation of an IP address in AutoFocus.",
-						"name": "ip"
-					},
-					{
-						"description": "Checks the reputation of a URL in AutoFocus.",
-						"name": "url"
-					},
-					{
-						"description": "Checks the reputation of a file in AutoFocus.",
-						"name": "file"
-					},
-					{
-						"description": "Checks the reputation of a domain in AutoFocus.",
-						"name": "domain"
-					},
-					{
-						"description": "Gets export list indicators from AutoFocus.",
-						"name": "autofocus-get-export-list-indicators"
-					}
-				],
-				"deprecated": true,
-				"description": "Deprecated. Use the Unit 42 Intelligence integration instead.",
-				"fromversion": "5.0.0",
-				"id": "AutoFocus V2",
-				"name": "Palo Alto Networks AutoFocus v2 (Deprecated)",
-				"toversion": ""
-			},
-			{
-				"category": "Data Enrichment \u0026 Threat Intelligence",
-				"commands": [
-					{
 						"description": "Gets indicators from AutoFocus.",
+						"hidden": false,
 						"name": "autofocus-daily-get-indicators"
 					}
 				],
@@ -111,6 +45,7 @@
 				"commands": [
 					{
 						"description": "Gets the indicators from AutoFocus.",
+						"hidden": false,
 						"name": "autofocus-get-indicators"
 					}
 				],
@@ -125,7 +60,89 @@
 				"category": "Data Enrichment \u0026 Threat Intelligence",
 				"commands": [
 					{
+						"description": "Searches for samples in AutoFocus. To view results, run the autofocus-samples-search-results command with the returned AF Cookie. The AF Cookie expires 120 seconds after the search completes. `Autofocus Query Samples, Sessions and Tags` Playbook is recommended for querying and polling.",
+						"hidden": false,
+						"name": "autofocus-search-samples"
+					},
+					{
+						"description": "Searches for sessions in AutoFocus. To view results, run the autofocus-sessions-search-results command with the returned AF Cookie. The AF Cookie expires 120 seconds after the search completes. The `polling` argument was added in XSOAR 6.2.0. It enables handling the search in a single command, rather than using the `Autofocus Query Samples, Sessions and Tags` Playbook.",
+						"hidden": false,
+						"name": "autofocus-search-sessions"
+					},
+					{
+						"description": "Returns results of a previous samples search. `Autofocus Query Samples, Sessions and Tags` Playbook is recommended for querying and polling.",
+						"hidden": false,
+						"name": "autofocus-samples-search-results"
+					},
+					{
+						"description": "Returns results of a previous sessions search. `Autofocus Query Samples, Sessions and Tags` Playbook is recommended for querying and polling.",
+						"hidden": false,
+						"name": "autofocus-sessions-search-results"
+					},
+					{
+						"description": "Get session details by session ID.",
+						"hidden": false,
+						"name": "autofocus-get-session-details"
+					},
+					{
+						"description": "Returns properties, behaviors, and activities observed for a sample. Run the command a single time to get the fields and operating systems under HTTP, Coverage, Behavior, Registry, Files, Processes, Connections, and DNS.",
+						"hidden": false,
+						"name": "autofocus-sample-analysis"
+					},
+					{
+						"description": "Returns details about the given tag.",
+						"hidden": false,
+						"name": "autofocus-tag-details"
+					},
+					{
+						"description": "Performs a search to identify the most popular tags. `Autofocus Query Samples, Sessions and Tags` Playbook is recommended for querying and polling.",
+						"hidden": false,
+						"name": "autofocus-top-tags-search"
+					},
+					{
+						"description": "Returns the results of a previous top tags search. `Autofocus Query Samples, Sessions and Tags` Playbook is recommended for querying and polling.",
+						"hidden": false,
+						"name": "autofocus-top-tags-results"
+					},
+					{
+						"description": "Checks the reputation of an IP address in AutoFocus.",
+						"hidden": false,
+						"name": "ip"
+					},
+					{
+						"description": "Checks the reputation of a URL in AutoFocus.",
+						"hidden": false,
+						"name": "url"
+					},
+					{
+						"description": "Checks the reputation of a file in AutoFocus.",
+						"hidden": false,
+						"name": "file"
+					},
+					{
+						"description": "Checks the reputation of a domain in AutoFocus.",
+						"hidden": false,
+						"name": "domain"
+					},
+					{
+						"description": "Gets export list indicators from AutoFocus.",
+						"hidden": false,
+						"name": "autofocus-get-export-list-indicators"
+					}
+				],
+				"deprecated": true,
+				"description": "Deprecated. Use the Unit 42 Intelligence integration instead.",
+				"fromversion": "5.0.0",
+				"id": "AutoFocus V2",
+				"name": "Palo Alto Networks AutoFocus v2 (Deprecated)",
+				"toversion": ""
+			},
+			{
+				"category": "Data Enrichment \u0026 Threat Intelligence",
+				"commands": [
+					{
 						"description": "Gets indicators from the feed.",
+						"hidden": false,
 						"name": "autofocus-tags-feed-get-indicators"
 					}
 				],
@@ -141,22 +158,27 @@
 				"commands": [
 					{
 						"description": "Search for samples on Autofocus",
+						"hidden": false,
 						"name": "autofocus-search-samples"
 					},
 					{
 						"description": "Search for sessions on Autofocus",
+						"hidden": false,
 						"name": "autofocus-search-sessions"
 					},
 					{
 						"description": "Get details of a specific session",
+						"hidden": false,
 						"name": "autofocus-session"
 					},
 					{
 						"description": "Retrieve the sample analysis",
+						"hidden": false,
 						"name": "autofocus-sample-analysis"
 					},
 					{
 						"description": "Check file reputation of the given hash",
+						"hidden": false,
 						"name": "file"
 					}
 				],
@@ -183,10 +205,10 @@
 				"tags": []
 			},
 			{
-				"description": "Deprecated. No available replacement. The playbook queries the PANW Autofocus session and samples log data for traffic indicators such as URLs, IP addresses, and domains. \n\nA simple search mode queries Autofocus based on the traffic indicators specified in the playbook inputs. Advanced search mode queries can also be used with multiple query parameters, but require all field names, parameters, and operators (JSON format) to be specified. \nWe recommended using the Autofocus UI to create an advanced query, exporting it, and pasting it into the relevant playbook inputs. \n\nNote that multiple search values should be separated by commas only (without spaces or any special characters).",
-				"fromversion": "6.5.0",
-				"id": "Autofocus - Traffic Indicators Hunting",
-				"name": "Autofocus - Traffic Indicators Hunting",
+				"description": "Use this playbook as a sub-playbook to query PANW Autofocus Threat intelligence system. This sub-playbook is the same as the generic polling sub-playbook besides that it provides outputs in the playbook. The reason for that is that in Autofocus its impossible to query the results of the same query more than once so the outputs have to be in the polling context.\n\nThis playbook implements polling by continuously running the command in Step \\#2 until the operation completes.\nThe remote action should have the following structure:\n\n1. Initiate the operation.\n2. Poll to check if the operation completed.\n3. (optional) Get the results of the operation.",
+				"fromversion": "5.0.0",
+				"id": "AutoFocusPolling",
+				"name": "AutoFocusPolling",
 				"supportedModules": [
 					"agentix",
 					"xsiam"
@@ -216,10 +238,10 @@
 				"tags": []
 			},
 			{
-				"description": "Use this playbook as a sub-playbook to query PANW Autofocus Threat intelligence system. This sub-playbook is the same as the generic polling sub-playbook besides that it provides outputs in the playbook. The reason for that is that in Autofocus its impossible to query the results of the same query more than once so the outputs have to be in the polling context.\n\nThis playbook implements polling by continuously running the command in Step \\#2 until the operation completes.\nThe remote action should have the following structure:\n\n1. Initiate the operation.\n2. Poll to check if the operation completed.\n3. (optional) Get the results of the operation.",
-				"fromversion": "5.0.0",
-				"id": "AutoFocusPolling",
-				"name": "AutoFocusPolling",
+				"description": "Deprecated. No available replacement. The playbook queries the PANW Autofocus session and samples log data for traffic indicators such as URLs, IP addresses, and domains. \n\nA simple search mode queries Autofocus based on the traffic indicators specified in the playbook inputs. Advanced search mode queries can also be used with multiple query parameters, but require all field names, parameters, and operators (JSON format) to be specified. \nWe recommended using the Autofocus UI to create an advanced query, exporting it, and pasting it into the relevant playbook inputs. \n\nNote that multiple search values should be separated by commas only (without spaces or any special characters).",
+				"fromversion": "6.5.0",
+				"id": "Autofocus - Traffic Indicators Hunting",
+				"name": "Autofocus - Traffic Indicators Hunting",
 				"supportedModules": [
 					"agentix",
 					"xsiam"
@@ -233,7 +255,7 @@
 		"wizard": null
 	},
 	"created": "2025-03-29T09:26:48Z",
-	"currentVersion": "2.3.6",
+	"currentVersion": "2.3.7",
 	"defaultDataSource": {
 		"id": "",
 		"name": ""
@@ -244,14 +266,14 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.41.68",
+			"minVersion": "1.41.74",
 			"name": "Base"
 		},
 		"CommonScripts": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.21.0",
+			"minVersion": "1.21.8",
 			"name": "Common Scripts"
 		}
 	},
@@ -298,7 +320,7 @@
 		}
 	],
 	"isOverridable": false,
-	"itemVersion": "2.3.6",
+	"itemVersion": "2.3.7",
 	"keywords": [
 		"TIM",
 		"Palo Alto Networks"
@@ -340,9 +362,9 @@
 		"TIM"
 	],
 	"toServerVersion": "",
-	"updated": "2026-03-23T11:02:42Z",
+	"updated": "2026-04-20T19:54:46Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "7850318",
+	"versionInfo": "8382811",
 	"videos": []
 }
