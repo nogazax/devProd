@@ -40,7 +40,7 @@
 		"all"
 	],
 	"placeholder": "",
-	"pretty_name": "",
+	"pretty_name": "ServiceNow Attack Vector",
 	"propagationLabels": [],
 	"required": false,
 	"runScriptAfterUpdate": false,
