@@ -44,7 +44,7 @@
 		"all"
 	],
 	"placeholder": "",
-	"pretty_name": "",
+	"pretty_name": "Jira Attachments",
 	"propagationLabels": [],
 	"required": false,
 	"runScriptAfterUpdate": false,
@@ -70,7 +70,7 @@
 	"threshold": 72,
 	"toServerVersion": "",
 	"type": "attachments",
-	"unmapped": false,
+	"unmapped": true,
 	"unsearchable": true,
 	"useAsKpi": false,
 	"validatedError": "",
