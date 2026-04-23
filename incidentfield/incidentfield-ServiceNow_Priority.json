@@ -40,7 +40,7 @@
 		"all"
 	],
 	"placeholder": "",
-	"pretty_name": "",
+	"pretty_name": "ServiceNow Priority",
 	"propagationLabels": [],
 	"required": false,
 	"runScriptAfterUpdate": false,
