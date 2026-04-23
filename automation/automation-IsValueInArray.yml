@@ -15,7 +15,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.21.7
+    itemVersion: 1.21.9
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -29,16 +29,16 @@ engineinfo: {}
 mainengineinfo: {}
 name: IsValueInArray
 outputs:
-- contextPath: "yes"
+- contextPath: "true"
   description: The list contains the value
-- contextPath: "no"
+- contextPath: "false"
   description: The list does not contain the value
 pswd: ""
 restrictioncenter: {}
 runas: DBotWeakRole
 runonce: false
 script: |
-  // pack version: 1.21.7
+  // pack version: 1.21.9
   var array = args.array;
   var value = args.value;
 
