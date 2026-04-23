@@ -40,7 +40,7 @@
 		"all"
 	],
 	"placeholder": "",
-	"pretty_name": "",
+	"pretty_name": "ServiceNow Caller ID",
 	"propagationLabels": [],
 	"required": false,
 	"runScriptAfterUpdate": false,
