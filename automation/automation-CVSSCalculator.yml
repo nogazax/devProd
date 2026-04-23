@@ -14,7 +14,7 @@ args:
   description: Attack Vector. Can be "N", "A", "L", or "P".
   name: AV
   predefined:
-  - "N"
+  - "false"
   - A
   - L
   - P
@@ -32,7 +32,7 @@ args:
   description: Privileges Required. Can be "N", "L", or "H".
   name: PR
   predefined:
-  - "N"
+  - "false"
   - L
   - H
   required: true
@@ -41,7 +41,7 @@ args:
   description: User Interaction. Can be "N" or "R".
   name: UI
   predefined:
-  - "N"
+  - "false"
   - R
   required: true
   supportedModules: []
@@ -59,7 +59,7 @@ args:
   predefined:
   - H
   - L
-  - "N"
+  - "false"
   required: true
   supportedModules: []
 - auto: PREDEFINED
@@ -68,7 +68,7 @@ args:
   predefined:
   - H
   - L
-  - "N"
+  - "false"
   required: true
   supportedModules: []
 - auto: PREDEFINED
@@ -77,7 +77,7 @@ args:
   predefined:
   - H
   - L
-  - "N"
+  - "false"
   required: true
   supportedModules: []
 - auto: PREDEFINED
@@ -152,7 +152,7 @@ args:
   name: MAV
   predefined:
   - X
-  - "N"
+  - "false"
   - A
   - L
   - P
@@ -173,7 +173,7 @@ args:
   name: MPR
   predefined:
   - X
-  - "N"
+  - "false"
   - L
   - H
   supportedModules: []
@@ -183,7 +183,7 @@ args:
   name: MUI
   predefined:
   - X
-  - "N"
+  - "false"
   - R
   supportedModules: []
 - auto: PREDEFINED
@@ -202,7 +202,7 @@ args:
   name: MC
   predefined:
   - X
-  - "N"
+  - "false"
   - L
   - H
   supportedModules: []
@@ -212,7 +212,7 @@ args:
   name: MI
   predefined:
   - X
-  - "N"
+  - "false"
   - L
   - H
   supportedModules: []
@@ -222,7 +222,7 @@ args:
   name: MA
   predefined:
   - X
-  - "N"
+  - "false"
   - L
   - H
   supportedModules: []
@@ -237,7 +237,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.21.7
+    itemVersion: 1.21.9
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -294,8 +294,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('CVSSCalculator', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.21.7'
-  demisto.debug('pack id = CommonScripts, pack version = 1.21.7')
+  CONSTANT_PACK_VERSION = '1.21.9'
+  demisto.debug('pack id = CommonScripts, pack version = 1.21.9')
   import math
   from typing import Any
 
