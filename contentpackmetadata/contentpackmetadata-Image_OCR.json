@@ -28,10 +28,12 @@
 				"commands": [
 					{
 						"description": "Lists supported languages for which the integration can extract text.",
+						"hidden": false,
 						"name": "image-ocr-list-languages"
 					},
 					{
 						"description": "Extract text from images.",
+						"hidden": false,
 						"name": "image-ocr-extract-text"
 					}
 				],
@@ -51,7 +53,7 @@
 		"wizard": null
 	},
 	"created": "2025-03-29T09:46:09Z",
-	"currentVersion": "1.1.45",
+	"currentVersion": "1.1.46",
 	"defaultDataSource": {
 		"id": "",
 		"name": ""
@@ -62,7 +64,7 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.41.68",
+			"minVersion": "1.41.74",
 			"name": "Base"
 		}
 	},
@@ -89,7 +91,7 @@
 		}
 	],
 	"isOverridable": false,
-	"itemVersion": "1.1.45",
+	"itemVersion": "1.1.46",
 	"keywords": [],
 	"legacy": true,
 	"modules": [],
@@ -123,9 +125,9 @@
 	],
 	"tags": [],
 	"toServerVersion": "",
-	"updated": "2026-03-22T10:23:39Z",
+	"updated": "2026-04-20T20:04:11Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "7827247",
+	"versionInfo": "8382811",
 	"videos": []
 }
