@@ -10,12 +10,12 @@ args:
   name: timeFrameHours
   supportedModules: []
 - auto: PREDEFINED
-  defaultValue: "yes"
+  defaultValue: "true"
   description: Ignore closed incidents as potential candidates.
   name: ignoreClosedIncidents
   predefined:
-  - "yes"
-  - "no"
+  - "true"
+  - "false"
   supportedModules: []
 - defaultValue: "0.5"
   description: Threshold to consider incident as duplication, number between 0-1
@@ -35,20 +35,20 @@ args:
   name: compareEmailLabels
   supportedModules: []
 - auto: PREDEFINED
-  defaultValue: "yes"
+  defaultValue: "true"
   description: If yes - take into account all labels keys.
   name: compareOtherLabels
   predefined:
-  - "yes"
-  - "no"
+  - "true"
+  - "false"
   supportedModules: []
 - auto: PREDEFINED
-  defaultValue: "yes"
+  defaultValue: "true"
   description: If yes - take into account incident time differences.
   name: compareIncidentTimeDiff
   predefined:
-  - "yes"
-  - "no"
+  - "true"
+  - "false"
   supportedModules: []
 - defaultValue: "0"
   description: Consider duplicate incident examples from the local environment within
@@ -93,7 +93,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.21.7
+    itemVersion: 1.21.9
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -129,8 +129,8 @@ runas: DBotWeakRole
 runonce: true
 script: |
   register_module_line('GetDuplicatesMlv2', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.21.7'
-  demisto.debug('pack id = CommonScripts, pack version = 1.21.7')
+  CONSTANT_PACK_VERSION = '1.21.9'
+  demisto.debug('pack id = CommonScripts, pack version = 1.21.9')
 
 
   from sklearn import impute
