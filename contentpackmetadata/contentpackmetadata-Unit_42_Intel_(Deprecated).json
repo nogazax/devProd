@@ -28,6 +28,7 @@
 				"commands": [
 					{
 						"description": "Gets indicators from the feed.",
+						"hidden": false,
 						"name": "unit42intel-objects-feed-get-indicators"
 					}
 				],
@@ -48,7 +49,7 @@
 		"wizard": null
 	},
 	"created": "2025-03-29T09:35:17Z",
-	"currentVersion": "1.1.5",
+	"currentVersion": "1.1.6",
 	"defaultDataSource": {
 		"id": "",
 		"name": ""
@@ -59,7 +60,7 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.41.68",
+			"minVersion": "1.41.74",
 			"name": "Base"
 		}
 	},
@@ -86,7 +87,7 @@
 		}
 	],
 	"isOverridable": false,
-	"itemVersion": "1.1.5",
+	"itemVersion": "1.1.6",
 	"keywords": [],
 	"legacy": true,
 	"modules": [],
@@ -119,9 +120,9 @@
 		"TIM"
 	],
 	"toServerVersion": "",
-	"updated": "2026-03-23T11:22:25Z",
+	"updated": "2026-04-20T20:04:18Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "7850318",
+	"versionInfo": "8382811",
 	"videos": []
 }
