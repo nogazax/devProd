@@ -29,7 +29,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.2.0
     isoverridable: false
-    itemVersion: 1.5.55
+    itemVersion: 1.5.56
     packID: MicrosoftTeams
     packName: Microsoft Teams
     packPropagationLabels:
@@ -114,8 +114,8 @@ script:
   runonce: false
   script: |
     register_module_line('Microsoft Teams via Webhook', 'start', __line__())
-    CONSTANT_PACK_VERSION = '1.5.55'
-    demisto.debug('pack id = MicrosoftTeams, pack version = 1.5.55')
+    CONSTANT_PACK_VERSION = '1.5.56'
+    demisto.debug('pack id = MicrosoftTeams, pack version = 1.5.56')
 
     import urllib3
 
