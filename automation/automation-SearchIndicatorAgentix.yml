@@ -37,7 +37,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.5.0
     isoverridable: false
-    itemVersion: 1.21.7
+    itemVersion: 1.21.9
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -49,7 +49,7 @@ contentitemexportablefields:
 dockerimage: demisto/python3:3.12.12.5490952
 enabled: true
 engineinfo: {}
-isInternal: true
+internal: true
 mainengineinfo: {}
 name: SearchIndicatorAgentix
 nativeimage:
@@ -79,8 +79,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('SearchIndicatorAgentix', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.21.7'
-  demisto.debug('pack id = CommonScripts, pack version = 1.21.7')
+  CONSTANT_PACK_VERSION = '1.21.9'
+  demisto.debug('pack id = CommonScripts, pack version = 1.21.9')
 
 
 
