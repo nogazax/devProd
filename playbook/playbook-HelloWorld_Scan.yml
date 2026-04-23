@@ -3,7 +3,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 4.0.4
+    itemVersion: 4.0.5
     packID: HelloWorld
     packName: HelloWorld
     packPropagationLabels:
