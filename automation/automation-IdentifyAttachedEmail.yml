@@ -16,7 +16,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.21.7
+    itemVersion: 1.21.9
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -34,9 +34,9 @@ nativeimage:
 - "8.8"
 - "8.6"
 outputs:
-- contextPath: "yes"
+- contextPath: "true"
   description: If incident contains an email attachment.
-- contextPath: "no"
+- contextPath: "false"
   description: If incident does not contain an email attachment.
 - contextPath: reportedemailentryid
   description: The entry IDs of the email attachments found.
@@ -47,8 +47,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('IdentifyAttachedEmail', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.21.7'
-  demisto.debug('pack id = CommonScripts, pack version = 1.21.7')
+  CONSTANT_PACK_VERSION = '1.21.9'
+  demisto.debug('pack id = CommonScripts, pack version = 1.21.9')
 
 
 
