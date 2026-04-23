@@ -25,7 +25,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.5.0
     isoverridable: false
-    itemVersion: 1.5.55
+    itemVersion: 1.5.56
     packID: MicrosoftTeams
     packName: Microsoft Teams
     packPropagationLabels:
@@ -53,7 +53,7 @@ restrictioncenter: {}
 runas: DBotWeakRole
 runonce: false
 script: |-
-  ### pack version: 1.5.55
+  ### pack version: 1.5.56
   Import-Module MicrosoftTeams
 
   function Main()
