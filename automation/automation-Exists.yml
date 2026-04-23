@@ -14,7 +14,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.21.7
+    itemVersion: 1.21.9
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -28,16 +28,16 @@ engineinfo: {}
 mainengineinfo: {}
 name: Exists
 outputs:
-- contextPath: "yes"
+- contextPath: "true"
   description: if given value exists in context
-- contextPath: "no"
+- contextPath: "false"
   description: if given value does not exist in context
 pswd: ""
 restrictioncenter: {}
 runas: DBotWeakRole
 runonce: false
 script: |
-  // pack version: 1.21.7
+  // pack version: 1.21.9
   if (args.value) {
       if (Array.isArray(args.value)) {
           return args.value.length > 0 ? 'yes' : 'no';
