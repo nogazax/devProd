@@ -18,7 +18,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.0.0
     isoverridable: false
-    itemVersion: 4.4.19
+    itemVersion: 4.4.20
     packID: PrismaCloud
     packName: Prisma Cloud by Palo Alto Networks
     packPropagationLabels:
@@ -64,8 +64,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('PrismaCloudAttribution', 'start', __line__())
-  CONSTANT_PACK_VERSION = '4.4.19'
-  demisto.debug('pack id = PrismaCloud, pack version = 4.4.19')
+  CONSTANT_PACK_VERSION = '4.4.20'
+  demisto.debug('pack id = PrismaCloud, pack version = 4.4.20')
 
 
 
