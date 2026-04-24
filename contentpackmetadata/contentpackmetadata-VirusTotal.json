@@ -37,6 +37,10 @@
 				"hours": 0,
 				"name": "VirusTotal Intelligence LiveHunt Notification",
 				"playbook": "",
+				"supportedModules": [
+					"agentix",
+					"xsiam"
+				],
 				"weeks": 0
 			}
 		],
@@ -171,6 +175,26 @@
 				"fromversion": "5.5.0",
 				"id": "VirusTotal - Premium (API v3)",
 				"name": "VirusTotal - Premium (API v3) (Partner Contribution)",
+				"toversion": ""
+			},
+			{
+				"category": "Data Enrichment \u0026 Threat Intelligence",
+				"commands": [
+					{
+						"description": "Gets the matches from a given retrohunt job's id or the latest by default.",
+						"hidden": false,
+						"name": "vt-retrohunt-get-indicators"
+					},
+					{
+						"description": "This command will reset your fetch history.",
+						"hidden": false,
+						"name": "vt-retrohunt-reset-fetch-indicators"
+					}
+				],
+				"description": "Use this feed integration to fetch VirusTotal Retrohunt matches.",
+				"fromversion": "5.5.0",
+				"id": "VirusTotal Retrohunt Feed",
+				"name": "VirusTotal Retrohunt Feed (Partner Contribution)",
 				"toversion": ""
 			},
 			{
@@ -358,26 +382,6 @@
 				"category": "Data Enrichment \u0026 Threat Intelligence",
 				"commands": [
 					{
-						"description": "Gets the matches from a given retrohunt job's id or the latest by default.",
-						"hidden": false,
-						"name": "vt-retrohunt-get-indicators"
-					},
-					{
-						"description": "This command will reset your fetch history.",
-						"hidden": false,
-						"name": "vt-retrohunt-reset-fetch-indicators"
-					}
-				],
-				"description": "Use this feed integration to fetch VirusTotal Retrohunt matches.",
-				"fromversion": "5.5.0",
-				"id": "VirusTotal Retrohunt Feed",
-				"name": "VirusTotal Retrohunt Feed (Partner Contribution)",
-				"toversion": ""
-			},
-			{
-				"category": "Data Enrichment \u0026 Threat Intelligence",
-				"commands": [
-					{
 						"description": "Gets the indicators from VirusTotal Livehunt.",
 						"hidden": false,
 						"name": "vt-livehunt-get-indicators"
@@ -399,24 +403,17 @@
 		"list": null,
 		"playbook": [
 			{
-				"description": "Get file information using the Virus Total API integration.",
-				"fromversion": "6.0.0",
-				"id": "File Enrichment - Virus Total (API v3)",
-				"name": "File Enrichment - Virus Total (API v3)",
-				"tags": []
-			},
-			{
-				"description": "Detonate a private file through VirusTotal Private Scanning service",
-				"fromversion": "5.5.0",
-				"id": "Detonate Private File - VirusTotal Private Scanning",
-				"name": "Detonate Private File - VirusTotal Private Scanning",
-				"tags": []
-			},
-			{
 				"description": "Detonate one or more files using the VirusTotal integration. This playbook returns relevant reports to the War Room and file reputations to the context data.",
 				"fromversion": "5.0.0",
 				"id": "Detonate File - VirusTotal",
 				"name": "Detonate File - VirusTotal",
+				"tags": []
+			},
+			{
+				"description": "Creates a zip from given hashes exists in VirusTotal",
+				"fromversion": "5.5.0",
+				"id": "Create Zip from VirusTotal",
+				"name": "Create Zip from VirusTotal",
 				"tags": []
 			},
 			{
@@ -434,10 +431,17 @@
 				"tags": []
 			},
 			{
-				"description": "Creates a zip from given hashes exists in VirusTotal",
+				"description": "Detonate a private file through VirusTotal Private Scanning service",
 				"fromversion": "5.5.0",
-				"id": "Create Zip from VirusTotal",
-				"name": "Create Zip from VirusTotal",
+				"id": "Detonate Private File - VirusTotal Private Scanning",
+				"name": "Detonate Private File - VirusTotal Private Scanning",
+				"tags": []
+			},
+			{
+				"description": "Get file information using the Virus Total API integration.",
+				"fromversion": "6.0.0",
+				"id": "File Enrichment - Virus Total (API v3)",
+				"name": "File Enrichment - Virus Total (API v3)",
 				"tags": []
 			}
 		],
@@ -447,7 +451,7 @@
 		"wizard": null
 	},
 	"created": "2025-03-29T09:35:07Z",
-	"currentVersion": "2.7.15",
+	"currentVersion": "2.7.16",
 	"defaultDataSource": {
 		"id": "VirusTotal - Premium (API v3)",
 		"name": "VirusTotal - Premium (API v3)"
@@ -472,7 +476,7 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.21.8",
+			"minVersion": "1.22.0",
 			"name": "Common Scripts"
 		},
 		"CommonTypes": {
@@ -534,7 +538,7 @@
 		}
 	],
 	"isOverridable": false,
-	"itemVersion": "2.7.15",
+	"itemVersion": "2.7.16",
 	"keywords": [],
 	"legacy": true,
 	"modules": [],
@@ -567,15 +571,15 @@
 		"cloud_runtime_security"
 	],
 	"tags": [
-		"Featured",
-		"Free Enricher",
 		"TIM",
+		"Free Enricher",
+		"Featured",
 		"Data Source"
 	],
 	"toServerVersion": "",
-	"updated": "2026-04-20T20:02:02Z",
+	"updated": "2026-04-23T19:50:01Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "8382811",
+	"versionInfo": "8429843",
 	"videos": []
 }
