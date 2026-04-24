@@ -14,10 +14,10 @@
 		"incidenttype",
 		"playbook",
 		"layoutscontainer",
-		"modelingrule",
+		"layoutrule",
 		"parsingrule",
-		"trigger",
-		"layoutrule"
+		"modelingrule",
+		"trigger"
 	],
 	"contentItems": {
 		"agentixaction": null,
@@ -39,8 +39,8 @@
 		"incidentfield": [
 			{
 				"description": "",
-				"name": "Subscription Updated By",
-				"type": "shortText"
+				"name": "Prisma Cloud - IAM Results",
+				"type": "grid"
 			},
 			{
 				"description": "",
@@ -49,12 +49,32 @@
 			},
 			{
 				"description": "",
-				"name": "Subscription Description",
+				"name": "Prisma Cloud ID",
 				"type": "shortText"
 			},
 			{
 				"description": "",
-				"name": "RRN",
+				"name": "Subscription ID",
+				"type": "shortText"
+			},
+			{
+				"description": "",
+				"name": "Resource API Name",
+				"type": "shortText"
+			},
+			{
+				"description": "",
+				"name": "Subscription Created By",
+				"type": "shortText"
+			},
+			{
+				"description": "",
+				"name": "Prisma Cloud Dismissal Note",
+				"type": "shortText"
+			},
+			{
+				"description": "",
+				"name": "Subscription Name",
 				"type": "shortText"
 			},
 			{
@@ -64,7 +84,17 @@
 			},
 			{
 				"description": "",
-				"name": "Prisma Cloud Dismissal Note",
+				"name": "Subscription Updated By",
+				"type": "shortText"
+			},
+			{
+				"description": "",
+				"name": "Subscription Type",
+				"type": "shortText"
+			},
+			{
+				"description": "",
+				"name": "Subscription Description",
 				"type": "shortText"
 			},
 			{
@@ -74,7 +104,12 @@
 			},
 			{
 				"description": "",
-				"name": "Resource Cloud Type",
+				"name": "Subscription Assigned By",
+				"type": "shortText"
+			},
+			{
+				"description": "",
+				"name": "Subscription Created On",
 				"type": "shortText"
 			},
 			{
@@ -89,17 +124,17 @@
 			},
 			{
 				"description": "",
-				"name": "Subscription Created On",
-				"type": "shortText"
-			},
-			{
-				"description": "",
 				"name": "Prisma Cloud Reason",
 				"type": "shortText"
 			},
 			{
 				"description": "",
-				"name": "Subscription Assigned By",
+				"name": "Subscription Updated On",
+				"type": "shortText"
+			},
+			{
+				"description": "",
+				"name": "RRN",
 				"type": "shortText"
 			},
 			{
@@ -109,42 +144,7 @@
 			},
 			{
 				"description": "",
-				"name": "Subscription Created By",
-				"type": "shortText"
-			},
-			{
-				"description": "",
-				"name": "Resource API Name",
-				"type": "shortText"
-			},
-			{
-				"description": "",
-				"name": "Subscription Type",
-				"type": "shortText"
-			},
-			{
-				"description": "",
-				"name": "Prisma Cloud - IAM Results",
-				"type": "grid"
-			},
-			{
-				"description": "",
-				"name": "Subscription ID",
-				"type": "shortText"
-			},
-			{
-				"description": "",
-				"name": "Prisma Cloud ID",
-				"type": "shortText"
-			},
-			{
-				"description": "",
-				"name": "Subscription Name",
-				"type": "shortText"
-			},
-			{
-				"description": "",
-				"name": "Subscription Updated On",
+				"name": "Resource Cloud Type",
 				"type": "shortText"
 			}
 		],
@@ -153,72 +153,12 @@
 				"closureScript": "",
 				"days": 0,
 				"hours": 0,
-				"name": "AWS CloudTrail Misconfiguration",
-				"playbook": "Prisma Cloud Remediation - AWS CloudTrail Misconfiguration v2",
-				"weeks": 0
-			},
-			{
-				"closureScript": "",
-				"days": 0,
-				"hours": 0,
-				"name": "Azure Network Misconfiguration",
-				"playbook": "Prisma Cloud Remediation - Azure Network Misconfiguration v2",
-				"weeks": 0
-			},
-			{
-				"closureScript": "",
-				"days": 0,
-				"hours": 0,
-				"name": "Prisma Cloud - VM Alert Prioritization",
-				"playbook": "Prisma Cloud - VM Alert Prioritization",
-				"weeks": 0
-			},
-			{
-				"closureScript": "",
-				"days": 0,
-				"hours": 0,
-				"name": "Prisma Cloud",
-				"playbook": "",
-				"weeks": 0
-			},
-			{
-				"closureScript": "",
-				"days": 0,
-				"hours": 0,
-				"name": "Azure AKS Misconfiguration",
-				"playbook": "Prisma Cloud Remediation - Azure AKS Misconfiguration v2",
-				"weeks": 0
-			},
-			{
-				"closureScript": "",
-				"days": 0,
-				"hours": 0,
 				"name": "AWS EC2 Instance Misconfiguration",
 				"playbook": "Prisma Cloud Remediation - AWS EC2 Instance Misconfiguration v2",
-				"weeks": 0
-			},
-			{
-				"closureScript": "",
-				"days": 0,
-				"hours": 0,
-				"name": "GCP Compute Engine Misconfiguration",
-				"playbook": "Prisma Cloud Remediation - GCP Compute Engine Misconfiguration v2",
-				"weeks": 0
-			},
-			{
-				"closureScript": "",
-				"days": 0,
-				"hours": 0,
-				"name": "AWS IAM Policy Misconfiguration",
-				"playbook": "Prisma Cloud Remediation - AWS IAM Policy Misconfiguration v2",
-				"weeks": 0
-			},
-			{
-				"closureScript": "",
-				"days": 0,
-				"hours": 0,
-				"name": "Azure SQL Misconfiguration",
-				"playbook": "Prisma Cloud Remediation - Azure SQL Misconfiguration v2",
+				"supportedModules": [
+					"agentix",
+					"xsiam"
+				],
 				"weeks": 0
 			},
 			{
@@ -227,6 +167,70 @@
 				"hours": 0,
 				"name": "Azure Storage Misconfiguration",
 				"playbook": "Prisma Cloud Remediation - Azure Storage Misconfiguration v2",
+				"supportedModules": [
+					"agentix",
+					"xsiam"
+				],
+				"weeks": 0
+			},
+			{
+				"closureScript": "",
+				"days": 0,
+				"hours": 0,
+				"name": "Azure AKS Misconfiguration",
+				"playbook": "Prisma Cloud Remediation - Azure AKS Misconfiguration v2",
+				"supportedModules": [
+					"agentix",
+					"xsiam"
+				],
+				"weeks": 0
+			},
+			{
+				"closureScript": "",
+				"days": 0,
+				"hours": 0,
+				"name": "AWS CloudTrail Misconfiguration",
+				"playbook": "Prisma Cloud Remediation - AWS CloudTrail Misconfiguration v2",
+				"supportedModules": [
+					"agentix",
+					"xsiam"
+				],
+				"weeks": 0
+			},
+			{
+				"closureScript": "",
+				"days": 0,
+				"hours": 0,
+				"name": "Prisma Cloud - VM Alert Prioritization",
+				"playbook": "Prisma Cloud - VM Alert Prioritization",
+				"supportedModules": [
+					"agentix",
+					"xsiam"
+				],
+				"weeks": 0
+			},
+			{
+				"closureScript": "",
+				"days": 0,
+				"hours": 0,
+				"name": "GCP Compute Engine Misconfiguration",
+				"playbook": "Prisma Cloud Remediation - GCP Compute Engine Misconfiguration v2",
+				"supportedModules": [
+					"agentix",
+					"xsiam"
+				],
+				"weeks": 0
+			},
+			{
+				"closureScript": "",
+				"days": 0,
+				"hours": 0,
+				"name": "Azure SQL Misconfiguration",
+				"playbook": "Prisma Cloud Remediation - Azure SQL Misconfiguration v2",
+				"supportedModules": [
+					"agentix",
+					"xsiam"
+				],
 				"weeks": 0
 			},
 			{
@@ -235,41 +239,51 @@
 				"hours": 0,
 				"name": "GCP Kubernetes Engine Misconfiguration",
 				"playbook": "Prisma Cloud Remediation - GCP Kubernetes Engine Misconfiguration v2",
+				"supportedModules": [
+					"agentix",
+					"xsiam"
+				],
+				"weeks": 0
+			},
+			{
+				"closureScript": "",
+				"days": 0,
+				"hours": 0,
+				"name": "Prisma Cloud",
+				"playbook": "",
+				"supportedModules": [
+					"agentix",
+					"xsiam"
+				],
+				"weeks": 0
+			},
+			{
+				"closureScript": "",
+				"days": 0,
+				"hours": 0,
+				"name": "Azure Network Misconfiguration",
+				"playbook": "Prisma Cloud Remediation - Azure Network Misconfiguration v2",
+				"supportedModules": [
+					"agentix",
+					"xsiam"
+				],
+				"weeks": 0
+			},
+			{
+				"closureScript": "",
+				"days": 0,
+				"hours": 0,
+				"name": "AWS IAM Policy Misconfiguration",
+				"playbook": "Prisma Cloud Remediation - AWS IAM Policy Misconfiguration v2",
+				"supportedModules": [
+					"agentix",
+					"xsiam"
+				],
 				"weeks": 0
 			}
 		],
 		"indicatorfield": null,
 		"integration": [
-			{
-				"category": "Identity and Access Management",
-				"commands": [
-					{
-						"description": "Creates a user.",
-						"hidden": false,
-						"name": "iam-create-user"
-					},
-					{
-						"description": "Updates an existing user with the data passed in the user-profile argument.",
-						"hidden": false,
-						"name": "iam-update-user"
-					},
-					{
-						"description": "Retrieves a single user resource.",
-						"hidden": false,
-						"name": "iam-get-user"
-					},
-					{
-						"description": "Disable an active user.",
-						"hidden": false,
-						"name": "iam-disable-user"
-					}
-				],
-				"description": "The Prisma Cloud IAM API consists of a set of API endpoints that allow customers to perform CRUD operation on their user profiles.",
-				"fromversion": "6.0.0",
-				"id": "PrismaCloud IAM",
-				"name": "PrismaCloud IAM",
-				"toversion": ""
-			},
 			{
 				"category": "Network Security",
 				"commands": [
@@ -575,18 +589,39 @@
 				"id": "PrismaCloud v2",
 				"name": "Prisma Cloud v2",
 				"toversion": ""
+			},
+			{
+				"category": "Identity and Access Management",
+				"commands": [
+					{
+						"description": "Creates a user.",
+						"hidden": false,
+						"name": "iam-create-user"
+					},
+					{
+						"description": "Updates an existing user with the data passed in the user-profile argument.",
+						"hidden": false,
+						"name": "iam-update-user"
+					},
+					{
+						"description": "Retrieves a single user resource.",
+						"hidden": false,
+						"name": "iam-get-user"
+					},
+					{
+						"description": "Disable an active user.",
+						"hidden": false,
+						"name": "iam-disable-user"
+					}
+				],
+				"description": "The Prisma Cloud IAM API consists of a set of API endpoints that allow customers to perform CRUD operation on their user profiles.",
+				"fromversion": "6.0.0",
+				"id": "PrismaCloud IAM",
+				"name": "PrismaCloud IAM",
+				"toversion": ""
 			}
 		],
 		"layoutrule": [
-			{
-				"deprecated": false,
-				"description": "display for Prisma Cloud alerts.",
-				"fromversion": "6.10.0",
-				"id": "Prisma_Cloud_V2_Layout_Rule",
-				"layout_id": "Prisma Cloud V2",
-				"name": "Prisma Cloud V2 Layout Rule",
-				"toversion": ""
-			},
 			{
 				"deprecated": false,
 				"description": "display for Prisma Cloud Network API and Anomaly alerts.",
@@ -594,6 +629,15 @@
 				"id": "Prisma_Cloud_Network_API_and_Anomaly",
 				"layout_id": "Prisma Cloud - Network API and Anomaly Incident Layout",
 				"name": "Prisma Cloud Network API and Anomaly",
+				"toversion": ""
+			},
+			{
+				"deprecated": false,
+				"description": "display for Prisma Cloud alerts.",
+				"fromversion": "6.10.0",
+				"id": "Prisma_Cloud_V2_Layout_Rule",
+				"layout_id": "Prisma Cloud V2",
+				"name": "Prisma Cloud V2 Layout Rule",
 				"toversion": ""
 			}
 		],
@@ -635,34 +679,6 @@
 		],
 		"playbook": [
 			{
-				"description": "This playbook remediates Prisma Cloud GCP VPC Network alerts. It calls sub-playbooks that perform the actual remediation steps.\n\nRemediation:\n\n - GCP project is using the default network\n - GCP Firewall rule allows internet traffic to FTP port (21)\n - GCP Firewall rule allows internet traffic to HTTP port (80)\n - GCP Firewall rule allows internet traffic to MongoDB port (27017)\n - GCP Firewall rule allows internet traffic to MySQL DB port (3306)\n - GCP Firewall rule allows internet traffic to Oracle DB port (1521)\n - GCP Firewall rule allows internet traffic to PostgreSQL port (5432)\n - GCP Firewall rule allows internet traffic to RDP port (3389)\n - GCP Firewall rule allows internet traffic to SSH port (22)\n - GCP Firewall rule allows internet traffic to Telnet port (23)\n - GCP Firewall rule allows internet traffic to DNS port (53)\n - GCP Firewall rule allows internet traffic to Microsoft-DS port (445)\n - GCP Firewall rule allows internet traffic to NetBIOS-SSN port (139)\n - GCP Firewall rule allows internet traffic to POP3 port (110)\n - GCP Firewall rule allows internet traffic to SMTP port (25)\n - GCP Default Firewall rule should not have any rules (except http and https)\n - GCP Firewall with Inbound rule overly permissive to All Traffic",
-				"fromversion": "6.5.0",
-				"id": "Prisma Cloud Remediation - GCP VPC Network Misconfiguration v2",
-				"name": "Prisma Cloud Remediation - GCP VPC Network Misconfiguration v2",
-				"tags": []
-			},
-			{
-				"description": "Retrieves the details of the owner of a given cloud account from the following playbooks:\n  - Get Cloud Account Owner - Generic\n  - Prisma Cloud - Get Owner By Namespace",
-				"fromversion": "6.10.0",
-				"id": "Prisma Cloud - Get Account Owner",
-				"name": "Prisma Cloud - Get Account Owner",
-				"tags": []
-			},
-			{
-				"description": "Deprecated. Use Prisma Cloud - Find AWS Resource by FQDN v2 instead.\nFind AWS resources by FQDN using Prisma Cloud inventory.\nSupported services: EC2, Application Load Balancer, ECS, Route53, CloudFront, S3, API Gateway.\n",
-				"fromversion": "6.0.0",
-				"id": "Prisma Cloud - Find AWS Resource by FQDN",
-				"name": "Prisma Cloud - Find AWS Resource by FQDN",
-				"tags": []
-			},
-			{
-				"description": "This playbook remediates Prisma Cloud Azure SQL alerts. It calls sub-playbooks that perform the actual remediation steps.\n\nRemediation:\n\n- Azure SQL database auditing is disabled\n- Azure SQL Database with Auditing Retention less than 90 days\n- Azure Threat Detection on SQL databases is set to Off\n- Azure SQL Database with Threat Retention less than or equals to 90 days",
-				"fromversion": "6.5.0",
-				"id": "Prisma Cloud Remediation - Azure SQL Misconfiguration v2",
-				"name": "Prisma Cloud Remediation - Azure SQL Misconfiguration v2",
-				"tags": []
-			},
-			{
 				"description": "This playbook extracts the TCP public Security Groups rule and provides manual/automatic options to have the rules revoked.",
 				"fromversion": "5.0.0",
 				"id": "Prisma Cloud Remediation - AWS Security Groups Allows Internet Traffic To TCP",
@@ -670,122 +686,24 @@
 				"tags": []
 			},
 			{
-				"description": "Deprecated. Use Prisma Cloud - Find Azure Resource by FQDN v2 instead.\nFind Azure resources by FQDN using Prisma Cloud inventory.\nSupported services: Azure VM, Azure Load Balancer, Azure Application Gateway, AKS, Azure Web Apps, Azure Storage.\n",
+				"description": "Deprecated. Use Prisma Cloud Remediation - AWS IAM Policy Misconfiguration v2 instead. This playbook remediates Prisma Cloud AWS IAM policy alerts. It uses sub-playbooks that perform the remediation steps.",
+				"fromversion": "5.0.0",
+				"id": "Prisma Cloud Remediation - AWS IAM Policy Misconfiguration",
+				"name": "Prisma Cloud Remediation - AWS IAM Policy Misconfiguration",
+				"tags": []
+			},
+			{
+				"description": "Deprecated. Use Prisma Cloud - Find Azure Resource by Public IP v2 instead.\nFind Azure resources by Public IP using Prisma Cloud inventory.\nSupported services: Azure VM, Azure Load Balancer, Azure Application Gateway, Azure Web Apps.\n",
 				"fromversion": "6.0.0",
-				"id": "Prisma Cloud - Find Azure Resource by FQDN",
-				"name": "Prisma Cloud - Find Azure Resource by FQDN",
+				"id": "Prisma Cloud - Find Azure Resource by Public IP",
+				"name": "Prisma Cloud - Find Azure Resource by Public IP",
 				"tags": []
 			},
 			{
-				"description": "This playbook remediates the following Prisma Cloud Azure SQL database alerts.\n\nPrisma Cloud policies remediated:\n\n- Azure SQL database auditing is disabled\n- Azure SQL Database with Auditing Retention less than 90 days\n- Azure Threat Detection on SQL databases is set to Off\n- Azure SQL Database with Threat Retention less than or equals to 90 days",
+				"description": "Deprecated. Use Prisma Cloud Remediation - Azure SQL Misconfiguration v2 instead.\nThis playbook remediates Prisma Cloud Azure SQL alerts. It calls sub-playbooks that perform the actual remediation steps.\n\nRemediation:\n\n- Azure SQL database auditing is disabled\n- Azure SQL Database with Auditing Retention less than 90 days\n- Azure Threat Detection on SQL databases is set to Off\n- Azure SQL Database with Threat Retention less than or equals to 90 days",
 				"fromversion": "5.0.0",
-				"id": "Prisma Cloud Remediation - Azure SQL Database Misconfiguration",
-				"name": "Prisma Cloud Remediation - Azure SQL Database Misconfiguration",
-				"tags": []
-			},
-			{
-				"description": "This playbook remediates the following Prisma Cloud AWS CloudTrail alerts.\n\nPrisma Cloud policies remediated:\n\n - AWS CloudTrail Is Not Integrated With CloudWatch Logs",
-				"fromversion": "5.0.0",
-				"id": "Prisma Cloud Remediation - AWS CloudTrail Is Not Integrated With CloudWatch Logs",
-				"name": "Prisma Cloud Remediation - AWS CloudTrail Is Not Integrated With CloudWatch Logs",
-				"tags": []
-			},
-			{
-				"description": "Find GCP resources by Public IP using Prisma Cloud inventory.\nSupported services: GCE, Load Balancing, GKE.\n",
-				"fromversion": "6.8.0",
-				"id": "Prisma Cloud - Find GCP Resource by Public IP v2",
-				"name": "Prisma Cloud - Find GCP Resource by Public IP v2",
-				"tags": []
-			},
-			{
-				"description": "Deprecated. Use Prisma Cloud Remediation - GCP VPC Network Misconfiguration v2 instead.\nThis playbook remediates Prisma Cloud GCP VPC Network alerts. It calls sub-playbooks that perform the actual remediation steps.\n\nRemediation:\n\n - GCP project is using the default network\n - GCP Firewall rule allows internet traffic to FTP port (21)\n - GCP Firewall rule allows internet traffic to HTTP port (80)\n - GCP Firewall rule allows internet traffic to MongoDB port (27017)\n - GCP Firewall rule allows internet traffic to MySQL DB port (3306)\n - GCP Firewall rule allows internet traffic to Oracle DB port (1521)\n - GCP Firewall rule allows internet traffic to PostgreSQL port (5432)\n - GCP Firewall rule allows internet traffic to RDP port (3389)\n - GCP Firewall rule allows internet traffic to SSH port (22)\n - GCP Firewall rule allows internet traffic to Telnet port (23)\n - GCP Firewall rule allows internet traffic to DNS port (53)\n - GCP Firewall rule allows internet traffic to Microsoft-DS port (445)\n - GCP Firewall rule allows internet traffic to NetBIOS-SSN port (139)\n - GCP Firewall rule allows internet traffic to POP3 port (110)\n - GCP Firewall rule allows internet traffic to SMTP port (25)\n - GCP Default Firewall rule should not have any rules (except http and https)\n - GCP Firewall with Inbound rule overly permissive to All Traffic",
-				"fromversion": "5.0.0",
-				"id": "Prisma Cloud Remediation - GCP VPC Network Misconfiguration",
-				"name": "Prisma Cloud Remediation - GCP VPC Network Misconfiguration",
-				"tags": []
-			},
-			{
-				"description": "Find Azure resources by FQDN using Prisma Cloud inventory.\nSupported services: Azure VM, Azure Load Balancer, Azure Application Gateway, AKS, Azure Web Apps, Azure Storage.\n",
-				"fromversion": "6.5.0",
-				"id": "Prisma Cloud - Find Azure Resource by FQDN v2",
-				"name": "Prisma Cloud - Find Azure Resource by FQDN v2",
-				"tags": []
-			},
-			{
-				"description": "This playbook remediates the following Prisma Cloud GCP Compute Engine VM Instance alerts.\n\nPrisma Cloud policies remediated:\n\n - GCP VM instances have serial port access enabled\n - GCP VM instances have block project-wide SSH keys feature disabled\n - GCP VM instances without any custom metadata information",
-				"fromversion": "5.0.0",
-				"id": "Prisma Cloud Remediation - GCP Compute Engine Instance Misconfiguration",
-				"name": "Prisma Cloud Remediation - GCP Compute Engine Instance Misconfiguration",
-				"tags": []
-			},
-			{
-				"description": "Find Azure resources by Public IP using Prisma Cloud inventory.\nSupported services: Azure VM, Azure Load Balancer, Azure Application Gateway, Azure Web Apps.\n",
-				"fromversion": "6.8.0",
-				"id": "Prisma Cloud - Find Azure Resource by Public IP v2",
-				"name": "Prisma Cloud - Find Azure Resource by Public IP v2",
-				"tags": []
-			},
-			{
-				"description": "Deprecated. Use Prisma Cloud - Find GCP Resource by FQDN v2 instead.\nFind GCP resources by FQDN using Prisma Cloud inventory.\nSupported services: Cloud DNS.\n",
-				"fromversion": "6.0.0",
-				"id": "Prisma Cloud - Find GCP Resource by FQDN",
-				"name": "Prisma Cloud - Find GCP Resource by FQDN",
-				"tags": []
-			},
-			{
-				"description": "This playbook remediates the following Prisma Cloud AWS IAM password policy alerts.\n\nPrisma Cloud policies remediated:\n- AWS IAM password policy allows password reuse\n- AWS IAM password policy does not expire in 90 days\n- AWS IAM password policy does not have a lowercase character\n- AWS IAM password policy does not have a minimum of 14 characters\n- AWS IAM password policy does not have a number\n- AWS IAM password policy does not have a symbol\n- AWS IAM password policy does not have a uppercase character\n- AWS IAM password policy does not have password expiration period\n- AWS IAM Password policy is insecure",
-				"fromversion": "5.0.0",
-				"id": "Prisma Cloud Remediation - AWS IAM Password Policy Misconfiguration",
-				"name": "Prisma Cloud Remediation - AWS IAM Password Policy Misconfiguration",
-				"tags": []
-			},
-			{
-				"description": "This playbook remediates the following Prisma Cloud Azure Storage blob alerts.\n\nPrisma Cloud policies remediated:\n\n- Azure storage account has a blob container with public access\n- Azure storage account logging for blobs is disabled\n",
-				"fromversion": "5.0.0",
-				"id": "Prisma Cloud Remediation - Azure Storage Blob Misconfiguration",
-				"name": "Prisma Cloud Remediation - Azure Storage Blob Misconfiguration",
-				"tags": []
-			},
-			{
-				"description": "Deprecated. Use Prisma Cloud Remediation - Azure Network Misconfiguration v2 instead.\nThis playbook remediates Prisma Cloud Azure Network alerts. It calls sub-playbooks that perform the actual remediation steps.\n\nRemediation:\n\n- Azure Network Security Group (NSG) having Inbound rule overly permissive to allow all traffic from any source on any protocol\n- Azure Network Security Group (NSG) having Inbound rule overly permissive to allow all traffic from any source on TCP protocol\n- Azure Network Security Group (NSG) having Inbound rule overly permissive to allow all traffic from any source on UDP protocol\n- Azure Network Security Group (NSG) allows SSH traffic from internet on port 22\n- Azure Network Security Group (NSG) allows traffic from internet on port 3389\n- Azure Network Security Group allows DNS (TCP Port 53)\n- Azure Network Security Group allows FTP (TCP Port 21)\n- Azure Network Security Group allows FTP-Data (TCP Port 20)\n- Azure Network Security Group allows MSQL (TCP Port 4333)\n- Azure Network Security Group allows MySQL (TCP Port 3306)\n- Azure Network Security Group allows Windows RPC (TCP Port 135)\n- Azure Network Security Group allows Windows SMB (TCP Port 445)\n- Azure Network Security Group allows PostgreSQL (TCP Port 5432)\n- Azure Network Security Group allows SMTP (TCP Port 25)\n- Azure Network Security Group allows SqlServer (TCP Port 1433)\n- Azure Network Security Group allows Telnet (TCP Port 23)\n- Azure Network Security Group allows VNC Listener (TCP Port 5500)\n- Azure Network Security Group allows all traffic on ICMP (Ping)\n- Azure Network Security Group allows CIFS (UDP Port 445)\n- Azure Network Security Group allows NetBIOS (UDP Port 137)\n- Azure Network Security Group allows NetBIOS (UDP Port 138)\n- Azure Network Security Group allows SQLServer (UDP Port 1434)\n- Azure Network Security Group allows DNS (UDP Port 53)",
-				"fromversion": "5.0.0",
-				"id": "Prisma Cloud Remediation - Azure Network Misconfiguration",
-				"name": "Prisma Cloud Remediation - Azure Network Misconfiguration",
-				"tags": []
-			},
-			{
-				"description": "Deprecated. Use Prisma Cloud Remediation - AWS CloudTrail Misconfiguration v2 instead.\nThis playbook remediates Prisma Cloud AWS CloudTrail alerts. It calls sub-playbooks that perform the actual remediation steps.\n\nRemediation:\n - AWS CloudTrail Trail Log Validation Is Not Enabled In All Regions\n - AWS CloudTrail is not enabled in all regions\n - AWS CloudTrail Trail Is Not Integrated With CloudWatch Logs\n - AWS CloudTrail is not enabled on the account",
-				"fromversion": "5.0.0",
-				"id": "Prisma Cloud Remediation - AWS CloudTrail Misconfiguration",
-				"name": "Prisma Cloud Remediation - AWS CloudTrail Misconfiguration",
-				"tags": []
-			},
-			{
-				"description": "This playbook remediates the following Prisma Cloud Azure Network security group alerts.\n\nPrisma Cloud policies remediated:\n\n- Azure Network Security Group (NSG) having Inbound rule overly permissive to allow all traffic from any source on any protocol\n- Azure Network Security Group (NSG) having Inbound rule overly permissive to allow all traffic from any source on TCP protocol\n- Azure Network Security Group (NSG) having Inbound rule overly permissive to allow all traffic from any source on UDP protocol\n- Azure Network Security Group (NSG) allows SSH traffic from internet on port 22\n- Azure Network Security Group (NSG) allows traffic from internet on port 3389\n- Azure Network Security Group allows DNS (TCP Port 53)\n- Azure Network Security Group allows FTP (TCP Port 21)\n- Azure Network Security Group allows FTP-Data (TCP Port 20)\n- Azure Network Security Group allows MSQL (TCP Port 4333)\n- Azure Network Security Group allows MySQL (TCP Port 3306)\n- Azure Network Security Group allows Windows RPC (TCP Port 135)\n- Azure Network Security Group allows Windows SMB (TCP Port 445)\n- Azure Network Security Group allows PostgreSQL (TCP Port 5432)\n- Azure Network Security Group allows SMTP (TCP Port 25)\n- Azure Network Security Group allows SqlServer (TCP Port 1433)\n- Azure Network Security Group allows Telnet (TCP Port 23)\n- Azure Network Security Group allows VNC Listener (TCP Port 5500)\n- Azure Network Security Group allows all traffic on ICMP (Ping)\n- Azure Network Security Group allows CIFS (UDP Port 445)\n- Azure Network Security Group allows NetBIOS (UDP Port 137)\n- Azure Network Security Group allows NetBIOS (UDP Port 138)\n- Azure Network Security Group allows SQLServer (UDP Port 1434)\n- Azure Network Security Group allows DNS (UDP Port 53)",
-				"fromversion": "5.0.0",
-				"id": "Prisma Cloud Remediation - Azure Network Security Group Misconfiguration",
-				"name": "Prisma Cloud Remediation - Azure Network Security Group Misconfiguration",
-				"tags": []
-			},
-			{
-				"description": "This playbook remediates Prisma Cloud Azure AKS alerts. It calls sub-playbooks that perform the actual remediation steps.\n\nRemediation:\n- Azure AKS cluster monitoring not enabled\n- Azure AKS cluster HTTP application routing enabled\n",
-				"fromversion": "6.5.0",
-				"id": "Prisma Cloud Remediation - Azure AKS Misconfiguration v2",
-				"name": "Prisma Cloud Remediation - Azure AKS Misconfiguration v2",
-				"tags": []
-			},
-			{
-				"description": "Deprecated. Use Prisma Cloud Remediation - Azure AKS Misconfiguration v2 instead.\nThis playbook remediates Prisma Cloud Azure AKS alerts. It calls sub-playbooks that perform the actual remediation steps.\n\nRemediation:\n- Azure AKS cluster monitoring not enabled\n- Azure AKS cluster HTTP application routing enabled\n",
-				"fromversion": "5.0.0",
-				"id": "Prisma Cloud Remediation - Azure AKS Misconfiguration",
-				"name": "Prisma Cloud Remediation - Azure AKS Misconfiguration",
-				"tags": []
-			},
-			{
-				"description": "Find GCP resources by FQDN using Prisma Cloud inventory.\nSupported services: Cloud DNS.\n",
-				"fromversion": "6.5.0",
-				"id": "Prisma Cloud - Find GCP Resource by FQDN v2",
-				"name": "Prisma Cloud - Find GCP Resource by FQDN v2",
+				"id": "Prisma Cloud Remediation - Azure SQL Misconfiguration",
+				"name": "Prisma Cloud Remediation - Azure SQL Misconfiguration",
 				"tags": []
 			},
 			{
@@ -796,10 +714,290 @@
 				"tags": []
 			},
 			{
+				"description": "This playbook enables Prisma Cloud RQL Execution from the alert layout.",
+				"fromversion": "6.10.0",
+				"id": "Prisma Cloud - RQL Execution",
+				"name": "Prisma Cloud - RQL Execution",
+				"tags": []
+			},
+			{
+				"description": "Retrieves the details of the owner of a given cloud account from the following playbooks:\n  - Get Cloud Account Owner - Generic\n  - Prisma Cloud - Get Owner By Namespace",
+				"fromversion": "6.10.0",
+				"id": "Prisma Cloud - Get Account Owner",
+				"name": "Prisma Cloud - Get Account Owner",
+				"tags": []
+			},
+			{
+				"description": "This playbook remediates the following Prisma Cloud Azure AKS cluster alerts.\n\nPrisma Cloud policies remediated:\n\n- Azure AKS cluster monitoring not enabled\n- Azure AKS cluster HTTP application routing enabled",
+				"fromversion": "5.0.0",
+				"id": "Prisma Cloud Remediation - Azure AKS Cluster Misconfiguration",
+				"name": "Prisma Cloud Remediation - Azure AKS Cluster Misconfiguration",
+				"tags": []
+			},
+			{
+				"description": "Deprecated. Use Prisma Cloud Remediation - AWS CloudTrail Misconfiguration v2 instead.\nThis playbook remediates Prisma Cloud AWS CloudTrail alerts. It calls sub-playbooks that perform the actual remediation steps.\n\nRemediation:\n - AWS CloudTrail Trail Log Validation Is Not Enabled In All Regions\n - AWS CloudTrail is not enabled in all regions\n - AWS CloudTrail Trail Is Not Integrated With CloudWatch Logs\n - AWS CloudTrail is not enabled on the account",
+				"fromversion": "5.0.0",
+				"id": "Prisma Cloud Remediation - AWS CloudTrail Misconfiguration",
+				"name": "Prisma Cloud Remediation - AWS CloudTrail Misconfiguration",
+				"tags": []
+			},
+			{
+				"description": "Find Public Cloud resources by FQDN using Prisma Cloud inventory",
+				"fromversion": "6.0.0",
+				"id": "Prisma Cloud - Find Public Cloud Resource by FQDN",
+				"name": "Prisma Cloud - Find Public Cloud Resource by FQDN",
+				"tags": []
+			},
+			{
+				"description": "Deprecated. Use Prisma Cloud - Find GCP Resource by FQDN v2 instead.\nFind GCP resources by FQDN using Prisma Cloud inventory.\nSupported services: Cloud DNS.\n",
+				"fromversion": "6.0.0",
+				"id": "Prisma Cloud - Find GCP Resource by FQDN",
+				"name": "Prisma Cloud - Find GCP Resource by FQDN",
+				"tags": []
+			},
+			{
+				"description": "Deprecated. Use Prisma Cloud Remediation - Azure Storage Misconfiguration v2 instead.\nThis playbook remediates Prisma Cloud Azure Storage alerts. It calls sub-playbooks that perform the actual remediation steps.\n\nRemediation:\n\n- Azure storage account has a blob container with public access\n- Azure storage account logging for blobs is disabled\n- Azure Storage Accounts without Secure transfer enabled\n- Azure storage account logging for queues is disabled\n- Azure storage account logging for tables is disabled #95",
+				"fromversion": "5.0.0",
+				"id": "Prisma Cloud Remediation - Azure Storage Misconfiguration",
+				"name": "Prisma Cloud Remediation - Azure Storage Misconfiguration",
+				"tags": []
+			},
+			{
+				"description": "This playbook will retrieve the potential owners of a runtime audit alert.\nThis is done using the \"Namespace\" value of the alert in order to query associated resource lists and user roles with associated users.\nEventually the playbook returns a list of user objects (if found).",
+				"fromversion": "6.10.0",
+				"id": "Prisma Cloud - Get Owner By Namespace",
+				"name": "Prisma Cloud - Get Owner By Namespace",
+				"tags": []
+			},
+			{
+				"description": "Deprecated. Use Prisma Cloud Remediation - Azure Network Misconfiguration v2 instead.\nThis playbook remediates Prisma Cloud Azure Network alerts. It calls sub-playbooks that perform the actual remediation steps.\n\nRemediation:\n\n- Azure Network Security Group (NSG) having Inbound rule overly permissive to allow all traffic from any source on any protocol\n- Azure Network Security Group (NSG) having Inbound rule overly permissive to allow all traffic from any source on TCP protocol\n- Azure Network Security Group (NSG) having Inbound rule overly permissive to allow all traffic from any source on UDP protocol\n- Azure Network Security Group (NSG) allows SSH traffic from internet on port 22\n- Azure Network Security Group (NSG) allows traffic from internet on port 3389\n- Azure Network Security Group allows DNS (TCP Port 53)\n- Azure Network Security Group allows FTP (TCP Port 21)\n- Azure Network Security Group allows FTP-Data (TCP Port 20)\n- Azure Network Security Group allows MSQL (TCP Port 4333)\n- Azure Network Security Group allows MySQL (TCP Port 3306)\n- Azure Network Security Group allows Windows RPC (TCP Port 135)\n- Azure Network Security Group allows Windows SMB (TCP Port 445)\n- Azure Network Security Group allows PostgreSQL (TCP Port 5432)\n- Azure Network Security Group allows SMTP (TCP Port 25)\n- Azure Network Security Group allows SqlServer (TCP Port 1433)\n- Azure Network Security Group allows Telnet (TCP Port 23)\n- Azure Network Security Group allows VNC Listener (TCP Port 5500)\n- Azure Network Security Group allows all traffic on ICMP (Ping)\n- Azure Network Security Group allows CIFS (UDP Port 445)\n- Azure Network Security Group allows NetBIOS (UDP Port 137)\n- Azure Network Security Group allows NetBIOS (UDP Port 138)\n- Azure Network Security Group allows SQLServer (UDP Port 1434)\n- Azure Network Security Group allows DNS (UDP Port 53)",
+				"fromversion": "5.0.0",
+				"id": "Prisma Cloud Remediation - Azure Network Misconfiguration",
+				"name": "Prisma Cloud Remediation - Azure Network Misconfiguration",
+				"tags": []
+			},
+			{
+				"description": "This playbook remediates the following Prisma Cloud Azure SQL database alerts.\n\nPrisma Cloud policies remediated:\n\n- Azure SQL database auditing is disabled\n- Azure SQL Database with Auditing Retention less than 90 days\n- Azure Threat Detection on SQL databases is set to Off\n- Azure SQL Database with Threat Retention less than or equals to 90 days",
+				"fromversion": "5.0.0",
+				"id": "Prisma Cloud Remediation - Azure SQL Database Misconfiguration",
+				"name": "Prisma Cloud Remediation - Azure SQL Database Misconfiguration",
+				"tags": []
+			},
+			{
+				"description": "Deprecated. Use Prisma Cloud - Find GCP Resource by Public IP v2 instead.\nFind GCP resources by Public IP using Prisma Cloud inventory.\nSupported services: GCE, Load Balancing, GKE.\n",
+				"fromversion": "6.0.0",
+				"id": "Prisma Cloud - Find GCP Resource by Public IP",
+				"name": "Prisma Cloud - Find GCP Resource by Public IP",
+				"tags": []
+			},
+			{
+				"description": "This playbook remediates Prisma Cloud Azure AKS alerts. It calls sub-playbooks that perform the actual remediation steps.\n\nRemediation:\n- Azure AKS cluster monitoring not enabled\n- Azure AKS cluster HTTP application routing enabled\n",
+				"fromversion": "6.5.0",
+				"id": "Prisma Cloud Remediation - Azure AKS Misconfiguration v2",
+				"name": "Prisma Cloud Remediation - Azure AKS Misconfiguration v2",
+				"tags": []
+			},
+			{
+				"description": "This playbook remediates the following Prisma Cloud GCP Kubernetes Engine Cluster alerts.\n\nPrisma Cloud policies remediated:\n\n* GCP Kubernetes Engine Clusters Basic Authentication is set to Enabled\n* GCP Kubernetes Engine Clusters have HTTP load balancing disabled\n* GCP Kubernetes Engine Clusters have Legacy Authorization enabled\n* GCP Kubernetes Engine Clusters have Master authorized networks disabled\n* GCP Kubernetes Engine Clusters have Network policy disabled\n* GCP Kubernetes Engine Clusters have Stackdriver Logging disabled\n* GCP Kubernetes Engine Clusters have Stackdriver Monitoring disabled\n* GCP Kubernetes Engine Clusters have binary authorization disabled\n* GCP Kubernetes Engine Clusters web UI/Dashboard is set to Enabled\n* GCP Kubernetes cluster intra-node visibility disabled",
+				"fromversion": "5.0.0",
+				"id": "Prisma Cloud Remediation - GCP Kubernetes Engine Cluster Misconfiguration",
+				"name": "Prisma Cloud Remediation - GCP Kubernetes Engine Cluster Misconfiguration",
+				"tags": []
+			},
+			{
 				"description": "Deprecated. Use Prisma Cloud Remediation - GCP Kubernetes Engine Misconfiguration v2 instead.\nThis playbook remediates Prisma Cloud GCP Kubernetes Engine alerts. It calls sub-playbooks that perform the actual remediation steps.\n\nRemediation:\n* GCP Kubernetes Engine Clusters Basic Authentication is set to Enabled\n* GCP Kubernetes Engine Clusters have HTTP load balancing disabled\n* GCP Kubernetes Engine Clusters have Legacy Authorization enabled\n* GCP Kubernetes Engine Clusters have Master authorized networks disabled\n* GCP Kubernetes Engine Clusters have Network policy disabled\n* GCP Kubernetes Engine Clusters have Stackdriver Logging disabled\n* GCP Kubernetes Engine Clusters have Stackdriver Monitoring disabled\n* GCP Kubernetes Engine Clusters have binary authorization disabled\n* GCP Kubernetes Engine Clusters web UI/Dashboard is set to Enabled\n* GCP Kubernetes cluster intra-node visibility disabled\n",
 				"fromversion": "5.0.0",
 				"id": "Prisma Cloud Remediation - GCP Kubernetes Engine Misconfiguration",
 				"name": "Prisma Cloud Remediation - GCP Kubernetes Engine Misconfiguration",
+				"tags": []
+			},
+			{
+				"description": "This playbook remediates the following Prisma Cloud GCP Compute Engine VM Instance alerts.\n\nPrisma Cloud policies remediated:\n\n - GCP VM instances have serial port access enabled\n - GCP VM instances have block project-wide SSH keys feature disabled\n - GCP VM instances without any custom metadata information",
+				"fromversion": "5.0.0",
+				"id": "Prisma Cloud Remediation - GCP Compute Engine Instance Misconfiguration",
+				"name": "Prisma Cloud Remediation - GCP Compute Engine Instance Misconfiguration",
+				"tags": []
+			},
+			{
+				"description": "This playbook remediates the following Prisma Cloud AWS CloudTrail alerts.\n\nPrisma Cloud policies remediated:\n\n - AWS CloudTrail Trail Log Validation Is Not Enabled In All Regions\n - AWS CloudTrail is not enabled in all regions.",
+				"fromversion": "5.0.0",
+				"id": "Prisma Cloud Remediation - AWS CloudTrail Trail Misconfiguration",
+				"name": "Prisma Cloud Remediation - AWS CloudTrail Trail Misconfiguration",
+				"tags": []
+			},
+			{
+				"description": "Find AWS resources by FQDN using Prisma Cloud inventory.\nSupported services: EC2, Application Load Balancer, ECS, Route53, CloudFront, S3, API Gateway.\n",
+				"fromversion": "6.5.0",
+				"id": "Prisma Cloud - Find AWS Resource by FQDN v2",
+				"name": "Prisma Cloud - Find AWS Resource by FQDN v2",
+				"tags": []
+			},
+			{
+				"description": "This playbook remediates Prisma Cloud GCP VPC Network alerts. It calls sub-playbooks that perform the actual remediation steps.\n\nRemediation:\n\n - GCP project is using the default network\n - GCP Firewall rule allows internet traffic to FTP port (21)\n - GCP Firewall rule allows internet traffic to HTTP port (80)\n - GCP Firewall rule allows internet traffic to MongoDB port (27017)\n - GCP Firewall rule allows internet traffic to MySQL DB port (3306)\n - GCP Firewall rule allows internet traffic to Oracle DB port (1521)\n - GCP Firewall rule allows internet traffic to PostgreSQL port (5432)\n - GCP Firewall rule allows internet traffic to RDP port (3389)\n - GCP Firewall rule allows internet traffic to SSH port (22)\n - GCP Firewall rule allows internet traffic to Telnet port (23)\n - GCP Firewall rule allows internet traffic to DNS port (53)\n - GCP Firewall rule allows internet traffic to Microsoft-DS port (445)\n - GCP Firewall rule allows internet traffic to NetBIOS-SSN port (139)\n - GCP Firewall rule allows internet traffic to POP3 port (110)\n - GCP Firewall rule allows internet traffic to SMTP port (25)\n - GCP Default Firewall rule should not have any rules (except http and https)\n - GCP Firewall with Inbound rule overly permissive to All Traffic",
+				"fromversion": "6.5.0",
+				"id": "Prisma Cloud Remediation - GCP VPC Network Misconfiguration v2",
+				"name": "Prisma Cloud Remediation - GCP VPC Network Misconfiguration v2",
+				"tags": []
+			},
+			{
+				"description": "Find Azure resources by Public IP using Prisma Cloud inventory.\nSupported services: Azure VM, Azure Load Balancer, Azure Application Gateway, Azure Web Apps.\n",
+				"fromversion": "6.8.0",
+				"id": "Prisma Cloud - Find Azure Resource by Public IP v2",
+				"name": "Prisma Cloud - Find Azure Resource by Public IP v2",
+				"tags": []
+			},
+			{
+				"description": "This playbook remediates Prisma Cloud AWS EC2 alerts. It calls the following sub-playbooks to perform the remediation:\n- AWS Default Security Group Does Not Restrict All Traffic (policy id: 2378dbf4-b104-4bda-9b05-7417affbba3f)\n- AWS Security Group allows all traffic on SSH port (22) (policy id: 617b9138-584b-4e8e-ad15-7fbabafbed1a)\n- AWS Security Groups allow internet traffic from internet to RDP port (3389) (policy id: b82f90ce-ed8b-4b49-970c-2268b0a6c2e5).",
+				"fromversion": "6.5.0",
+				"id": "Prisma Cloud Remediation - AWS EC2 Instance Misconfiguration v2",
+				"name": "Prisma Cloud Remediation - AWS EC2 Instance Misconfiguration v2",
+				"tags": []
+			},
+			{
+				"description": "This playbook remediates Prisma Cloud Azure Network alerts. It calls sub-playbooks that perform the actual remediation steps.\n\nRemediation:\n\n- Azure Network Security Group (NSG) having Inbound rule overly permissive to allow all traffic from any source on any protocol\n- Azure Network Security Group (NSG) having Inbound rule overly permissive to allow all traffic from any source on TCP protocol\n- Azure Network Security Group (NSG) having Inbound rule overly permissive to allow all traffic from any source on UDP protocol\n- Azure Network Security Group (NSG) allows SSH traffic from internet on port 22\n- Azure Network Security Group (NSG) allows traffic from internet on port 3389\n- Azure Network Security Group allows DNS (TCP Port 53)\n- Azure Network Security Group allows FTP (TCP Port 21)\n- Azure Network Security Group allows FTP-Data (TCP Port 20)\n- Azure Network Security Group allows MSQL (TCP Port 4333)\n- Azure Network Security Group allows MySQL (TCP Port 3306)\n- Azure Network Security Group allows Windows RPC (TCP Port 135)\n- Azure Network Security Group allows Windows SMB (TCP Port 445)\n- Azure Network Security Group allows PostgreSQL (TCP Port 5432)\n- Azure Network Security Group allows SMTP (TCP Port 25)\n- Azure Network Security Group allows SqlServer (TCP Port 1433)\n- Azure Network Security Group allows Telnet (TCP Port 23)\n- Azure Network Security Group allows VNC Listener (TCP Port 5500)\n- Azure Network Security Group allows all traffic on ICMP (Ping)\n- Azure Network Security Group allows CIFS (UDP Port 445)\n- Azure Network Security Group allows NetBIOS (UDP Port 137)\n- Azure Network Security Group allows NetBIOS (UDP Port 138)\n- Azure Network Security Group allows SQLServer (UDP Port 1434)\n- Azure Network Security Group allows DNS (UDP Port 53).",
+				"fromversion": "6.5.0",
+				"id": "Prisma Cloud Remediation - Azure Network Misconfiguration v2",
+				"name": "Prisma Cloud Remediation - Azure Network Misconfiguration v2",
+				"tags": []
+			},
+			{
+				"description": "Deprecated. Use Prisma Cloud - Find AWS Resource by Public IP v2 instead.\nFind AWS resources by Public IP using Prisma Cloud inventory.\nSupported services: EC2, Network Load Balancer, ECS, Route53.\n",
+				"fromversion": "6.0.0",
+				"id": "Prisma Cloud - Find AWS Resource by Public IP",
+				"name": "Prisma Cloud - Find AWS Resource by Public IP",
+				"tags": []
+			},
+			{
+				"description": "Deprecated. Use Prisma Cloud Remediation - GCP VPC Network Misconfiguration v2 instead.\nThis playbook remediates Prisma Cloud GCP VPC Network alerts. It calls sub-playbooks that perform the actual remediation steps.\n\nRemediation:\n\n - GCP project is using the default network\n - GCP Firewall rule allows internet traffic to FTP port (21)\n - GCP Firewall rule allows internet traffic to HTTP port (80)\n - GCP Firewall rule allows internet traffic to MongoDB port (27017)\n - GCP Firewall rule allows internet traffic to MySQL DB port (3306)\n - GCP Firewall rule allows internet traffic to Oracle DB port (1521)\n - GCP Firewall rule allows internet traffic to PostgreSQL port (5432)\n - GCP Firewall rule allows internet traffic to RDP port (3389)\n - GCP Firewall rule allows internet traffic to SSH port (22)\n - GCP Firewall rule allows internet traffic to Telnet port (23)\n - GCP Firewall rule allows internet traffic to DNS port (53)\n - GCP Firewall rule allows internet traffic to Microsoft-DS port (445)\n - GCP Firewall rule allows internet traffic to NetBIOS-SSN port (139)\n - GCP Firewall rule allows internet traffic to POP3 port (110)\n - GCP Firewall rule allows internet traffic to SMTP port (25)\n - GCP Default Firewall rule should not have any rules (except http and https)\n - GCP Firewall with Inbound rule overly permissive to All Traffic",
+				"fromversion": "5.0.0",
+				"id": "Prisma Cloud Remediation - GCP VPC Network Misconfiguration",
+				"name": "Prisma Cloud Remediation - GCP VPC Network Misconfiguration",
+				"tags": []
+			},
+			{
+				"description": "Search alerts in Prisma Cloud for a specific asset ID and, if present in Cortex, link them.",
+				"fromversion": "6.5.0",
+				"id": "Prisma Cloud Correlate Alerts v2",
+				"name": "Prisma Cloud Correlate Alerts v2",
+				"tags": []
+			},
+			{
+				"description": "Find GCP resources by Public IP using Prisma Cloud inventory.\nSupported services: GCE, Load Balancing, GKE.\n",
+				"fromversion": "6.8.0",
+				"id": "Prisma Cloud - Find GCP Resource by Public IP v2",
+				"name": "Prisma Cloud - Find GCP Resource by Public IP v2",
+				"tags": []
+			},
+			{
+				"description": "Deprecated. Use Prisma Cloud Remediation - AWS EC2 Instance Misconfiguration v2 instead.\nThis playbook remediates Prisma Cloud AWS EC2 alerts. It calls the following sub-playbooks to perform the remediation:\n- AWS Default Security Group Does Not Restrict All Traffic\n- AWS Security Groups Allow Internet Traffic\n- AWS Security Groups With Inbound Rule Overly Permissive To All Traffic\n- AWS Security Groups allow internet traffic from internet to FTP-Data port (20)\n- AWS Security Groups allow internet traffic from internet to FTP port (21)\n- AWS Security Groups allow internet traffic to SSH port (22)\n- AWS Security Group allows all traffic on SSH port (22)\n- AWS Security Groups allow internet traffic from internet to Telnet port (23)\n- AWS Security Groups allow internet traffic from internet to SMTP port (25)\n- AWS Security Groups allow internet traffic from internet to DNS port (53)\n- AWS Security Groups allow internet traffic from internet to Windows RPC port (135)\n- AWS Security Groups allow internet traffic from internet to NetBIOS port (137)\n- AWS Security Groups allow internet traffic from internet to NetBIOS port (138)\n- AWS Security Groups allow internet traffic from internet to CIFS port (445)\n- AWS Security Groups allow internet traffic from internet to SQLServer port (1433)\n- AWS Security Groups allow internet traffic from internet to SQLServer port (1434)\n- AWS Security Groups allow internet traffic from internet to MYSQL port (3306)\n- AWS Security Groups allow internet traffic from internet to RDP port (3389)\n- AWS Security Groups allow internet traffic from internet to MSQL port (4333)\n- AWS Security Groups allow internet traffic from internet to PostgreSQL port (5432)\n- AWS Security Groups allow internet traffic from internet to VNC Listener port (5500)\n- AWS Security Groups allow internet traffic from internet to VNC Server port (5900)\n",
+				"fromversion": "5.0.0",
+				"id": "Prisma Cloud Remediation - AWS EC2 Instance Misconfiguration",
+				"name": "Prisma Cloud Remediation - AWS EC2 Instance Misconfiguration",
+				"tags": []
+			},
+			{
+				"description": "This playbook remediates the following Prisma Cloud GCP VPC Network Firewall alerts.\n\nPrisma Cloud policies remediated:\n\n - GCP Firewall rule allows internet traffic to FTP port (21)\n - GCP Firewall rule allows internet traffic to HTTP port (80)\n - GCP Firewall rule allows internet traffic to MongoDB port (27017)\n - GCP Firewall rule allows internet traffic to MySQL DB port (3306)\n - GCP Firewall rule allows internet traffic to Oracle DB port (1521)\n - GCP Firewall rule allows internet traffic to PostgreSQL port (5432)\n - GCP Firewall rule allows internet traffic to RDP port (3389)\n - GCP Firewall rule allows internet traffic to SSH port (22)\n - GCP Firewall rule allows internet traffic to Telnet port (23)\n - GCP Firewall rule allows internet traffic to DNS port (53)\n - GCP Firewall rule allows internet traffic to Microsoft-DS port (445)\n - GCP Firewall rule allows internet traffic to NetBIOS-SSN port (139)\n - GCP Firewall rule allows internet traffic to POP3 port (110)\n - GCP Firewall rule allows internet traffic to SMTP port (25)\n - GCP Default Firewall rule should not have any rules (except http and https)\n - GCP Firewall with Inbound rule overly permissive to All Traffic",
+				"fromversion": "5.0.0",
+				"id": "Prisma Cloud Remediation - GCP VPC Network Firewall Misconfiguration",
+				"name": "Prisma Cloud Remediation - GCP VPC Network Firewall Misconfiguration",
+				"tags": []
+			},
+			{
+				"description": "Find Public Cloud resource by Public IP using Prisma Cloud inventory",
+				"fromversion": "6.8.0",
+				"id": "Prisma Cloud - Find Public Cloud Resource by Public IP v2",
+				"name": "Prisma Cloud - Find Public Cloud Resource by Public IP v2",
+				"tags": []
+			},
+			{
+				"description": "Find GCP resources by FQDN using Prisma Cloud inventory.\nSupported services: Cloud DNS.\n",
+				"fromversion": "6.5.0",
+				"id": "Prisma Cloud - Find GCP Resource by FQDN v2",
+				"name": "Prisma Cloud - Find GCP Resource by FQDN v2",
+				"tags": []
+			},
+			{
+				"description": "This playbook remediates the following Prisma Cloud Azure Network security group alerts.\n\nPrisma Cloud policies remediated:\n\n- Azure Network Security Group (NSG) having Inbound rule overly permissive to allow all traffic from any source on any protocol\n- Azure Network Security Group (NSG) having Inbound rule overly permissive to allow all traffic from any source on TCP protocol\n- Azure Network Security Group (NSG) having Inbound rule overly permissive to allow all traffic from any source on UDP protocol\n- Azure Network Security Group (NSG) allows SSH traffic from internet on port 22\n- Azure Network Security Group (NSG) allows traffic from internet on port 3389\n- Azure Network Security Group allows DNS (TCP Port 53)\n- Azure Network Security Group allows FTP (TCP Port 21)\n- Azure Network Security Group allows FTP-Data (TCP Port 20)\n- Azure Network Security Group allows MSQL (TCP Port 4333)\n- Azure Network Security Group allows MySQL (TCP Port 3306)\n- Azure Network Security Group allows Windows RPC (TCP Port 135)\n- Azure Network Security Group allows Windows SMB (TCP Port 445)\n- Azure Network Security Group allows PostgreSQL (TCP Port 5432)\n- Azure Network Security Group allows SMTP (TCP Port 25)\n- Azure Network Security Group allows SqlServer (TCP Port 1433)\n- Azure Network Security Group allows Telnet (TCP Port 23)\n- Azure Network Security Group allows VNC Listener (TCP Port 5500)\n- Azure Network Security Group allows all traffic on ICMP (Ping)\n- Azure Network Security Group allows CIFS (UDP Port 445)\n- Azure Network Security Group allows NetBIOS (UDP Port 137)\n- Azure Network Security Group allows NetBIOS (UDP Port 138)\n- Azure Network Security Group allows SQLServer (UDP Port 1434)\n- Azure Network Security Group allows DNS (UDP Port 53)",
+				"fromversion": "5.0.0",
+				"id": "Prisma Cloud Remediation - Azure Network Security Group Misconfiguration",
+				"name": "Prisma Cloud Remediation - Azure Network Security Group Misconfiguration",
+				"tags": []
+			},
+			{
+				"description": "Deprecated. Use Prisma Cloud - Find Azure Resource by FQDN v2 instead.\nFind Azure resources by FQDN using Prisma Cloud inventory.\nSupported services: Azure VM, Azure Load Balancer, Azure Application Gateway, AKS, Azure Web Apps, Azure Storage.\n",
+				"fromversion": "6.0.0",
+				"id": "Prisma Cloud - Find Azure Resource by FQDN",
+				"name": "Prisma Cloud - Find Azure Resource by FQDN",
+				"tags": []
+			},
+			{
+				"description": "This playbook remediates Prisma Cloud AWS CloudTrail alerts. It calls sub-playbooks that perform the actual remediation steps.\n\nRemediation:\n - AWS CloudTrail Trail Log Validation Is Not Enabled In All Regions\n - AWS CloudTrail is not enabled in all regions\n - AWS CloudTrail Trail Is Not Integrated With CloudWatch Logs\n - AWS CloudTrail is not enabled on the account.",
+				"fromversion": "6.5.0",
+				"id": "Prisma Cloud Remediation - AWS CloudTrail Misconfiguration v2",
+				"name": "Prisma Cloud Remediation - AWS CloudTrail Misconfiguration v2",
+				"tags": []
+			},
+			{
+				"description": "This playbook remediates Prisma Cloud GCP Compute Engine alerts. It calls sub-playbooks that perform the actual remediation steps.\n\nRemediation:\n - GCP VM instances have serial port access enabled\n - GCP VM instances have block project-wide SSH keys feature disabled\n - GCP VM instances without any custom metadata information.",
+				"fromversion": "6.5.0",
+				"id": "Prisma Cloud Remediation - GCP Compute Engine Misconfiguration v2",
+				"name": "Prisma Cloud Remediation - GCP Compute Engine Misconfiguration v2",
+				"tags": []
+			},
+			{
+				"description": "Find AWS resources by Public IP using Prisma Cloud inventory.\nSupported services: EC2, Network Load Balancer, ECS, Route53.\n",
+				"fromversion": "6.8.0",
+				"id": "Prisma Cloud - Find AWS Resource by Public IP v2",
+				"name": "Prisma Cloud - Find AWS Resource by Public IP v2",
+				"tags": []
+			},
+			{
+				"description": "This playbook remediates the Prisma Cloud AWS EC2 alerts generated by the following policies:\n - AWS Default Security Group Does Not Restrict All Traffic\n - AWS Security Group allows all traffic on SSH port (22).",
+				"fromversion": "5.0.0",
+				"id": "Prisma Cloud Remediation - AWS EC2 Security Group Misconfiguration",
+				"name": "Prisma Cloud Remediation - AWS EC2 Security Group Misconfiguration",
+				"tags": []
+			},
+			{
+				"description": "This playbook remediates Prisma Cloud Azure Storage alerts. It calls sub-playbooks that perform the actual remediation steps.\n\nRemediation:\n\n- Azure storage account has a blob container with public access\n- Azure storage account logging for blobs is disabled\n- Azure Storage Accounts without Secure transfer enabled\n- Azure storage account logging for queues is disabled\n- Azure storage account logging for tables is disabled",
+				"fromversion": "6.5.0",
+				"id": "Prisma Cloud Remediation - Azure Storage Misconfiguration v2",
+				"name": "Prisma Cloud Remediation - Azure Storage Misconfiguration v2",
+				"tags": []
+			},
+			{
+				"description": "This playbook remediates Prisma Cloud AWS IAM policy alerts. It uses sub-playbooks that perform the remediation steps.",
+				"fromversion": "6.5.0",
+				"id": "Prisma Cloud Remediation - AWS IAM Policy Misconfiguration v2",
+				"name": "Prisma Cloud Remediation - AWS IAM Policy Misconfiguration v2",
+				"tags": []
+			},
+			{
+				"description": "Find Public Cloud resource by Public IP using Prisma Cloud inventory.",
+				"fromversion": "6.0.0",
+				"id": "Prisma Cloud - Find Public Cloud Resource by Public IP",
+				"name": "Prisma Cloud - Find Public Cloud Resource by Public IP",
+				"tags": []
+			},
+			{
+				"description": "This playbook remediates Prisma Cloud Azure SQL alerts. It calls sub-playbooks that perform the actual remediation steps.\n\nRemediation:\n\n- Azure SQL database auditing is disabled\n- Azure SQL Database with Auditing Retention less than 90 days\n- Azure Threat Detection on SQL databases is set to Off\n- Azure SQL Database with Threat Retention less than or equals to 90 days",
+				"fromversion": "6.5.0",
+				"id": "Prisma Cloud Remediation - Azure SQL Misconfiguration v2",
+				"name": "Prisma Cloud Remediation - Azure SQL Misconfiguration v2",
+				"tags": []
+			},
+			{
+				"description": "Find Azure resources by FQDN using Prisma Cloud inventory.\nSupported services: Azure VM, Azure Load Balancer, Azure Application Gateway, AKS, Azure Web Apps, Azure Storage.\n",
+				"fromversion": "6.5.0",
+				"id": "Prisma Cloud - Find Azure Resource by FQDN v2",
+				"name": "Prisma Cloud - Find Azure Resource by FQDN v2",
+				"tags": []
+			},
+			{
+				"description": "This playbook remediates the following Prisma Cloud AWS IAM User alerts.\n\nPrisma Cloud policies remediated:\n\n - AWS IAM user has two active Access Keys",
+				"fromversion": "5.0.0",
+				"id": "Prisma Cloud Remediation - AWS IAM User Policy Misconfiguration",
+				"name": "Prisma Cloud Remediation - AWS IAM User Policy Misconfiguration",
 				"tags": []
 			},
 			{
@@ -816,122 +1014,10 @@
 				"tags": []
 			},
 			{
-				"description": "Find Public Cloud resource by Public IP using Prisma Cloud inventory.",
-				"fromversion": "6.0.0",
-				"id": "Prisma Cloud - Find Public Cloud Resource by Public IP",
-				"name": "Prisma Cloud - Find Public Cloud Resource by Public IP",
-				"tags": []
-			},
-			{
-				"description": "Deprecated. Use Prisma Cloud Remediation - GCP Compute Engine Misconfiguration v2 instead.\nThis playbook remediates Prisma Cloud GCP Compute Engine alerts. It calls sub-playbooks that perform the actual remediation steps.\n\nRemediation:\n - GCP VM instances have serial port access enabled\n - GCP VM instances have block project-wide SSH keys feature disabled\n - GCP VM instances without any custom metadata information\n",
-				"fromversion": "5.0.0",
-				"id": "Prisma Cloud Remediation - GCP Compute Engine Misconfiguration",
-				"name": "Prisma Cloud Remediation - GCP Compute Engine Misconfiguration",
-				"tags": []
-			},
-			{
 				"description": "This playbook handles alerts related to dozens of Prisma Cloud public VM alerts.\nIt determines the severity of the ingested alert based on data returned from Cortex commands interacting with the Prisma Cloud API and creates new issues in either Slack or Jira, with all of the relevant information.\nThe playbook updates the Cortex alert’s layout with information the analyst can use to investigate the alert. It also extracts and enriches indicators using existing configured integrations and then closes the investigation.\n\nThe flow of this playbook is as following:\n1) Check the CSP type.\n2) Check whether there's a public IP associated to the instance. In case there is, it will continue to other steps, if not, it will set the severity of the alert to \"Low\" and will close the alert.\n3) Check if there are any vulnerabilities or findings related to the instance.\n4) Check if there are any IAM permissions associated to the instance.\n5) Set the alert severity based on the results:\n  - Low - No public IP was found.\n  - Medium - Public IP was found, other checks didn't return results.\n  - High - Public IP was found and also one of the other checks returned results.\n  - Critical - Public IP was found and both of the other checks returned results.\n6) Notifications and ticketing with 3rd party systems.\n7) Close the alert.\n\nThis playbook will run when a new alert is created with the **Prisma Cloud - VM Alert Prioritization** alert type which also includes a dedicated layout.",
 				"fromversion": "6.8.0",
 				"id": "Prisma Cloud - VM Alert Prioritization",
 				"name": "Prisma Cloud - VM Alert Prioritization",
-				"tags": []
-			},
-			{
-				"description": "Find Public Cloud resources by FQDN using Prisma Cloud inventory",
-				"fromversion": "6.0.0",
-				"id": "Prisma Cloud - Find Public Cloud Resource by FQDN",
-				"name": "Prisma Cloud - Find Public Cloud Resource by FQDN",
-				"tags": []
-			},
-			{
-				"description": "This playbook enables Prisma Cloud RQL Execution from the alert layout.",
-				"fromversion": "6.10.0",
-				"id": "Prisma Cloud - RQL Execution",
-				"name": "Prisma Cloud - RQL Execution",
-				"tags": []
-			},
-			{
-				"description": "This playbook remediates Prisma Cloud GCP Compute Engine alerts. It calls sub-playbooks that perform the actual remediation steps.\n\nRemediation:\n - GCP VM instances have serial port access enabled\n - GCP VM instances have block project-wide SSH keys feature disabled\n - GCP VM instances without any custom metadata information.",
-				"fromversion": "6.5.0",
-				"id": "Prisma Cloud Remediation - GCP Compute Engine Misconfiguration v2",
-				"name": "Prisma Cloud Remediation - GCP Compute Engine Misconfiguration v2",
-				"tags": []
-			},
-			{
-				"description": "This playbook remediates Prisma Cloud AWS EC2 alerts. It calls the following sub-playbooks to perform the remediation:\n- AWS Default Security Group Does Not Restrict All Traffic (policy id: 2378dbf4-b104-4bda-9b05-7417affbba3f)\n- AWS Security Group allows all traffic on SSH port (22) (policy id: 617b9138-584b-4e8e-ad15-7fbabafbed1a)\n- AWS Security Groups allow internet traffic from internet to RDP port (3389) (policy id: b82f90ce-ed8b-4b49-970c-2268b0a6c2e5).",
-				"fromversion": "6.5.0",
-				"id": "Prisma Cloud Remediation - AWS EC2 Instance Misconfiguration v2",
-				"name": "Prisma Cloud Remediation - AWS EC2 Instance Misconfiguration v2",
-				"tags": []
-			},
-			{
-				"description": "This playbook remediates the following Prisma Cloud AWS IAM User alerts.\n\nPrisma Cloud policies remediated:\n\n - AWS IAM user has two active Access Keys",
-				"fromversion": "5.0.0",
-				"id": "Prisma Cloud Remediation - AWS IAM User Policy Misconfiguration",
-				"name": "Prisma Cloud Remediation - AWS IAM User Policy Misconfiguration",
-				"tags": []
-			},
-			{
-				"description": "This playbook remediates the Prisma Cloud AWS EC2 alerts generated by the following policies:\n - AWS Default Security Group Does Not Restrict All Traffic\n - AWS Security Group allows all traffic on SSH port (22).",
-				"fromversion": "5.0.0",
-				"id": "Prisma Cloud Remediation - AWS EC2 Security Group Misconfiguration",
-				"name": "Prisma Cloud Remediation - AWS EC2 Security Group Misconfiguration",
-				"tags": []
-			},
-			{
-				"description": "Deprecated. Use Prisma Cloud Remediation - Azure SQL Misconfiguration v2 instead.\nThis playbook remediates Prisma Cloud Azure SQL alerts. It calls sub-playbooks that perform the actual remediation steps.\n\nRemediation:\n\n- Azure SQL database auditing is disabled\n- Azure SQL Database with Auditing Retention less than 90 days\n- Azure Threat Detection on SQL databases is set to Off\n- Azure SQL Database with Threat Retention less than or equals to 90 days",
-				"fromversion": "5.0.0",
-				"id": "Prisma Cloud Remediation - Azure SQL Misconfiguration",
-				"name": "Prisma Cloud Remediation - Azure SQL Misconfiguration",
-				"tags": []
-			},
-			{
-				"description": "This playbook remediates the following Prisma Cloud GCP Kubernetes Engine Cluster alerts.\n\nPrisma Cloud policies remediated:\n\n* GCP Kubernetes Engine Clusters Basic Authentication is set to Enabled\n* GCP Kubernetes Engine Clusters have HTTP load balancing disabled\n* GCP Kubernetes Engine Clusters have Legacy Authorization enabled\n* GCP Kubernetes Engine Clusters have Master authorized networks disabled\n* GCP Kubernetes Engine Clusters have Network policy disabled\n* GCP Kubernetes Engine Clusters have Stackdriver Logging disabled\n* GCP Kubernetes Engine Clusters have Stackdriver Monitoring disabled\n* GCP Kubernetes Engine Clusters have binary authorization disabled\n* GCP Kubernetes Engine Clusters web UI/Dashboard is set to Enabled\n* GCP Kubernetes cluster intra-node visibility disabled",
-				"fromversion": "5.0.0",
-				"id": "Prisma Cloud Remediation - GCP Kubernetes Engine Cluster Misconfiguration",
-				"name": "Prisma Cloud Remediation - GCP Kubernetes Engine Cluster Misconfiguration",
-				"tags": []
-			},
-			{
-				"description": "This playbook remediates the following Prisma Cloud AWS CloudTrail alerts.\n\nPrisma Cloud policies remediated:\n\n - AWS CloudTrail Trail Log Validation Is Not Enabled In All Regions\n - AWS CloudTrail is not enabled in all regions.",
-				"fromversion": "5.0.0",
-				"id": "Prisma Cloud Remediation - AWS CloudTrail Trail Misconfiguration",
-				"name": "Prisma Cloud Remediation - AWS CloudTrail Trail Misconfiguration",
-				"tags": []
-			},
-			{
-				"description": "This playbook remediates the following Prisma Cloud GCP VPC Network Firewall alerts.\n\nPrisma Cloud policies remediated:\n\n - GCP Firewall rule allows internet traffic to FTP port (21)\n - GCP Firewall rule allows internet traffic to HTTP port (80)\n - GCP Firewall rule allows internet traffic to MongoDB port (27017)\n - GCP Firewall rule allows internet traffic to MySQL DB port (3306)\n - GCP Firewall rule allows internet traffic to Oracle DB port (1521)\n - GCP Firewall rule allows internet traffic to PostgreSQL port (5432)\n - GCP Firewall rule allows internet traffic to RDP port (3389)\n - GCP Firewall rule allows internet traffic to SSH port (22)\n - GCP Firewall rule allows internet traffic to Telnet port (23)\n - GCP Firewall rule allows internet traffic to DNS port (53)\n - GCP Firewall rule allows internet traffic to Microsoft-DS port (445)\n - GCP Firewall rule allows internet traffic to NetBIOS-SSN port (139)\n - GCP Firewall rule allows internet traffic to POP3 port (110)\n - GCP Firewall rule allows internet traffic to SMTP port (25)\n - GCP Default Firewall rule should not have any rules (except http and https)\n - GCP Firewall with Inbound rule overly permissive to All Traffic",
-				"fromversion": "5.0.0",
-				"id": "Prisma Cloud Remediation - GCP VPC Network Firewall Misconfiguration",
-				"name": "Prisma Cloud Remediation - GCP VPC Network Firewall Misconfiguration",
-				"tags": []
-			},
-			{
-				"description": "This playbook remediates Prisma Cloud GCP Kubernetes Engine alerts. It calls sub-playbooks that perform the actual remediation steps.\n\nRemediation:\n* GCP Kubernetes Engine Clusters Basic Authentication is set to Enabled\n* GCP Kubernetes Engine Clusters have HTTP load balancing disabled\n* GCP Kubernetes Engine Clusters have Legacy Authorization enabled\n* GCP Kubernetes Engine Clusters have Master authorized networks disabled\n* GCP Kubernetes Engine Clusters have Network policy disabled\n* GCP Kubernetes Engine Clusters have Stackdriver Logging disabled\n* GCP Kubernetes Engine Clusters have Stackdriver Monitoring disabled\n* GCP Kubernetes Engine Clusters have binary authorization disabled\n* GCP Kubernetes Engine Clusters web UI/Dashboard is set to Enabled\n* GCP Kubernetes cluster intra-node visibility disabled.",
-				"fromversion": "6.5.0",
-				"id": "Prisma Cloud Remediation - GCP Kubernetes Engine Misconfiguration v2",
-				"name": "Prisma Cloud Remediation - GCP Kubernetes Engine Misconfiguration v2",
-				"tags": []
-			},
-			{
-				"description": "To increase the security of your AWS account, it is recommended to find and remove IAM user credentials (passwords, access keys) that have not been used within a specified period of time.\n\nTo remediate Prisma Cloud Alert Inactive users for more than 30 days, this playbook deactivates the user by disabling the access keys (marking them as inactive) as well as resetting the user console password.",
-				"fromversion": "5.0.0",
-				"id": "Prisma Cloud Remediation - AWS Inactive Users For More Than 30 Days",
-				"name": "Prisma Cloud Remediation - AWS Inactive Users For More Than 30 Days",
-				"tags": []
-			},
-			{
-				"description": "Deprecated. Use Prisma Cloud - Find Azure Resource by Public IP v2 instead.\nFind Azure resources by Public IP using Prisma Cloud inventory.\nSupported services: Azure VM, Azure Load Balancer, Azure Application Gateway, Azure Web Apps.\n",
-				"fromversion": "6.0.0",
-				"id": "Prisma Cloud - Find Azure Resource by Public IP",
-				"name": "Prisma Cloud - Find Azure Resource by Public IP",
-				"tags": []
-			},
-			{
-				"description": "This playbook remediates Prisma Cloud Azure Network alerts. It calls sub-playbooks that perform the actual remediation steps.\n\nRemediation:\n\n- Azure Network Security Group (NSG) having Inbound rule overly permissive to allow all traffic from any source on any protocol\n- Azure Network Security Group (NSG) having Inbound rule overly permissive to allow all traffic from any source on TCP protocol\n- Azure Network Security Group (NSG) having Inbound rule overly permissive to allow all traffic from any source on UDP protocol\n- Azure Network Security Group (NSG) allows SSH traffic from internet on port 22\n- Azure Network Security Group (NSG) allows traffic from internet on port 3389\n- Azure Network Security Group allows DNS (TCP Port 53)\n- Azure Network Security Group allows FTP (TCP Port 21)\n- Azure Network Security Group allows FTP-Data (TCP Port 20)\n- Azure Network Security Group allows MSQL (TCP Port 4333)\n- Azure Network Security Group allows MySQL (TCP Port 3306)\n- Azure Network Security Group allows Windows RPC (TCP Port 135)\n- Azure Network Security Group allows Windows SMB (TCP Port 445)\n- Azure Network Security Group allows PostgreSQL (TCP Port 5432)\n- Azure Network Security Group allows SMTP (TCP Port 25)\n- Azure Network Security Group allows SqlServer (TCP Port 1433)\n- Azure Network Security Group allows Telnet (TCP Port 23)\n- Azure Network Security Group allows VNC Listener (TCP Port 5500)\n- Azure Network Security Group allows all traffic on ICMP (Ping)\n- Azure Network Security Group allows CIFS (UDP Port 445)\n- Azure Network Security Group allows NetBIOS (UDP Port 137)\n- Azure Network Security Group allows NetBIOS (UDP Port 138)\n- Azure Network Security Group allows SQLServer (UDP Port 1434)\n- Azure Network Security Group allows DNS (UDP Port 53).",
-				"fromversion": "6.5.0",
-				"id": "Prisma Cloud Remediation - Azure Network Misconfiguration v2",
-				"name": "Prisma Cloud Remediation - Azure Network Misconfiguration v2",
 				"tags": []
 			},
 			{
@@ -942,17 +1028,10 @@
 				"tags": []
 			},
 			{
-				"description": "Find AWS resources by Public IP using Prisma Cloud inventory.\nSupported services: EC2, Network Load Balancer, ECS, Route53.\n",
-				"fromversion": "6.8.0",
-				"id": "Prisma Cloud - Find AWS Resource by Public IP v2",
-				"name": "Prisma Cloud - Find AWS Resource by Public IP v2",
-				"tags": []
-			},
-			{
-				"description": "Deprecated. Use Prisma Cloud - Find GCP Resource by Public IP v2 instead.\nFind GCP resources by Public IP using Prisma Cloud inventory.\nSupported services: GCE, Load Balancing, GKE.\n",
-				"fromversion": "6.0.0",
-				"id": "Prisma Cloud - Find GCP Resource by Public IP",
-				"name": "Prisma Cloud - Find GCP Resource by Public IP",
+				"description": "This playbook remediates Prisma Cloud GCP Kubernetes Engine alerts. It calls sub-playbooks that perform the actual remediation steps.\n\nRemediation:\n* GCP Kubernetes Engine Clusters Basic Authentication is set to Enabled\n* GCP Kubernetes Engine Clusters have HTTP load balancing disabled\n* GCP Kubernetes Engine Clusters have Legacy Authorization enabled\n* GCP Kubernetes Engine Clusters have Master authorized networks disabled\n* GCP Kubernetes Engine Clusters have Network policy disabled\n* GCP Kubernetes Engine Clusters have Stackdriver Logging disabled\n* GCP Kubernetes Engine Clusters have Stackdriver Monitoring disabled\n* GCP Kubernetes Engine Clusters have binary authorization disabled\n* GCP Kubernetes Engine Clusters web UI/Dashboard is set to Enabled\n* GCP Kubernetes cluster intra-node visibility disabled.",
+				"fromversion": "6.5.0",
+				"id": "Prisma Cloud Remediation - GCP Kubernetes Engine Misconfiguration v2",
+				"name": "Prisma Cloud Remediation - GCP Kubernetes Engine Misconfiguration v2",
 				"tags": []
 			},
 			{
@@ -963,87 +1042,52 @@
 				"tags": []
 			},
 			{
-				"description": "Deprecated. Use Prisma Cloud Remediation - Azure Storage Misconfiguration v2 instead.\nThis playbook remediates Prisma Cloud Azure Storage alerts. It calls sub-playbooks that perform the actual remediation steps.\n\nRemediation:\n\n- Azure storage account has a blob container with public access\n- Azure storage account logging for blobs is disabled\n- Azure Storage Accounts without Secure transfer enabled\n- Azure storage account logging for queues is disabled\n- Azure storage account logging for tables is disabled #95",
+				"description": "To increase the security of your AWS account, it is recommended to find and remove IAM user credentials (passwords, access keys) that have not been used within a specified period of time.\n\nTo remediate Prisma Cloud Alert Inactive users for more than 30 days, this playbook deactivates the user by disabling the access keys (marking them as inactive) as well as resetting the user console password.",
 				"fromversion": "5.0.0",
-				"id": "Prisma Cloud Remediation - Azure Storage Misconfiguration",
-				"name": "Prisma Cloud Remediation - Azure Storage Misconfiguration",
+				"id": "Prisma Cloud Remediation - AWS Inactive Users For More Than 30 Days",
+				"name": "Prisma Cloud Remediation - AWS Inactive Users For More Than 30 Days",
 				"tags": []
 			},
 			{
-				"description": "This playbook remediates the following Prisma Cloud Azure AKS cluster alerts.\n\nPrisma Cloud policies remediated:\n\n- Azure AKS cluster monitoring not enabled\n- Azure AKS cluster HTTP application routing enabled",
+				"description": "Deprecated. Use Prisma Cloud Remediation - Azure AKS Misconfiguration v2 instead.\nThis playbook remediates Prisma Cloud Azure AKS alerts. It calls sub-playbooks that perform the actual remediation steps.\n\nRemediation:\n- Azure AKS cluster monitoring not enabled\n- Azure AKS cluster HTTP application routing enabled\n",
 				"fromversion": "5.0.0",
-				"id": "Prisma Cloud Remediation - Azure AKS Cluster Misconfiguration",
-				"name": "Prisma Cloud Remediation - Azure AKS Cluster Misconfiguration",
+				"id": "Prisma Cloud Remediation - Azure AKS Misconfiguration",
+				"name": "Prisma Cloud Remediation - Azure AKS Misconfiguration",
 				"tags": []
 			},
 			{
-				"description": "Find Public Cloud resource by Public IP using Prisma Cloud inventory",
-				"fromversion": "6.8.0",
-				"id": "Prisma Cloud - Find Public Cloud Resource by Public IP v2",
-				"name": "Prisma Cloud - Find Public Cloud Resource by Public IP v2",
-				"tags": []
-			},
-			{
-				"description": "This playbook remediates Prisma Cloud Azure Storage alerts. It calls sub-playbooks that perform the actual remediation steps.\n\nRemediation:\n\n- Azure storage account has a blob container with public access\n- Azure storage account logging for blobs is disabled\n- Azure Storage Accounts without Secure transfer enabled\n- Azure storage account logging for queues is disabled\n- Azure storage account logging for tables is disabled",
-				"fromversion": "6.5.0",
-				"id": "Prisma Cloud Remediation - Azure Storage Misconfiguration v2",
-				"name": "Prisma Cloud Remediation - Azure Storage Misconfiguration v2",
-				"tags": []
-			},
-			{
-				"description": "This playbook remediates Prisma Cloud AWS CloudTrail alerts. It calls sub-playbooks that perform the actual remediation steps.\n\nRemediation:\n - AWS CloudTrail Trail Log Validation Is Not Enabled In All Regions\n - AWS CloudTrail is not enabled in all regions\n - AWS CloudTrail Trail Is Not Integrated With CloudWatch Logs\n - AWS CloudTrail is not enabled on the account.",
-				"fromversion": "6.5.0",
-				"id": "Prisma Cloud Remediation - AWS CloudTrail Misconfiguration v2",
-				"name": "Prisma Cloud Remediation - AWS CloudTrail Misconfiguration v2",
-				"tags": []
-			},
-			{
-				"description": "This playbook remediates Prisma Cloud AWS IAM policy alerts. It uses sub-playbooks that perform the remediation steps.",
-				"fromversion": "6.5.0",
-				"id": "Prisma Cloud Remediation - AWS IAM Policy Misconfiguration v2",
-				"name": "Prisma Cloud Remediation - AWS IAM Policy Misconfiguration v2",
-				"tags": []
-			},
-			{
-				"description": "This playbook will retrieve the potential owners of a runtime audit alert.\nThis is done using the \"Namespace\" value of the alert in order to query associated resource lists and user roles with associated users.\nEventually the playbook returns a list of user objects (if found).",
-				"fromversion": "6.10.0",
-				"id": "Prisma Cloud - Get Owner By Namespace",
-				"name": "Prisma Cloud - Get Owner By Namespace",
-				"tags": []
-			},
-			{
-				"description": "Search alerts in Prisma Cloud for a specific asset ID and, if present in Cortex, link them.",
-				"fromversion": "6.5.0",
-				"id": "Prisma Cloud Correlate Alerts v2",
-				"name": "Prisma Cloud Correlate Alerts v2",
-				"tags": []
-			},
-			{
-				"description": "Deprecated. Use Prisma Cloud - Find AWS Resource by Public IP v2 instead.\nFind AWS resources by Public IP using Prisma Cloud inventory.\nSupported services: EC2, Network Load Balancer, ECS, Route53.\n",
+				"description": "Deprecated. Use Prisma Cloud - Find AWS Resource by FQDN v2 instead.\nFind AWS resources by FQDN using Prisma Cloud inventory.\nSupported services: EC2, Application Load Balancer, ECS, Route53, CloudFront, S3, API Gateway.\n",
 				"fromversion": "6.0.0",
-				"id": "Prisma Cloud - Find AWS Resource by Public IP",
-				"name": "Prisma Cloud - Find AWS Resource by Public IP",
+				"id": "Prisma Cloud - Find AWS Resource by FQDN",
+				"name": "Prisma Cloud - Find AWS Resource by FQDN",
 				"tags": []
 			},
 			{
-				"description": "Deprecated. Use Prisma Cloud Remediation - AWS IAM Policy Misconfiguration v2 instead. This playbook remediates Prisma Cloud AWS IAM policy alerts. It uses sub-playbooks that perform the remediation steps.",
+				"description": "This playbook remediates the following Prisma Cloud Azure Storage blob alerts.\n\nPrisma Cloud policies remediated:\n\n- Azure storage account has a blob container with public access\n- Azure storage account logging for blobs is disabled\n",
 				"fromversion": "5.0.0",
-				"id": "Prisma Cloud Remediation - AWS IAM Policy Misconfiguration",
-				"name": "Prisma Cloud Remediation - AWS IAM Policy Misconfiguration",
+				"id": "Prisma Cloud Remediation - Azure Storage Blob Misconfiguration",
+				"name": "Prisma Cloud Remediation - Azure Storage Blob Misconfiguration",
 				"tags": []
 			},
 			{
-				"description": "Deprecated. Use Prisma Cloud Remediation - AWS EC2 Instance Misconfiguration v2 instead.\nThis playbook remediates Prisma Cloud AWS EC2 alerts. It calls the following sub-playbooks to perform the remediation:\n- AWS Default Security Group Does Not Restrict All Traffic\n- AWS Security Groups Allow Internet Traffic\n- AWS Security Groups With Inbound Rule Overly Permissive To All Traffic\n- AWS Security Groups allow internet traffic from internet to FTP-Data port (20)\n- AWS Security Groups allow internet traffic from internet to FTP port (21)\n- AWS Security Groups allow internet traffic to SSH port (22)\n- AWS Security Group allows all traffic on SSH port (22)\n- AWS Security Groups allow internet traffic from internet to Telnet port (23)\n- AWS Security Groups allow internet traffic from internet to SMTP port (25)\n- AWS Security Groups allow internet traffic from internet to DNS port (53)\n- AWS Security Groups allow internet traffic from internet to Windows RPC port (135)\n- AWS Security Groups allow internet traffic from internet to NetBIOS port (137)\n- AWS Security Groups allow internet traffic from internet to NetBIOS port (138)\n- AWS Security Groups allow internet traffic from internet to CIFS port (445)\n- AWS Security Groups allow internet traffic from internet to SQLServer port (1433)\n- AWS Security Groups allow internet traffic from internet to SQLServer port (1434)\n- AWS Security Groups allow internet traffic from internet to MYSQL port (3306)\n- AWS Security Groups allow internet traffic from internet to RDP port (3389)\n- AWS Security Groups allow internet traffic from internet to MSQL port (4333)\n- AWS Security Groups allow internet traffic from internet to PostgreSQL port (5432)\n- AWS Security Groups allow internet traffic from internet to VNC Listener port (5500)\n- AWS Security Groups allow internet traffic from internet to VNC Server port (5900)\n",
+				"description": "Deprecated. Use Prisma Cloud Remediation - GCP Compute Engine Misconfiguration v2 instead.\nThis playbook remediates Prisma Cloud GCP Compute Engine alerts. It calls sub-playbooks that perform the actual remediation steps.\n\nRemediation:\n - GCP VM instances have serial port access enabled\n - GCP VM instances have block project-wide SSH keys feature disabled\n - GCP VM instances without any custom metadata information\n",
 				"fromversion": "5.0.0",
-				"id": "Prisma Cloud Remediation - AWS EC2 Instance Misconfiguration",
-				"name": "Prisma Cloud Remediation - AWS EC2 Instance Misconfiguration",
+				"id": "Prisma Cloud Remediation - GCP Compute Engine Misconfiguration",
+				"name": "Prisma Cloud Remediation - GCP Compute Engine Misconfiguration",
 				"tags": []
 			},
 			{
-				"description": "Find AWS resources by FQDN using Prisma Cloud inventory.\nSupported services: EC2, Application Load Balancer, ECS, Route53, CloudFront, S3, API Gateway.\n",
-				"fromversion": "6.5.0",
-				"id": "Prisma Cloud - Find AWS Resource by FQDN v2",
-				"name": "Prisma Cloud - Find AWS Resource by FQDN v2",
+				"description": "This playbook remediates the following Prisma Cloud AWS IAM password policy alerts.\n\nPrisma Cloud policies remediated:\n- AWS IAM password policy allows password reuse\n- AWS IAM password policy does not expire in 90 days\n- AWS IAM password policy does not have a lowercase character\n- AWS IAM password policy does not have a minimum of 14 characters\n- AWS IAM password policy does not have a number\n- AWS IAM password policy does not have a symbol\n- AWS IAM password policy does not have a uppercase character\n- AWS IAM password policy does not have password expiration period\n- AWS IAM Password policy is insecure",
+				"fromversion": "5.0.0",
+				"id": "Prisma Cloud Remediation - AWS IAM Password Policy Misconfiguration",
+				"name": "Prisma Cloud Remediation - AWS IAM Password Policy Misconfiguration",
+				"tags": []
+			},
+			{
+				"description": "This playbook remediates the following Prisma Cloud AWS CloudTrail alerts.\n\nPrisma Cloud policies remediated:\n\n - AWS CloudTrail Is Not Integrated With CloudWatch Logs",
+				"fromversion": "5.0.0",
+				"id": "Prisma Cloud Remediation - AWS CloudTrail Is Not Integrated With CloudWatch Logs",
+				"name": "Prisma Cloud Remediation - AWS CloudTrail Is Not Integrated With CloudWatch Logs",
 				"tags": []
 			}
 		],
@@ -1052,10 +1096,34 @@
 		"trigger": [
 			{
 				"deprecated": false,
+				"description": "This trigger is responsible for handling AWS EC2 Instance Misconfiguration alerts",
+				"fromversion": "8.0.0",
+				"id": "44e61bd26eec45c3264a384324567e90",
+				"name": "AWS EC2 Instance Misconfiguration",
+				"toversion": ""
+			},
+			{
+				"deprecated": false,
+				"description": "This trigger is responsible for handling AWS IAM Policy Misconfiguration alerts",
+				"fromversion": "8.0.0",
+				"id": "3abc6225418901f71303bdaf73df7ae9",
+				"name": "AWS IAM Policy Misconfiguration",
+				"toversion": ""
+			},
+			{
+				"deprecated": false,
 				"description": "This trigger is responsible for handling AWS CloudTrail Misconfiguration alerts",
 				"fromversion": "8.0.0",
 				"id": "fc37d4039563569b21b5bebec0a92500",
 				"name": "AWS CloudTrail Misconfiguration",
+				"toversion": ""
+			},
+			{
+				"deprecated": false,
+				"description": "This trigger is responsible for handling GCP Compute Engine Misconfiguration alerts",
+				"fromversion": "8.0.0",
+				"id": "d150d0519b334c040b1fcc0f34a3ded9",
+				"name": "GCP Compute Engine Misconfiguration",
 				"toversion": ""
 			},
 			{
@@ -1068,18 +1136,10 @@
 			},
 			{
 				"deprecated": false,
-				"description": "This trigger is responsible for handling Azure Network Misconfiguration alerts",
-				"fromversion": "8.0.0",
-				"id": "b1d5915dea04d48f8aff2eff41ad8351",
-				"name": "Azure Network Misconfiguration",
-				"toversion": ""
-			},
-			{
-				"deprecated": false,
-				"description": "This trigger is responsible for handling GCP Kubernetes Engine Misconfiguration alerts",
-				"fromversion": "8.0.0",
-				"id": "7106713a54ef8482181fe37bbf7fda29",
-				"name": "GCP Kubernetes Engine Misconfiguration",
+				"description": "This trigger is responsible for handling  Prisma Cloud Network, API and Anomaly alerts",
+				"fromversion": "6.10.0",
+				"id": "c8a93aad286ff93763120c0e47696f82",
+				"name": "Prisma Cloud Network API and Anomaly alerts",
 				"toversion": ""
 			},
 			{
@@ -1088,6 +1148,14 @@
 				"fromversion": "8.0.0",
 				"id": "29cdd6d019dcaaea2d1ca79371f9f7cb",
 				"name": "Azure SQL Misconfiguration",
+				"toversion": ""
+			},
+			{
+				"deprecated": false,
+				"description": "This trigger is responsible for handling GCP Kubernetes Engine Misconfiguration alerts",
+				"fromversion": "8.0.0",
+				"id": "7106713a54ef8482181fe37bbf7fda29",
+				"name": "GCP Kubernetes Engine Misconfiguration",
 				"toversion": ""
 			},
 			{
@@ -1108,34 +1176,10 @@
 			},
 			{
 				"deprecated": false,
-				"description": "This trigger is responsible for handling GCP Compute Engine Misconfiguration alerts",
+				"description": "This trigger is responsible for handling Azure Network Misconfiguration alerts",
 				"fromversion": "8.0.0",
-				"id": "d150d0519b334c040b1fcc0f34a3ded9",
-				"name": "GCP Compute Engine Misconfiguration",
-				"toversion": ""
-			},
-			{
-				"deprecated": false,
-				"description": "This trigger is responsible for handling AWS IAM Policy Misconfiguration alerts",
-				"fromversion": "8.0.0",
-				"id": "3abc6225418901f71303bdaf73df7ae9",
-				"name": "AWS IAM Policy Misconfiguration",
-				"toversion": ""
-			},
-			{
-				"deprecated": false,
-				"description": "This trigger is responsible for handling  Prisma Cloud Network, API and Anomaly alerts",
-				"fromversion": "6.10.0",
-				"id": "c8a93aad286ff93763120c0e47696f82",
-				"name": "Prisma Cloud Network API and Anomaly alerts",
-				"toversion": ""
-			},
-			{
-				"deprecated": false,
-				"description": "This trigger is responsible for handling AWS EC2 Instance Misconfiguration alerts",
-				"fromversion": "8.0.0",
-				"id": "44e61bd26eec45c3264a384324567e90",
-				"name": "AWS EC2 Instance Misconfiguration",
+				"id": "b1d5915dea04d48f8aff2eff41ad8351",
+				"name": "Azure Network Misconfiguration",
 				"toversion": ""
 			}
 		],
@@ -1143,7 +1187,7 @@
 		"wizard": null
 	},
 	"created": "2025-03-29T09:46:42Z",
-	"currentVersion": "4.4.19",
+	"currentVersion": "4.4.20",
 	"defaultDataSource": {
 		"id": "",
 		"name": ""
@@ -1231,7 +1275,7 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.21.8",
+			"minVersion": "1.22.0",
 			"name": "Common Scripts"
 		},
 		"CommonTypes": {
@@ -1331,14 +1375,44 @@
 			"name": "PrismaCloud IAM"
 		},
 		{
+			"id": "AWS - S3",
+			"imagePath": "content/packs/AWS-S3/AWS-S3_image.png",
+			"name": "AWS - S3"
+		},
+		{
 			"id": "AWS - CloudTrail",
 			"imagePath": "content/packs/AWS-CloudTrail/AWS-CloudTrail_image.png",
 			"name": "AWS - CloudTrail"
 		},
 		{
-			"id": "Azure Kubernetes Services",
-			"imagePath": "content/packs/AzureKubernetesServices/AzureKubernetesServices_image.png",
-			"name": "Azure Kubernetes Services"
+			"id": "GoogleKubernetesEngine",
+			"imagePath": "content/packs/GoogleKubernetesEngine/GoogleKubernetesEngine_image.png",
+			"name": "Google Kubernetes Engine"
+		},
+		{
+			"id": "AWS - EC2",
+			"imagePath": "content/packs/AWS-EC2/AWS-EC2_image.png",
+			"name": "AWS - EC2"
+		},
+		{
+			"id": "jira-v2",
+			"imagePath": "content/packs/Jira/jira-v2_image.png",
+			"name": "Atlassian Jira v2 (Deprecated)"
+		},
+		{
+			"id": "Jira V3",
+			"imagePath": "content/packs/Jira/JiraV3_image.png",
+			"name": "Atlassian Jira v3"
+		},
+		{
+			"id": "Jira Event Collector",
+			"imagePath": "content/packs/Jira/JiraEventCollector_image.png",
+			"name": "Jira Event Collector"
+		},
+		{
+			"id": "AWS - IAM",
+			"imagePath": "content/packs/AWS-IAM/AWS-IAM_image.png",
+			"name": "AWS - Identity and Access Management"
 		},
 		{
 			"id": "Slack Event Collector",
@@ -1361,49 +1435,9 @@
 			"name": "Slack v3"
 		},
 		{
-			"id": "AWS - EC2",
-			"imagePath": "content/packs/AWS-EC2/AWS-EC2_image.png",
-			"name": "AWS - EC2"
-		},
-		{
-			"id": "AWS - S3",
-			"imagePath": "content/packs/AWS-S3/AWS-S3_image.png",
-			"name": "AWS - S3"
-		},
-		{
-			"id": "AWS - IAM",
-			"imagePath": "content/packs/AWS-IAM/AWS-IAM_image.png",
-			"name": "AWS - Identity and Access Management"
-		},
-		{
-			"id": "Azure Storage",
-			"imagePath": "content/packs/AzureStorage/AzureStorage_image.png",
-			"name": "Azure Storage Management"
-		},
-		{
-			"id": "Azure SQL Management",
-			"imagePath": "content/packs/AzureSQLManagement/AzureSQLManagement_image.png",
-			"name": "Azure SQL Management"
-		},
-		{
-			"id": "jira-v2",
-			"imagePath": "content/packs/Jira/jira-v2_image.png",
-			"name": "Atlassian Jira v2 (Deprecated)"
-		},
-		{
-			"id": "Jira V3",
-			"imagePath": "content/packs/Jira/JiraV3_image.png",
-			"name": "Atlassian Jira v3"
-		},
-		{
-			"id": "Jira Event Collector",
-			"imagePath": "content/packs/Jira/JiraEventCollector_image.png",
-			"name": "Jira Event Collector"
-		},
-		{
-			"id": "Google Cloud Compute",
-			"imagePath": "content/packs/GoogleCloudCompute/GoogleCloudCompute_image.png",
-			"name": "Google Cloud Compute"
+			"id": "Azure Kubernetes Services",
+			"imagePath": "content/packs/AzureKubernetesServices/AzureKubernetesServices_image.png",
+			"name": "Azure Kubernetes Services"
 		},
 		{
 			"id": "Cortex Core - Platform",
@@ -1426,23 +1460,33 @@
 			"name": "XQL Query Engine"
 		},
 		{
-			"id": "GoogleKubernetesEngine",
-			"imagePath": "content/packs/GoogleKubernetesEngine/GoogleKubernetesEngine_image.png",
-			"name": "Google Kubernetes Engine"
-		},
-		{
 			"id": "AWS - CloudWatchLogs",
 			"imagePath": "content/packs/AWS-CloudWatchLogs/AWS-CloudWatchLogs_image.png",
 			"name": "AWS - CloudWatchLogs"
 		},
 		{
+			"id": "Azure SQL Management",
+			"imagePath": "content/packs/AzureSQLManagement/AzureSQLManagement_image.png",
+			"name": "Azure SQL Management"
+		},
+		{
+			"id": "Azure Storage",
+			"imagePath": "content/packs/AzureStorage/AzureStorage_image.png",
+			"name": "Azure Storage Management"
+		},
+		{
 			"id": "Azure Network Security Groups",
 			"imagePath": "content/packs/AzureNetworkSecurityGroups/AzureNetworkSecurityGroups_image.png",
 			"name": "Azure Network Security Groups"
+		},
+		{
+			"id": "Google Cloud Compute",
+			"imagePath": "content/packs/GoogleCloudCompute/GoogleCloudCompute_image.png",
+			"name": "Google Cloud Compute"
 		}
 	],
 	"isOverridable": false,
-	"itemVersion": "4.4.19",
+	"itemVersion": "4.4.20",
 	"keywords": [],
 	"legacy": true,
 	"modules": [],
@@ -1479,10 +1523,10 @@
 		"Collection"
 	],
 	"toServerVersion": "",
-	"updated": "2026-04-20T20:04:46Z",
+	"updated": "2026-04-23T19:52:35Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "8382811",
+	"versionInfo": "8429843",
 	"videos": [
 		"https://www.youtube.com/watch?v=MtLHCiV_1Wo"
 	]
