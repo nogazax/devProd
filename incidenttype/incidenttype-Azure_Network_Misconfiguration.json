@@ -18,7 +18,7 @@
 	"hoursR": 0,
 	"id": "Azure Network Misconfiguration",
 	"isOverridable": false,
-	"itemVersion": "4.4.19",
+	"itemVersion": "4.4.20",
 	"layout": "Azure Network Misconfiguration",
 	"locked": false,
 	"name": "Azure Network Misconfiguration",
@@ -33,6 +33,10 @@
 	"propagationLabels": [],
 	"readonly": false,
 	"reputationCalc": 0,
+	"supportedModules": [
+		"agentix",
+		"xsiam"
+	],
 	"system": true,
 	"toServerVersion": "",
 	"version": -1,
