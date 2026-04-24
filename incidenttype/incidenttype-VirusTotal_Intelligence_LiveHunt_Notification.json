@@ -24,7 +24,7 @@
 	"hoursR": 0,
 	"id": "VirusTotal Intelligence LiveHunt Notification",
 	"isOverridable": false,
-	"itemVersion": "2.7.15",
+	"itemVersion": "2.7.16",
 	"layout": "",
 	"locked": false,
 	"name": "VirusTotal Intelligence LiveHunt Notification",
@@ -38,6 +38,10 @@
 	"propagationLabels": [],
 	"readonly": false,
 	"reputationCalc": 0,
+	"supportedModules": [
+		"agentix",
+		"xsiam"
+	],
 	"system": true,
 	"toServerVersion": "",
 	"version": -1,
