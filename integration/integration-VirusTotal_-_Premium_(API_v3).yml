@@ -61,7 +61,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.5.0
     isoverridable: false
-    itemVersion: 2.7.16
+    itemVersion: 2.7.17
     packID: VirusTotal
     packName: VirusTotal
     packPropagationLabels:
@@ -1674,8 +1674,8 @@ script:
   runonce: false
   script: |
     register_module_line('VirusTotal - Premium (API v3)', 'start', __line__())
-    CONSTANT_PACK_VERSION = '2.7.16'
-    demisto.debug('pack id = VirusTotal, pack version = 2.7.16')
+    CONSTANT_PACK_VERSION = '2.7.17'
+    demisto.debug('pack id = VirusTotal, pack version = 2.7.17')
     """
     VirusTotal V3 - Premium API
     Difference: https://docs.virustotal.com/reference/public-vs-premium-api
