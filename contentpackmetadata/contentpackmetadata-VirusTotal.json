@@ -47,17 +47,29 @@
 		"indicatorfield": [
 			{
 				"description": "",
-				"name": "VT Engine Vendors",
-				"type": "tagsSelect"
-			},
-			{
-				"description": "",
 				"name": "VT Engine Detections",
+				"supportedModules": [
+					"agentix",
+					"xsiam"
+				],
 				"type": "number"
 			},
 			{
 				"description": "",
+				"name": "VT Engine Vendors",
+				"supportedModules": [
+					"agentix",
+					"xsiam"
+				],
+				"type": "tagsSelect"
+			},
+			{
+				"description": "",
 				"name": "VT Engine Detection Names",
+				"supportedModules": [
+					"agentix",
+					"xsiam"
+				],
 				"type": "tagsSelect"
 			}
 		],
@@ -403,10 +415,24 @@
 		"list": null,
 		"playbook": [
 			{
+				"description": "Detonate a file through VirusTotal (API v3)",
+				"fromversion": "5.5.0",
+				"id": "Detonate File - VirusTotal (API v3)",
+				"name": "Detonate File - VirusTotal (API v3)",
+				"tags": []
+			},
+			{
 				"description": "Detonate one or more files using the VirusTotal integration. This playbook returns relevant reports to the War Room and file reputations to the context data.",
 				"fromversion": "5.0.0",
 				"id": "Detonate File - VirusTotal",
 				"name": "Detonate File - VirusTotal",
+				"tags": []
+			},
+			{
+				"description": "Get file information using the Virus Total API integration.",
+				"fromversion": "6.0.0",
+				"id": "File Enrichment - Virus Total (API v3)",
+				"name": "File Enrichment - Virus Total (API v3)",
 				"tags": []
 			},
 			{
@@ -424,24 +450,10 @@
 				"tags": []
 			},
 			{
-				"description": "Detonate a file through VirusTotal (API v3)",
-				"fromversion": "5.5.0",
-				"id": "Detonate File - VirusTotal (API v3)",
-				"name": "Detonate File - VirusTotal (API v3)",
-				"tags": []
-			},
-			{
 				"description": "Detonate a private file through VirusTotal Private Scanning service",
 				"fromversion": "5.5.0",
 				"id": "Detonate Private File - VirusTotal Private Scanning",
 				"name": "Detonate Private File - VirusTotal Private Scanning",
-				"tags": []
-			},
-			{
-				"description": "Get file information using the Virus Total API integration.",
-				"fromversion": "6.0.0",
-				"id": "File Enrichment - Virus Total (API v3)",
-				"name": "File Enrichment - Virus Total (API v3)",
 				"tags": []
 			}
 		],
@@ -451,7 +463,7 @@
 		"wizard": null
 	},
 	"created": "2025-03-29T09:35:07Z",
-	"currentVersion": "2.7.16",
+	"currentVersion": "2.7.17",
 	"defaultDataSource": {
 		"id": "VirusTotal - Premium (API v3)",
 		"name": "VirusTotal - Premium (API v3)"
@@ -462,7 +474,7 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.41.74",
+			"minVersion": "1.41.75",
 			"name": "Base"
 		},
 		"CommonPlaybooks": {
@@ -538,7 +550,7 @@
 		}
 	],
 	"isOverridable": false,
-	"itemVersion": "2.7.16",
+	"itemVersion": "2.7.17",
 	"keywords": [],
 	"legacy": true,
 	"modules": [],
@@ -571,15 +583,15 @@
 		"cloud_runtime_security"
 	],
 	"tags": [
-		"TIM",
-		"Free Enricher",
 		"Featured",
-		"Data Source"
+		"Free Enricher",
+		"Data Source",
+		"TIM"
 	],
 	"toServerVersion": "",
-	"updated": "2026-04-23T19:50:01Z",
+	"updated": "2026-04-26T10:01:05Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "8429843",
+	"versionInfo": "8463984",
 	"videos": []
 }
