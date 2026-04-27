@@ -50,17 +50,17 @@
 		"incidentfield": [
 			{
 				"description": "",
+				"name": "Hello World Type",
+				"type": "shortText"
+			},
+			{
+				"description": "",
 				"name": "Hello World Status",
 				"type": "shortText"
 			},
 			{
 				"description": "",
 				"name": "Hello World ID",
-				"type": "shortText"
-			},
-			{
-				"description": "",
-				"name": "Hello World Type",
 				"type": "shortText"
 			}
 		],
@@ -95,18 +95,33 @@
 				"toversion": ""
 			},
 			{
-				"category": "Data Enrichment \u0026 Threat Intelligence",
+				"category": "Utilities",
 				"commands": [
 					{
-						"description": "Gets indicators from the feed.",
+						"description": "Hello command - prints hello to anyone.",
 						"hidden": false,
-						"name": "helloworld-get-indicators"
+						"name": "helloworld-say-hello"
+					},
+					{
+						"description": "Lists the example alerts as it would be fetched from the API.",
+						"hidden": false,
+						"name": "helloworld-alert-list"
+					},
+					{
+						"description": "Example of creating a new item in the API.",
+						"hidden": false,
+						"name": "helloworld-alert-note-create"
+					},
+					{
+						"description": "Return IP information and reputation.",
+						"hidden": false,
+						"name": "ip"
 					}
 				],
-				"description": "This is the Feed Hello World integration for getting started with your feed integration.",
-				"fromversion": "5.5.0",
-				"id": "HelloWorld Feed",
-				"name": "HelloWorld Feed (Community Contribution)",
+				"description": "This is the Hello World integration for getting started.",
+				"fromversion": "6.8.0",
+				"id": "HelloWorld",
+				"name": "HelloWorld (Community Contribution)",
 				"toversion": ""
 			},
 			{
@@ -168,33 +183,18 @@
 				"toversion": ""
 			},
 			{
-				"category": "Utilities",
+				"category": "Data Enrichment \u0026 Threat Intelligence",
 				"commands": [
 					{
-						"description": "Hello command - prints hello to anyone.",
+						"description": "Gets indicators from the feed.",
 						"hidden": false,
-						"name": "helloworld-say-hello"
-					},
-					{
-						"description": "Lists the example alerts as it would be fetched from the API.",
-						"hidden": false,
-						"name": "helloworld-alert-list"
-					},
-					{
-						"description": "Example of creating a new item in the API.",
-						"hidden": false,
-						"name": "helloworld-alert-note-create"
-					},
-					{
-						"description": "Return IP information and reputation.",
-						"hidden": false,
-						"name": "ip"
+						"name": "helloworld-get-indicators"
 					}
 				],
-				"description": "This is the Hello World integration for getting started.",
-				"fromversion": "6.8.0",
-				"id": "HelloWorld",
-				"name": "HelloWorld (Community Contribution)",
+				"description": "This is the Feed Hello World integration for getting started with your feed integration.",
+				"fromversion": "5.5.0",
+				"id": "HelloWorld Feed",
+				"name": "HelloWorld Feed (Community Contribution)",
 				"toversion": ""
 			}
 		],
@@ -220,22 +220,25 @@
 				"fromversion": "8.4.0",
 				"id": "HelloWorldParsingRule",
 				"name": "HelloWorld Parsing Rule",
+				"supportedModules": [
+					"xsiam"
+				],
 				"toversion": ""
 			}
 		],
 		"playbook": [
 			{
-				"description": "Deprecated. No available replacement.",
-				"fromversion": "5.0.0",
-				"id": "HelloWorld Scan",
-				"name": "HelloWorld Scan",
-				"tags": []
-			},
-			{
 				"description": "This is a playbook which will handle the alerts coming from the Hello World service",
 				"fromversion": "6.8.0",
 				"id": "Handle Hello World Alert",
 				"name": "Handle Hello World Alert",
+				"tags": []
+			},
+			{
+				"description": "Deprecated. No available replacement.",
+				"fromversion": "5.0.0",
+				"id": "HelloWorld Scan",
+				"name": "HelloWorld Scan",
 				"tags": []
 			}
 		],
@@ -245,7 +248,7 @@
 		"wizard": null
 	},
 	"created": "2025-03-29T09:38:42Z",
-	"currentVersion": "4.0.5",
+	"currentVersion": "4.0.6",
 	"defaultDataSource": {
 		"id": "HelloWorldEventCollector",
 		"name": "HelloWorld Event Collector"
@@ -256,7 +259,7 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.41.74",
+			"minVersion": "1.41.75",
 			"name": "Base"
 		},
 		"CommonPlaybooks": {
@@ -270,7 +273,7 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.21.8",
+			"minVersion": "1.22.0",
 			"name": "Common Scripts"
 		},
 		"CommonTypes": {
@@ -317,7 +320,7 @@
 		}
 	],
 	"isOverridable": false,
-	"itemVersion": "4.0.5",
+	"itemVersion": "4.0.6",
 	"keywords": [],
 	"legacy": true,
 	"modules": [],
@@ -353,9 +356,9 @@
 		"Data Source"
 	],
 	"toServerVersion": "",
-	"updated": "2026-04-20T20:06:45Z",
+	"updated": "2026-04-26T20:09:52Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "8382811",
+	"versionInfo": "8479105",
 	"videos": []
 }
