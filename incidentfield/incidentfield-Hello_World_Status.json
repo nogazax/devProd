@@ -28,7 +28,7 @@
 	"ipVersion": "",
 	"isOverridable": false,
 	"isReadOnly": false,
-	"itemVersion": "4.0.5",
+	"itemVersion": "4.0.6",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "Hello World Status",
