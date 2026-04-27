@@ -92,7 +92,7 @@
 		"wizard": null
 	},
 	"created": "2025-03-29T09:46:53Z",
-	"currentVersion": "1.2.22",
+	"currentVersion": "1.2.23",
 	"defaultDataSource": {
 		"id": "",
 		"name": ""
@@ -103,14 +103,14 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.41.74",
+			"minVersion": "1.41.75",
 			"name": "Base"
 		},
 		"CommonScripts": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.21.8",
+			"minVersion": "1.22.0",
 			"name": "Common Scripts"
 		}
 	},
@@ -137,7 +137,7 @@
 		}
 	],
 	"isOverridable": false,
-	"itemVersion": "1.2.22",
+	"itemVersion": "1.2.23",
 	"keywords": [
 		"MITRE",
 		"Feed",
@@ -177,15 +177,15 @@
 		"exposure_management"
 	],
 	"tags": [
-		"Threat Intelligence Management",
-		"TIM",
 		"Free Feed",
+		"TIM",
+		"Threat Intelligence Management",
 		"Plug \u0026 Fetch"
 	],
 	"toServerVersion": "",
-	"updated": "2026-04-20T19:57:05Z",
+	"updated": "2026-04-26T19:58:35Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "8382811",
+	"versionInfo": "8479105",
 	"videos": []
 }
