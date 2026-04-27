@@ -28,7 +28,7 @@
 	"ipVersion": "",
 	"isOverridable": false,
 	"isReadOnly": false,
-	"itemVersion": "3.3.29",
+	"itemVersion": "3.3.30",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "Generic Export Indicators Service Action",
@@ -53,6 +53,10 @@
 	],
 	"selectValuesMap": null,
 	"sla": 0,
+	"supportedModules": [
+		"agentix",
+		"xsiam"
+	],
 	"system": false,
 	"systemAssociatedTypes": null,
 	"template": "",
