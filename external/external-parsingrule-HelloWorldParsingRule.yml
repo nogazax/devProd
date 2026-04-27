@@ -7,13 +7,14 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 8.4.0
     isoverridable: false
-    itemVersion: 4.0.5
+    itemVersion: 4.0.6
     packID: HelloWorld
     packName: HelloWorld
     packPropagationLabels:
     - all
     prevname: ""
-    supportedModules: []
+    supportedModules:
+    - xsiam
     toServerVersion: ""
 externalitemdata: |
   fromversion: 8.4.0
@@ -26,11 +27,13 @@ externalitemdata: |
 
     alter _time = created_time;
   samples: ''
+  supportedModules:
+  - xsiam
 filetype: yml
 is_auto_enabled: false
 name: HelloWorld Parsing Rule
 packid: HelloWorld
 packname: HelloWorld
-packversion: 4.0.5
+packversion: 4.0.6
 playbook_id: ""
 subtype: parsingrule
