@@ -31,19 +31,10 @@
 		"agentixagent": null,
 		"automation": [
 			{
-				"description": "SlackBlockBuilder will format a given Slack block into a format readable by the SlackV3 integration. The script will also send the block to the given destination. Make sure to mark **Trust any certificate** and fill the **XSOAR API Key integration** parameters if you want to get a response to the incident context.",
-				"fromversion": "6.2.0",
-				"id": "SlackBlockBuilder",
-				"name": "SlackBlockBuilder",
-				"tags": [
-					"slack"
-				]
-			},
-			{
-				"description": "Sends a message (question) to either user (in a direct message) or to a channel. The message includes predefined reply options. The response can also close a task (might be conditional) in a playbook. Note: a message maximum length is 3000 characters enforced by Slack API.",
-				"fromversion": "5.5.0",
-				"id": "SlackAskV2",
-				"name": "SlackAskV2",
+				"description": "Sends a message (question) to either user (in a direct message) or to a channel. The message includes predefined reply options. The response can also close a task (might be conditional) in a playbook.",
+				"fromversion": "5.0.0",
+				"id": "SlackAsk",
+				"name": "SlackAsk",
 				"tags": [
 					"slack"
 				]
@@ -58,10 +49,19 @@
 				]
 			},
 			{
-				"description": "Sends a message (question) to either user (in a direct message) or to a channel. The message includes predefined reply options. The response can also close a task (might be conditional) in a playbook.",
-				"fromversion": "5.0.0",
-				"id": "SlackAsk",
-				"name": "SlackAsk",
+				"description": "SlackBlockBuilder will format a given Slack block into a format readable by the SlackV3 integration. The script will also send the block to the given destination. Make sure to mark **Trust any certificate** and fill the **XSOAR API Key integration** parameters if you want to get a response to the incident context.",
+				"fromversion": "6.2.0",
+				"id": "SlackBlockBuilder",
+				"name": "SlackBlockBuilder",
+				"tags": [
+					"slack"
+				]
+			},
+			{
+				"description": "Sends a message (question) to either user (in a direct message) or to a channel. The message includes predefined reply options. The response can also close a task (might be conditional) in a playbook. Note: a message maximum length is 3000 characters enforced by Slack API.",
+				"fromversion": "5.5.0",
+				"id": "SlackAskV2",
+				"name": "SlackAskV2",
 				"tags": [
 					"slack"
 				]
@@ -111,106 +111,6 @@
 				"supportedModules": [
 					"xsiam"
 				],
-				"toversion": ""
-			},
-			{
-				"category": "Messaging and Conferencing",
-				"commands": [
-					{
-						"description": "Mirrors the investigation between Slack and the Cortex War Room.",
-						"hidden": false,
-						"name": "mirror-investigation"
-					},
-					{
-						"description": "Sends a message to a user, group, or channel.",
-						"hidden": false,
-						"name": "send-notification"
-					},
-					{
-						"description": "Archives a Slack channel.",
-						"hidden": false,
-						"name": "close-channel"
-					},
-					{
-						"description": "Sends a file to a user, channel, or group. If not specified, the file is sent to the mirrored investigation channel (if the channel exists).",
-						"hidden": false,
-						"name": "slack-send-file"
-					},
-					{
-						"description": "Sets the topic for a channel.",
-						"hidden": false,
-						"name": "slack-set-channel-topic"
-					},
-					{
-						"description": "Creates a channel in Slack.",
-						"hidden": false,
-						"name": "slack-create-channel"
-					},
-					{
-						"description": "Invites users to join a channel.",
-						"hidden": false,
-						"name": "slack-invite-to-channel"
-					},
-					{
-						"description": "Removes users from the specified channel.",
-						"hidden": false,
-						"name": "slack-kick-from-channel"
-					},
-					{
-						"description": "Renames a channel in Slack.",
-						"hidden": false,
-						"name": "slack-rename-channel"
-					},
-					{
-						"description": "Get details about a specified user.",
-						"hidden": false,
-						"name": "slack-get-user-details"
-					},
-					{
-						"description": "Returns the integration context as a file. Use this command for debug purposes only.",
-						"hidden": true,
-						"name": "slack-get-integration-context"
-					},
-					{
-						"description": "Pins a selected message to the given channel.",
-						"hidden": false,
-						"name": "slack-pin-message"
-					},
-					{
-						"description": "Edit an existing Slack message.",
-						"hidden": false,
-						"name": "slack-edit-message"
-					},
-					{
-						"description": "Reset user session token in Slack.",
-						"hidden": false,
-						"name": "slack-user-session-reset"
-					},
-					{
-						"description": "List all of the channels in the organization workspace. This command required scopes depend on the type of channel-like object you're working with. To use the command, you'll need at least one of the channels:, groups:, im: or mpim: scopes corresponding to the conversation type you're working with.",
-						"hidden": false,
-						"name": "slack-list-channels"
-					},
-					{
-						"description": "Fetches a conversation's history of messages and events.",
-						"hidden": false,
-						"name": "slack-get-conversation-history"
-					},
-					{
-						"description": "Retrieves replies to specific messages, regardless of whether it's from a public or private channel, direct message, or otherwise.",
-						"hidden": false,
-						"name": "slack-get-conversation-replies"
-					},
-					{
-						"description": "Sends a message to a user, group, or channel.",
-						"hidden": true,
-						"name": "slack-send-notification-quick-action"
-					}
-				],
-				"description": "Send messages and notifications to your Slack team.",
-				"fromversion": "8.14.0",
-				"id": "SlackV3",
-				"name": "Slack v3",
 				"toversion": ""
 			},
 			{
@@ -359,6 +259,106 @@
 					"cloud_runtime_security"
 				],
 				"toversion": ""
+			},
+			{
+				"category": "Messaging and Conferencing",
+				"commands": [
+					{
+						"description": "Mirrors the investigation between Slack and the Cortex War Room.",
+						"hidden": false,
+						"name": "mirror-investigation"
+					},
+					{
+						"description": "Sends a message to a user, group, or channel.",
+						"hidden": false,
+						"name": "send-notification"
+					},
+					{
+						"description": "Archives a Slack channel.",
+						"hidden": false,
+						"name": "close-channel"
+					},
+					{
+						"description": "Sends a file to a user, channel, or group. If not specified, the file is sent to the mirrored investigation channel (if the channel exists).",
+						"hidden": false,
+						"name": "slack-send-file"
+					},
+					{
+						"description": "Sets the topic for a channel.",
+						"hidden": false,
+						"name": "slack-set-channel-topic"
+					},
+					{
+						"description": "Creates a channel in Slack.",
+						"hidden": false,
+						"name": "slack-create-channel"
+					},
+					{
+						"description": "Invites users to join a channel.",
+						"hidden": false,
+						"name": "slack-invite-to-channel"
+					},
+					{
+						"description": "Removes users from the specified channel.",
+						"hidden": false,
+						"name": "slack-kick-from-channel"
+					},
+					{
+						"description": "Renames a channel in Slack.",
+						"hidden": false,
+						"name": "slack-rename-channel"
+					},
+					{
+						"description": "Get details about a specified user.",
+						"hidden": false,
+						"name": "slack-get-user-details"
+					},
+					{
+						"description": "Returns the integration context as a file. Use this command for debug purposes only.",
+						"hidden": true,
+						"name": "slack-get-integration-context"
+					},
+					{
+						"description": "Pins a selected message to the given channel.",
+						"hidden": false,
+						"name": "slack-pin-message"
+					},
+					{
+						"description": "Edit an existing Slack message.",
+						"hidden": false,
+						"name": "slack-edit-message"
+					},
+					{
+						"description": "Reset user session token in Slack.",
+						"hidden": false,
+						"name": "slack-user-session-reset"
+					},
+					{
+						"description": "List all of the channels in the organization workspace. This command required scopes depend on the type of channel-like object you're working with. To use the command, you'll need at least one of the channels:, groups:, im: or mpim: scopes corresponding to the conversation type you're working with.",
+						"hidden": false,
+						"name": "slack-list-channels"
+					},
+					{
+						"description": "Fetches a conversation's history of messages and events.",
+						"hidden": false,
+						"name": "slack-get-conversation-history"
+					},
+					{
+						"description": "Retrieves replies to specific messages, regardless of whether it's from a public or private channel, direct message, or otherwise.",
+						"hidden": false,
+						"name": "slack-get-conversation-replies"
+					},
+					{
+						"description": "Sends a message to a user, group, or channel.",
+						"hidden": true,
+						"name": "slack-send-notification-quick-action"
+					}
+				],
+				"description": "Send messages and notifications to your Slack team.",
+				"fromversion": "8.14.0",
+				"id": "SlackV3",
+				"name": "Slack v3",
+				"toversion": ""
 			}
 		],
 		"layoutscontainer": null,
@@ -388,7 +388,6 @@
 				"id": "Slack_ParsingRule",
 				"name": "Slack Parsing Rule",
 				"supportedModules": [
-					"agentix",
 					"xsiam"
 				],
 				"toversion": ""
@@ -396,10 +395,10 @@
 		],
 		"playbook": [
 			{
-				"description": "This is an example of how to use the SlackBlockBuilder within a playbook.",
-				"fromversion": "6.10.0",
-				"id": "SlackBlockBuilderResponseExample",
-				"name": "SlackBlockBuilderResponseExample",
+				"description": "Investigates a failed login event. The playbook interacts with the user via the Slack integration, checks whether the logins were a result of the user's attempts or an attack, raises the severity, and expires the user's password according to the user's replies.",
+				"fromversion": "5.0.0",
+				"id": "Slack - General Failed Logins v2.1",
+				"name": "Slack - General Failed Logins v2.1",
 				"supportedModules": [
 					"agentix",
 					"xsiam"
@@ -407,10 +406,10 @@
 				"tags": []
 			},
 			{
-				"description": "Investigates a failed login event. The playbook interacts with the user via the Slack integration, checks whether the logins were a result of the user's attempts or an attack, raises the severity, and expires the user's password according to the user's replies.",
-				"fromversion": "5.0.0",
-				"id": "Slack - General Failed Logins v2.1",
-				"name": "Slack - General Failed Logins v2.1",
+				"description": "This is an example of how to use the SlackBlockBuilder within a playbook.",
+				"fromversion": "6.10.0",
+				"id": "SlackBlockBuilderResponseExample",
+				"name": "SlackBlockBuilderResponseExample",
 				"supportedModules": [
 					"agentix",
 					"xsiam"
@@ -424,7 +423,7 @@
 		"wizard": null
 	},
 	"created": "2025-03-29T09:23:34Z",
-	"currentVersion": "3.6.1",
+	"currentVersion": "3.6.2",
 	"defaultDataSource": {
 		"id": "Slack Event Collector",
 		"name": "Slack Event Collector"
@@ -435,14 +434,14 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "1.6.72",
+			"minVersion": "1.6.73",
 			"name": "Active Directory Query"
 		},
 		"Base": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.41.74",
+			"minVersion": "1.41.75",
 			"name": "Base"
 		},
 		"CommonTypes": {
@@ -523,11 +522,6 @@
 			"name": "Syslog Sender"
 		},
 		{
-			"id": "Active Directory Query v2",
-			"imagePath": "content/packs/Active_Directory_Query/ActiveDirectoryQueryv2_image.png",
-			"name": "Active Directory Query v2"
-		},
-		{
 			"id": "Microsoft Teams",
 			"imagePath": "content/packs/MicrosoftTeams/MicrosoftTeams_image.png",
 			"name": "Microsoft Teams"
@@ -541,10 +535,15 @@
 			"id": "Microsoft Teams via Webhook",
 			"imagePath": "content/packs/MicrosoftTeams/MicrosoftTeamsviaWebhook_image.png",
 			"name": "Microsoft Teams via Webhook"
+		},
+		{
+			"id": "Active Directory Query v2",
+			"imagePath": "content/packs/Active_Directory_Query/ActiveDirectoryQueryv2_image.png",
+			"name": "Active Directory Query v2"
 		}
 	],
 	"isOverridable": false,
-	"itemVersion": "3.6.1",
+	"itemVersion": "3.6.2",
 	"keywords": [
 		"Slack"
 	],
@@ -580,14 +579,14 @@
 		"edr"
 	],
 	"tags": [
-		"Data Source",
-		"Collection"
+		"Collection",
+		"Data Source"
 	],
 	"toServerVersion": "",
-	"updated": "2026-04-20T20:09:13Z",
+	"updated": "2026-04-26T20:16:03Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "8382811",
+	"versionInfo": "8479105",
 	"videos": [
 		"https://www.youtube.com/watch?v=rt3lvsI_0-4"
 	]
