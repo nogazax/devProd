@@ -23,7 +23,11 @@
 			{
 				"description": "A mapper of VirusTotal Intelligence LiveHunt Notification",
 				"id": "VirusTotal Intelligence LiveHunt Notification",
-				"name": "VirusTotal Intelligence LiveHunt Notification"
+				"name": "VirusTotal Intelligence LiveHunt Notification",
+				"supportedModules": [
+					"agentix",
+					"xsiam"
+				]
 			}
 		],
 		"dashboard": null,
@@ -47,15 +51,6 @@
 		"indicatorfield": [
 			{
 				"description": "",
-				"name": "VT Engine Detections",
-				"supportedModules": [
-					"agentix",
-					"xsiam"
-				],
-				"type": "number"
-			},
-			{
-				"description": "",
 				"name": "VT Engine Vendors",
 				"supportedModules": [
 					"agentix",
@@ -71,6 +66,15 @@
 					"xsiam"
 				],
 				"type": "tagsSelect"
+			},
+			{
+				"description": "",
+				"name": "VT Engine Detections",
+				"supportedModules": [
+					"agentix",
+					"xsiam"
+				],
+				"type": "number"
 			}
 		],
 		"integration": [
@@ -193,20 +197,61 @@
 				"category": "Data Enrichment \u0026 Threat Intelligence",
 				"commands": [
 					{
-						"description": "Gets the matches from a given retrohunt job's id or the latest by default.",
+						"description": "Checks the file reputation of the specified hash.",
 						"hidden": false,
-						"name": "vt-retrohunt-get-indicators"
+						"name": "file"
 					},
 					{
-						"description": "This command will reset your fetch history.",
+						"description": "Checks the reputation of an IP address.",
 						"hidden": false,
-						"name": "vt-retrohunt-reset-fetch-indicators"
+						"name": "ip"
+					},
+					{
+						"description": "Checks the reputation of a URL.",
+						"hidden": false,
+						"name": "url"
+					},
+					{
+						"description": "Checks the reputation of a domain.",
+						"hidden": false,
+						"name": "domain"
+					},
+					{
+						"description": "Submits a file for scanning.",
+						"hidden": false,
+						"name": "file-scan"
+					},
+					{
+						"description": "Re-scans an already submitted file. This avoids having to upload the file again.",
+						"hidden": false,
+						"name": "file-rescan"
+					},
+					{
+						"description": "Scans a specified URL.",
+						"hidden": false,
+						"name": "url-scan"
+					},
+					{
+						"description": "Adds comments to files and URLs.",
+						"hidden": false,
+						"name": "vt-comments-add"
+					},
+					{
+						"description": "Private API. Get a special URL for files larger than 32 MB.",
+						"hidden": false,
+						"name": "vt-file-scan-upload-url"
+					},
+					{
+						"description": "Private API. Retrieves comments for a given resource.",
+						"hidden": false,
+						"name": "vt-comments-get"
 					}
 				],
-				"description": "Use this feed integration to fetch VirusTotal Retrohunt matches.",
+				"deprecated": true,
+				"description": "Deprecated. Use VirusTotalV3 integration instead.",
 				"fromversion": "5.5.0",
-				"id": "VirusTotal Retrohunt Feed",
-				"name": "VirusTotal Retrohunt Feed (Partner Contribution)",
+				"id": "VirusTotal",
+				"name": "VirusTotal (Deprecated) (Partner Contribution)",
 				"toversion": ""
 			},
 			{
@@ -333,61 +378,20 @@
 				"category": "Data Enrichment \u0026 Threat Intelligence",
 				"commands": [
 					{
-						"description": "Checks the file reputation of the specified hash.",
+						"description": "Gets the matches from a given retrohunt job's id or the latest by default.",
 						"hidden": false,
-						"name": "file"
+						"name": "vt-retrohunt-get-indicators"
 					},
 					{
-						"description": "Checks the reputation of an IP address.",
+						"description": "This command will reset your fetch history.",
 						"hidden": false,
-						"name": "ip"
-					},
-					{
-						"description": "Checks the reputation of a URL.",
-						"hidden": false,
-						"name": "url"
-					},
-					{
-						"description": "Checks the reputation of a domain.",
-						"hidden": false,
-						"name": "domain"
-					},
-					{
-						"description": "Submits a file for scanning.",
-						"hidden": false,
-						"name": "file-scan"
-					},
-					{
-						"description": "Re-scans an already submitted file. This avoids having to upload the file again.",
-						"hidden": false,
-						"name": "file-rescan"
-					},
-					{
-						"description": "Scans a specified URL.",
-						"hidden": false,
-						"name": "url-scan"
-					},
-					{
-						"description": "Adds comments to files and URLs.",
-						"hidden": false,
-						"name": "vt-comments-add"
-					},
-					{
-						"description": "Private API. Get a special URL for files larger than 32 MB.",
-						"hidden": false,
-						"name": "vt-file-scan-upload-url"
-					},
-					{
-						"description": "Private API. Retrieves comments for a given resource.",
-						"hidden": false,
-						"name": "vt-comments-get"
+						"name": "vt-retrohunt-reset-fetch-indicators"
 					}
 				],
-				"deprecated": true,
-				"description": "Deprecated. Use VirusTotalV3 integration instead.",
+				"description": "Use this feed integration to fetch VirusTotal Retrohunt matches.",
 				"fromversion": "5.5.0",
-				"id": "VirusTotal",
-				"name": "VirusTotal (Deprecated) (Partner Contribution)",
+				"id": "VirusTotal Retrohunt Feed",
+				"name": "VirusTotal Retrohunt Feed (Partner Contribution)",
 				"toversion": ""
 			},
 			{
@@ -415,10 +419,10 @@
 		"list": null,
 		"playbook": [
 			{
-				"description": "Detonate a file through VirusTotal (API v3)",
+				"description": "Creates a zip from given hashes exists in VirusTotal",
 				"fromversion": "5.5.0",
-				"id": "Detonate File - VirusTotal (API v3)",
-				"name": "Detonate File - VirusTotal (API v3)",
+				"id": "Create Zip from VirusTotal",
+				"name": "Create Zip from VirusTotal",
 				"tags": []
 			},
 			{
@@ -429,17 +433,10 @@
 				"tags": []
 			},
 			{
-				"description": "Get file information using the Virus Total API integration.",
-				"fromversion": "6.0.0",
-				"id": "File Enrichment - Virus Total (API v3)",
-				"name": "File Enrichment - Virus Total (API v3)",
-				"tags": []
-			},
-			{
-				"description": "Creates a zip from given hashes exists in VirusTotal",
+				"description": "Detonate a file through VirusTotal (API v3)",
 				"fromversion": "5.5.0",
-				"id": "Create Zip from VirusTotal",
-				"name": "Create Zip from VirusTotal",
+				"id": "Detonate File - VirusTotal (API v3)",
+				"name": "Detonate File - VirusTotal (API v3)",
 				"tags": []
 			},
 			{
@@ -455,6 +452,13 @@
 				"id": "Detonate Private File - VirusTotal Private Scanning",
 				"name": "Detonate Private File - VirusTotal Private Scanning",
 				"tags": []
+			},
+			{
+				"description": "Get file information using the Virus Total API integration.",
+				"fromversion": "6.0.0",
+				"id": "File Enrichment - Virus Total (API v3)",
+				"name": "File Enrichment - Virus Total (API v3)",
+				"tags": []
 			}
 		],
 		"report": null,
@@ -463,7 +467,7 @@
 		"wizard": null
 	},
 	"created": "2025-03-29T09:35:07Z",
-	"currentVersion": "2.7.17",
+	"currentVersion": "2.7.19",
 	"defaultDataSource": {
 		"id": "VirusTotal - Premium (API v3)",
 		"name": "VirusTotal - Premium (API v3)"
@@ -550,7 +554,7 @@
 		}
 	],
 	"isOverridable": false,
-	"itemVersion": "2.7.17",
+	"itemVersion": "2.7.19",
 	"keywords": [],
 	"legacy": true,
 	"modules": [],
@@ -585,13 +589,13 @@
 	"tags": [
 		"Featured",
 		"Free Enricher",
-		"Data Source",
-		"TIM"
+		"TIM",
+		"Data Source"
 	],
 	"toServerVersion": "",
-	"updated": "2026-04-26T10:01:05Z",
+	"updated": "2026-04-26T20:01:37Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "8463984",
+	"versionInfo": "8479105",
 	"videos": []
 }
