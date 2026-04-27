@@ -112,7 +112,7 @@
 	"ipVersion": "",
 	"isOverridable": false,
 	"isReadOnly": false,
-	"itemVersion": "4.4.20",
+	"itemVersion": "4.4.23",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "Prisma Cloud - Findings Results",
@@ -134,6 +134,10 @@
 	"selectValues": null,
 	"selectValuesMap": null,
 	"sla": 0,
+	"supportedModules": [
+		"agentix",
+		"xsiam"
+	],
 	"system": false,
 	"systemAssociatedTypes": null,
 	"template": "",
