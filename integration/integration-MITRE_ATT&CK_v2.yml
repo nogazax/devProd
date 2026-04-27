@@ -127,7 +127,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.5.0
     isoverridable: false
-    itemVersion: 1.2.22
+    itemVersion: 1.2.23
     packID: FeedMitreAttackv2
     packName: MITRE ATT&CK
     packPropagationLabels:
@@ -254,8 +254,8 @@ script:
   runonce: false
   script: |
     register_module_line('MITRE ATT&CK v2', 'start', __line__())
-    CONSTANT_PACK_VERSION = '1.2.22'
-    demisto.debug('pack id = FeedMitreAttackv2, pack version = 1.2.22')
+    CONSTANT_PACK_VERSION = '1.2.23'
+    demisto.debug('pack id = FeedMitreAttackv2, pack version = 1.2.23')
     import json
     import logging
 
