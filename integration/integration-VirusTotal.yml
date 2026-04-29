@@ -94,7 +94,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.5.0
     isoverridable: false
-    itemVersion: 2.7.19
+    itemVersion: 2.7.20
     packID: VirusTotal
     packName: VirusTotal
     packPropagationLabels:
@@ -573,7 +573,7 @@ script:
     supportedModules: []
   runonce: false
   script: |
-    // pack version: 2.7.19
+    // pack version: 2.7.20
     var DBOTSCORE_KEY = "DBotScore(val.Indicator && val.Indicator === obj.Indicator && val.Vendor === obj.Vendor && val.Type === obj.Type)"
     var serverUrl = params.Server;
     if (serverUrl[serverUrl.length - 1] !== '/') {
