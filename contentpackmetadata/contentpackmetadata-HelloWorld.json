@@ -50,17 +50,17 @@
 		"incidentfield": [
 			{
 				"description": "",
-				"name": "Hello World Type",
-				"type": "shortText"
-			},
-			{
-				"description": "",
 				"name": "Hello World Status",
 				"type": "shortText"
 			},
 			{
 				"description": "",
 				"name": "Hello World ID",
+				"type": "shortText"
+			},
+			{
+				"description": "",
+				"name": "Hello World Type",
 				"type": "shortText"
 			}
 		],
@@ -125,6 +125,21 @@
 				"toversion": ""
 			},
 			{
+				"category": "Data Enrichment \u0026 Threat Intelligence",
+				"commands": [
+					{
+						"description": "Gets indicators from the feed.",
+						"hidden": false,
+						"name": "helloworld-get-indicators"
+					}
+				],
+				"description": "This is the Feed Hello World integration for getting started with your feed integration.",
+				"fromversion": "5.5.0",
+				"id": "HelloWorld Feed",
+				"name": "HelloWorld Feed (Community Contribution)",
+				"toversion": ""
+			},
+			{
 				"category": "Utilities",
 				"commands": [
 					{
@@ -181,21 +196,6 @@
 					"xsiam"
 				],
 				"toversion": ""
-			},
-			{
-				"category": "Data Enrichment \u0026 Threat Intelligence",
-				"commands": [
-					{
-						"description": "Gets indicators from the feed.",
-						"hidden": false,
-						"name": "helloworld-get-indicators"
-					}
-				],
-				"description": "This is the Feed Hello World integration for getting started with your feed integration.",
-				"fromversion": "5.5.0",
-				"id": "HelloWorld Feed",
-				"name": "HelloWorld Feed (Community Contribution)",
-				"toversion": ""
 			}
 		],
 		"layoutscontainer": null,
@@ -210,6 +210,9 @@
 				"fromversion": "8.4.0",
 				"id": "HelloWorldModelingRule",
 				"name": "HelloWorld Modeling Rule",
+				"supportedModules": [
+					"xsiam"
+				],
 				"toversion": ""
 			}
 		],
@@ -248,7 +251,7 @@
 		"wizard": null
 	},
 	"created": "2025-03-29T09:38:42Z",
-	"currentVersion": "4.0.6",
+	"currentVersion": "4.0.7",
 	"defaultDataSource": {
 		"id": "HelloWorldEventCollector",
 		"name": "HelloWorld Event Collector"
@@ -320,7 +323,7 @@
 		}
 	],
 	"isOverridable": false,
-	"itemVersion": "4.0.6",
+	"itemVersion": "4.0.7",
 	"keywords": [],
 	"legacy": true,
 	"modules": [],
@@ -351,14 +354,14 @@
 	],
 	"tags": [
 		"Getting Started",
-		"TIM",
 		"Collection",
+		"TIM",
 		"Data Source"
 	],
 	"toServerVersion": "",
-	"updated": "2026-04-26T20:09:52Z",
+	"updated": "2026-04-27T20:40:25Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "8479105",
+	"versionInfo": "8515806",
 	"videos": []
 }
