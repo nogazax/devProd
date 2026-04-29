@@ -129,7 +129,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.5.0
     isoverridable: false
-    itemVersion: 2.3.7
+    itemVersion: 2.3.8
     packID: AutoFocus
     packName: AutoFocus by Palo Alto Networks
     packPropagationLabels:
@@ -177,8 +177,8 @@ script:
   runonce: false
   script: |
     register_module_line('AutoFocusTagsFeed', 'start', __line__())
-    CONSTANT_PACK_VERSION = '2.3.7'
-    demisto.debug('pack id = AutoFocus, pack version = 2.3.7')
+    CONSTANT_PACK_VERSION = '2.3.8'
+    demisto.debug('pack id = AutoFocus, pack version = 2.3.8')
 
 
     """
