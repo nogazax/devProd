@@ -34,7 +34,7 @@
 	"ipVersion": "",
 	"isOverridable": false,
 	"isReadOnly": true,
-	"itemVersion": "4.4.23",
+	"itemVersion": "4.4.24",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "Prisma Cloud Dismissal Note",
