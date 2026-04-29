@@ -40,15 +40,6 @@
 				]
 			},
 			{
-				"description": "GetSlackBlockBuilderResponse will format a SlackBlockBuilder response and insert it into an incident's context.",
-				"fromversion": "6.10.0",
-				"id": "GetSlackBlockBuilderResponse",
-				"name": "GetSlackBlockBuilderResponse",
-				"tags": [
-					"slack"
-				]
-			},
-			{
 				"description": "SlackBlockBuilder will format a given Slack block into a format readable by the SlackV3 integration. The script will also send the block to the given destination. Make sure to mark **Trust any certificate** and fill the **XSOAR API Key integration** parameters if you want to get a response to the incident context.",
 				"fromversion": "6.2.0",
 				"id": "SlackBlockBuilder",
@@ -62,6 +53,15 @@
 				"fromversion": "5.5.0",
 				"id": "SlackAskV2",
 				"name": "SlackAskV2",
+				"tags": [
+					"slack"
+				]
+			},
+			{
+				"description": "GetSlackBlockBuilderResponse will format a SlackBlockBuilder response and insert it into an incident's context.",
+				"fromversion": "6.10.0",
+				"id": "GetSlackBlockBuilderResponse",
+				"name": "GetSlackBlockBuilderResponse",
 				"tags": [
 					"slack"
 				]
@@ -110,96 +110,6 @@
 				"name": "Slack Event Collector",
 				"supportedModules": [
 					"xsiam"
-				],
-				"toversion": ""
-			},
-			{
-				"category": "Messaging and Conferencing",
-				"commands": [
-					{
-						"description": "Deprecated. Use the \"mirror-investigation\" command instead.",
-						"hidden": false,
-						"name": "slack-mirror-investigation"
-					},
-					{
-						"description": "Mirrors the investigation between Slack and the Demisto War Room.",
-						"hidden": false,
-						"name": "mirror-investigation"
-					},
-					{
-						"description": "Sends a message to a user, group, or channel.",
-						"hidden": false,
-						"name": "send-notification"
-					},
-					{
-						"description": "Deprecated. Use the \"send-notification\" command instead.",
-						"hidden": false,
-						"name": "slack-send"
-					},
-					{
-						"description": "Deprecated. Use the \"close-channel\" command instead.",
-						"hidden": false,
-						"name": "slack-close-channel"
-					},
-					{
-						"description": "Archives a Slack channel.",
-						"hidden": false,
-						"name": "close-channel"
-					},
-					{
-						"description": "Sends a file to a user, channel, or group. If not specified, the file is sent to the mirrored investigation channel (if the channel exists).",
-						"hidden": false,
-						"name": "slack-send-file"
-					},
-					{
-						"description": "Sets the topic for a channel.",
-						"hidden": false,
-						"name": "slack-set-channel-topic"
-					},
-					{
-						"description": "Creates a channel in Slack.",
-						"hidden": false,
-						"name": "slack-create-channel"
-					},
-					{
-						"description": "Invites users to join a channel.",
-						"hidden": false,
-						"name": "slack-invite-to-channel"
-					},
-					{
-						"description": "Removes users from the specified channel.",
-						"hidden": false,
-						"name": "slack-kick-from-channel"
-					},
-					{
-						"description": "Renames a channel in Slack.",
-						"hidden": false,
-						"name": "slack-rename-channel"
-					},
-					{
-						"description": "Get details about a specified user.",
-						"hidden": false,
-						"name": "slack-get-user-details"
-					},
-					{
-						"description": "Returns the integration context as a file. Use this command for debug purposes only.",
-						"hidden": true,
-						"name": "slack-get-integration-context"
-					},
-					{
-						"description": "Returns a list of channels matching criteria",
-						"hidden": false,
-						"name": "slack-filter-channels"
-					}
-				],
-				"deprecated": true,
-				"description": "Deprecated. Use SlackV3 instead.",
-				"fromversion": "5.0.0",
-				"id": "SlackV2",
-				"name": "Slack v2 (Deprecated)",
-				"supportedModules": [
-					"xsiam",
-					"agentix"
 				],
 				"toversion": ""
 			},
@@ -359,6 +269,96 @@
 				"id": "SlackV3",
 				"name": "Slack v3",
 				"toversion": ""
+			},
+			{
+				"category": "Messaging and Conferencing",
+				"commands": [
+					{
+						"description": "Deprecated. Use the \"mirror-investigation\" command instead.",
+						"hidden": false,
+						"name": "slack-mirror-investigation"
+					},
+					{
+						"description": "Mirrors the investigation between Slack and the Demisto War Room.",
+						"hidden": false,
+						"name": "mirror-investigation"
+					},
+					{
+						"description": "Sends a message to a user, group, or channel.",
+						"hidden": false,
+						"name": "send-notification"
+					},
+					{
+						"description": "Deprecated. Use the \"send-notification\" command instead.",
+						"hidden": false,
+						"name": "slack-send"
+					},
+					{
+						"description": "Deprecated. Use the \"close-channel\" command instead.",
+						"hidden": false,
+						"name": "slack-close-channel"
+					},
+					{
+						"description": "Archives a Slack channel.",
+						"hidden": false,
+						"name": "close-channel"
+					},
+					{
+						"description": "Sends a file to a user, channel, or group. If not specified, the file is sent to the mirrored investigation channel (if the channel exists).",
+						"hidden": false,
+						"name": "slack-send-file"
+					},
+					{
+						"description": "Sets the topic for a channel.",
+						"hidden": false,
+						"name": "slack-set-channel-topic"
+					},
+					{
+						"description": "Creates a channel in Slack.",
+						"hidden": false,
+						"name": "slack-create-channel"
+					},
+					{
+						"description": "Invites users to join a channel.",
+						"hidden": false,
+						"name": "slack-invite-to-channel"
+					},
+					{
+						"description": "Removes users from the specified channel.",
+						"hidden": false,
+						"name": "slack-kick-from-channel"
+					},
+					{
+						"description": "Renames a channel in Slack.",
+						"hidden": false,
+						"name": "slack-rename-channel"
+					},
+					{
+						"description": "Get details about a specified user.",
+						"hidden": false,
+						"name": "slack-get-user-details"
+					},
+					{
+						"description": "Returns the integration context as a file. Use this command for debug purposes only.",
+						"hidden": true,
+						"name": "slack-get-integration-context"
+					},
+					{
+						"description": "Returns a list of channels matching criteria",
+						"hidden": false,
+						"name": "slack-filter-channels"
+					}
+				],
+				"deprecated": true,
+				"description": "Deprecated. Use SlackV3 instead.",
+				"fromversion": "5.0.0",
+				"id": "SlackV2",
+				"name": "Slack v2 (Deprecated)",
+				"supportedModules": [
+					"xsiam",
+					"agentix"
+				],
+				"toversion": ""
 			}
 		],
 		"layoutscontainer": null,
@@ -374,7 +374,6 @@
 				"id": "Slack_ModelingRule",
 				"name": "Slack Modeling Rule",
 				"supportedModules": [
-					"agentix",
 					"xsiam"
 				],
 				"toversion": ""
@@ -395,10 +394,10 @@
 		],
 		"playbook": [
 			{
-				"description": "Investigates a failed login event. The playbook interacts with the user via the Slack integration, checks whether the logins were a result of the user's attempts or an attack, raises the severity, and expires the user's password according to the user's replies.",
-				"fromversion": "5.0.0",
-				"id": "Slack - General Failed Logins v2.1",
-				"name": "Slack - General Failed Logins v2.1",
+				"description": "This is an example of how to use the SlackBlockBuilder within a playbook.",
+				"fromversion": "6.10.0",
+				"id": "SlackBlockBuilderResponseExample",
+				"name": "SlackBlockBuilderResponseExample",
 				"supportedModules": [
 					"agentix",
 					"xsiam"
@@ -406,10 +405,10 @@
 				"tags": []
 			},
 			{
-				"description": "This is an example of how to use the SlackBlockBuilder within a playbook.",
-				"fromversion": "6.10.0",
-				"id": "SlackBlockBuilderResponseExample",
-				"name": "SlackBlockBuilderResponseExample",
+				"description": "Investigates a failed login event. The playbook interacts with the user via the Slack integration, checks whether the logins were a result of the user's attempts or an attack, raises the severity, and expires the user's password according to the user's replies.",
+				"fromversion": "5.0.0",
+				"id": "Slack - General Failed Logins v2.1",
+				"name": "Slack - General Failed Logins v2.1",
 				"supportedModules": [
 					"agentix",
 					"xsiam"
@@ -423,7 +422,7 @@
 		"wizard": null
 	},
 	"created": "2025-03-29T09:23:34Z",
-	"currentVersion": "3.6.2",
+	"currentVersion": "3.6.3",
 	"defaultDataSource": {
 		"id": "Slack Event Collector",
 		"name": "Slack Event Collector"
@@ -543,7 +542,7 @@
 		}
 	],
 	"isOverridable": false,
-	"itemVersion": "3.6.2",
+	"itemVersion": "3.6.3",
 	"keywords": [
 		"Slack"
 	],
@@ -583,10 +582,10 @@
 		"Data Source"
 	],
 	"toServerVersion": "",
-	"updated": "2026-04-26T20:16:03Z",
+	"updated": "2026-04-27T20:45:16Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "8479105",
+	"versionInfo": "8515806",
 	"videos": [
 		"https://www.youtube.com/watch?v=rt3lvsI_0-4"
 	]
