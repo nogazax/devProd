@@ -17,7 +17,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.22.0
+    itemVersion: 1.22.1
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -75,7 +75,7 @@ restrictioncenter: {}
 runas: DBotWeakRole
 runonce: false
 script: |
-  // pack version: 1.22.0
+  // pack version: 1.22.1
   var INTERNAL_MODULES_BRANDS = ['Scripts', 'Builtin', 'testmodule'];
 
   var failedInstances = [];
@@ -115,6 +115,10 @@ script: |
       "Microsoft 365 Defender": {
           command: "microsoft-365-defender-auth-test",
           message: "run the !microsoft-365-defender-auth-test"
+      },
+       "Jira V3": {
+          command: "jira-oauth-test",
+          message: "run the !jira-oauth-test"
       }
   };
 
