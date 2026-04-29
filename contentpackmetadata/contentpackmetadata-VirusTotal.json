@@ -197,6 +197,26 @@
 				"category": "Data Enrichment \u0026 Threat Intelligence",
 				"commands": [
 					{
+						"description": "Gets the matches from a given retrohunt job's id or the latest by default.",
+						"hidden": false,
+						"name": "vt-retrohunt-get-indicators"
+					},
+					{
+						"description": "This command will reset your fetch history.",
+						"hidden": false,
+						"name": "vt-retrohunt-reset-fetch-indicators"
+					}
+				],
+				"description": "Use this feed integration to fetch VirusTotal Retrohunt matches.",
+				"fromversion": "5.5.0",
+				"id": "VirusTotal Retrohunt Feed",
+				"name": "VirusTotal Retrohunt Feed (Partner Contribution)",
+				"toversion": ""
+			},
+			{
+				"category": "Data Enrichment \u0026 Threat Intelligence",
+				"commands": [
+					{
 						"description": "Checks the file reputation of the specified hash.",
 						"hidden": false,
 						"name": "file"
@@ -378,26 +398,6 @@
 				"category": "Data Enrichment \u0026 Threat Intelligence",
 				"commands": [
 					{
-						"description": "Gets the matches from a given retrohunt job's id or the latest by default.",
-						"hidden": false,
-						"name": "vt-retrohunt-get-indicators"
-					},
-					{
-						"description": "This command will reset your fetch history.",
-						"hidden": false,
-						"name": "vt-retrohunt-reset-fetch-indicators"
-					}
-				],
-				"description": "Use this feed integration to fetch VirusTotal Retrohunt matches.",
-				"fromversion": "5.5.0",
-				"id": "VirusTotal Retrohunt Feed",
-				"name": "VirusTotal Retrohunt Feed (Partner Contribution)",
-				"toversion": ""
-			},
-			{
-				"category": "Data Enrichment \u0026 Threat Intelligence",
-				"commands": [
-					{
 						"description": "Gets the indicators from VirusTotal Livehunt.",
 						"hidden": false,
 						"name": "vt-livehunt-get-indicators"
@@ -419,24 +419,10 @@
 		"list": null,
 		"playbook": [
 			{
-				"description": "Creates a zip from given hashes exists in VirusTotal",
-				"fromversion": "5.5.0",
-				"id": "Create Zip from VirusTotal",
-				"name": "Create Zip from VirusTotal",
-				"tags": []
-			},
-			{
 				"description": "Detonate one or more files using the VirusTotal integration. This playbook returns relevant reports to the War Room and file reputations to the context data.",
 				"fromversion": "5.0.0",
 				"id": "Detonate File - VirusTotal",
 				"name": "Detonate File - VirusTotal",
-				"tags": []
-			},
-			{
-				"description": "Detonate a file through VirusTotal (API v3)",
-				"fromversion": "5.5.0",
-				"id": "Detonate File - VirusTotal (API v3)",
-				"name": "Detonate File - VirusTotal (API v3)",
 				"tags": []
 			},
 			{
@@ -447,17 +433,31 @@
 				"tags": []
 			},
 			{
-				"description": "Detonate a private file through VirusTotal Private Scanning service",
-				"fromversion": "5.5.0",
-				"id": "Detonate Private File - VirusTotal Private Scanning",
-				"name": "Detonate Private File - VirusTotal Private Scanning",
-				"tags": []
-			},
-			{
 				"description": "Get file information using the Virus Total API integration.",
 				"fromversion": "6.0.0",
 				"id": "File Enrichment - Virus Total (API v3)",
 				"name": "File Enrichment - Virus Total (API v3)",
+				"tags": []
+			},
+			{
+				"description": "Creates a zip from given hashes exists in VirusTotal",
+				"fromversion": "5.5.0",
+				"id": "Create Zip from VirusTotal",
+				"name": "Create Zip from VirusTotal",
+				"tags": []
+			},
+			{
+				"description": "Detonate a file through VirusTotal (API v3)",
+				"fromversion": "5.5.0",
+				"id": "Detonate File - VirusTotal (API v3)",
+				"name": "Detonate File - VirusTotal (API v3)",
+				"tags": []
+			},
+			{
+				"description": "Detonate a private file through VirusTotal Private Scanning service",
+				"fromversion": "5.5.0",
+				"id": "Detonate Private File - VirusTotal Private Scanning",
+				"name": "Detonate Private File - VirusTotal Private Scanning",
 				"tags": []
 			}
 		],
@@ -467,7 +467,7 @@
 		"wizard": null
 	},
 	"created": "2025-03-29T09:35:07Z",
-	"currentVersion": "2.7.19",
+	"currentVersion": "2.7.20",
 	"defaultDataSource": {
 		"id": "VirusTotal - Premium (API v3)",
 		"name": "VirusTotal - Premium (API v3)"
@@ -554,7 +554,7 @@
 		}
 	],
 	"isOverridable": false,
-	"itemVersion": "2.7.19",
+	"itemVersion": "2.7.20",
 	"keywords": [],
 	"legacy": true,
 	"modules": [],
@@ -587,15 +587,15 @@
 		"cloud_runtime_security"
 	],
 	"tags": [
-		"Featured",
-		"Free Enricher",
 		"TIM",
-		"Data Source"
+		"Data Source",
+		"Featured",
+		"Free Enricher"
 	],
 	"toServerVersion": "",
-	"updated": "2026-04-26T20:01:37Z",
+	"updated": "2026-04-27T20:30:31Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "8479105",
+	"versionInfo": "8515806",
 	"videos": []
 }
