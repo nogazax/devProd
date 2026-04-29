@@ -104,7 +104,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.5.0
     isoverridable: false
-    itemVersion: 2.7.19
+    itemVersion: 2.7.20
     packID: VirusTotal
     packName: VirusTotal
     packPropagationLabels:
@@ -161,8 +161,8 @@ script:
   runonce: false
   script: |
     register_module_line('VirusTotal Retrohunt Feed', 'start', __line__())
-    CONSTANT_PACK_VERSION = '2.7.19'
-    demisto.debug('pack id = VirusTotal, pack version = 2.7.19')
+    CONSTANT_PACK_VERSION = '2.7.20'
+    demisto.debug('pack id = VirusTotal, pack version = 2.7.20')
 
     import urllib3
 
