@@ -3,7 +3,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.0.0
     isoverridable: false
-    itemVersion: 2.7.19
+    itemVersion: 2.7.20
     packID: VirusTotal
     packName: VirusTotal
     packPropagationLabels:
