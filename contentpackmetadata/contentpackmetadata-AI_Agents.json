@@ -14,12 +14,14 @@
 		"agentixaction": null,
 		"agentixagent": [
 			{
-				"description": "AI support agent that provides guided troubleshooting and product expertise using official Palo Alto Networks documentation",
-				"name": "Help Center"
-			},
-			{
-				"description": "Streamlines automation by generating and updating Python scripts from natural-language prompts,\napplying security best practices, and letting you explore or explain any part of the code.",
-				"name": "Automation Engineer"
+				"description": "Operates as an intelligent, autonomous co-pilot within the security program. It provides full-cycle management by\ncontinuously monitoring AppSec maturity and driving a prevention-first strategy. The agent performs key actions such as\nopening pull requests (PRs) to resolve issues, identifying true risks and critical weaknesses in code, and using that\ncontext to suggest and apply prevention guardrails that eliminate risky environments. Its core function is to guide the\norganization's AppSec journey by proactively improving coverage and measuring maturity, ensuring that security is\nautomated, not merely audited.",
+				"name": "Application Security",
+				"supportedModules": [
+					"cloud",
+					"cloud_appsec",
+					"cloud_posture",
+					"cloud_runtime_security"
+				]
 			},
 			{
 				"description": "Unifies host-level containment, forensic collection, and remediation across all major EDR/XDR platforms while feeding\nevidence and status into the SOC's ticketing and collaboration stack",
@@ -33,6 +35,19 @@
 				]
 			},
 			{
+				"description": "Automates the full lifecycle of email-borne threat response, spanning mailbox search, forensic collection, analysis,\ncontainment, and incident closure across all major mail platforms and security layers",
+				"name": "Email Investigation",
+				"supportedModules": [
+					"agentix",
+					"email_security",
+					"xsiam"
+				]
+			},
+			{
+				"description": "Streamlines automation by generating and updating Python scripts from natural-language prompts,\napplying security best practices, and letting you explore or explain any part of the code.",
+				"name": "Automation Engineer"
+			},
+			{
 				"description": "Helps understand, triage, and remediate misconfigurations, attack path, and posture issues across cloud environments.\nStreamlines work for security analysts by proactively prioritizing risks, enriching identified exposures with ownership\ninformation, and automatically taking mitigating or remediating actions, such as blocking network access or updating\nprotection policies, to reduce the organization's exposure footprint.",
 				"name": "Cloud Posture",
 				"supportedModules": [
@@ -40,12 +55,8 @@
 				]
 			},
 			{
-				"description": "Gathers fresh threat data, enriches indicators and vulnerabilities, links them to past or current incidents, and\npublishes clear briefings so the whole SOC acts on the latest attacker tactics",
-				"name": "Threat Intel",
-				"supportedModules": [
-					"agentix",
-					"xsiam"
-				]
+				"description": "This Agent is designed to accelerate and simplify the analyst's workflow by converting complex data points,\ncase context, and event relationships into clear, actionable insights.\nIt understands the whole structure of a case, automatically highlights what matters most,\nand offers concise summaries that reduce noise and cognitive load.\n\nBeyond interpretation, it provides quick-access actions and guided steps that help analysts progress investigations\nwith confidence and consistency. Its strength comes from its ability to reason across diverse evidence,\nstitch narrative context, and translate technical signals into meaningful next moves - enabling a smoother,\nmore intuitive investigation experience end to end.",
+				"name": "Case Investigation"
 			},
 			{
 				"description": "Manages Palo Alto Networks Panorama and Firewalls, as well as third-party network security products. Streamlines work\nfor network security engineers by performing configuration checks, policy optimization, vulnerability assessment,\ncertificate expiration monitoring as well as log analysis and threat response.",
@@ -57,14 +68,8 @@
 				]
 			},
 			{
-				"description": "Operates as an intelligent, autonomous co-pilot within the security program. It provides full-cycle management by\ncontinuously monitoring AppSec maturity and driving a prevention-first strategy. The agent performs key actions such as\nopening pull requests (PRs) to resolve issues, identifying true risks and critical weaknesses in code, and using that\ncontext to suggest and apply prevention guardrails that eliminate risky environments. Its core function is to guide the\norganization's AppSec journey by proactively improving coverage and measuring maturity, ensuring that security is\nautomated, not merely audited.",
-				"name": "Application Security",
-				"supportedModules": [
-					"cloud",
-					"cloud_appsec",
-					"cloud_posture",
-					"cloud_runtime_security"
-				]
+				"description": "AI support agent that provides guided troubleshooting and product expertise using official Palo Alto Networks documentation",
+				"name": "Help Center"
 			},
 			{
 				"description": "Automates identity lifecycle enforcement, real-time containment on endpoints and networks, vulnerability and patch\ngovernance, asset intelligence upkeep, and end-to-end incident workflow coordination - delivering policy-driven\nremediation across the enterprise",
@@ -75,15 +80,10 @@
 				]
 			},
 			{
-				"description": "This Agent is designed to accelerate and simplify the analyst's workflow by converting complex data points,\ncase context, and event relationships into clear, actionable insights.\nIt understands the whole structure of a case, automatically highlights what matters most,\nand offers concise summaries that reduce noise and cognitive load.\n\nBeyond interpretation, it provides quick-access actions and guided steps that help analysts progress investigations\nwith confidence and consistency. Its strength comes from its ability to reason across diverse evidence,\nstitch narrative context, and translate technical signals into meaningful next moves - enabling a smoother,\nmore intuitive investigation experience end to end.",
-				"name": "Case Investigation"
-			},
-			{
-				"description": "Automates the full lifecycle of email-borne threat response, spanning mailbox search, forensic collection, analysis,\ncontainment, and incident closure across all major mail platforms and security layers",
-				"name": "Email Investigation",
+				"description": "Gathers fresh threat data, enriches indicators and vulnerabilities, links them to past or current incidents, and\npublishes clear briefings so the whole SOC acts on the latest attacker tactics",
+				"name": "Threat Intel",
 				"supportedModules": [
 					"agentix",
-					"email_security",
 					"xsiam"
 				]
 			}
@@ -107,7 +107,7 @@
 		"wizard": null
 	},
 	"created": "2025-12-14T20:32:36Z",
-	"currentVersion": "1.0.22",
+	"currentVersion": "1.0.23",
 	"defaultDataSource": {
 		"id": "",
 		"name": ""
@@ -118,7 +118,7 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "1.6.72",
+			"minVersion": "1.7.0",
 			"name": "Active Directory Query"
 		},
 		"AggregatedScripts": {
@@ -132,28 +132,28 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.41.74",
+			"minVersion": "1.41.76",
 			"name": "Base"
 		},
 		"CiscoASA": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "2.0.1",
+			"minVersion": "2.0.3",
 			"name": "Cisco ASA"
 		},
 		"CommonScripts": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "1.21.8",
+			"minVersion": "1.22.2",
 			"name": "Common Scripts"
 		},
 		"Core": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "3.5.37",
+			"minVersion": "3.5.39",
 			"name": "Core"
 		},
 		"CrowdStrikeFalcon": {
@@ -167,49 +167,49 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "1.3.47",
+			"minVersion": "1.3.48",
 			"name": "Gmail"
 		},
 		"Jira": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "3.3.29",
+			"minVersion": "3.3.32",
 			"name": "Atlassian Jira"
 		},
 		"Microsoft365Defender": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "4.6.29",
+			"minVersion": "4.6.30",
 			"name": "Microsoft 365 Defender"
 		},
 		"MicrosoftDefenderAdvancedThreatProtection": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "1.20.27",
+			"minVersion": "1.20.33",
 			"name": "Microsoft Defender for Endpoint"
 		},
 		"MicrosoftGraphMail": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "1.7.23",
+			"minVersion": "1.7.26",
 			"name": "Microsoft Graph Mail"
 		},
 		"Okta": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "3.3.36",
+			"minVersion": "3.3.40",
 			"name": "Okta"
 		},
 		"PAN-OS": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "2.6.29",
+			"minVersion": "2.6.32",
 			"name": "PAN-OS by Palo Alto Networks"
 		},
 		"PrismaAccess": {
@@ -223,7 +223,7 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "2.9.7",
+			"minVersion": "2.9.8",
 			"name": "ServiceNow"
 		},
 		"Tavily": {
@@ -258,116 +258,6 @@
 	"installMessage": "",
 	"integrations": [
 		{
-			"id": "Okta Event Collector",
-			"imagePath": "content/packs/Okta/OktaEventCollector_image.png",
-			"name": "Okta Event Collector"
-		},
-		{
-			"id": "Okta IAM",
-			"imagePath": "content/packs/Okta/OktaIAM_image.png",
-			"name": "Okta IAM"
-		},
-		{
-			"id": "Okta v2",
-			"imagePath": "content/packs/Okta/Oktav2_image.png",
-			"name": "Okta v2"
-		},
-		{
-			"id": "okta",
-			"imagePath": "content/packs/Okta/okta_image.png",
-			"name": "okta (Deprecated)"
-		},
-		{
-			"id": "Microsoft Defender Advanced Threat Protection",
-			"imagePath": "content/packs/MicrosoftDefenderAdvancedThreatProtection/MicrosoftDefenderAdvancedThreatProtection_image.png",
-			"name": "Microsoft Defender for Endpoint"
-		},
-		{
-			"id": "Microsoft Graph Mail Single User",
-			"imagePath": "content/packs/MicrosoftGraphMail/MicrosoftGraphMailSingleUser_image.png",
-			"name": "Microsoft Graph Mail Single User"
-		},
-		{
-			"id": "MicrosoftGraphMail",
-			"imagePath": "content/packs/MicrosoftGraphMail/MicrosoftGraphMail_image.png",
-			"name": "O365 Outlook Mail (Using Graph API)"
-		},
-		{
-			"id": "Active Directory Query v2",
-			"imagePath": "content/packs/Active_Directory_Query/ActiveDirectoryQueryv2_image.png",
-			"name": "Active Directory Query v2"
-		},
-		{
-			"id": "CrowdstrikeFalcon",
-			"imagePath": "content/packs/CrowdStrikeFalcon/CrowdstrikeFalcon_image.png",
-			"name": "CrowdStrike Falcon"
-		},
-		{
-			"id": "jira-v2",
-			"imagePath": "content/packs/Jira/jira-v2_image.png",
-			"name": "Atlassian Jira v2 (Deprecated)"
-		},
-		{
-			"id": "Jira V3",
-			"imagePath": "content/packs/Jira/JiraV3_image.png",
-			"name": "Atlassian Jira v3"
-		},
-		{
-			"id": "Jira Event Collector",
-			"imagePath": "content/packs/Jira/JiraEventCollector_image.png",
-			"name": "Jira Event Collector"
-		},
-		{
-			"id": "Palo Alto Networks - Prisma SASE",
-			"imagePath": "content/packs/PrismaAccess/PaloAltoNetworks-PrismaSASE_image.png",
-			"name": "Palo Alto Networks - Strata Cloud Manager"
-		},
-		{
-			"id": "Prisma Access",
-			"imagePath": "content/packs/PrismaAccess/PrismaAccess_image.png",
-			"name": "Prisma Access"
-		},
-		{
-			"id": "Prisma Access Egress IP feed",
-			"imagePath": "content/packs/PrismaAccess/PrismaAccessEgressIPfeed_image.png",
-			"name": "Prisma Access Egress IP feed"
-		},
-		{
-			"id": "Cortex Core - Platform",
-			"imagePath": "content/packs/Core/CortexCore-Platform_image.png",
-			"name": "Cortex Platform - Core"
-		},
-		{
-			"id": "Cortex Core - IOC",
-			"imagePath": "content/packs/Core/CortexCore-IOC_image.png",
-			"name": "Indicators detection"
-		},
-		{
-			"id": "Cortex Core - IR",
-			"imagePath": "content/packs/Core/CortexCore-IR_image.png",
-			"name": "Investigation \u0026 Response"
-		},
-		{
-			"id": "XQL Query Engine",
-			"imagePath": "content/packs/Core/XQLQueryEngine_image.png",
-			"name": "XQL Query Engine"
-		},
-		{
-			"id": "Cisco ASA",
-			"imagePath": "content/packs/CiscoASA/CiscoASA_image.png",
-			"name": "Cisco ASA"
-		},
-		{
-			"id": "Panorama",
-			"imagePath": "content/packs/PAN-OS/Panorama_image.png",
-			"name": "Palo Alto Networks PAN-OS"
-		},
-		{
-			"id": "Gmail",
-			"imagePath": "content/packs/Gmail/Gmail_image.png",
-			"name": "Gmail"
-		},
-		{
 			"id": "ServiceNow",
 			"imagePath": "content/packs/ServiceNow/ServiceNow_image.png",
 			"name": "ServiceNow (Deprecated)"
@@ -393,14 +283,124 @@
 			"name": "ServiceNow v2"
 		},
 		{
-			"id": "Rasterize",
-			"imagePath": "content/packs/rasterize/Rasterize_image.png",
-			"name": "Rasterize"
+			"id": "Cortex Core - Platform",
+			"imagePath": "content/packs/Core/CortexCore-Platform_image.png",
+			"name": "Cortex Platform - Core"
+		},
+		{
+			"id": "Cortex Core - IOC",
+			"imagePath": "content/packs/Core/CortexCore-IOC_image.png",
+			"name": "Indicators detection"
+		},
+		{
+			"id": "Cortex Core - IR",
+			"imagePath": "content/packs/Core/CortexCore-IR_image.png",
+			"name": "Investigation \u0026 Response"
+		},
+		{
+			"id": "XQL Query Engine",
+			"imagePath": "content/packs/Core/XQLQueryEngine_image.png",
+			"name": "XQL Query Engine"
+		},
+		{
+			"id": "jira-v2",
+			"imagePath": "content/packs/Jira/jira-v2_image.png",
+			"name": "Atlassian Jira v2 (Deprecated)"
+		},
+		{
+			"id": "Jira V3",
+			"imagePath": "content/packs/Jira/JiraV3_image.png",
+			"name": "Atlassian Jira v3"
+		},
+		{
+			"id": "Jira Event Collector",
+			"imagePath": "content/packs/Jira/JiraEventCollector_image.png",
+			"name": "Jira Event Collector"
+		},
+		{
+			"id": "Microsoft Graph Mail Single User",
+			"imagePath": "content/packs/MicrosoftGraphMail/MicrosoftGraphMailSingleUser_image.png",
+			"name": "Microsoft Graph Mail Single User"
+		},
+		{
+			"id": "MicrosoftGraphMail",
+			"imagePath": "content/packs/MicrosoftGraphMail/MicrosoftGraphMail_image.png",
+			"name": "O365 Outlook Mail (Using Graph API)"
 		},
 		{
 			"id": "Tavily",
 			"imagePath": "content/packs/Tavily/Tavily_image.png",
 			"name": "Tavily"
+		},
+		{
+			"id": "Panorama",
+			"imagePath": "content/packs/PAN-OS/Panorama_image.png",
+			"name": "Palo Alto Networks PAN-OS"
+		},
+		{
+			"id": "CrowdstrikeFalcon",
+			"imagePath": "content/packs/CrowdStrikeFalcon/CrowdstrikeFalcon_image.png",
+			"name": "CrowdStrike Falcon"
+		},
+		{
+			"id": "Rasterize",
+			"imagePath": "content/packs/rasterize/Rasterize_image.png",
+			"name": "Rasterize"
+		},
+		{
+			"id": "Microsoft Defender Advanced Threat Protection",
+			"imagePath": "content/packs/MicrosoftDefenderAdvancedThreatProtection/MicrosoftDefenderAdvancedThreatProtection_image.png",
+			"name": "Microsoft Defender for Endpoint"
+		},
+		{
+			"id": "Cisco ASA",
+			"imagePath": "content/packs/CiscoASA/CiscoASA_image.png",
+			"name": "Cisco ASA"
+		},
+		{
+			"id": "Active Directory Query v2",
+			"imagePath": "content/packs/Active_Directory_Query/ActiveDirectoryQueryv2_image.png",
+			"name": "Active Directory Query v2"
+		},
+		{
+			"id": "Palo Alto Networks - Prisma SASE",
+			"imagePath": "content/packs/PrismaAccess/PaloAltoNetworks-PrismaSASE_image.png",
+			"name": "Palo Alto Networks - Strata Cloud Manager"
+		},
+		{
+			"id": "Prisma Access",
+			"imagePath": "content/packs/PrismaAccess/PrismaAccess_image.png",
+			"name": "Prisma Access"
+		},
+		{
+			"id": "Prisma Access Egress IP feed",
+			"imagePath": "content/packs/PrismaAccess/PrismaAccessEgressIPfeed_image.png",
+			"name": "Prisma Access Egress IP feed"
+		},
+		{
+			"id": "Gmail",
+			"imagePath": "content/packs/Gmail/Gmail_image.png",
+			"name": "Gmail"
+		},
+		{
+			"id": "Okta Event Collector",
+			"imagePath": "content/packs/Okta/OktaEventCollector_image.png",
+			"name": "Okta Event Collector"
+		},
+		{
+			"id": "Okta IAM",
+			"imagePath": "content/packs/Okta/OktaIAM_image.png",
+			"name": "Okta IAM"
+		},
+		{
+			"id": "Okta v2",
+			"imagePath": "content/packs/Okta/Oktav2_image.png",
+			"name": "Okta v2"
+		},
+		{
+			"id": "okta",
+			"imagePath": "content/packs/Okta/okta_image.png",
+			"name": "okta (Deprecated)"
 		},
 		{
 			"id": "Microsoft 365 Defender",
@@ -419,7 +419,7 @@
 		}
 	],
 	"isOverridable": false,
-	"itemVersion": "1.0.22",
+	"itemVersion": "1.0.23",
 	"keywords": [],
 	"legacy": true,
 	"modules": [],
@@ -458,9 +458,9 @@
 	],
 	"tags": [],
 	"toServerVersion": "",
-	"updated": "2026-04-20T19:55:42Z",
+	"updated": "2026-04-29T09:56:45Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "8382811",
+	"versionInfo": "8564799",
 	"videos": []
 }
