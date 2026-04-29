@@ -7,13 +7,14 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 8.2.0
     isoverridable: false
-    itemVersion: 4.4.23
+    itemVersion: 4.4.24
     packID: PrismaCloud
     packName: Prisma Cloud by Palo Alto Networks
     packPropagationLabels:
     - all
     prevname: ""
-    supportedModules: []
+    supportedModules:
+    - xsiam
     toServerVersion: ""
 externalitemdata: "fromversion: 8.2.0\nid: Palo_Alto_Prisma_Cloud_ModelingRule\nname:
   Palo Alto Prisma Cloud Modeling Rule\nrules: >-\n  [MODEL: dataset=\"prisma_cloud_raw\"]\n\n
@@ -95,12 +96,13 @@ externalitemdata: "fromversion: 8.2.0\nid: Palo_Alto_Prisma_Cloud_ModelingRule\n
   \         \"resource\": {\n              \"type\": \"string\",\n              \"is_array\":
   false\n          },\n          \"status\": {\n              \"type\": \"string\",\n
   \             \"is_array\": false\n          },\n          \"alertTime\": {\n              \"type\":
-  \"int\",\n              \"is_array\": false\n          }\n      }\n  }\ntags: ''\n"
+  \"int\",\n              \"is_array\": false\n          }\n      }\n  }\ntags: ''\nsupportedModules:\n-
+  xsiam\n"
 filetype: yml
 is_auto_enabled: false
 name: Palo Alto Prisma Cloud Modeling Rule
 packid: PrismaCloud
 packname: Prisma Cloud by Palo Alto Networks
-packversion: 4.4.23
+packversion: 4.4.24
 playbook_id: ""
 subtype: modelingrule
