@@ -14,8 +14,8 @@
 		"incidenttype",
 		"playbook",
 		"classifier",
-		"modelingrule",
-		"parsingrule"
+		"parsingrule",
+		"modelingrule"
 	],
 	"contentItems": {
 		"agentixaction": null,
@@ -50,7 +50,7 @@
 		"incidentfield": [
 			{
 				"description": "",
-				"name": "Hello World Status",
+				"name": "Hello World Type",
 				"type": "shortText"
 			},
 			{
@@ -60,7 +60,7 @@
 			},
 			{
 				"description": "",
-				"name": "Hello World Type",
+				"name": "Hello World Status",
 				"type": "shortText"
 			}
 		],
@@ -95,6 +95,21 @@
 				"toversion": ""
 			},
 			{
+				"category": "Data Enrichment \u0026 Threat Intelligence",
+				"commands": [
+					{
+						"description": "Gets indicators from the feed.",
+						"hidden": false,
+						"name": "helloworld-get-indicators"
+					}
+				],
+				"description": "This is the Feed Hello World integration for getting started with your feed integration.",
+				"fromversion": "5.5.0",
+				"id": "HelloWorld Feed",
+				"name": "HelloWorld Feed (Community Contribution)",
+				"toversion": ""
+			},
+			{
 				"category": "Utilities",
 				"commands": [
 					{
@@ -122,21 +137,6 @@
 				"fromversion": "6.8.0",
 				"id": "HelloWorld",
 				"name": "HelloWorld (Community Contribution)",
-				"toversion": ""
-			},
-			{
-				"category": "Data Enrichment \u0026 Threat Intelligence",
-				"commands": [
-					{
-						"description": "Gets indicators from the feed.",
-						"hidden": false,
-						"name": "helloworld-get-indicators"
-					}
-				],
-				"description": "This is the Feed Hello World integration for getting started with your feed integration.",
-				"fromversion": "5.5.0",
-				"id": "HelloWorld Feed",
-				"name": "HelloWorld Feed (Community Contribution)",
 				"toversion": ""
 			},
 			{
@@ -192,9 +192,6 @@
 				"fromversion": "6.8.0",
 				"id": "HelloWorldV2",
 				"name": "Hello World v2 (Community Contribution)",
-				"supportedModules": [
-					"xsiam"
-				],
 				"toversion": ""
 			}
 		],
@@ -231,17 +228,17 @@
 		],
 		"playbook": [
 			{
-				"description": "This is a playbook which will handle the alerts coming from the Hello World service",
-				"fromversion": "6.8.0",
-				"id": "Handle Hello World Alert",
-				"name": "Handle Hello World Alert",
-				"tags": []
-			},
-			{
 				"description": "Deprecated. No available replacement.",
 				"fromversion": "5.0.0",
 				"id": "HelloWorld Scan",
 				"name": "HelloWorld Scan",
+				"tags": []
+			},
+			{
+				"description": "This is a playbook which will handle the alerts coming from the Hello World service",
+				"fromversion": "6.8.0",
+				"id": "Handle Hello World Alert",
+				"name": "Handle Hello World Alert",
 				"tags": []
 			}
 		],
@@ -251,7 +248,7 @@
 		"wizard": null
 	},
 	"created": "2025-03-29T09:38:42Z",
-	"currentVersion": "4.0.7",
+	"currentVersion": "4.0.8",
 	"defaultDataSource": {
 		"id": "HelloWorldEventCollector",
 		"name": "HelloWorld Event Collector"
@@ -262,7 +259,7 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.41.75",
+			"minVersion": "1.41.76",
 			"name": "Base"
 		},
 		"CommonPlaybooks": {
@@ -276,7 +273,7 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.22.0",
+			"minVersion": "1.22.2",
 			"name": "Common Scripts"
 		},
 		"CommonTypes": {
@@ -323,7 +320,7 @@
 		}
 	],
 	"isOverridable": false,
-	"itemVersion": "4.0.7",
+	"itemVersion": "4.0.8",
 	"keywords": [],
 	"legacy": true,
 	"modules": [],
@@ -353,15 +350,15 @@
 		"xsiam"
 	],
 	"tags": [
-		"Getting Started",
 		"Collection",
 		"TIM",
-		"Data Source"
+		"Data Source",
+		"Getting Started"
 	],
 	"toServerVersion": "",
-	"updated": "2026-04-27T20:40:25Z",
+	"updated": "2026-04-29T10:01:41Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "8515806",
+	"versionInfo": "8564799",
 	"videos": []
 }
