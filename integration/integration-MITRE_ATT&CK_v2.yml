@@ -127,7 +127,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.5.0
     isoverridable: false
-    itemVersion: 1.2.23
+    itemVersion: 1.2.24
     packID: FeedMitreAttackv2
     packName: MITRE ATT&CK
     packPropagationLabels:
@@ -254,8 +254,8 @@ script:
   runonce: false
   script: |
     register_module_line('MITRE ATT&CK v2', 'start', __line__())
-    CONSTANT_PACK_VERSION = '1.2.23'
-    demisto.debug('pack id = FeedMitreAttackv2, pack version = 1.2.23')
+    CONSTANT_PACK_VERSION = '1.2.24'
+    demisto.debug('pack id = FeedMitreAttackv2, pack version = 1.2.24')
     import json
     import logging
 
@@ -2456,6 +2456,7 @@ script:
 
             if tlp_color:
                 fields["trafficlightprotocol"] = tlp_color
+                obj_to_parse["trafficlightprotocol"] = tlp_color
 
             return fields
 
@@ -3359,6 +3360,9 @@ script:
             if not fields.get("trafficlightprotocol"):
                 tlp_from_marking_refs = self.get_tlp(ioc_obj_copy)
                 fields["trafficlightprotocol"] = tlp_from_marking_refs if tlp_from_marking_refs else self.tlp_color
+
+            if fields.get("trafficlightprotocol"):
+                ioc_obj_copy["trafficlightprotocol"] = fields["trafficlightprotocol"]
 
             if self.update_custom_fields:
                 custom_fields, score = self.parse_custom_fields(ioc_obj_copy.get("extensions", {}))
