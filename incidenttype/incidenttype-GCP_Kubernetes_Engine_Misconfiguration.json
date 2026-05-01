@@ -18,7 +18,7 @@
 	"hoursR": 0,
 	"id": "GCP Kubernetes Engine Misconfiguration",
 	"isOverridable": false,
-	"itemVersion": "4.4.24",
+	"itemVersion": "4.4.25",
 	"layout": "GCP Kubernetes Engine Misconfiguration",
 	"locked": false,
 	"name": "GCP Kubernetes Engine Misconfiguration",
