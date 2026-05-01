@@ -3,7 +3,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.5.0
     isoverridable: false
-    itemVersion: 4.4.24
+    itemVersion: 4.4.25
     packID: PrismaCloud
     packName: Prisma Cloud by Palo Alto Networks
     packPropagationLabels:
@@ -388,7 +388,7 @@ tasks:
       brand: ""
       description: |-
         1. Sign in to the Azure portal.
-        2. Go to the Kubernetes Service and select your cluster.
+        2. Goto the Kubernetes Service and select your cluster.
         3. Click Insights in the left window pane.
         4. If you have an existing Log Analytics workspace in the same subscription as the cluster, select it in the drop-down list.
         5. Select Enable.
