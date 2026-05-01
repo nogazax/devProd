@@ -89,7 +89,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 4.4.24
+    itemVersion: 4.4.25
     packID: PrismaCloud
     packName: Prisma Cloud by Palo Alto Networks
     packPropagationLabels:
@@ -1201,8 +1201,8 @@ script:
   runonce: false
   script: |
     register_module_line('RedLock', 'start', __line__())
-    CONSTANT_PACK_VERSION = '4.4.24'
-    demisto.debug('pack id = PrismaCloud, pack version = 4.4.24')
+    CONSTANT_PACK_VERSION = '4.4.25'
+    demisto.debug('pack id = PrismaCloud, pack version = 4.4.25')
 
 
     import urllib3
