@@ -17,7 +17,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.41.76
+    itemVersion: 1.41.77
     packID: Base
     packName: Base
     packPropagationLabels:
@@ -26,7 +26,7 @@ contentitemexportablefields:
     propagationLabels: []
     supportedModules: []
     toServerVersion: ""
-dockerimage: demisto/taxii:1.0.0.5187594
+dockerimage: demisto/taxii:1.0.0.8240011
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -47,8 +47,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('StixParser', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.41.76'
-  demisto.debug('pack id = Base, pack version = 1.41.76')
+  CONSTANT_PACK_VERSION = '1.41.77'
+  demisto.debug('pack id = Base, pack version = 1.41.77')
   import collections
   import copy
   import tempfile
@@ -1579,7 +1579,14 @@ script: |
       indicators = {}
       ttps = {}
 
-      for action, element in etree.iterparse(file_name, events=("start", "end"), recover=True):
+      for action, element in etree.iterparse(
+          file_name,
+          events=("start", "end"),
+          recover=True,
+          resolve_entities=False,
+          load_dtd=False,
+          no_network=True,
+      ):
           if action == "start":
               tag_stack.append(element.tag)
 
