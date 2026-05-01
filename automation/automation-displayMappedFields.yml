@@ -7,7 +7,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.8.0
     isoverridable: false
-    itemVersion: 1.22.3
+    itemVersion: 1.22.5
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -16,7 +16,7 @@ contentitemexportablefields:
     propagationLabels: []
     supportedModules: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.12.12.6204436
+dockerimage: demisto/python3:3.12.13.8319994
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -30,10 +30,11 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('displayMappedFields', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.22.3'
-  demisto.debug('pack id = CommonScripts, pack version = 1.22.3')
+  CONSTANT_PACK_VERSION = '1.22.5'
+  demisto.debug('pack id = CommonScripts, pack version = 1.22.5')
 
 
+  import html as html_module
 
   # List of empty values that we want to filter out.
   EMPTY_VALUES = [
@@ -63,11 +64,10 @@ script: |
       return items
 
 
-  def escape_pipe(value):
-      """
-      Escapes pipe characters in the value by replacing them with an HTML entity.
-      """
-      return value.replace("|", "&#124;")
+  def escape_for_html_table(value):
+      """Escape value for safe insertion into HTML table cells."""
+      escaped = html_module.escape(str(value))
+      return escaped.replace("|", "&#124;")
 
 
   def format_data_to_rows(items):
@@ -79,7 +79,7 @@ script: |
           if isinstance(value, list):
               # If the value is a list, join the items with a separator and escape the result
               value = "|".join(map(str, value))
-          rows.append(f"{escape_pipe(key)}|{escape_pipe(str(value))}")
+          rows.append(f"{escape_for_html_table(key)}|{escape_for_html_table(str(value))}")
       return rows
 
 
