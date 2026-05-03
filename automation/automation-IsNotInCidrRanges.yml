@@ -20,7 +20,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.4.18
+    itemVersion: 1.4.19
     packID: FiltersAndTransformers
     packName: Filters And Transformers
     packPropagationLabels:
@@ -38,7 +38,7 @@ restrictioncenter: {}
 runas: DBotWeakRole
 runonce: false
 script: |-
-  // pack version: 1.4.18
+  // pack version: 1.4.19
   // NOTE: The code below is a copy of the code in IsInCidrRanges script, they should be kept identical
 
   function isIPv6(ip) {
