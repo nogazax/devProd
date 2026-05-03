@@ -43,7 +43,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.22.5
+    itemVersion: 1.22.6
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -85,8 +85,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('ParseCSV', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.22.5'
-  demisto.debug('pack id = CommonScripts, pack version = 1.22.5')
+  CONSTANT_PACK_VERSION = '1.22.6'
+  demisto.debug('pack id = CommonScripts, pack version = 1.22.6')
   import csv
 
 
