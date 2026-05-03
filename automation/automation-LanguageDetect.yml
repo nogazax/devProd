@@ -13,7 +13,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.22.5
+    itemVersion: 1.22.6
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -22,7 +22,7 @@ contentitemexportablefields:
     propagationLabels: []
     supportedModules: []
     toServerVersion: ""
-dockerimage: demisto/py3-tools:1.0.0.5475267
+dockerimage: demisto/py3-tools:1.0.0.8544956
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -41,8 +41,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('LanguageDetect', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.22.5'
-  demisto.debug('pack id = CommonScripts, pack version = 1.22.5')
+  CONSTANT_PACK_VERSION = '1.22.6'
+  demisto.debug('pack id = CommonScripts, pack version = 1.22.6')
 
 
   from langdetect import detect_langs
