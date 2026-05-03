@@ -30,7 +30,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.4.18
+    itemVersion: 1.4.19
     packID: FiltersAndTransformers
     packName: Filters And Transformers
     packPropagationLabels:
@@ -48,7 +48,7 @@ restrictioncenter: {}
 runas: DBotWeakRole
 runonce: false
 script: |
-  // pack version: 1.4.18
+  // pack version: 1.4.19
   function parseValue(value) {
       /* This function is a workaround for an issue where passing a date field from the context
          to the "value" argument, in JS it is accepted as an object, while in python it is a string.
