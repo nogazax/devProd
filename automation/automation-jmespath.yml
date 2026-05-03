@@ -16,7 +16,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.4.18
+    itemVersion: 1.4.19
     packID: FiltersAndTransformers
     packName: Filters And Transformers
     packPropagationLabels:
@@ -25,7 +25,7 @@ contentitemexportablefields:
     propagationLabels: []
     supportedModules: []
     toServerVersion: ""
-dockerimage: demisto/py3-tools:1.0.0.5475267
+dockerimage: demisto/py3-tools:1.0.0.8544956
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -39,8 +39,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('jmespath', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.4.18'
-  demisto.debug('pack id = FiltersAndTransformers, pack version = 1.4.18')
+  CONSTANT_PACK_VERSION = '1.4.19'
+  demisto.debug('pack id = FiltersAndTransformers, pack version = 1.4.19')
 
   import jmespath
 
