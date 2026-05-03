@@ -48,7 +48,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.5.0
     isoverridable: false
-    itemVersion: 1.4.18
+    itemVersion: 1.4.19
     packID: FiltersAndTransformers
     packName: Filters And Transformers
     packPropagationLabels:
@@ -71,8 +71,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('FormatTemplate', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.4.18'
-  demisto.debug('pack id = FiltersAndTransformers, pack version = 1.4.18')
+  CONSTANT_PACK_VERSION = '1.4.19'
+  demisto.debug('pack id = FiltersAndTransformers, pack version = 1.4.19')
   from collections.abc import Callable
   from typing import Any
 
