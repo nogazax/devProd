@@ -14,7 +14,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.0.0
     isoverridable: false
-    itemVersion: 1.4.18
+    itemVersion: 1.4.19
     packID: FiltersAndTransformers
     packName: Filters And Transformers
     packPropagationLabels:
@@ -32,7 +32,7 @@ restrictioncenter: {}
 runas: DBotWeakRole
 runonce: false
 script: |
-  // pack version: 1.4.18
+  // pack version: 1.4.19
   return JSON.stringify(args.value)
 scripttarget: 0
 signature: qggPBs9U0tFzYwjyi01Z9KLSDBitgojq9dSKjKfV0hq1lkXdKhFV1HZfxGgRAzT7xHXknO0q2eYS0SYmZo4ZOzxFJ5kUOBDU4SHW1JiQB9+0VlJ0PgojB50d9VRaC0oIJvMZjRwvum6nUlcgohmlSemGunptl033SUexd5Z9JqEGR9yg3Vu9itpmRFrq2JMJBoHIZPQqzBJQ/cCCvqiOVE4UPJxXWK0CnZ31Xoh6NphLbAYH21cklcgwjg4Ihj6NJ+BEXNnHAJlcGryM3C6a/mtCGvud0wb2bHYbere2MebIgp41bdZYsHacUaLJVNs/N+Qj4yAT7o9YBHr+byu6XQ==
