@@ -101,7 +101,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.0.0
     isoverridable: false
-    itemVersion: 1.22.5
+    itemVersion: 1.22.6
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
