@@ -40,7 +40,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.5.0
     isoverridable: false
-    itemVersion: 1.4.18
+    itemVersion: 1.4.19
     packID: FiltersAndTransformers
     packName: Filters And Transformers
     packPropagationLabels:
@@ -58,7 +58,7 @@ restrictioncenter: {}
 runas: DBotWeakRole
 runonce: false
 script: |
-  // pack version: 1.4.18
+  // pack version: 1.4.19
   function toBoolean(value) {
       if (typeof(value) === 'string') {
           if (['yes', 'true'].indexOf(value.toLowerCase()) != -1) {
