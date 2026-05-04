@@ -66,7 +66,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.8.0
     isoverridable: false
-    itemVersion: 3.6.3
+    itemVersion: 3.7.0
     packID: Slack
     packName: Slack
     packPropagationLabels:
@@ -155,8 +155,8 @@ script:
   runonce: false
   script: |
     register_module_line('Slack Event Collector', 'start', __line__())
-    CONSTANT_PACK_VERSION = '3.6.3'
-    demisto.debug('pack id = Slack, pack version = 3.6.3')
+    CONSTANT_PACK_VERSION = '3.7.0'
+    demisto.debug('pack id = Slack, pack version = 3.7.0')
 
     import urllib3
 
