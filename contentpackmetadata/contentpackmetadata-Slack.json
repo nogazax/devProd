@@ -31,10 +31,10 @@
 		"agentixagent": null,
 		"automation": [
 			{
-				"description": "Sends a message (question) to either user (in a direct message) or to a channel. The message includes predefined reply options. The response can also close a task (might be conditional) in a playbook.",
-				"fromversion": "5.0.0",
-				"id": "SlackAsk",
-				"name": "SlackAsk",
+				"description": "GetSlackBlockBuilderResponse will format a SlackBlockBuilder response and insert it into an incident's context.",
+				"fromversion": "6.10.0",
+				"id": "GetSlackBlockBuilderResponse",
+				"name": "GetSlackBlockBuilderResponse",
 				"tags": [
 					"slack"
 				]
@@ -49,19 +49,19 @@
 				]
 			},
 			{
-				"description": "Sends a message (question) to either user (in a direct message) or to a channel. The message includes predefined reply options. The response can also close a task (might be conditional) in a playbook. Note: a message maximum length is 3000 characters enforced by Slack API.",
-				"fromversion": "5.5.0",
-				"id": "SlackAskV2",
-				"name": "SlackAskV2",
+				"description": "Sends a message (question) to either user (in a direct message) or to a channel. The message includes predefined reply options. The response can also close a task (might be conditional) in a playbook.",
+				"fromversion": "5.0.0",
+				"id": "SlackAsk",
+				"name": "SlackAsk",
 				"tags": [
 					"slack"
 				]
 			},
 			{
-				"description": "GetSlackBlockBuilderResponse will format a SlackBlockBuilder response and insert it into an incident's context.",
-				"fromversion": "6.10.0",
-				"id": "GetSlackBlockBuilderResponse",
-				"name": "GetSlackBlockBuilderResponse",
+				"description": "Sends a message (question) to either user (in a direct message) or to a channel. The message includes predefined reply options. The response can also close a task (might be conditional) in a playbook. Note: a message maximum length is 3000 characters enforced by Slack API.",
+				"fromversion": "5.5.0",
+				"id": "SlackAskV2",
+				"name": "SlackAskV2",
 				"tags": [
 					"slack"
 				]
@@ -110,63 +110,6 @@
 				"name": "Slack Event Collector",
 				"supportedModules": [
 					"xsiam"
-				],
-				"toversion": ""
-			},
-			{
-				"category": "Identity and Access Management",
-				"commands": [
-					{
-						"description": "Creates a user.",
-						"hidden": false,
-						"name": "iam-create-user"
-					},
-					{
-						"description": "Updates an existing user with the data passed in the user-profile argument.",
-						"hidden": false,
-						"name": "iam-update-user"
-					},
-					{
-						"description": "Retrieves a single user resource.",
-						"hidden": false,
-						"name": "iam-get-user"
-					},
-					{
-						"description": "Disable an active user.",
-						"hidden": false,
-						"name": "iam-disable-user"
-					},
-					{
-						"description": "Creates an empty group.",
-						"hidden": false,
-						"name": "iam-create-group"
-					},
-					{
-						"description": "Retrieves the group information including members.",
-						"hidden": false,
-						"name": "iam-get-group"
-					},
-					{
-						"description": "Permanently removes a group.",
-						"hidden": false,
-						"name": "iam-delete-group"
-					},
-					{
-						"description": "Updates an existing group resource. This command allows individual (or groups of) users to be added or removed from the group with a single operation. A max of 15,000 users can be modified in 1 call.",
-						"hidden": false,
-						"name": "iam-update-group"
-					}
-				],
-				"description": "Integrate with Slack's services to execute CRUD operations for employee lifecycle processes.",
-				"fromversion": "6.0.0",
-				"id": "Slack IAM",
-				"name": "Slack IAM",
-				"supportedModules": [
-					"xsiam",
-					"agentix",
-					"edr",
-					"cloud",
-					"cloud_runtime_security"
 				],
 				"toversion": ""
 			},
@@ -359,6 +302,63 @@
 					"agentix"
 				],
 				"toversion": ""
+			},
+			{
+				"category": "Identity and Access Management",
+				"commands": [
+					{
+						"description": "Creates a user.",
+						"hidden": false,
+						"name": "iam-create-user"
+					},
+					{
+						"description": "Updates an existing user with the data passed in the user-profile argument.",
+						"hidden": false,
+						"name": "iam-update-user"
+					},
+					{
+						"description": "Retrieves a single user resource.",
+						"hidden": false,
+						"name": "iam-get-user"
+					},
+					{
+						"description": "Disable an active user.",
+						"hidden": false,
+						"name": "iam-disable-user"
+					},
+					{
+						"description": "Creates an empty group.",
+						"hidden": false,
+						"name": "iam-create-group"
+					},
+					{
+						"description": "Retrieves the group information including members.",
+						"hidden": false,
+						"name": "iam-get-group"
+					},
+					{
+						"description": "Permanently removes a group.",
+						"hidden": false,
+						"name": "iam-delete-group"
+					},
+					{
+						"description": "Updates an existing group resource. This command allows individual (or groups of) users to be added or removed from the group with a single operation. A max of 15,000 users can be modified in 1 call.",
+						"hidden": false,
+						"name": "iam-update-group"
+					}
+				],
+				"description": "Integrate with Slack's services to execute CRUD operations for employee lifecycle processes.",
+				"fromversion": "6.0.0",
+				"id": "Slack IAM",
+				"name": "Slack IAM",
+				"supportedModules": [
+					"xsiam",
+					"agentix",
+					"edr",
+					"cloud",
+					"cloud_runtime_security"
+				],
+				"toversion": ""
 			}
 		],
 		"layoutscontainer": null,
@@ -422,7 +422,7 @@
 		"wizard": null
 	},
 	"created": "2025-03-29T09:23:34Z",
-	"currentVersion": "3.6.3",
+	"currentVersion": "3.7.0",
 	"defaultDataSource": {
 		"id": "Slack Event Collector",
 		"name": "Slack Event Collector"
@@ -433,14 +433,14 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "1.6.73",
+			"minVersion": "1.7.0",
 			"name": "Active Directory Query"
 		},
 		"Base": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.41.75",
+			"minVersion": "1.41.78",
 			"name": "Base"
 		},
 		"CommonTypes": {
@@ -454,7 +454,7 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.4.18",
+			"minVersion": "1.4.19",
 			"name": "Filters And Transformers"
 		},
 		"MicrosoftTeams": {
@@ -516,9 +516,9 @@
 			"name": "Slack v3"
 		},
 		{
-			"id": "Syslog Sender",
-			"imagePath": "content/packs/Syslog/SyslogSender_image.png",
-			"name": "Syslog Sender"
+			"id": "Active Directory Query v2",
+			"imagePath": "content/packs/Active_Directory_Query/ActiveDirectoryQueryv2_image.png",
+			"name": "Active Directory Query v2"
 		},
 		{
 			"id": "Microsoft Teams",
@@ -536,13 +536,13 @@
 			"name": "Microsoft Teams via Webhook"
 		},
 		{
-			"id": "Active Directory Query v2",
-			"imagePath": "content/packs/Active_Directory_Query/ActiveDirectoryQueryv2_image.png",
-			"name": "Active Directory Query v2"
+			"id": "Syslog Sender",
+			"imagePath": "content/packs/Syslog/SyslogSender_image.png",
+			"name": "Syslog Sender"
 		}
 	],
 	"isOverridable": false,
-	"itemVersion": "3.6.3",
+	"itemVersion": "3.7.0",
 	"keywords": [
 		"Slack"
 	],
@@ -560,7 +560,7 @@
 	"rawKeywords": null,
 	"rawTags": null,
 	"rawUseCases": null,
-	"readme": "## Overview\n\nSend messages and notifications to your Slack team and integrate with Slack's services to execute create, read, update, and delete operations for employee lifecycle processes.\n\n## What does this pack do?\n\n\n- Sends a message to a user, group, or channel.\n- Archives a Slack channel.\n- Sends a file to a user, channel, or group.\n- Sets the topic for a channel.\n- Creates a channel in Slack.\n- Invites users to join a channel.\n- Removes users from the specified channel.\n- Renames a channel in Slack.\n- Gets details about a specified user.\n- Returns the integration context as a file (for debugging purposes only).\n\n- As part of this pack, you will get a playbook that investigates failed login events.\n\n- Data normalization capabilities:\n  - Rules for parsing and modeling Slack audit logs that are ingested via the event collector into Cortex XSIAM.\n  - The ingested Slack logs can be queried in XQL Search using the *`slack_slack_raw`* dataset.\n\n## Supported log categories\n\n| Category | Category Display Name |\n|:---------|:----------------------|\n| [Audit Logs](https://api.slack.com/admins/audit-logs) | Slack Audit Logs |\n\n### Supported timestamp formats\n\n- Unix epoch timestamp.\n\n***\n\n## Data Collection\n\n### Slack Side\n\n**Note**: The Audit Logs API is only available to Slack workspaces on an **Enterprise Grid** plan. This integration will **not** work for workspaces on a Free, Standard, or Business+ plan.\n\n#### Obtain a User Token\n\nThe following steps must be done by the **Owner** of the Enterprise Grid organization:\n\n1. **Create a Slack app:**\n    Navigate to the [Slack App creation page](https://api.slack.com/apps?new_app=1). Click **Create App** to proceed to the settings page.\n\n2. **Configure Permissions:**\n    From the left navigation bar, select **OAuth \u0026 Permissions**.\n   Scroll down to the **Scopes** section and add the `auditlogs:read` User Token Scope to your app.\n\n3. **Activate Distribution:**\n    - From the left navigation bar, select **Manage Distribution**.\n    - Ensure all sections under **Share Your App with Other Workspaces** are checked (green), then click **Activate Public Distribution**.\n    - Under **Share Your App with Your Workspace**, copy the **Sharable URL**. Paste this into a browser to initiate the OAuth handshake.\n    - **Critical:** Check the dropdown in the upper right of the installation page. **You must install the app on the Enterprise Grid organization**, not an individual workspace within the organization.\n4. **Retrieve Token:**\n    Once the OAuth flow is complete, you will receive an OAuth token (starting with `xoxp-`) that authorizes access to the Audit Logs API.\n\n### Cortex XSIAM Side - Slack Event Collector\n\nThis is the default integration for this content pack when configured by the Data Onboarder in Cortex XSIAM.\n\n#### Configuration Parameters\n\n | **Parameter** | **Description** | **Required** |\n | --- | --- | --- |\n | **Server URL** | Slack API server URL. | True |\n | **User Token** | OAuth token starting with `xoxp-`. | True |\n | **Max Events per Fetch** | The maximum number of audit logs to retrieve per fetch cycle. | False |\n | **First Fetch Time Interval** | Date from which to start fetching data (Data is not available prior to March 2018). | False |\n | **Trust Any Certificate** | Skip SSL certificate verification (insecure). | False |\n | **Use System Proxy** | Use the configured system proxy settings. | False |\n\n\n",
+	"readme": "## Overview\n\nSend messages and notifications to your Slack team and integrate with Slack's services to execute create, read, update, and delete operations for employee lifecycle processes.\n\n## What does this pack do?\n\n\n- Sends a message to a user, group, or channel.\n- Archives a Slack channel.\n- Sends a file to a user, channel, or group.\n- Sets the topic for a channel.\n- Creates a channel in Slack.\n- Invites users to join a channel.\n- Removes users from the specified channel.\n- Renames a channel in Slack.\n- Gets details about a specified user.\n- Returns the integration context as a file (for debugging purposes only).\n\n- As part of this pack, you will get a playbook that investigates failed login events.\n\n- Data normalization capabilities:\n  - Rules for parsing and modeling Slack audit logs that are ingested via the event collector into Cortex XSIAM.\n  - The ingested Slack logs can be queried in XQL Search using the *`slack_slack_raw`* dataset.\n\n\n\n\n\n### Cortex Agentic Assistant in Slack\n\nInteract with the **Cortex Agentic Assistant** directly from Slack. Mention the bot in any channel or thread to ask security questions, run investigations, and get AI-powered responses, all without leaving Slack.\n\n![Cortex AI Assistant in Slack](api/marketplace/file?name=content/packs/Slack/readme_images/slack_ai_assistant_demo.png)\n\n\u003e For setup instructions and detailed usage, see the [Slack V3 integration README](https://xsoar.pan.dev/docs/reference/integrations/slack-v3#cortex-ai-assistant-in-slack).\n\n\n\n\n\n## Supported log categories\n\n| Category | Category Display Name |\n|:---------|:----------------------|\n| [Audit Logs](https://api.slack.com/admins/audit-logs) | Slack Audit Logs |\n\n### Supported timestamp formats\n\n- Unix epoch timestamp.\n\n***\n\n## Data Collection\n\n### Slack Side\n\n**Note**: The Audit Logs API is only available to Slack workspaces on an **Enterprise Grid** plan. This integration will **not** work for workspaces on a Free, Standard, or Business+ plan.\n\n#### Obtain a User Token\n\nThe following steps must be done by the **Owner** of the Enterprise Grid organization:\n\n1. **Create a Slack app:**\n    Navigate to the [Slack App creation page](https://api.slack.com/apps?new_app=1). Click **Create App** to proceed to the settings page.\n\n2. **Configure Permissions:**\n    From the left navigation bar, select **OAuth \u0026 Permissions**.\n   Scroll down to the **Scopes** section and add the `auditlogs:read` User Token Scope to your app.\n\n3. **Activate Distribution:**\n    - From the left navigation bar, select **Manage Distribution**.\n    - Ensure all sections under **Share Your App with Other Workspaces** are checked (green), then click **Activate Public Distribution**.\n    - Under **Share Your App with Your Workspace**, copy the **Sharable URL**. Paste this into a browser to initiate the OAuth handshake.\n    - **Critical:** Check the dropdown in the upper right of the installation page. **You must install the app on the Enterprise Grid organization**, not an individual workspace within the organization.\n4. **Retrieve Token:**\n    Once the OAuth flow is complete, you will receive an OAuth token (starting with `xoxp-`) that authorizes access to the Audit Logs API.\n\n### Cortex XSIAM Side - Slack Event Collector\n\nThis is the default integration for this content pack when configured by the Data Onboarder in Cortex XSIAM.\n\n#### Configuration Parameters\n\n | **Parameter** | **Description** | **Required** |\n | --- | --- | --- |\n | **Server URL** | Slack API server URL. | True |\n | **User Token** | OAuth token starting with `xoxp-`. | True |\n | **Max Events per Fetch** | The maximum number of audit logs to retrieve per fetch cycle. | False |\n | **First Fetch Time Interval** | Date from which to start fetching data (Data is not available prior to March 2018). | False |\n | **Trust Any Certificate** | Skip SSL certificate verification (insecure). | False |\n | **Use System Proxy** | Use the configured system proxy settings. | False |\n\n\n",
 	"searchRank": 0,
 	"serverMaxVersion": "",
 	"serverMinVersion": "5.0.0",
@@ -582,10 +582,10 @@
 		"Data Source"
 	],
 	"toServerVersion": "",
-	"updated": "2026-04-27T20:45:16Z",
+	"updated": "2026-05-03T19:55:53Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "8515806",
+	"versionInfo": "8687052",
 	"videos": [
 		"https://www.youtube.com/watch?v=rt3lvsI_0-4"
 	]
