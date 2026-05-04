@@ -8,7 +8,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.10.0
     isoverridable: false
-    itemVersion: 3.6.3
+    itemVersion: 3.7.0
     packID: Slack
     packName: Slack
     packPropagationLabels:
@@ -39,8 +39,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('GetSlackBlockBuilderResponse', 'start', __line__())
-  CONSTANT_PACK_VERSION = '3.6.3'
-  demisto.debug('pack id = Slack, pack version = 3.6.3')
+  CONSTANT_PACK_VERSION = '3.7.0'
+  demisto.debug('pack id = Slack, pack version = 3.7.0')
   import json
   from typing import Any
 
