@@ -24,10 +24,102 @@
 			},
 			{
 				"category": "",
+				"description": "Extract all indicators (such as IPs, domains, URLs, hashes) from text, files, or entries, based on the server’s indicator configuration.\n",
+				"fromversion": "8.12.0",
+				"id": "ExtractIndicators",
+				"name": "ExtractIndicators",
+				"supportedModules": [
+					"agentix",
+					"xsiam",
+					"cloud_posture"
+				],
+				"toversion": "",
+				"underlyingContentItemType": "command"
+			},
+			{
+				"category": "",
+				"description": "Retrieves all available threat intelligence and reputation data for an email address using configured integrations.\nThis includes associations with phishing campaigns, malicious activity, and breach data.\nEnsure that one or more of these integrations are configured in your environment to retrieve enrichment using the email command.\nPREREQUISITE: Ensure that one or more of these external integrations are configured in your environment.\n",
+				"fromversion": "8.12.0",
+				"id": "EnrichEmail",
+				"name": "EnrichEmail",
+				"supportedModules": [
+					"agentix",
+					"cloud",
+					"cloud_runtime_security",
+					"edr",
+					"xsiam"
+				],
+				"toversion": "",
+				"underlyingContentItemType": "command"
+			},
+			{
+				"category": "",
+				"description": "Enriches existing Cortex indicators with reputation and intelligence data using the specified indicator values.",
+				"fromversion": "8.12.0",
+				"id": "EnrichIndicators",
+				"name": "EnrichIndicator",
+				"supportedModules": [
+					"agentix",
+					"cloud",
+					"cloud_runtime_security",
+					"edr",
+					"xsiam"
+				],
+				"toversion": "",
+				"underlyingContentItemType": "command"
+			},
+			{
+				"category": "",
 				"description": "A comprehensive action to enrich the provided URL indicator and retrieve all available data.\nThe results include both tenant-specific internal information (from the Threat Intelligence Management (TIM) brand) and global threat intelligence.\nGlobal threat intelligence is retrieved using configured integrations to identify potential malicious activity.\nUSE ONLY for URLs — inputs must have a protocol (http://, https://) or start with \"www.\".\nDO NOT USE this action for bare hostnames (e.g., example.com or openclaw.ai).\nACTION REDUNDANCY WARNING: Due to its comprehensive nature, DO NOT use 'EnrichIndicator' or 'CortexListIndicators' in parallel with this action, as the data is already included in the output.\nPREREQUISITE: Ensure that one or more of these external integrations are configured in your environment.\n",
 				"fromversion": "8.12.0",
 				"id": "EnrichURL",
 				"name": "EnrichURL",
+				"supportedModules": [
+					"agentix",
+					"cloud",
+					"cloud_runtime_security",
+					"edr",
+					"xsiam"
+				],
+				"toversion": "",
+				"underlyingContentItemType": "script"
+			},
+			{
+				"category": "",
+				"description": "A comprehensive action to enrich the provided file indicator and retrieve all available data.\nThe results include both tenant-specific internal information (from the Threat Intelligence Management (TIM) brand) and global threat intelligence.\nGlobal threat intelligence is retrieved using configured integrations to identify potential threats.\nACTION REDUNDANCY WARNING: Due to its comprehensive nature, DO NOT use 'EnrichIndicator' or 'CortexListIndicators' in parallel with this action, as the data is already included in the output.\nPREREQUISITE: Ensure that one or more of these external integrations are configured in your environment.\n",
+				"fromversion": "8.12.0",
+				"id": "EnrichFile",
+				"name": "EnrichFile",
+				"supportedModules": [
+					"agentix",
+					"xsiam",
+					"cloud",
+					"cloud_runtime_security",
+					"edr"
+				],
+				"toversion": "",
+				"underlyingContentItemType": "script"
+			},
+			{
+				"category": "",
+				"description": "Updates issue properties. This action does not provide an explicit indication of success.",
+				"fromversion": "8.12.0",
+				"id": "SetIssue",
+				"name": "CortexUpdateIssue",
+				"supportedModules": [
+					"agentix",
+					"xsiam",
+					"cloud_posture"
+				],
+				"toversion": "",
+				"underlyingContentItemType": "command"
+			},
+			{
+				"category": "",
+				"description": "A comprehensive action to enrich the provided domain indicator and retrieve all available data.\nThe results include both tenant-specific internal information (from the Threat Intelligence Management (TIM) brand) and global threat intelligence.\nGlobal threat intelligence is retrieved using configured integrations to identify potential threats.\nUSE ONLY for bare domain names — inputs must be plain hostnames without a protocol or \"www.\" prefix.\nDO NOT USE this action for values that include a protocol (such as http:// or https://) or start with www., as these are classified as URLs rather than domains.\nACTION REDUNDANCY WARNING: Due to its comprehensive nature, DO NOT use 'EnrichIndicator' or 'CortexListIndicators' in parallel with this action, as the data is already included in the output.\nPREREQUISITE: Ensure that one or more of these external integrations are configured in your environment.\n",
+				"fromversion": "8.12.0",
+				"id": "EnrichDomain",
+				"name": "EnrichDomain",
 				"supportedModules": [
 					"agentix",
 					"cloud",
@@ -56,99 +148,21 @@
 			},
 			{
 				"category": "",
-				"description": "Retrieves all available threat intelligence and reputation data for an email address using configured integrations.\nThis includes associations with phishing campaigns, malicious activity, and breach data.\nEnsure that one or more of these integrations are configured in your environment to retrieve enrichment using the email command.\nPREREQUISITE: Ensure that one or more of these external integrations are configured in your environment.\n",
+				"description": "Searches the threat intelligence database for relationships between indicators based on specified criteria. Returns relationships where at least one side of the relationship matches a value in entities or matches a type in related_entity_types. The search can be narrowed to return only specific relationship types between the entities. All filters use AND logic between different filter types, while multiple values within a single filter use OR logic.\n",
 				"fromversion": "8.12.0",
-				"id": "EnrichEmail",
-				"name": "EnrichEmail",
-				"supportedModules": [
-					"agentix",
-					"cloud",
-					"cloud_runtime_security",
-					"edr",
-					"xsiam"
-				],
-				"toversion": "",
-				"underlyingContentItemType": "command"
-			},
-			{
-				"category": "",
-				"description": "Updates issue properties. This action does not provide an explicit indication of success.",
-				"fromversion": "8.12.0",
-				"id": "SetIssue",
-				"name": "CortexUpdateIssue",
+				"id": "CortexListIndicatorRelationships",
+				"name": "CortexListIndicatorRelationships",
 				"supportedModules": [
 					"agentix",
 					"xsiam",
 					"cloud_posture"
 				],
 				"toversion": "",
-				"underlyingContentItemType": "command"
-			},
-			{
-				"category": "",
-				"description": "A comprehensive action to enrich the provided file indicator and retrieve all available data.\nThe results include both tenant-specific internal information (from the Threat Intelligence Management (TIM) brand) and global threat intelligence.\nGlobal threat intelligence is retrieved using configured integrations to identify potential threats.\nACTION REDUNDANCY WARNING: Due to its comprehensive nature, DO NOT use 'EnrichIndicator' or 'CortexListIndicators' in parallel with this action, as the data is already included in the output.\nPREREQUISITE: Ensure that one or more of these external integrations are configured in your environment.\n",
-				"fromversion": "8.12.0",
-				"id": "EnrichFile",
-				"name": "EnrichFile",
-				"supportedModules": [
-					"agentix",
-					"xsiam",
-					"cloud",
-					"cloud_runtime_security",
-					"edr"
-				],
-				"toversion": "",
 				"underlyingContentItemType": "script"
 			},
 			{
 				"category": "",
-				"description": "A comprehensive action to enrich the provided domain indicator and retrieve all available data.\nThe results include both tenant-specific internal information (from the Threat Intelligence Management (TIM) brand) and global threat intelligence.\nGlobal threat intelligence is retrieved using configured integrations to identify potential threats.\nUSE ONLY for bare domain names — inputs must be plain hostnames without a protocol or \"www.\" prefix.\nDO NOT USE this action for values that include a protocol (such as http:// or https://) or start with www., as these are classified as URLs rather than domains.\nACTION REDUNDANCY WARNING: Due to its comprehensive nature, DO NOT use 'EnrichIndicator' or 'CortexListIndicators' in parallel with this action, as the data is already included in the output.\nPREREQUISITE: Ensure that one or more of these external integrations are configured in your environment.\n",
-				"fromversion": "8.12.0",
-				"id": "EnrichDomain",
-				"name": "EnrichDomain",
-				"supportedModules": [
-					"agentix",
-					"cloud",
-					"cloud_runtime_security",
-					"edr",
-					"xsiam"
-				],
-				"toversion": "",
-				"underlyingContentItemType": "script"
-			},
-			{
-				"category": "",
-				"description": "Enriches existing Cortex indicators with reputation and intelligence data using the specified indicator values.",
-				"fromversion": "8.12.0",
-				"id": "EnrichIndicators",
-				"name": "EnrichIndicator",
-				"supportedModules": [
-					"agentix",
-					"cloud",
-					"cloud_runtime_security",
-					"edr",
-					"xsiam"
-				],
-				"toversion": "",
-				"underlyingContentItemType": "command"
-			},
-			{
-				"category": "",
-				"description": "Extract all indicators (such as IPs, domains, URLs, hashes) from text, files, or entries, based on the server’s indicator configuration.\n",
-				"fromversion": "8.12.0",
-				"id": "ExtractIndicators",
-				"name": "ExtractIndicators",
-				"supportedModules": [
-					"agentix",
-					"xsiam",
-					"cloud_posture"
-				],
-				"toversion": "",
-				"underlyingContentItemType": "command"
-			},
-			{
-				"category": "",
-				"description": "A comprehensive action to enrich the provided IP address indicator and retrieve all available data.\nThe results include both tenant-specific internal information (from the Threat Intelligence Management (TIM) brand) and global threat intelligence.\nGlobal threat intelligence is retrieved using configured integrations to identify potential malicious activity.\nACTION REDUNDANCY WARNING: Due to its comprehensive nature, DO NOT use 'EnrichIndicator' or 'CortexListIndicators' in parallel with this action, as the data is already included in the output.\nPREREQUISITE: Ensure that one or more of these external integrations are configured in your environment.\n",
+				"description": "A comprehensive action to enrich the provided IP address indicator (IPv6 indicators are NOT supported) and retrieve all available data.\nThe results include both tenant-specific internal information (from the Threat Intelligence Management (TIM) brand) and global threat intelligence.\nGlobal threat intelligence is retrieved using configured integrations to identify potential malicious activity.\nACTION REDUNDANCY WARNING: Due to its comprehensive nature, DO NOT use 'EnrichIndicator' or 'CortexListIndicators' in parallel with this action, as the data is already included in the output.\nPREREQUISITE: Ensure that one or more of these external integrations are configured in your environment.\n",
 				"fromversion": "8.12.0",
 				"id": "EnrichIP",
 				"name": "EnrichIP",
@@ -161,33 +175,10 @@
 				],
 				"toversion": "",
 				"underlyingContentItemType": "script"
-			},
-			{
-				"category": "",
-				"description": "Searches the threat intelligence database for relationships between indicators based on specified criteria. Returns relationships where at least one side of the relationship matches a value in entities or matches a type in related_entity_types. The search can be narrowed to return only specific relationship types between the entities. All filters use AND logic between different filter types, while multiple values within a single filter use OR logic.\n",
-				"fromversion": "8.12.0",
-				"id": "CortexListIndicatorRelationships",
-				"name": "CortexListIndicatorRelationships",
-				"supportedModules": [
-					"agentix",
-					"xsiam",
-					"cloud_posture"
-				],
-				"toversion": "",
-				"underlyingContentItemType": "script"
 			}
 		],
 		"agentixagent": null,
 		"automation": [
-			{
-				"description": "This script helps organizes and groups incidents based on their similarities using clustering algorithms.\nClustering is a technique used to group data points (in this case, incidents) that are similar to each other into clusters.\nUsed to automatically categorize a large number of incidents into meaningful groups.\n",
-				"fromversion": "6.2.0",
-				"id": "DBotTrainClustering",
-				"name": "DBotTrainClustering",
-				"tags": [
-					"ml"
-				]
-			},
 			{
 				"description": "Finds a threshold for ML model, and performs an evaluation based on it.",
 				"fromversion": "5.0.0",
@@ -195,38 +186,6 @@
 				"name": "GetMLModelEvaluation",
 				"tags": [
 					"ml"
-				]
-			},
-			{
-				"description": "Finds past similar incidents based on incident fields' similarity. Includes an option to also display indicators similarity.\nNote: For the similarity calculation, at least one field must be provided in one of the \"similarTextField\", \"similarCategoricalField\", or \"similarJsonField\" arguments.",
-				"fromversion": "5.0.0",
-				"id": "DBotFindSimilarIncidents",
-				"name": "DBotFindSimilarIncidents",
-				"tags": []
-			},
-			{
-				"description": "Finds past similar alerts based on alert fields' similarity. Includes an option to also display indicators similarity.\nNote: For the similarity calculation, at least one field must be provided in one of the \"similarTextField\", \"similarCategoricalField\", or \"similarJsonField\" arguments.",
-				"fromversion": "5.0.0",
-				"id": "DBotFindSimilarAlerts",
-				"name": "DBotFindSimilarAlerts",
-				"tags": []
-			},
-			{
-				"description": "Check if a docker image is available for performing docker pull. Script simulates the docker pull flow but doesn't actually pull the image. Returns an entry with 'ok' if all is good otherwise will return an error.",
-				"fromversion": "5.0.0",
-				"id": "CheckDockerImageAvailable",
-				"name": "CheckDockerImageAvailable",
-				"tags": []
-			},
-			{
-				"description": "Parse Sane-json-reports and export them as pdf files (used internally).",
-				"fromversion": "5.5.0",
-				"id": "SanePdfReports",
-				"name": "SanePdfReports",
-				"tags": [
-					"sane-pdf-reports",
-					"sane-reports",
-					"pdf"
 				]
 			},
 			{
@@ -248,54 +207,10 @@
 				]
 			},
 			{
-				"description": "Finds similar incidents based on indicators' similarity. Indicators' contribution to the final score is based on their scarcity.",
-				"fromversion": "5.0.0",
-				"id": "DBotFindSimilarIncidentsByIndicators",
-				"name": "DBotFindSimilarIncidentsByIndicators",
-				"tags": []
-			},
-			{
-				"description": "Finds similar alerts based on indicators' similarity. Indicators' contribution to the final score is based on their scarcity.",
-				"fromversion": "5.0.0",
-				"id": "DBotFindSimilarAlertsByIndicators",
-				"name": "DBotFindSimilarAlertsByIndicators",
-				"tags": []
-			},
-			{
-				"description": "Gets a list of indicator objects and the associated indicator outputs that match the specified query and filters. The results are returned in a structured data file.",
-				"fromversion": "5.5.0",
-				"id": "GetIndicatorsByQuery",
-				"name": "GetIndicatorsByQuery",
-				"tags": [
-					"ml"
-				]
-			},
-			{
-				"description": "Parse Sane-json-reports and export them as docx files (used internally).",
-				"fromversion": "5.5.0",
-				"id": "SaneDocReports",
-				"name": "SaneDocReports",
-				"tags": [
-					"sane-doc-reports",
-					"sane-reports",
-					"docx"
-				]
-			},
-			{
 				"description": "Common code that will be merged into each server script when it runs.",
 				"fromversion": "6.11.0",
 				"id": "CommonServer",
 				"name": "CommonServer",
-				"tags": [
-					"infra",
-					"server"
-				]
-			},
-			{
-				"description": "Common code that will be merged into each PowerShell script/integration when it runs.",
-				"fromversion": "5.5.0",
-				"id": "CommonServerPowerShell",
-				"name": "CommonServerPowerShell",
 				"tags": [
 					"infra",
 					"server"
@@ -311,64 +226,12 @@
 				]
 			},
 			{
-				"description": "Highlight words inside a given text.",
-				"fromversion": "5.0.0",
-				"id": "HighlightWords",
-				"name": "HighlightWords",
-				"tags": []
-			},
-			{
-				"description": "This automation allows to delete a relationship between indicator objects based on the relationship id.",
+				"description": "This script helps organizes and groups incidents based on their similarities using clustering algorithms.\nClustering is a technique used to group data points (in this case, incidents) that are similar to each other into clusters.\nUsed to automatically categorize a large number of incidents into meaningful groups.\n",
 				"fromversion": "6.2.0",
-				"id": "DeleteIndicatorRelationships",
-				"name": "DeleteIndicatorRelationships",
-				"tags": [
-					"basescript"
-				]
-			},
-			{
-				"description": "Pre-process text data for the machine learning text classifier.",
-				"fromversion": "5.0.0",
-				"id": "DBotPreProcessTextData",
-				"name": "DBotPreProcessTextData",
+				"id": "DBotTrainClustering",
+				"name": "DBotTrainClustering",
 				"tags": [
 					"ml"
-				]
-			},
-			{
-				"description": "Deprecated. Use DBotPreProcessTextData instead.",
-				"fromversion": "5.0.0",
-				"id": "WordTokenizerNLP",
-				"name": "WordTokenizerNLP",
-				"tags": [
-					"phishing",
-					"ml"
-				]
-			},
-			{
-				"description": "Runs validation and linting using the Demisto SDK on content items, such as integrations, automations and content packs. This automation script is used as part of the content validation that runs as part of the contribution flow.",
-				"fromversion": "5.5.0",
-				"id": "ValidateContent",
-				"name": "ValidateContent",
-				"tags": []
-			},
-			{
-				"description": "This automation creates a relationship between indicator objects.",
-				"fromversion": "6.2.0",
-				"id": "CreateIndicatorRelationship",
-				"name": "CreateIndicatorRelationship",
-				"tags": [
-					"basescript"
-				]
-			},
-			{
-				"description": "Common code that will be merged into each server script when it runs.",
-				"fromversion": "5.0.0",
-				"id": "CommonServerPython",
-				"name": "CommonServerPython",
-				"tags": [
-					"infra",
-					"server"
 				]
 			},
 			{
@@ -378,24 +241,6 @@
 				"name": "SearchIndicatorRelationships",
 				"tags": [
 					"basescript"
-				]
-			},
-			{
-				"description": "Deprecated. No available replacement. Collect telemetry data from the environment.",
-				"fromversion": "5.0.0",
-				"id": "DBotMLFetchData",
-				"name": "DBotMLFetchData",
-				"tags": [
-					"ml"
-				]
-			},
-			{
-				"description": "Create a phishing classifier using machine learning technique, based on email content.",
-				"fromversion": "5.0.0",
-				"id": "DBotBuildPhishingClassifier",
-				"name": "DBotBuildPhishingClassifier",
-				"tags": [
-					"ml"
 				]
 			},
 			{
@@ -423,6 +268,96 @@
 				]
 			},
 			{
+				"description": "Runs validation and linting using the Demisto SDK on content items, such as integrations, automations and content packs. This automation script is used as part of the content validation that runs as part of the contribution flow.",
+				"fromversion": "5.5.0",
+				"id": "ValidateContent",
+				"name": "ValidateContent",
+				"tags": []
+			},
+			{
+				"description": "Parse Sane-json-reports and export them as docx files (used internally).",
+				"fromversion": "5.5.0",
+				"id": "SaneDocReports",
+				"name": "SaneDocReports",
+				"tags": [
+					"sane-doc-reports",
+					"sane-reports",
+					"docx"
+				]
+			},
+			{
+				"description": "Pre-process text data for the machine learning text classifier.",
+				"fromversion": "5.0.0",
+				"id": "DBotPreProcessTextData",
+				"name": "DBotPreProcessTextData",
+				"tags": [
+					"ml"
+				]
+			},
+			{
+				"description": "Parse Sane-json-reports and export them as pdf files (used internally).",
+				"fromversion": "5.5.0",
+				"id": "SanePdfReports",
+				"name": "SanePdfReports",
+				"tags": [
+					"sane-pdf-reports",
+					"sane-reports",
+					"pdf"
+				]
+			},
+			{
+				"description": "Deprecated. No available replacement. Collect telemetry data from the environment.",
+				"fromversion": "5.0.0",
+				"id": "DBotMLFetchData",
+				"name": "DBotMLFetchData",
+				"tags": [
+					"ml"
+				]
+			},
+			{
+				"description": "Finds past similar incidents based on incident fields' similarity. Includes an option to also display indicators similarity.\nNote: For the similarity calculation, at least one field must be provided in one of the \"similarTextField\", \"similarCategoricalField\", or \"similarJsonField\" arguments.",
+				"fromversion": "5.0.0",
+				"id": "DBotFindSimilarIncidents",
+				"name": "DBotFindSimilarIncidents",
+				"tags": []
+			},
+			{
+				"description": "Finds past similar alerts based on alert fields' similarity. Includes an option to also display indicators similarity.\nNote: For the similarity calculation, at least one field must be provided in one of the \"similarTextField\", \"similarCategoricalField\", or \"similarJsonField\" arguments.",
+				"fromversion": "5.0.0",
+				"id": "DBotFindSimilarAlerts",
+				"name": "DBotFindSimilarAlerts",
+				"tags": []
+			},
+			{
+				"description": "Common code that will be merged into each PowerShell script/integration when it runs.",
+				"fromversion": "5.5.0",
+				"id": "CommonServerPowerShell",
+				"name": "CommonServerPowerShell",
+				"tags": [
+					"infra",
+					"server"
+				]
+			},
+			{
+				"description": "Deprecated. Use DBotPreProcessTextData instead.",
+				"fromversion": "5.0.0",
+				"id": "WordTokenizerNLP",
+				"name": "WordTokenizerNLP",
+				"tags": [
+					"phishing",
+					"ml"
+				]
+			},
+			{
+				"description": "Gets a list of indicator objects and the associated indicator outputs that match the specified query and filters. The results are returned in a structured data file.",
+				"fromversion": "5.5.0",
+				"id": "GetIndicatorsByQuery",
+				"name": "GetIndicatorsByQuery",
+				"tags": [
+					"ml"
+				]
+			},
+			{
 				"description": "Parse STIX files to Cortex indicators by clicking the **Upload STIX File** button.",
 				"fromversion": "5.0.0",
 				"id": "StixParser",
@@ -430,6 +365,71 @@
 				"tags": [
 					"stix",
 					"ioc"
+				]
+			},
+			{
+				"description": "Highlight words inside a given text.",
+				"fromversion": "5.0.0",
+				"id": "HighlightWords",
+				"name": "HighlightWords",
+				"tags": []
+			},
+			{
+				"description": "Create a phishing classifier using machine learning technique, based on email content.",
+				"fromversion": "5.0.0",
+				"id": "DBotBuildPhishingClassifier",
+				"name": "DBotBuildPhishingClassifier",
+				"tags": [
+					"ml"
+				]
+			},
+			{
+				"description": "This automation creates a relationship between indicator objects.",
+				"fromversion": "6.2.0",
+				"id": "CreateIndicatorRelationship",
+				"name": "CreateIndicatorRelationship",
+				"tags": [
+					"basescript"
+				]
+			},
+			{
+				"description": "Finds similar incidents based on indicators' similarity. Indicators' contribution to the final score is based on their scarcity.",
+				"fromversion": "5.0.0",
+				"id": "DBotFindSimilarIncidentsByIndicators",
+				"name": "DBotFindSimilarIncidentsByIndicators",
+				"tags": []
+			},
+			{
+				"description": "Finds similar alerts based on indicators' similarity. Indicators' contribution to the final score is based on their scarcity.",
+				"fromversion": "5.0.0",
+				"id": "DBotFindSimilarAlertsByIndicators",
+				"name": "DBotFindSimilarAlertsByIndicators",
+				"tags": []
+			},
+			{
+				"description": "This automation allows to delete a relationship between indicator objects based on the relationship id.",
+				"fromversion": "6.2.0",
+				"id": "DeleteIndicatorRelationships",
+				"name": "DeleteIndicatorRelationships",
+				"tags": [
+					"basescript"
+				]
+			},
+			{
+				"description": "Check if a docker image is available for performing docker pull. Script simulates the docker pull flow but doesn't actually pull the image. Returns an entry with 'ok' if all is good otherwise will return an error.",
+				"fromversion": "5.0.0",
+				"id": "CheckDockerImageAvailable",
+				"name": "CheckDockerImageAvailable",
+				"tags": []
+			},
+			{
+				"description": "Common code that will be merged into each server script when it runs.",
+				"fromversion": "5.0.0",
+				"id": "CommonServerPython",
+				"name": "CommonServerPython",
+				"tags": [
+					"infra",
+					"server"
 				]
 			}
 		],
@@ -451,20 +451,13 @@
 		"wizard": null
 	},
 	"created": "2025-03-29T09:40:14Z",
-	"currentVersion": "1.41.77",
+	"currentVersion": "1.41.78",
 	"defaultDataSource": {
 		"id": "",
 		"name": ""
 	},
 	"definitionId": "",
 	"dependencies": {
-		"AggregatedScripts": {
-			"author": "Cortex",
-			"certification": "certified",
-			"mandatory": true,
-			"minVersion": "1.3.36",
-			"name": "Aggregated Scripts"
-		},
 		"Core": {
 			"author": "Cortex",
 			"certification": "certified",
@@ -511,7 +504,7 @@
 		}
 	],
 	"isOverridable": false,
-	"itemVersion": "1.41.77",
+	"itemVersion": "1.41.78",
 	"keywords": [
 		"base",
 		"common"
@@ -542,9 +535,9 @@
 		"Core"
 	],
 	"toServerVersion": "",
-	"updated": "2026-04-30T20:13:07Z",
+	"updated": "2026-05-03T19:53:33Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "8624674",
+	"versionInfo": "8687052",
 	"videos": []
 }
