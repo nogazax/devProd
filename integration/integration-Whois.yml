@@ -87,7 +87,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.5.39
+    itemVersion: 1.5.40
     packID: Whois
     packName: Whois
     packPropagationLabels:
@@ -1514,15 +1514,15 @@ script:
       description: Reliability of the source providing the intelligence data.
       type: String
     supportedModules: []
-  dockerimage: demisto/ippysocks-py3:1.0.0.4889715
+  dockerimage: demisto/ippysocks-py3:1.0.0.7194517
   nativeimage:
   - "8.8"
   - "8.6"
   runonce: false
   script: |
     register_module_line('Whois', 'start', __line__())
-    CONSTANT_PACK_VERSION = '1.5.39'
-    demisto.debug('pack id = Whois, pack version = 1.5.39')
+    CONSTANT_PACK_VERSION = '1.5.40'
+    demisto.debug('pack id = Whois, pack version = 1.5.40')
 
 
 
@@ -1534,7 +1534,7 @@ script:
     from typing import Dict, List, Optional, Type
     import urllib
     import whois
-    from whois.parser import PywhoisError  # pylint: disable=E0401,E0611
+    from whois.exceptions import PywhoisError
     import dateparser.search
 
     RATE_LIMIT_RETRY_COUNT_DEFAULT: int = 0
