@@ -248,7 +248,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 8.14.0
     isoverridable: false
-    itemVersion: 3.6.3
+    itemVersion: 3.7.0
     packID: Slack
     packName: Slack
     packPropagationLabels:
@@ -764,7 +764,7 @@ script:
     prettyname: Send Slack Message
     quickaction: true
     supportedModules: []
-  dockerimage: demisto/slackv3:1.0.0.6976072
+  dockerimage: demisto/slackv3:1.0.0.8198656
   isFetchSamples: true
   longRunning: true
   nativeimage:
@@ -772,7 +772,7 @@ script:
   - "8.6"
   runonce: false
   script: "register_module_line('SlackV3', 'start', __line__())\nCONSTANT_PACK_VERSION
-    = '3.6.3'\ndemisto.debug('pack id = Slack, pack version = 3.6.3')\nimport asyncio\nimport
+    = '3.7.0'\ndemisto.debug('pack id = Slack, pack version = 3.7.0')\nimport asyncio\nimport
     concurrent\nimport logging.handlers\nimport ssl\nimport re\nimport json\nimport
     threading\nfrom typing import Literal, TypedDict, get_args\nfrom urllib.parse
     import urlparse\nfrom datetime import UTC, datetime\nimport dateparser\nimport
