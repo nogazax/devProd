@@ -350,7 +350,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.5.0
     isoverridable: false
-    itemVersion: 3.3.30
+    itemVersion: 3.3.31
     packID: EDL
     packName: Generic Export Indicators Service
     packPropagationLabels:
@@ -660,8 +660,8 @@ script:
   runonce: false
   script: |
     register_module_line('EDL', 'start', __line__())
-    CONSTANT_PACK_VERSION = '3.3.30'
-    demisto.debug('pack id = EDL, pack version = 3.3.30')
+    CONSTANT_PACK_VERSION = '3.3.31'
+    demisto.debug('pack id = EDL, pack version = 3.3.31')
     import glob
     import hashlib
     import ipaddress
@@ -890,7 +890,9 @@ script:
         def get_fields_to_present(self, fields_to_present: str) -> str:
             # based on func ToIoC https://github.com/demisto/server/blob/master/domain/insight.go
 
-            if fields_to_present == "use_legacy_query":
+            # Fixes legacy query mode silently lost after the first refresh because
+            # `get_fields_to_present("")` returned "name,type" instead of ""
+            if fields_to_present == "use_legacy_query" or (not fields_to_present and self.out_format == FORMAT_TEXT):
                 return ""
 
             fields_for_format = {
@@ -1531,7 +1533,8 @@ script:
                 # for PAN-OS *.domain.com does not match domain.com
                 # we should provide both
                 # this could generate more than num entries according to PAGE_SIZE
-                if indicator.startswith("*."):
+                # Handle DomainGlob type indicators even when value doesn't start with "*."
+                if indicator.startswith("*.") or ioc_type == FeedIndicatorType.DomainGlob:
                     domain = str(indicator.lstrip("*."))
                     # if we should ignore TLDs and the domain is a TLD
                     if request_args.no_wildcard_tld and tldextract.extract(domain).suffix == domain:
