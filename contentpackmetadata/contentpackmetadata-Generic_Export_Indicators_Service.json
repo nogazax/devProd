@@ -24,15 +24,6 @@
 		"generictype": null,
 		"incidentfield": [
 			{
-				"description": "Action to perform on EDL (possible values: Add, Remove)",
-				"name": "Generic Export Indicators Service Action",
-				"supportedModules": [
-					"agentix",
-					"xsiam"
-				],
-				"type": "singleSelect"
-			},
-			{
 				"description": "Tag that adds indicators to EDL. Must match tag value used in EDL query in the instance configuration.",
 				"name": "Generic Export Indicators Service Tag",
 				"supportedModules": [
@@ -42,13 +33,13 @@
 				"type": "shortText"
 			},
 			{
-				"description": "List of IOCs to add to/remove from EDL (according to value of EDL Action). May be newline- or comma-delimited.",
-				"name": "Generic Export Indicators Service Indicators List",
+				"description": "Action to perform on EDL (possible values: Add, Remove)",
+				"name": "Generic Export Indicators Service Action",
 				"supportedModules": [
 					"agentix",
 					"xsiam"
 				],
-				"type": "longText"
+				"type": "singleSelect"
 			},
 			{
 				"description": "Only relevant if adding to EDL. Type of indicators to add to EDL.",
@@ -58,6 +49,15 @@
 					"xsiam"
 				],
 				"type": "singleSelect"
+			},
+			{
+				"description": "List of IOCs to add to/remove from EDL (according to value of EDL Action). May be newline- or comma-delimited.",
+				"name": "Generic Export Indicators Service Indicators List",
+				"supportedModules": [
+					"agentix",
+					"xsiam"
+				],
+				"type": "longText"
 			}
 		],
 		"incidenttype": [
@@ -101,17 +101,17 @@
 		"list": null,
 		"playbook": [
 			{
-				"description": "This playbook tags internal assets and massive IOCs (TLD wildcards and CIDRs) to be avoided by the EDL. The playbook does the following according to indicator type:\n\nCIDRs - If the CIDR prefix is larger than the set max prefix it tags it as a `Massive_CIDR` and also with `skip_edl`.\n\nTLD Wildcards - If a domainglob is a TLD wildcard (for example, *.net) it will be tagged as `TLD_Wildcard` and also with `skip_edl`.\n\nInternal IPs - If an IP is internal and also part of the CIDR configured by the user in the \"Internal Assets\" list it will be checked as `internal` and tagged with `skip_edl`.\n\nInternal Domains - If a domain is a subdomain of the domains configured in the \"Internal Assets\" list it is checked as `internal` and tagged with `skip_edl`.",
-				"fromversion": "5.5.0",
-				"id": "Tag massive and internal IOCs to avoid EDL listing",
-				"name": "Tag massive and internal IOCs to avoid EDL listing",
-				"tags": []
-			},
-			{
 				"description": "Deprecated. No available replacement. This single-run playbook enables Cortex's built-in External Dynamic List (EDL) as a service for system indicators, and configures PAN-OS EDL Objects and the respective firewall policy rules.\nThe EDLs will continuously update for each indicator that matches the query syntax input in the playbook \n(to validate to which indicators the query applied, you need to enter the query syntax from the indicator tab at the top of the playbook inputs window as well). \nIf both the IP and URL indicator types exist in the query, it sorts the indicators into two EDLs, IP and URL. If only one indicator type exists in the query, only one EDL is created. \nThe playbook then creates EDL objects directing to the indicator lists and firewall policy rules in PAN-OS. \n- It is recommended to configure a dedicated EDL Service instance for the usage of this playbook.\n- If necessary to edit or update the EDL query after this playbook run, use the panorama-edit-edl command and panorama integration to update the URL containing the indicator query syntax.",
 				"fromversion": "5.5.0",
 				"id": "PAN-OS EDL Service Configuration",
 				"name": "PAN-OS EDL Service Configuration",
+				"tags": []
+			},
+			{
+				"description": "This playbook tags internal assets and massive IOCs (TLD wildcards and CIDRs) to be avoided by the EDL. The playbook does the following according to indicator type:\n\nCIDRs - If the CIDR prefix is larger than the set max prefix it tags it as a `Massive_CIDR` and also with `skip_edl`.\n\nTLD Wildcards - If a domainglob is a TLD wildcard (for example, *.net) it will be tagged as `TLD_Wildcard` and also with `skip_edl`.\n\nInternal IPs - If an IP is internal and also part of the CIDR configured by the user in the \"Internal Assets\" list it will be checked as `internal` and tagged with `skip_edl`.\n\nInternal Domains - If a domain is a subdomain of the domains configured in the \"Internal Assets\" list it is checked as `internal` and tagged with `skip_edl`.",
+				"fromversion": "5.5.0",
+				"id": "Tag massive and internal IOCs to avoid EDL listing",
+				"name": "Tag massive and internal IOCs to avoid EDL listing",
 				"tags": []
 			},
 			{
@@ -135,7 +135,7 @@
 		"wizard": null
 	},
 	"created": "2025-03-29T09:24:58Z",
-	"currentVersion": "3.3.30",
+	"currentVersion": "3.3.31",
 	"defaultDataSource": {
 		"id": "",
 		"name": ""
@@ -146,35 +146,35 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.41.75",
+			"minVersion": "1.41.78",
 			"name": "Base"
 		},
 		"CommonScripts": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.22.0",
+			"minVersion": "1.22.6",
 			"name": "Common Scripts"
 		},
 		"CommonTypes": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "3.10.8",
+			"minVersion": "3.10.9",
 			"name": "Common Types"
 		},
 		"FiltersAndTransformers": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.4.18",
+			"minVersion": "1.4.19",
 			"name": "Filters And Transformers"
 		},
 		"PAN-OS": {
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": false,
-			"minVersion": "2.6.31",
+			"minVersion": "2.6.32",
 			"name": "PAN-OS by Palo Alto Networks"
 		}
 	},
@@ -206,7 +206,7 @@
 		}
 	],
 	"isOverridable": false,
-	"itemVersion": "3.3.30",
+	"itemVersion": "3.3.31",
 	"keywords": [
 		"EDL",
 		"pan-os EDL",
@@ -249,9 +249,9 @@
 		"TIM"
 	],
 	"toServerVersion": "",
-	"updated": "2026-04-26T20:18:02Z",
+	"updated": "2026-05-04T19:55:19Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "8479105",
+	"versionInfo": "8727847",
 	"videos": []
 }
