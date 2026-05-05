@@ -172,7 +172,7 @@
 	"ipVersion": "",
 	"isOverridable": false,
 	"isReadOnly": true,
-	"itemVersion": "3.10.8",
+	"itemVersion": "3.10.9",
 	"locked": false,
 	"mergeStrategy": "",
 	"name": "Public Key",
