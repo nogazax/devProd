@@ -16,7 +16,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.0.0
     isoverridable: false
-    itemVersion: 1.22.6
+    itemVersion: 1.22.7
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -25,7 +25,7 @@ contentitemexportablefields:
     propagationLabels: []
     supportedModules: []
     toServerVersion: ""
-dockerimage: demisto/crypto:1.0.0.5490413
+dockerimage: demisto/crypto:1.0.0.8187750
 engineinfo: {}
 mainengineinfo: {}
 name: CertificateExtract
@@ -151,8 +151,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('CertificateExtract', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.22.6'
-  demisto.debug('pack id = CommonScripts, pack version = 1.22.6')
+  CONSTANT_PACK_VERSION = '1.22.7'
+  demisto.debug('pack id = CommonScripts, pack version = 1.22.7')
   from typing import Any, cast
 
 
