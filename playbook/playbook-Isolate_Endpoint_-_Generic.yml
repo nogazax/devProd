@@ -3,7 +3,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 2.7.33
+    itemVersion: 2.7.34
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -183,7 +183,6 @@ tasks:
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Traps Isolate Endpoint
-      playbookId: Traps Isolate Endpoint
       playbookName: Traps Isolate Endpoint
       playbooktaskmissingcomponent: null
       type: playbook
@@ -229,7 +228,6 @@ tasks:
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Isolate Endpoint - Cybereason
-      playbookId: Isolate Endpoint - Cybereason
       playbookName: Isolate Endpoint - Cybereason
       playbooktaskmissingcomponent: null
       type: playbook
@@ -284,7 +282,6 @@ tasks:
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Cortex XDR - Isolate Endpoint
-      playbookId: Cortex XDR - Isolate Endpoint
       playbookName: Cortex XDR - Isolate Endpoint
       playbooktaskmissingcomponent: null
       type: playbook
@@ -327,7 +324,6 @@ tasks:
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Block Endpoint - Carbon Black Response
-      playbookId: Block Endpoint - Carbon Black Response
       playbookName: Block Endpoint - Carbon Black Response
       playbooktaskmissingcomponent: null
       type: playbook
