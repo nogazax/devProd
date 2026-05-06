@@ -3,7 +3,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.8.0
     isoverridable: false
-    itemVersion: 2.7.33
+    itemVersion: 2.7.34
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
