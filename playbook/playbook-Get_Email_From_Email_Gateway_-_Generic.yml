@@ -3,7 +3,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.0.0
     isoverridable: false
-    itemVersion: 2.7.33
+    itemVersion: 2.7.34
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -122,7 +122,6 @@ tasks:
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Get Email From Email Gateway - FireEye
-      playbookId: Get Email From Email Gateway - FireEye
       playbookName: Get Email From Email Gateway - FireEye
       playbooktaskmissingcomponent: null
       type: playbook
@@ -162,7 +161,6 @@ tasks:
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Get Email From Email Gateway - Mimecast
-      playbookId: Get Email From Email Gateway - Mimecast
       playbookName: Get Email From Email Gateway - Mimecast
       playbooktaskmissingcomponent: null
       type: playbook
@@ -202,7 +200,6 @@ tasks:
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Get Email From Email Gateway - Proofpoint Protection Server
-      playbookId: Get Email From Email Gateway - Proofpoint Protection Server
       playbookName: Get Email From Email Gateway - Proofpoint Protection Server
       playbooktaskmissingcomponent: null
       type: playbook
