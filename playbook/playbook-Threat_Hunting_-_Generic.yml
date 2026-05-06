@@ -3,7 +3,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.5.0
     isoverridable: false
-    itemVersion: 2.7.33
+    itemVersion: 2.7.34
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -376,7 +376,6 @@ tasks:
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Splunk Indicator Hunting
-      playbookId: Splunk Indicator Hunting
       playbookName: Splunk Indicator Hunting
       playbooktaskmissingcomponent: null
       type: playbook
@@ -448,7 +447,6 @@ tasks:
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Palo Alto Networks - Hunting And Threat Detection
-      playbookId: Palo Alto Networks - Hunting And Threat Detection
       playbookName: Palo Alto Networks - Hunting And Threat Detection
       playbooktaskmissingcomponent: null
       type: playbook
@@ -546,7 +544,6 @@ tasks:
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: QRadar Indicator Hunting V2
-      playbookId: QRadar Indicator Hunting V2
       playbookName: QRadar Indicator Hunting V2
       playbooktaskmissingcomponent: null
       type: playbook
@@ -615,7 +612,6 @@ tasks:
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Microsoft 365 Defender - Threat Hunting Generic
-      playbookId: Microsoft 365 Defender - Threat Hunting Generic
       playbookName: Microsoft 365 Defender - Threat Hunting Generic
       playbooktaskmissingcomponent: null
       type: playbook
