@@ -1,0 +1,67 @@
+actionids:
+- mcp_Generic_MCP_Generic_MCP_instance_2_add_comment_to_pending_review
+- mcp_Generic_MCP_Generic_MCP_instance_2_add_issue_comment
+- mcp_Generic_MCP_Generic_MCP_instance_2_add_reply_to_pull_request_comment
+- mcp_Generic_MCP_Generic_MCP_instance_2_create_branch
+- mcp_Generic_MCP_Generic_MCP_instance_2_create_or_update_file
+- mcp_Generic_MCP_Generic_MCP_instance_2_create_pull_request
+- mcp_Generic_MCP_Generic_MCP_instance_2_create_repository
+- mcp_Generic_MCP_Generic_MCP_instance_2_delete_file
+- mcp_Generic_MCP_Generic_MCP_instance_2_fork_repository
+- mcp_Generic_MCP_Generic_MCP_instance_2_get_commit
+- mcp_Generic_MCP_Generic_MCP_instance_2_get_file_contents
+- mcp_Generic_MCP_Generic_MCP_instance_2_get_label
+- mcp_Generic_MCP_Generic_MCP_instance_2_get_latest_release
+- mcp_Generic_MCP_Generic_MCP_instance_2_get_me
+- mcp_Generic_MCP_Generic_MCP_instance_2_get_release_by_tag
+- mcp_Generic_MCP_Generic_MCP_instance_2_get_tag
+- mcp_Generic_MCP_Generic_MCP_instance_2_get_team_members
+- mcp_Generic_MCP_Generic_MCP_instance_2_get_teams
+- mcp_Generic_MCP_Generic_MCP_instance_2_issue_read
+- mcp_Generic_MCP_Generic_MCP_instance_2_issue_write
+- mcp_Generic_MCP_Generic_MCP_instance_2_list_branches
+- mcp_Generic_MCP_Generic_MCP_instance_2_list_commits
+- mcp_Generic_MCP_Generic_MCP_instance_2_list_issue_types
+- mcp_Generic_MCP_Generic_MCP_instance_2_list_issues
+- mcp_Generic_MCP_Generic_MCP_instance_2_list_pull_requests
+- mcp_Generic_MCP_Generic_MCP_instance_2_list_releases
+- mcp_Generic_MCP_Generic_MCP_instance_2_list_tags
+- mcp_Generic_MCP_Generic_MCP_instance_2_merge_pull_request
+- mcp_Generic_MCP_Generic_MCP_instance_2_pull_request_read
+- mcp_Generic_MCP_Generic_MCP_instance_2_pull_request_review_write
+- mcp_Generic_MCP_Generic_MCP_instance_2_push_files
+- mcp_Generic_MCP_Generic_MCP_instance_2_request_copilot_review
+- mcp_Generic_MCP_Generic_MCP_instance_2_run_secret_scanning
+- mcp_Generic_MCP_Generic_MCP_instance_2_search_code
+- mcp_Generic_MCP_Generic_MCP_instance_2_search_issues
+- mcp_Generic_MCP_Generic_MCP_instance_2_search_pull_requests
+- mcp_Generic_MCP_Generic_MCP_instance_2_search_repositories
+- mcp_Generic_MCP_Generic_MCP_instance_2_search_users
+- mcp_Generic_MCP_Generic_MCP_instance_2_sub_issue_write
+- mcp_Generic_MCP_Generic_MCP_instance_2_update_pull_request
+- mcp_Generic_MCP_Generic_MCP_instance_2_update_pull_request_branch
+color: '#00CC66'
+commonfields:
+  id: 5cc5844c816b41d4880467513fd557bb
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    prevname: test:::162d14f8-f5c8-44c2-89f0-ae0dc5df6f59
+    propagationLabels:
+    - all
+    supportedModules: []
+    toServerVersion: ""
+created: "2026-05-06T08:11:48Z"
+createdby: nsacks@paloaltonetworks.com
+description: asd
+locked: false
+name: test
+status: archived
+system: false
+visibility: private
