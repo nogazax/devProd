@@ -3,7 +3,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 2.7.33
+    itemVersion: 2.7.34
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -197,7 +197,6 @@ tasks:
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Get File Sample From Path - D2
-      playbookId: Get File Sample From Path - D2
       playbookName: Get File Sample From Path - D2
       playbooktaskmissingcomponent: null
       type: playbook
@@ -275,7 +274,6 @@ tasks:
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Get File Sample From Path - Carbon Black Enterprise Response
-      playbookId: Get File Sample From Path - Carbon Black Enterprise Response
       playbookName: Get File Sample From Path - Carbon Black Enterprise Response
       playbooktaskmissingcomponent: null
       type: playbook
