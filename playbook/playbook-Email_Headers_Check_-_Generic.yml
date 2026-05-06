@@ -3,7 +3,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.0.0
     isoverridable: false
-    itemVersion: 2.7.33
+    itemVersion: 2.7.34
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -414,7 +414,6 @@ tasks:
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Process Microsoft's Anti-Spam Headers
-      playbookId: Process Microsoft's Anti-Spam Headers
       playbookName: Process Microsoft's Anti-Spam Headers
       playbooktaskmissingcomponent: null
       type: playbook
