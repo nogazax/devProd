@@ -31,7 +31,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.22.6
+    itemVersion: 1.22.7
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -49,7 +49,7 @@ restrictioncenter: {}
 runas: DBotWeakRole
 runonce: false
 script: |
-  // pack version: 1.22.6
+  // pack version: 1.22.7
   function valueToValidString(value) {
       if (typeof value === 'number' || typeof value === 'boolean' ) {
           value = value.toString();
