@@ -1,0 +1,29 @@
+actionids:
+- jiraGetIssue
+color: '#00CC66'
+commonfields:
+  id: cbd20cafa88d49068f071713b58b620a
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    prevname: custom agent:::a930e7a6-497d-4ca3-87c0-dc9a36403b3a
+    propagationLabels:
+    - all
+    supportedModules: []
+    toServerVersion: ""
+created: "2026-04-16T09:10:54Z"
+createdby: nsacks@paloaltonetworks.com
+description: a
+locked: false
+name: custom agent
+roles:
+- Instance Administrator
+status: archived
+system: false
+visibility: private
