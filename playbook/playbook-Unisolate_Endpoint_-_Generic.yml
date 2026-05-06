@@ -3,7 +3,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.5.0
     isoverridable: false
-    itemVersion: 2.7.33
+    itemVersion: 2.7.34
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -126,7 +126,6 @@ tasks:
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Carbon Black Response - Unisolate Endpoint
-      playbookId: Carbon Black Response - Unisolate Endpoint
       playbookName: Carbon Black Response - Unisolate Endpoint
       playbooktaskmissingcomponent: null
       type: playbook
@@ -183,7 +182,6 @@ tasks:
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Cortex XDR - Unisolate Endpoint
-      playbookId: Cortex XDR - Unisolate Endpoint
       playbookName: Cortex XDR - Unisolate Endpoint
       playbooktaskmissingcomponent: null
       type: playbook
@@ -259,7 +257,6 @@ tasks:
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Crowdstrike Falcon - Unisolate Endpoint
-      playbookId: Crowdstrike Falcon - Unisolate Endpoint
       playbookName: Crowdstrike Falcon - Unisolate Endpoint
       playbooktaskmissingcomponent: null
       type: playbook
@@ -305,7 +302,6 @@ tasks:
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: FireEye HX - Unisolate Endpoint
-      playbookId: FireEye HX - Unisolate Endpoint
       playbookName: FireEye HX - Unisolate Endpoint
       playbooktaskmissingcomponent: null
       type: playbook
@@ -351,7 +347,6 @@ tasks:
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Unisolate Endpoint - Cybereason
-      playbookId: Unisolate Endpoint - Cybereason
       playbookName: Unisolate Endpoint - Cybereason
       playbooktaskmissingcomponent: null
       type: playbook
@@ -408,7 +403,6 @@ tasks:
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Microsoft Defender For Endpoint - Unisolate Endpoint
-      playbookId: Microsoft Defender For Endpoint - Unisolate Endpoint
       playbookName: Microsoft Defender For Endpoint - Unisolate Endpoint
       playbooktaskmissingcomponent: null
       type: playbook
