@@ -3,7 +3,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.0.0
     isoverridable: false
-    itemVersion: 2.7.33
+    itemVersion: 2.7.34
     packID: CommonPlaybooks
     packName: Common Playbooks
     packPropagationLabels:
@@ -207,7 +207,6 @@ tasks:
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Illusive-Collect-Forensics-On-Demand
-      playbookId: Illusive-Collect-Forensics-On-Demand
       playbookName: Illusive-Collect-Forensics-On-Demand
       playbooktaskmissingcomponent: null
       type: playbook
@@ -303,7 +302,6 @@ tasks:
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Microsoft Defender For Endpoint - Collect investigation package
-      playbookId: Microsoft Defender For Endpoint - Collect investigation package
       playbookName: Microsoft Defender For Endpoint - Collect investigation package
       playbooktaskmissingcomponent: null
       type: playbook
