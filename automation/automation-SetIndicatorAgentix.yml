@@ -33,7 +33,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.1.0
     isoverridable: false
-    itemVersion: 1.22.7
+    itemVersion: 1.22.8
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -45,6 +45,12 @@ contentitemexportablefields:
     - xsiam
     - cloud_posture
     toServerVersion: ""
+dependson:
+  must:
+  - findIndicators
+  - associateIndicatorsToAlert
+  - core-get-issues
+  - setIndicator
 dockerimage: demisto/python3:3.12.13.7444307
 enabled: true
 engineinfo: {}
@@ -68,8 +74,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('SetIndicatorAgentix', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.22.7'
-  demisto.debug('pack id = CommonScripts, pack version = 1.22.7')
+  CONSTANT_PACK_VERSION = '1.22.8'
+  demisto.debug('pack id = CommonScripts, pack version = 1.22.8')
 
 
 
