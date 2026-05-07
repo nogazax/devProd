@@ -294,6 +294,9 @@
 							},
 							{
 								"args": {
+									"delimiter": {
+										"simple": "|"
+									},
 									"field": {
 										"simple": "tags"
 									}
@@ -310,6 +313,9 @@
 							},
 							{
 								"args": {
+									"delimiter": {
+										"simple": "|"
+									},
 									"field": {
 										"simple": "tags"
 									}
@@ -803,7 +809,7 @@
 		]
 	},
 	"isOverridable": false,
-	"itemVersion": "3.10.9",
+	"itemVersion": "3.10.10",
 	"locked": false,
 	"mobile": null,
 	"name": "URL Indicator",
