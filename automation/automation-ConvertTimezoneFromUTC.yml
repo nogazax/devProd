@@ -26,7 +26,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.0.0
     isoverridable: false
-    itemVersion: 1.22.7
+    itemVersion: 1.22.8
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -49,8 +49,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('ConvertTimezoneFromUTC', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.22.7'
-  demisto.debug('pack id = CommonScripts, pack version = 1.22.7')
+  CONSTANT_PACK_VERSION = '1.22.8'
+  demisto.debug('pack id = CommonScripts, pack version = 1.22.8')
   from traceback import format_exc
 
 
