@@ -17,7 +17,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 8.14.0
     isoverridable: false
-    itemVersion: 3.5.39
+    itemVersion: 3.5.41
     packID: Core
     packName: Core
     packPropagationLabels:
@@ -29,6 +29,10 @@ contentitemexportablefields:
     - xsiam
     - edr
     toServerVersion: ""
+dependson:
+  must:
+  - core-list-brokers
+  - core-xql-generic-query-platform
 dockerimage: demisto/python3:3.12.12.7090913
 enabled: true
 engineinfo: {}
@@ -51,8 +55,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('DiagnoseSyslogCollector', 'start', __line__())
-  CONSTANT_PACK_VERSION = '3.5.39'
-  demisto.debug('pack id = Core, pack version = 3.5.39')
+  CONSTANT_PACK_VERSION = '3.5.41'
+  demisto.debug('pack id = Core, pack version = 3.5.41')
 
 
 
