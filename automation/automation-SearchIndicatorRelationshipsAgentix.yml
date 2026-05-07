@@ -151,7 +151,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.6.0
     isoverridable: false
-    itemVersion: 1.41.78
+    itemVersion: 1.41.80
     packID: Base
     packName: Base
     packPropagationLabels:
@@ -160,7 +160,10 @@ contentitemexportablefields:
     propagationLabels: []
     supportedModules: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.12.12.6391686
+dependson:
+  must:
+  - SearchIndicatorRelationships
+dockerimage: demisto/python3:3.12.13.8428455
 engineinfo: {}
 internal: true
 mainengineinfo: {}
@@ -217,8 +220,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('SearchIndicatorRelationshipsAgentix', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.41.78'
-  demisto.debug('pack id = Base, pack version = 1.41.78')
+  CONSTANT_PACK_VERSION = '1.41.80'
+  demisto.debug('pack id = Base, pack version = 1.41.80')
 
 
 
