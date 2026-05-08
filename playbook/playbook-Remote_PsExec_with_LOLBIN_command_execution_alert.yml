@@ -3,7 +3,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.10.0
     isoverridable: false
-    itemVersion: 3.5.41
+    itemVersion: 3.5.42
     packID: Core
     packName: Core
     packPropagationLabels:
