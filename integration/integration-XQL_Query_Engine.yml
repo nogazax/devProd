@@ -29,7 +29,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 8.7.0
     isoverridable: false
-    itemVersion: 3.5.41
+    itemVersion: 3.5.42
     packID: Core
     packName: Core
     packPropagationLabels:
@@ -1801,15 +1801,15 @@ script:
       type: String
     polling: true
     supportedModules: []
-  dockerimage: demisto/python3:3.12.12.6151721
+  dockerimage: demisto/python3:3.12.13.8428455
   nativeimage:
   - "8.8"
   - "8.6"
   runonce: false
   script: |
     register_module_line('XQL Query Engine', 'start', __line__())
-    CONSTANT_PACK_VERSION = '3.5.41'
-    demisto.debug('pack id = Core, pack version = 3.5.41')
+    CONSTANT_PACK_VERSION = '3.5.42'
+    demisto.debug('pack id = Core, pack version = 3.5.42')
 
 
 
@@ -2447,6 +2447,22 @@ script:
         return item_to_check is not False and not item_to_check
 
 
+    def is_timestamp_field(key: str) -> bool:
+        """
+        Check if a field name represents a timestamp field that should be converted.
+
+        Args:
+            key (str): The field name to check.
+
+        Returns:
+            bool: True if the field should be treated as a timestamp, False otherwise.
+        """
+        # Only convert fields that are actual timestamp fields, not fields that merely contain "time"
+        # Examples of timestamp fields: _time, insert_timestamp, created_time, resolution_time
+        # Examples of non-timestamp fields: reopenedbuffertime, runtime, lifetime
+        return key.endswith(("_time", "timestamp")) or key == "time"
+
+
     def handle_timestamp_item(item_to_convert: Any) -> Union[Any, str]:
         """
             Try to convert a given value to datestring.
@@ -2488,7 +2504,7 @@ script:
                     formatted_res = format_dict(value)
                     if is_empty(formatted_res) and remove_empty_fields:
                         continue  # do not add item to the new dict
-                    if "time" in key:
+                    if is_timestamp_field(key):
                         new_dict[key] = handle_timestamp_item(formatted_res)
                     else:
                         new_dict[key] = formatted_res
