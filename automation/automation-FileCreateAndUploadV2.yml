@@ -28,7 +28,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 6.0.0
     isoverridable: false
-    itemVersion: 1.22.8
+    itemVersion: 1.22.9
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -85,8 +85,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('FileCreateAndUploadV2', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.22.8'
-  demisto.debug('pack id = CommonScripts, pack version = 1.22.8')
+  CONSTANT_PACK_VERSION = '1.22.9'
+  demisto.debug('pack id = CommonScripts, pack version = 1.22.9')
   import base64
   from pathlib import Path
   from typing import Any
