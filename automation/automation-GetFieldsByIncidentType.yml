@@ -49,7 +49,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.22.8
+    itemVersion: 1.22.9
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
