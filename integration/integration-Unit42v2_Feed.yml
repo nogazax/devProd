@@ -131,7 +131,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.5.0
     isoverridable: false
-    itemVersion: 1.1.11
+    itemVersion: 1.1.12
     packID: FeedUnit42v2
     packName: Unit 42 ATOMs Feed (Deprecated)
     packPropagationLabels:
@@ -179,8 +179,8 @@ script:
   runonce: false
   script: |
     register_module_line('Unit42v2 Feed', 'start', __line__())
-    CONSTANT_PACK_VERSION = '1.1.11'
-    demisto.debug('pack id = FeedUnit42v2, pack version = 1.1.11')
+    CONSTANT_PACK_VERSION = '1.1.12'
+    demisto.debug('pack id = FeedUnit42v2, pack version = 1.1.12')
     import urllib3
 
     from taxii2client.common import TokenAuth
@@ -1604,6 +1604,7 @@ script:
 
             if tlp_color:
                 fields["trafficlightprotocol"] = tlp_color
+                obj_to_parse["trafficlightprotocol"] = tlp_color
 
             return fields
 
@@ -1712,6 +1713,7 @@ script:
                     attack_pattern["score"] = score
 
             fields["tags"] = list(set(attack_pattern_obj.get("labels", [])).union(set(self.tags), set(fields.get("tags", []))))
+            attack_pattern_obj["tags"] = fields["tags"]
 
             attack_pattern["fields"] = fields
 
@@ -1774,6 +1776,7 @@ script:
                     report["score"] = score
 
             fields["tags"] = list(set(report_obj.get("labels", [])).union(set(self.tags), set(fields.get("tags", []))))
+            report_obj["tags"] = fields["tags"]
 
             relationships, obj_refs_excluding_relationships_prefix = self.parse_report_relationships(
                 report_obj, self.id_to_object, relationships_prefix, ignore_reports_relationships, is_unit42_report
@@ -1823,6 +1826,7 @@ script:
                     threat_actor["score"] = score
 
             fields["tags"] = list(set(threat_actor_obj.get("labels", [])).union(set(self.tags), set(fields.get("tags", []))))
+            threat_actor_obj["tags"] = fields["tags"]
             threat_actor["fields"] = fields
 
             if self.enrichment_excluded:
@@ -1862,6 +1866,7 @@ script:
                     infrastructure["score"] = score
 
             fields["tags"] = list(set(list(fields.get("tags", [])) + self.tags))
+            infrastructure_obj["tags"] = fields["tags"]
 
             infrastructure["fields"] = fields
 
@@ -1908,6 +1913,7 @@ script:
                     malware["score"] = score
 
             fields["tags"] = list(set(malware_obj.get("labels", [])).union(set(self.tags), set(fields.get("tags", []))))
+            malware_obj["tags"] = fields["tags"]
 
             malware["fields"] = fields
 
@@ -1948,6 +1954,7 @@ script:
                     tool["score"] = score
 
             fields["tags"] = list(set(tool_obj.get("labels", [])).union(set(self.tags), set(fields.get("tags", []))))
+            tool_obj["tags"] = fields["tags"]
 
             tool["fields"] = fields
 
@@ -1986,6 +1993,7 @@ script:
                     course_of_action["score"] = score
 
             fields["tags"] = list(set(list(fields.get("tags", [])) + self.tags))
+            coa_obj["tags"] = fields["tags"]
 
             course_of_action["fields"] = fields
 
@@ -2021,6 +2029,7 @@ script:
                     campaign["score"] = score
 
             fields["tags"] = list(set(campaign_obj.get("labels", [])).union(set(self.tags), set(fields.get("tags", []))))
+            campaign_obj["tags"] = fields["tags"]
             campaign["fields"] = fields
 
             if self.enrichment_excluded:
@@ -2062,6 +2071,7 @@ script:
                     intrusion_set["score"] = score
 
             fields["tags"] = list(set(intrusion_set_obj.get("labels", [])).union(set(self.tags), set(fields.get("tags", []))))
+            intrusion_set_obj["tags"] = fields["tags"]
 
             if self.enrichment_excluded:
                 intrusion_set["enrichmentExcluded"] = self.enrichment_excluded
@@ -2093,6 +2103,7 @@ script:
                 if score:
                     sco_indicator["score"] = score
             fields["tags"] = list(set(list(fields.get("tags", [])) + self.tags))
+            sco_object["tags"] = fields["tags"]
 
             sco_indicator["fields"] = fields
 
@@ -2236,6 +2247,7 @@ script:
                     identity["score"] = score
 
             fields["tags"] = list(set(identity_obj.get("labels", [])).union(set(self.tags), set(fields.get("tags", []))))
+            identity_obj["tags"] = fields["tags"]
 
             identity["fields"] = fields
 
@@ -2273,6 +2285,7 @@ script:
                     location["score"] = score
 
             fields["tags"] = list(set(location_obj.get("labels", [])).union(set(self.tags), set(fields.get("tags", []))))
+            location_obj["tags"] = fields["tags"]
 
             location["fields"] = fields
 
@@ -2306,6 +2319,7 @@ script:
             fields["tags"] = list(
                 set(vulnerability_obj.get("labels", [])).union(set(self.tags), set(fields.get("tags", [])), {name} if name else {})
             )
+            vulnerability_obj["tags"] = fields["tags"]
 
             cve["fields"] = fields
 
@@ -2361,6 +2375,7 @@ script:
                     if score:
                         x509_certificate["score"] = score
                 fields["tags"] = list(set(list(fields.get("tags", [])) + self.tags))
+                x509_certificate_obj["tags"] = fields["tags"]
                 x509_certificate["fields"] = fields
 
                 if self.enrichment_excluded:
@@ -2508,6 +2523,9 @@ script:
                 tlp_from_marking_refs = self.get_tlp(ioc_obj_copy)
                 fields["trafficlightprotocol"] = tlp_from_marking_refs if tlp_from_marking_refs else self.tlp_color
 
+            if fields.get("trafficlightprotocol"):
+                ioc_obj_copy["trafficlightprotocol"] = fields["trafficlightprotocol"]
+
             if self.update_custom_fields:
                 custom_fields, score = self.parse_custom_fields(ioc_obj_copy.get("extensions", {}))
                 fields.update(assign_params(**custom_fields))
@@ -2523,6 +2541,7 @@ script:
                     tags.append(field_tag)
 
             fields["tags"] = list(set(tags))
+            ioc_obj_copy["tags"] = fields["tags"]
 
             indicator["fields"] = fields
             fields["publications"] = self.get_indicator_publication(indicator_obj)
