@@ -22,7 +22,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.22.8
+    itemVersion: 1.22.9
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -68,8 +68,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('StixCreator', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.22.8'
-  demisto.debug('pack id = CommonScripts, pack version = 1.22.8')
+  CONSTANT_PACK_VERSION = '1.22.9'
+  demisto.debug('pack id = CommonScripts, pack version = 1.22.9')
   import dateparser
 
 
@@ -1906,6 +1906,7 @@ script: |
                   attack_pattern["score"] = score
 
           fields["tags"] = list(set(attack_pattern_obj.get("labels", [])).union(set(self.tags), set(fields.get("tags", []))))
+          attack_pattern_obj["tags"] = fields["tags"]
 
           attack_pattern["fields"] = fields
 
@@ -1968,6 +1969,7 @@ script: |
                   report["score"] = score
 
           fields["tags"] = list(set(report_obj.get("labels", [])).union(set(self.tags), set(fields.get("tags", []))))
+          report_obj["tags"] = fields["tags"]
 
           relationships, obj_refs_excluding_relationships_prefix = self.parse_report_relationships(
               report_obj, self.id_to_object, relationships_prefix, ignore_reports_relationships, is_unit42_report
@@ -2017,6 +2019,7 @@ script: |
                   threat_actor["score"] = score
 
           fields["tags"] = list(set(threat_actor_obj.get("labels", [])).union(set(self.tags), set(fields.get("tags", []))))
+          threat_actor_obj["tags"] = fields["tags"]
           threat_actor["fields"] = fields
 
           if self.enrichment_excluded:
@@ -2056,6 +2059,7 @@ script: |
                   infrastructure["score"] = score
 
           fields["tags"] = list(set(list(fields.get("tags", [])) + self.tags))
+          infrastructure_obj["tags"] = fields["tags"]
 
           infrastructure["fields"] = fields
 
@@ -2102,6 +2106,7 @@ script: |
                   malware["score"] = score
 
           fields["tags"] = list(set(malware_obj.get("labels", [])).union(set(self.tags), set(fields.get("tags", []))))
+          malware_obj["tags"] = fields["tags"]
 
           malware["fields"] = fields
 
@@ -2142,6 +2147,7 @@ script: |
                   tool["score"] = score
 
           fields["tags"] = list(set(tool_obj.get("labels", [])).union(set(self.tags), set(fields.get("tags", []))))
+          tool_obj["tags"] = fields["tags"]
 
           tool["fields"] = fields
 
@@ -2180,6 +2186,7 @@ script: |
                   course_of_action["score"] = score
 
           fields["tags"] = list(set(list(fields.get("tags", [])) + self.tags))
+          coa_obj["tags"] = fields["tags"]
 
           course_of_action["fields"] = fields
 
@@ -2215,6 +2222,7 @@ script: |
                   campaign["score"] = score
 
           fields["tags"] = list(set(campaign_obj.get("labels", [])).union(set(self.tags), set(fields.get("tags", []))))
+          campaign_obj["tags"] = fields["tags"]
           campaign["fields"] = fields
 
           if self.enrichment_excluded:
@@ -2256,6 +2264,7 @@ script: |
                   intrusion_set["score"] = score
 
           fields["tags"] = list(set(intrusion_set_obj.get("labels", [])).union(set(self.tags), set(fields.get("tags", []))))
+          intrusion_set_obj["tags"] = fields["tags"]
 
           if self.enrichment_excluded:
               intrusion_set["enrichmentExcluded"] = self.enrichment_excluded
@@ -2287,6 +2296,7 @@ script: |
               if score:
                   sco_indicator["score"] = score
           fields["tags"] = list(set(list(fields.get("tags", [])) + self.tags))
+          sco_object["tags"] = fields["tags"]
 
           sco_indicator["fields"] = fields
 
@@ -2430,6 +2440,7 @@ script: |
                   identity["score"] = score
 
           fields["tags"] = list(set(identity_obj.get("labels", [])).union(set(self.tags), set(fields.get("tags", []))))
+          identity_obj["tags"] = fields["tags"]
 
           identity["fields"] = fields
 
@@ -2467,6 +2478,7 @@ script: |
                   location["score"] = score
 
           fields["tags"] = list(set(location_obj.get("labels", [])).union(set(self.tags), set(fields.get("tags", []))))
+          location_obj["tags"] = fields["tags"]
 
           location["fields"] = fields
 
@@ -2500,6 +2512,7 @@ script: |
           fields["tags"] = list(
               set(vulnerability_obj.get("labels", [])).union(set(self.tags), set(fields.get("tags", [])), {name} if name else {})
           )
+          vulnerability_obj["tags"] = fields["tags"]
 
           cve["fields"] = fields
 
@@ -2555,6 +2568,7 @@ script: |
                   if score:
                       x509_certificate["score"] = score
               fields["tags"] = list(set(list(fields.get("tags", [])) + self.tags))
+              x509_certificate_obj["tags"] = fields["tags"]
               x509_certificate["fields"] = fields
 
               if self.enrichment_excluded:
@@ -2720,6 +2734,7 @@ script: |
                   tags.append(field_tag)
 
           fields["tags"] = list(set(tags))
+          ioc_obj_copy["tags"] = fields["tags"]
 
           indicator["fields"] = fields
           fields["publications"] = self.get_indicator_publication(indicator_obj)
