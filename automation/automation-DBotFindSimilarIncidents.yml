@@ -125,7 +125,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.41.80
+    itemVersion: 1.41.81
     packID: Base
     packName: Base
     packPropagationLabels:
@@ -135,7 +135,7 @@ contentitemexportablefields:
     supportedModules: []
     toServerVersion: ""
 deprecated: true
-dockerimage: demisto/sklearn:1.0.0.5898415
+dockerimage: demisto/sklearn:1.0.0.8425368
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
