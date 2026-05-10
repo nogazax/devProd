@@ -7,7 +7,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.41.80
+    itemVersion: 1.41.81
     packID: Base
     packName: Base
     packPropagationLabels:
@@ -25,8 +25,8 @@ restrictioncenter: {}
 runas: DBotWeakRole
 runonce: false
 script: |-
-  CONSTANT_PACK_VERSION = '1.41.80'
-  demisto.debug('pack id = Base, pack version = 1.41.80')
+  CONSTANT_PACK_VERSION = '1.41.81'
+  demisto.debug('pack id = Base, pack version = 1.41.81')
   """Common functions script
   This script will be appended to each server script before being executed.
   Please notice that to add custom common code, add it to the CommonServerUserPython script.
