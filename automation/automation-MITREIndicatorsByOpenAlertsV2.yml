@@ -15,7 +15,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.5.0
     isoverridable: false
-    itemVersion: 1.2.24
+    itemVersion: 1.2.25
     packID: FeedMitreAttackv2
     packName: MITRE ATT&CK
     packPropagationLabels:
@@ -38,8 +38,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('MITREIndicatorsByOpenAlertsV2', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.2.24'
-  demisto.debug('pack id = FeedMitreAttackv2, pack version = 1.2.24')
+  CONSTANT_PACK_VERSION = '1.2.25'
+  demisto.debug('pack id = FeedMitreAttackv2, pack version = 1.2.25')
   import traceback
 
 
