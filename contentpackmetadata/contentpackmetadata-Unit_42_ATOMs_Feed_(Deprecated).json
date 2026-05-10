@@ -49,7 +49,7 @@
 		"wizard": null
 	},
 	"created": "2025-03-29T09:26:00Z",
-	"currentVersion": "1.1.11",
+	"currentVersion": "1.1.12",
 	"defaultDataSource": {
 		"id": "",
 		"name": ""
@@ -60,7 +60,7 @@
 			"author": "Cortex",
 			"certification": "certified",
 			"mandatory": true,
-			"minVersion": "1.41.74",
+			"minVersion": "1.41.81",
 			"name": "Base"
 		}
 	},
@@ -87,7 +87,7 @@
 		}
 	],
 	"isOverridable": false,
-	"itemVersion": "1.1.11",
+	"itemVersion": "1.1.12",
 	"keywords": [],
 	"legacy": true,
 	"modules": [],
@@ -120,9 +120,9 @@
 		"TIM"
 	],
 	"toServerVersion": "",
-	"updated": "2026-04-20T20:05:24Z",
+	"updated": "2026-05-10T10:03:45Z",
 	"useCases": [],
 	"version": -1,
-	"versionInfo": "8382811",
+	"versionInfo": "8865647",
 	"videos": []
 }
