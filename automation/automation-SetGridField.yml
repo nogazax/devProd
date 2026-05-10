@@ -58,7 +58,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.22.8
+    itemVersion: 1.22.9
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -79,7 +79,7 @@ restrictioncenter: {}
 runas: DBotWeakRole
 runonce: false
 script: "register_module_line('SetGridField', 'start', __line__())\nCONSTANT_PACK_VERSION
-  = '1.22.8'\ndemisto.debug('pack id = CommonScripts, pack version = 1.22.8')\n# STD
+  = '1.22.9'\ndemisto.debug('pack id = CommonScripts, pack version = 1.22.9')\n# STD
   Libraries\nfrom typing import Any\n\n\n\n# 3-rd party libraries\nimport pandas as
   pd\nimport phrases_case\n\n\n# Local packages\n\n\n\ndef get_error_message(grid_id:
   str) -> str:\n    \"\"\"Gets error message.\n\n    Args:\n        grid_id: The grid
