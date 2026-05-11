@@ -58,7 +58,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.22.9
+    itemVersion: 1.22.10
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -79,9 +79,9 @@ restrictioncenter: {}
 runas: DBotWeakRole
 runonce: false
 script: "register_module_line('SetGridField', 'start', __line__())\nCONSTANT_PACK_VERSION
-  = '1.22.9'\ndemisto.debug('pack id = CommonScripts, pack version = 1.22.9')\n# STD
-  Libraries\nfrom typing import Any\n\n\n\n# 3-rd party libraries\nimport pandas as
-  pd\nimport phrases_case\n\n\n# Local packages\n\n\n\ndef get_error_message(grid_id:
+  = '1.22.10'\ndemisto.debug('pack id = CommonScripts, pack version = 1.22.10')\n#
+  STD Libraries\nfrom typing import Any\n\n\n\n# 3-rd party libraries\nimport pandas
+  as pd\nimport phrases_case\n\n\n# Local packages\n\n\n\ndef get_error_message(grid_id:
   str) -> str:\n    \"\"\"Gets error message.\n\n    Args:\n        grid_id: The grid
   ID.\n\n    Returns:\n        str: The error message.\n    \"\"\"\n    return (\n
   \       f\"The following grid id was not found: {grid_id}. Make sure you entered
