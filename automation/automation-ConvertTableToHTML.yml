@@ -24,7 +24,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.22.9
+    itemVersion: 1.22.10
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -45,7 +45,7 @@ restrictioncenter: {}
 runas: DBotWeakRole
 runonce: false
 script: |
-  // pack version: 1.22.9
+  // pack version: 1.22.10
   headers = args.headers ? args.headers.split(",") : [];
   if (args.table) {
       ec = {};
