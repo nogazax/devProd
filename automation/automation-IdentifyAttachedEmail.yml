@@ -16,7 +16,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.0.0
     isoverridable: false
-    itemVersion: 1.22.9
+    itemVersion: 1.22.10
     packID: CommonScripts
     packName: Common Scripts
     packPropagationLabels:
@@ -25,7 +25,7 @@ contentitemexportablefields:
     propagationLabels: []
     supportedModules: []
     toServerVersion: ""
-dockerimage: demisto/python3:3.12.12.5490952
+dockerimage: demisto/python3:3.12.13.8428455
 enabled: true
 engineinfo: {}
 mainengineinfo: {}
@@ -47,8 +47,8 @@ runas: DBotWeakRole
 runonce: false
 script: |
   register_module_line('IdentifyAttachedEmail', 'start', __line__())
-  CONSTANT_PACK_VERSION = '1.22.9'
-  demisto.debug('pack id = CommonScripts, pack version = 1.22.9')
+  CONSTANT_PACK_VERSION = '1.22.10'
+  demisto.debug('pack id = CommonScripts, pack version = 1.22.10')
 
 
 
@@ -75,7 +75,8 @@ script: |
               not file_type and any(info in file_info for info in CONFIDENT_EMAIL_INFOS),
               file_type in EMAIL_FILE_TYPES and any(info in file_info for info in CONFIDENT_EMAIL_INFOS),
               file_name.endswith(".eml") and ("text" in file_info or file_info == "data"),
-              file_name.endswith(".msg") and "composite document file v2 document" in file_info,
+              file_name.endswith(".msg")
+              and ("composite document file v2 document" in file_info or "cdfv2 microsoft outlook message" in file_info),
           )
       )
 
