@@ -1,0 +1,159 @@
+args:
+- description: Usernames to assign to this issue
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: assignees
+  required: false
+  type: unknown
+  underlyingargname: assignees
+- description: Issue body content
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: body
+  required: false
+  type: string
+  underlyingargname: body
+- description: Issue number that this issue is a duplicate of. Only used when state_reason
+    is 'duplicate'.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: duplicate_of
+  required: false
+  type: number
+  underlyingargname: duplicate_of
+- description: Issue number to update
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: issue_number
+  required: false
+  type: number
+  underlyingargname: issue_number
+- description: Labels to apply to this issue
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: labels
+  required: false
+  type: unknown
+  underlyingargname: labels
+- description: |
+    Write operation to perform on a single issue.
+    Options are:
+    - 'create' - creates a new issue.
+    - 'update' - updates an existing issue.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: method
+  required: true
+  type: string
+  underlyingargname: method
+- description: Milestone number
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: milestone
+  required: false
+  type: number
+  underlyingargname: milestone
+- description: New state
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: state
+  required: false
+  type: string
+  underlyingargname: state
+- description: Repository owner
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: owner
+  required: true
+  type: string
+  underlyingargname: owner
+- description: Repository name
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: repo
+  required: true
+  type: string
+  underlyingargname: repo
+- description: Reason for the state change. Ignored unless state is changed.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: state_reason
+  required: false
+  type: string
+  underlyingargname: state_reason
+- description: Issue title
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: title
+  required: false
+  type: string
+  underlyingargname: title
+- description: Type of this issue. Only use if the repository has issue types configured.
+    Use list_issue_types tool to get valid type values for the organization. If the
+    repository doesn't support issue types, omit this parameter.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: type
+  required: false
+  type: string
+  underlyingargname: type
+commonfields:
+  id: mcp_Generic_MCP_newInstance_issue_write
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    prevname: mcp_Generic_MCP_newInstance_issue_write
+    propagationLabels:
+    - all
+    supportedModules: []
+    toServerVersion: ""
+created: "2026-05-06T08:14:41Z"
+description: '[External MCP tool - github-mcp-server] Create a new or update an existing
+  issue in a GitHub repository.'
+display: github-mcp-server - issue_write - newInstance
+isdetailsoverridden: false
+locked: true
+name: mcp_Generic_MCP_newInstance_issue_write
+requiredroles: []
+requiresuserapproval: true
+state:
+  isuserdisabled: false
+system: true
+underlyingcontentitem:
+  command: ""
+  id: Generic MCP-newInstance-issue_write
+  instance: newInstance
+  name: issue_write
+  type: MCP Tool

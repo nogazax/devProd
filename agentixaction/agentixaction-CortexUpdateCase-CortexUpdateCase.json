@@ -1,0 +1,312 @@
+args:
+- description: A comma-separated list of case IDs to update.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: case_id
+  required: true
+  type: string
+  underlyingargname: case_id
+- description: The new name for the case.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: case_name
+  required: false
+  type: string
+  underlyingargname: case_name
+- description: The new description for the case.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: description
+  required: false
+  type: string
+  underlyingargname: description
+- description: The email address of the new assignee. Use "unassigned" to remove an
+    existing assignee.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: assignee
+  required: false
+  type: string
+  underlyingargname: assignee
+- description: 'The new status for the case. Options: new, in_progress, resolved.'
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: status
+  required: false
+  type: string
+  underlyingargname: status
+- description: Additional notes for the case.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: notes
+  required: false
+  type: string
+  underlyingargname: notes
+- description: 'Whether the case should be starred. Options: true, false.'
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: starred
+  required: false
+  type: boolean
+  underlyingargname: starred
+- description: 'The user-defined severity for the case. Options: low, medium, high,
+    critical.'
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: user_defined_severity
+  required: false
+  type: string
+  underlyingargname: user_defined_severity
+- description: 'The reason for resolving the case. Only relevant when status is set
+    to resolved. Options: known_issue, duplicate, false_positive, true_positive, security_testing,
+    other.'
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: resolve_reason
+  required: false
+  type: string
+  underlyingargname: resolve_reason
+- description: Comment when resolving the case. Only relevant when status is set to
+    resolved.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: resolved_comment
+  required: false
+  type: string
+  underlyingargname: resolved_comment
+- description: 'Whether to resolve all alerts associated with the case. Only relevant
+    when status is set to resolved. Options: true, false.'
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: resolve_all_alerts
+  required: false
+  type: boolean
+  underlyingargname: resolve_all_alerts
+- description: |-
+    A JSON encoded string representing custom field name-value pairs to update (e.g., `{"field1": "value1"}`).
+    Note: multiSelect field types are not supported and cannot be updated using this argument.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: custom_fields
+  required: false
+  type: string
+  underlyingargname: custom_fields
+commonfields:
+  id: CortexUpdateCase
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: 3.5.45
+    packID: Core
+    packName: Core
+    packPropagationLabels:
+    - all
+    prevname: CortexUpdateCase
+    propagationLabels: []
+    supportedModules:
+    - agentix
+    - xsiam
+    - cloud_posture
+    toServerVersion: ""
+created: "2026-04-09T13:46:21Z"
+createdby: DBot
+description: Updates case properties and returns the updated case information.
+display: Cortex - Update Case
+isdetailsoverridden: false
+locked: false
+name: CortexUpdateCase
+outputs:
+- description: User who last modified the case.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Case.modifiedBy
+  type: string
+  underlyingoutputcontextpath: Core.Case.modifiedBy
+- description: Notes associated with the case.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Case.notes
+  type: string
+  underlyingoutputcontextpath: Core.Case.notes
+- description: User-defined severity for the case.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Case.userSeverity
+  type: string
+  underlyingoutputcontextpath: Core.Case.userSeverity
+- description: Whether the case name is user-defined.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Case.name.isUser
+  type: boolean
+  underlyingoutputcontextpath: Core.Case.name.isUser
+- description: The name of the case.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Case.name.value
+  type: string
+  underlyingoutputcontextpath: Core.Case.name.value
+- description: The creation time of the case in milliseconds.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Case.creationTime
+  type: number
+  underlyingoutputcontextpath: Core.Case.creationTime
+- description: The last update time of the case in milliseconds.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Case.lastUpdateTime
+  type: number
+  underlyingoutputcontextpath: Core.Case.lastUpdateTime
+- description: Number of hosts in the case.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Case.topCounters.HOSTS
+  type: number
+  underlyingoutputcontextpath: Core.Case.topCounters.HOSTS
+- description: Number of malicious artifacts in the case.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Case.topCounters.MAL_ARTIFACTS
+  type: number
+  underlyingoutputcontextpath: Core.Case.topCounters.MAL_ARTIFACTS
+- description: Number of users in the case.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Case.topCounters.USERS
+  type: number
+  underlyingoutputcontextpath: Core.Case.topCounters.USERS
+- description: Email address of the assigned user.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Case.assigned.mail
+  type: string
+  underlyingoutputcontextpath: Core.Case.assigned.mail
+- description: Display name of the assigned user.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Case.assigned.pretty
+  type: string
+  underlyingoutputcontextpath: Core.Case.assigned.pretty
+- description: Internal status of the case.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Case.internalStatus
+  type: string
+  underlyingoutputcontextpath: Core.Case.internalStatus
+- description: Comment when resolving the case.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Case.status.resolveComment
+  type: string
+  underlyingoutputcontextpath: Core.Case.status.resolveComment
+- description: Reason for resolving the case.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Case.status.resolve_reason
+  type: string
+  underlyingoutputcontextpath: Core.Case.status.resolve_reason
+- description: Status value of the case.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Case.status.value
+  type: string
+  underlyingoutputcontextpath: Core.Case.status.value
+- description: Number of low severity alerts in the case.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Case.severityCounters.SEV_020_LOW
+  type: number
+  underlyingoutputcontextpath: Core.Case.severityCounters.SEV_020_LOW
+- description: Number of medium severity alerts in the case.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Case.severityCounters.SEV_030_MEDIUM
+  type: number
+  underlyingoutputcontextpath: Core.Case.severityCounters.SEV_030_MEDIUM
+- description: Number of high severity alerts in the case.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Case.severityCounters.SEV_040_HIGH
+  type: number
+  underlyingoutputcontextpath: Core.Case.severityCounters.SEV_040_HIGH
+- description: Number of critical severity alerts in the case.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Case.severityCounters.SEV_050_CRITICAL
+  type: number
+  underlyingoutputcontextpath: Core.Case.severityCounters.SEV_050_CRITICAL
+- description: Domain of the case.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Case.caseDomain
+  type: string
+  underlyingoutputcontextpath: Core.Case.caseDomain
+- description: Pretty display of grouping status.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Case.groupingStatus.pretty
+  type: string
+  underlyingoutputcontextpath: Core.Case.groupingStatus.pretty
+- description: Raw grouping status value.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Case.groupingStatus.raw
+  type: string
+  underlyingoutputcontextpath: Core.Case.groupingStatus.raw
+- description: Reason for the grouping status.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Case.groupingStatus.reason
+  type: string
+  underlyingoutputcontextpath: Core.Case.groupingStatus.reason
+- description: Tag ID associated with the case.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Case.tags.tag_id
+  type: string
+  underlyingoutputcontextpath: Core.Case.tags.tag_id
+- description: Tag name associated with the case.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Case.tags.tag_name
+  type: string
+  underlyingoutputcontextpath: Core.Case.tags.tag_name
+requiredroles: []
+requiresuserapproval: false
+state:
+  isuserdisabled: false
+system: true
+underlyingcontentitem:
+  command: core-update-case
+  id: Cortex Core - Platform
+  instance: ""
+  name: Cortex Core - Platform
+  type: command

@@ -1,0 +1,35 @@
+commonfields:
+  id: mcp_Generic_MCP_newInstance_get_me
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    prevname: mcp_Generic_MCP_newInstance_get_me
+    propagationLabels:
+    - all
+    supportedModules: []
+    toServerVersion: ""
+created: "2026-05-06T08:14:40Z"
+description: '[External MCP tool - github-mcp-server] Get details of the authenticated
+  GitHub user. Use this when a request is about the user''s own profile for GitHub.
+  Or when information is missing to build other tool calls.'
+display: github-mcp-server - get_me - newInstance
+isdetailsoverridden: false
+locked: true
+name: mcp_Generic_MCP_newInstance_get_me
+requiredroles: []
+requiresuserapproval: true
+state:
+  isuserdisabled: false
+system: true
+underlyingcontentitem:
+  command: ""
+  id: Generic MCP-newInstance-get_me
+  instance: newInstance
+  name: get_me
+  type: MCP Tool

@@ -1,0 +1,84 @@
+args:
+- description: Results per page for pagination (min 1, max 100)
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: perPage
+  required: false
+  type: number
+  underlyingargname: perPage
+- description: 'Search query using GitHub''s powerful code search syntax. Examples:
+    ''content:Skill language:Java org:github'', ''NOT is:archived language:Python
+    OR language:go'', ''repo:github/github-mcp-server''. Supports exact matching,
+    language filters, path filters, and more.'
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: query
+  required: true
+  type: string
+  underlyingargname: query
+- description: Sort field ('indexed' only)
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: sort
+  required: false
+  type: string
+  underlyingargname: sort
+- description: Sort order for results
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: order
+  required: false
+  type: string
+  underlyingargname: order
+- description: Page number for pagination (min 1)
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: page
+  required: false
+  type: number
+  underlyingargname: page
+commonfields:
+  id: mcp_GitHub_MCP_GitHub_MCP_instance_2_search_code
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    prevname: mcp_GitHub_MCP_GitHub_MCP_instance_2_search_code
+    propagationLabels:
+    - all
+    supportedModules: []
+    toServerVersion: ""
+created: "2026-05-06T07:45:46Z"
+description: '[External MCP tool - GitHub MCP] Fast and precise code search across
+  ALL GitHub repositories using GitHub''s native search engine. Best for finding exact
+  symbols, functions, classes, or specific code patterns.'
+display: GitHub MCP - search_code - GitHub MCP_instance_2
+isdetailsoverridden: false
+locked: true
+name: mcp_GitHub_MCP_GitHub_MCP_instance_2_search_code
+requiredroles: []
+requiresuserapproval: true
+state:
+  isuserdisabled: false
+system: true
+underlyingcontentitem:
+  command: ""
+  id: GitHub MCP-GitHub MCP_instance_2-search_code
+  instance: GitHub MCP_instance_2
+  name: search_code
+  type: MCP Tool

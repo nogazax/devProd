@@ -1,0 +1,4427 @@
+adopted: true
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 8.9.0
+    isoverridable: false
+    itemVersion: 2.0.0
+    packID: SilentPlaybooksPack
+    packName: Silent Playbooks
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+description: |-
+  This playbook addresses the following alerts:
+  - Suspicious certutil command line
+
+  Playbook Stages:
+
+  Data Collection:
+  - Retrieves the full details of the original alert, including causality chain and process data.
+  - Gathers detailed information about the involved endpoint, such as its OS, user, and network status.
+
+  Investigation:
+  - Analyzes the certutil command line arguments to identify suspicious patterns, encoding, or parameters.
+  - Extracts any URLs from the command line and assesses their reputation and threat level.
+  - Checks the prevalence of the involved processes to identify rare or non-prevalent executables.
+  - Determines if the initiating process or causality group owner is unsigned, which may indicate tampering.
+  - Scans the parent process command line for scripting characteristics indicative of obfuscation or complex execution.
+  - Searches for related security alerts on the same endpoint, looking for scheduled task creation.
+  - Queries for any files created by the certutil process on the endpoint.
+  - If a file was created, its hash is enriched to determine its reputation and potential maliciousness.
+  - Checks for subsequent execution events involving any files dropped by the certutil process.
+
+  Remediation:
+  - Terminates the entire process tree that originated from the suspicious certutil command.
+  - Isolates the affected endpoint from the network to prevent lateral movement (requires analyst approval).
+  - Disables the user account associated with the activity to prevent further access (requires analyst approval).
+  - Blocks any malicious URLs found during the investigation at the firewall (requires analyst approval).
+  - Quarantines any malicious files dropped by the certutil process on the endpoint (requires analyst approval).
+  - Closes the alert, marking it as a true positive after remediation actions are complete.
+  - If determined to be a false positive, closes the alert with the appropriate resolution status.
+id: silent-Suspicious certutil command line
+inputs: []
+issilent: true
+managed: true
+name: silent-Suspicious certutil command line
+outlinetasks: {}
+outputs: []
+possibleresponses: []
+source: silent-playbooks
+starttaskid: "0"
+system: true
+tags:
+- TA0005 - Defense Evasion
+- T1218 - System Binary Proxy Execution
+- TA0011 - Command and Control
+- T1105 - Ingress Tool Transfer
+tasks:
+  "0":
+    continueonerrortype: ""
+    id: "0"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "69"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: task_ffce774e-5c68-4646-886d-2b758e92790b
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: ""
+      playbooktaskmissingcomponent: null
+      version: -1
+    taskid: ffce774e-5c68-4646-886d-2b758e92790b
+    timertriggers: []
+    type: start
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 50
+        }
+      }
+  "7":
+    continueonerror: true
+    continueonerrortype: ""
+    id: "7"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "109"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      agent_id:
+        simple: ${alert.agentid}
+      causality_id:
+        simple: ${alert.cid}
+      timeout_in_seconds:
+        simple: "180"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Terminates the process tree associated with the causality ID.
+      displayLabel: Terminated process tree for causality ID ${alert.cid} on agent
+        ${alert.agentid}.
+      id: 097c5222-554d-45c4-8e4a-60d9b653be46
+      isResponse: true
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Terminated process tree for causality ID ${alert.cid} on agent ${alert.agentid}.
+      playbooktaskmissingcomponent: null
+      script: '|||core-terminate-causality'
+      type: regular
+      version: -1
+    taskid: 097c5222-554d-45c4-8e4a-60d9b653be46
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 50,
+          "y": 3450
+        }
+      }
+  "8":
+    continueonerror: true
+    continueonerrortype: ""
+    id: "8"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "73"
+    note: false
+    quietmode: 1
+    scriptarguments:
+      external_enrichment:
+        simple: "true"
+      url_list:
+        simple: ${URL.Data}
+    separatecontext: false
+    skipunavailable: true
+    task:
+      brand: ""
+      description: Enriches the extracted URL by gathering reputation data from multiple
+        threat intelligence integrations.
+      id: 11fc5bfc-48d3-4fd2-8d52-596df45ca9fa
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Url Enrichment
+      playbooktaskmissingcomponent: null
+      script: url-enrichment
+      type: regular
+      version: -1
+    taskid: 11fc5bfc-48d3-4fd2-8d52-596df45ca9fa
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1503,
+          "y": 900
+        }
+      }
+  "9":
+    continueonerror: true
+    continueonerrortype: ""
+    id: "9"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "303"
+    note: false
+    quietmode: 1
+    scriptarguments:
+      url:
+        simple: ${URL.Data}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Retrieves the Wildfire verdict for the URL extracted from the command
+        line.
+      id: cdbe73b7-d0dc-4041-8c16-93bb76c032c1
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Get Wildfire Verdict for URL
+      playbooktaskmissingcomponent: null
+      script: '|||wildfire-get-verdict'
+      type: regular
+      version: -1
+    taskid: cdbe73b7-d0dc-4041-8c16-93bb76c032c1
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1103,
+          "y": 900
+        }
+      }
+  "12":
+    continueonerrortype: ""
+    id: "12"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    loop:
+      exitCondition: ""
+      iscommand: false
+      max: 100
+      wait: 1
+    nexttasks:
+      '#none#':
+      - "135"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      AutoCommit:
+        simple: "Yes"
+      CustomURLCategory:
+        simple: XSIAM - Malicious URLs
+      URL:
+        complex:
+          accessor: Value
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: URLEnrichment.TIMScore
+              operator: isEqualNumber
+              right:
+                value:
+                  simple: "3"
+          root: URLEnrichment
+          transformers:
+          - operator: uniq
+      pre-post:
+        simple: pre-rulebase
+      type:
+        simple: URL List
+    separatecontext: true
+    skipunavailable: true
+    task:
+      brand: ""
+      description: |-
+        This playbook blocks URLs using Palo Alto Networks Panorama or Firewall through Custom URL Categories.
+        The playbook checks whether the input URL category already exists, and if the URLs are a part of this category. Otherwise, it will create the category, block the URLs, and commit the configuration.
+      displayLabel: Analyst approved blocking malicious URL ${URLEnrichment(val.TIMScore
+        == 3).Value} via PAN-OS.
+      id: 575d98d1-0e48-4d38-872e-e6f6cbe7a549
+      isResponse: true
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: PAN-OS - Block URL - Custom URL Category
+      playbookId: PAN-OS - Block URL - Custom URL Category
+      playbookName: PAN-OS - Block URL - Custom URL Category
+      playbooktaskmissingcomponent: null
+      type: playbook
+      version: -1
+    taskid: 575d98d1-0e48-4d38-872e-e6f6cbe7a549
+    timertriggers: []
+    type: playbook
+    view: |-
+      {
+        "position": {
+          "x": 40,
+          "y": 4300
+        }
+      }
+  "13":
+    continueonerrortype: ""
+    form:
+      description: ""
+      expired: false
+      questions:
+      - defaultrows: []
+        fieldassociated: ""
+        gridcolumns: []
+        id: "0"
+        label: ""
+        labelarg:
+          simple: Should dropped files be quarantined if found?
+        options: []
+        optionsarg:
+        - simple: "No"
+        - simple: "Yes"
+        placeholder: ""
+        readonly: false
+        required: false
+        tooltip: ""
+        type: singleSelect
+      - defaultrows: []
+        fieldassociated: ""
+        gridcolumns: []
+        id: "1"
+        label: ""
+        labelarg:
+          simple: "Should Block the following malicious URL using PAN-OS? \n- ${URL.Data}
+            \  "
+        options: []
+        optionsarg:
+        - simple: "No"
+        - simple: "Yes"
+        placeholder: ""
+        readonly: false
+        required: false
+        tooltip: This will block URLs using Palo Alto Networks Panorama or Firewall
+          through Custom URL Categories. The playbook checks whether the input URL
+          category already exists, and if the URLs are a part of this category. Otherwise,
+          it will create the category, block the URLs, and commit the configuration.
+        type: singleSelect
+      - defaultrows: []
+        fieldassociated: ""
+        gridcolumns: []
+        id: "2"
+        label: ""
+        labelarg:
+          simple: "Should Isolate the endpoint? \n- ${alert.hostname}   "
+        options: []
+        optionsarg:
+        - simple: "No"
+        - simple: "Yes"
+        placeholder: ""
+        readonly: false
+        required: false
+        tooltip: This action will isolate the endpoint and is recommended to prevent
+          the attacker from executing lateral movement.
+        type: singleSelect
+      - defaultrows: []
+        fieldassociated: ""
+        gridcolumns: []
+        id: "3"
+        label: ""
+        labelarg:
+          simple: Should disable user ${Core.OriginalAlert.edrData.causality_actor_primary_username}
+        options: []
+        optionsarg:
+        - {}
+        - simple: "Yes"
+        - simple: "No"
+        placeholder: ""
+        readonly: false
+        required: false
+        tooltip: ""
+        type: singleSelect
+      sender: Your SOC team
+      title: RemediationApproval
+      totalanswers: 0
+    id: "13"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    message:
+      bcc: null
+      body: null
+      cc: null
+      format: ""
+      methods: []
+      replyOptions:
+      - "Yes"
+      - "No"
+      subject: null
+      timings:
+        completeafterreplies: 1
+        completeaftersla: false
+        completeafterv2: true
+        retriescount: 2
+        retriesinterval: 360
+      to: null
+    nexttasks:
+      '#none#':
+      - "110"
+      - "114"
+      - "16"
+      - "126"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |-
+        Analyst approval is required for the following actions:
+        - Blocking the malicious URL.
+        - Executing an XQL query to identify files downloaded via the malicious URL.
+        - Isolating the endpoint.
+      displayLabel: Analyst approval
+      id: f6bcfc12-4d68-46da-9de7-830f53aff0d2
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Analyst approval
+      playbooktaskmissingcomponent: null
+      type: collection
+      version: -1
+    taskid: f6bcfc12-4d68-46da-9de7-830f53aff0d2
+    timertriggers: []
+    type: collection
+    view: |-
+      {
+        "position": {
+          "x": 50,
+          "y": 3790
+        }
+      }
+  "16":
+    continueonerrortype: ""
+    id: "16"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "120"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: task_007c2ba9-4259-4be1-8bbb-1f3f2e48f05c
+      isSubSection: true
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Block URL
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 007c2ba9-4259-4be1-8bbb-1f3f2e48f05c
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 152,
+          "y": 3960
+        }
+      }
+  "48":
+    continueonerrortype: ""
+    id: "48"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "49"
+      - "51"
+      - "74"
+      - "75"
+      - "84"
+      - "95"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Analyzes process prevalence, command lines, and signatures, while
+        searching for related alerts. It also enriches URLs for Wildfire verdicts
+        and investigates files potentially dropped by CertUtil for suspicious indicators.
+      id: task_ed28a2c8-4860-48a7-8735-9258ace6640f
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Investigation
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: ed28a2c8-4860-48a7-8735-9258ace6640f
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 560
+        }
+      }
+  "49":
+    continueonerrortype: ""
+    id: "49"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "72"
+    note: false
+    quietmode: 1
+    scriptarguments:
+      process_name:
+        complex:
+          accessor: cgoname
+          root: alert
+          transformers:
+          - args:
+              item:
+                iscontext: true
+                value:
+                  simple: alert.osparentname
+            operator: append
+          - operator: uniq
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Retrieves the prevalence score for the processes in the causality
+        chain.
+      id: 229d066c-420d-4f32-8d31-7c219e4c3fb2
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Check the processes prevalence
+      playbooktaskmissingcomponent: null
+      script: '|||core-get-process-analytics-prevalence'
+      type: regular
+      version: -1
+    taskid: 229d066c-420d-4f32-8d31-7c219e4c3fb2
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -116,
+          "y": 730
+        }
+      }
+  "51":
+    continueonerrortype: ""
+    id: "51"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "9"
+      - "8"
+      - "78"
+    note: false
+    quietmode: 1
+    reputationcalc: 2
+    scriptarguments:
+      command_line:
+        simple: ${alert.targetprocesscmd}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |-
+        This script evaluates command-line threats by analyzing both original and decoded inputs. It assigns weighted scores to detected patterns, such as AMSI bypass or credential dumping, and applies risk combination bonuses for multiple detections. The total score is normalized to a 0-100 scale, with risk levels categorized as follows:
+
+        * 0-25: Low Risk
+        * 26-50: Medium Risk
+        * 51-90: High Risk
+        * 91-100: Critical Risk
+
+        The scoring mechanism provides a comprehensive risk assessment, considering both the severity and frequency of malicious behaviors.
+      id: task_8e29a22f-c62b-45e9-82d1-a7b1724a072d
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Command Line Analysis
+      playbooktaskmissingcomponent: null
+      script: CommandLineAnalysis
+      type: regular
+      version: -1
+    taskid: 8e29a22f-c62b-45e9-82d1-a7b1724a072d
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1583,
+          "y": 730
+        }
+      }
+  "69":
+    continueonerrortype: ""
+    id: "69"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "70"
+      - "71"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Retrieves the full details of the original alert and gathers information
+        about the associated endpoint, enriching the event with initial host and alert
+        data.
+      id: task_d2ebb2f2-c5de-4954-8351-9bde96e5c4b8
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Data Collection
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: d2ebb2f2-c5de-4954-8351-9bde96e5c4b8
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 220
+        }
+      }
+  "70":
+    continueonerrortype: ""
+    id: "70"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "48"
+    note: false
+    quietmode: 1
+    scriptarguments:
+      alert_ids:
+        simple: ${alert.id}
+      filter_alert_fields:
+        simple: "false"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Retrieves the full details of the original alert for further analysis.
+      id: 683faec7-0f94-47d0-8aac-37b74e83f2e8
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Get Alert Extra Data
+      playbooktaskmissingcomponent: null
+      script: '|||core-get-cloud-original-alerts'
+      type: regular
+      version: -1
+    taskid: 683faec7-0f94-47d0-8aac-37b74e83f2e8
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 337,
+          "y": 390
+        }
+      }
+  "71":
+    continueonerrortype: ""
+    id: "71"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "48"
+    note: false
+    quietmode: 1
+    scriptarguments:
+      additional_fields:
+        simple: "true"
+      endpoint_id:
+        simple: ${alert.agentid}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Enriches the endpoint associated with the alert by gathering details
+        from multiple integrations.
+      id: task_438e5afd-0708-486e-8338-e71f6db01404
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Get information about the associated endpoint
+      playbooktaskmissingcomponent: null
+      script: get-endpoint-data
+      type: regular
+      version: -1
+    taskid: 438e5afd-0708-486e-8338-e71f6db01404
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 737,
+          "y": 390
+        }
+      }
+  "72":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: Core.AnalyticsPrevalence.Process.value
+          operator: isEqualString
+          right:
+            value:
+              simple: "False"
+      label: "yes"
+    continueonerrortype: ""
+    id: "72"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "302"
+      "yes":
+      - "80"
+    note: false
+    quietmode: 1
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether any process in the causality chain is non-prevalent.
+      id: task_d4538a31-825f-43bd-8a51-85f174e13f94
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Is the process non prevalent?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: d4538a31-825f-43bd-8a51-85f174e13f94
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -116,
+          "y": 900
+        }
+      }
+  "73":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: URLEnrichment.TIMScore
+          operator: isEqualNumber
+          right:
+            value:
+              simple: "2"
+      label: suspicious
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: URLEnrichment.TIMScore
+          operator: isEqualString
+          right:
+            value:
+              simple: "3"
+      label: malicious
+    continueonerrortype: ""
+    id: "73"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "308"
+      malicious:
+      - "82"
+      suspicious:
+      - "81"
+    note: false
+    quietmode: 1
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the URL has a malicious or suspicious reputation.
+      id: 36fc3324-d491-4d65-8d00-7c93c2f414f7
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Bad reputation URL?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 36fc3324-d491-4d65-8d00-7c93c2f414f7
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1483,
+          "y": 1240
+        }
+      }
+  "74":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                filters:
+                - - left:
+                      iscontext: true
+                      value:
+                        simple: alert.cgosignature
+                    operator: isNotEmpty
+                root: alert.cgosignature
+          operator: isNotEqualString
+          right:
+            value:
+              simple: SIGNATURE_SIGNED
+        - left:
+            iscontext: true
+            value:
+              complex:
+                filters:
+                - - left:
+                      iscontext: true
+                      value:
+                        simple: alert.osparentsignature
+                    operator: isNotEmpty
+                root: alert.osparentsignature
+          operator: isNotEqualString
+          right:
+            value:
+              simple: SIGNATURE_SIGNED
+      label: "yes"
+    continueonerrortype: ""
+    id: "74"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "300"
+      "yes":
+      - "79"
+    note: false
+    quietmode: 1
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the causality group owner (CGO) or the direct actor
+        process is unsigned.
+      id: task_8ae87e70-2680-4854-8b80-1ebdf8028891
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Unsigned CGO or actor process?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 8ae87e70-2680-4854-8b80-1ebdf8028891
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -871,
+          "y": 730
+        }
+      }
+  "75":
+    continueonerrortype: ""
+    id: "75"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "76"
+    note: false
+    quietmode: 1
+    scriptarguments:
+      extend-context:
+        simple: 'SuspiciousRelatedAlerts= '
+      fromdate:
+        complex:
+          accessor: timestamp
+          root: alert
+          transformers:
+          - args:
+              variation:
+                value:
+                  simple: 30 minutes ago
+            operator: ModifyDateTime
+      ignore-outputs:
+        simple: "true"
+      query:
+        simple: (agentid:${alert.agentid} or parentXDRIncident:"${alert.parentXDRIncident}")
+          and (name:"Script Activity - 1092015937" or name:"Powershell Activity -
+          *" or name:"PowerShell runs rare base64-encoded command via remote causality
+          actor" or name:"Suspicious AMSI decode attempt" or name:"Suspicious PowerShell
+          Command Line" or name:"PowerShell suspicious flags")
+      todate:
+        simple: now
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Searches for other alerts related to the endpoint, process, and
+        user involved in the original alert to gather additional context.
+      id: task_75120e2d-537f-4a4a-8c41-b3e789adb41e
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Search for suspicious Related Alerts
+      playbooktaskmissingcomponent: null
+      script: SearchAlertsV2
+      type: regular
+      version: -1
+    taskid: 75120e2d-537f-4a4a-8c41-b3e789adb41e
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 638,
+          "y": 730
+        }
+      }
+  "76":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                root: SuspiciousRelatedAlerts
+                transformers:
+                - operator: count
+          operator: greaterThan
+          right:
+            value:
+              simple: "0"
+      label: "yes"
+    continueonerrortype: ""
+    id: "76"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "305"
+      "yes":
+      - "77"
+    note: false
+    quietmode: 1
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the search for related alerts found any related
+        to suspicious scheduled task creation.
+      id: task_0dc6d856-3e4e-4dfe-8ec0-4460f5903bf8
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Found scheduled tasks alerts?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 0dc6d856-3e4e-4dfe-8ec0-4460f5903bf8
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 638,
+          "y": 900
+        }
+      }
+  "77":
+    continueonerrortype: ""
+    id: "77"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "99"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "suspicious_related_alerts", "Score": 1, "Comment": "Found
+          alerts regarding suspicious activity activity within the timeframe of CertUtil
+          execution"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Sets an evidence entry if related suspicious alerts are found.
+      displayLabel: Evidence of suspicious scheduled task activity found for case
+        ${alert.parentXDRIncident}.
+      id: task_3e38f1fc-13f6-42f9-8809-4ca1b444e3a4
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: Set evidence for masquerading alerts '
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 3e38f1fc-13f6-42f9-8809-4ca1b444e3a4
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 570,
+          "y": 1070
+        }
+      }
+  "78":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: CommandLineAnalysis.score
+          operator: greaterThanOrEqual
+          right:
+            value:
+              simple: "25"
+      label: "yes"
+    continueonerrortype: ""
+    id: "78"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "304"
+      "yes":
+      - "83"
+    note: false
+    quietmode: 1
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the certutil command line contains suspicious parameters
+        based on the command line analysis.
+      id: task_390c75fc-9dd6-4058-8283-3eb94f72eee2
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Suspicious command line?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 390c75fc-9dd6-4058-8283-3eb94f72eee2
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1903,
+          "y": 900
+        }
+      }
+  "79":
+    continueonerrortype: ""
+    id: "79"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "99"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "unsigned_cgo_or_actor", "Score": 1, "Comment": "Found an
+          unsigned CGO or actor process."}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Sets an evidence entry if the causality group owner or actor process
+        is unsigned.
+      displayLabel: The CGO or actor process was confirmed as unsigned.
+      id: 4aeeb609-0ecc-4e66-8c4f-c7c1da4017d5
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: Set evidence for unsigned CGO or actor process'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 4aeeb609-0ecc-4e66-8c4f-c7c1da4017d5
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -950,
+          "y": 900
+        }
+      }
+  "80":
+    continueonerrortype: ""
+    id: "80"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "99"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "unprevalent_process", "Score": 1, "Comment": "Found an
+          unprevalent CGO or actor process."}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Sets an evidence entry if the process is not prevalent.
+      displayLabel: The process ${alert.cgoname} was checked and confirmed as non-prevalent.
+      id: 3662b33a-2476-4725-843f-8680ceb7b532
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: Set evidence for unprevalent process'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 3662b33a-2476-4725-843f-8680ceb7b532
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -229,
+          "y": 1070
+        }
+      }
+  "81":
+    continueonerrortype: ""
+    id: "81"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "99"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "suspicious_URL", "Score": 2, "Comment": "Found a suspicious
+          URL used with CertUtil."}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Sets an evidence entry if a suspicious URL is found in the command
+        line.
+      displayLabel: The URL ${URL.Data} was checked and confirmed as suspicious.
+      id: task_45057fbb-5df0-4c96-8aec-5d06cdf2bf0f
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: Set evidence for suspicious URL'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 45057fbb-5df0-4c96-8aec-5d06cdf2bf0f
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1583,
+          "y": 1410
+        }
+      }
+  "82":
+    continueonerrortype: ""
+    id: "82"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "99"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "suspicious_URL", "Score": 3, "Comment": "Found a malicious
+          URL used with CertUtil."}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Sets an evidence entry if a malicious URL is found in the command
+        line.
+      displayLabel: The URL ${URL.Data} was checked and confirmed malicious.
+      id: task_2919a9e3-2bdd-45ba-8065-2dc457658b95
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: Set evidence for malicious URL'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 2919a9e3-2bdd-45ba-8065-2dc457658b95
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1183,
+          "y": 1410
+        }
+      }
+  "83":
+    continueonerrortype: ""
+    id: "83"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "99"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "suspicious_command_line", "Score": 1, "Comment": "Found
+          a suspicious command line used with CertUtil."}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Sets an evidence entry if the certutil command line is suspicious.
+      displayLabel: The process command line ${alert.targetprocesscmd} was found suspicious.
+      id: 4c24b0ec-b35d-421f-8127-14593acf8b9d
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: Set evidence for suspicious command line'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 4c24b0ec-b35d-421f-8127-14593acf8b9d
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1790,
+          "y": 1070
+        }
+      }
+  "84":
+    continueonerror: true
+    continueonerrortype: errorPath
+    id: "84"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#error#':
+      - "106"
+      '#none#':
+      - "85"
+    note: false
+    quietmode: 1
+    reputationcalc: 2
+    scriptarguments:
+      query:
+        simple: "dataset = xdr_data\n| filter agent_id = \"${alert.agentid}\"\n| filter
+          agent_os_type = AGENT_OS_WINDOWS AND event_sub_type IN (ENUM.FILE_WRITE,
+          ENUM.FILE_CREATE_NEW) AND lowercase(actor_process_image_name) = \"certutil.exe\"
+          AND action_file_sha256 != null\n| fields action_file_path, action_file_name,
+          action_file_sha256 "
+      query_name:
+        simple: certutil_file_drop_analysis
+      time_frame:
+        complex:
+          accessor: timestamp
+          root: alert
+          transformers:
+          - args:
+              variation:
+                value:
+                  simple: 10 minutes ago
+            operator: ModifyDateTime
+          - args:
+              prefix:
+                value:
+                  simple: 'between '
+              suffix:
+                value:
+                  simple: ' and now'
+            operator: concat
+    separatecontext: false
+    skipunavailable: true
+    task:
+      brand: XQL Query Engine
+      description: Runs an XQL query to search for file creation events on the endpoint
+        originating from the certutil process.
+      id: task_ca7321c3-4b4b-4c10-86fe-4ad03a0df60f
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Check for file dropped by CertUtil
+      playbooktaskmissingcomponent: null
+      script: XQL Query Engine|||xdr-xql-generic-query
+      type: regular
+      version: -1
+    taskid: ca7321c3-4b4b-4c10-86fe-4ad03a0df60f
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -1627,
+          "y": 730
+        }
+      }
+  "85":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: PaloAltoNetworksXQL.GenericQuery.results
+          operator: isNotEmpty
+          right:
+            value: {}
+      - - left:
+            iscontext: true
+            value:
+              simple: PaloAltoNetworksXQL.GenericQuery.results.action_file_sha256
+          operator: isNotEmpty
+      label: Suspicious files
+    continueonerrortype: ""
+    id: "85"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "306"
+      Suspicious files:
+      - "307"
+    note: false
+    quietmode: 1
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the XQL query found any files dropped by the certutil
+        process.
+      id: e0c70dd8-5804-452c-8c8b-3c333638d79c
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Found Suspicious Files
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: e0c70dd8-5804-452c-8c8b-3c333638d79c
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -1765,
+          "y": 900
+        }
+      }
+  "86":
+    continueonerrortype: ""
+    id: "86"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "89"
+    note: false
+    quietmode: 1
+    scriptarguments:
+      extend-context:
+        simple: CertutilFileWriteEnrich=
+      external_enrichment:
+        simple: "true"
+      file_hash:
+        complex:
+          accessor: results.action_file_sha256
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: PaloAltoNetworksXQL.GenericQuery.query_name
+              operator: isEqualString
+              right:
+                value:
+                  simple: certutil_file_drop_analysis
+          root: PaloAltoNetworksXQL.GenericQuery
+          transformers:
+          - operator: uniq
+      ignore-outputs:
+        simple: "true"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Enriches the details of the file dropped by certutil, retrieving
+        information such as its reputation and prevalence.
+      id: task_c7ab3c2e-9f33-4c34-84eb-0298bd0f89fc
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Enrich File
+      playbooktaskmissingcomponent: null
+      script: file-enrichment
+      type: regular
+      version: -1
+    taskid: c7ab3c2e-9f33-4c34-84eb-0298bd0f89fc
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -1903,
+          "y": 1240
+        }
+      }
+  "89":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: CertutilFileWriteEnrich.TIMScore
+          operator: isEqualString
+          right:
+            value:
+              simple: "2"
+      label: suspicious
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: CertutilFileWriteEnrich.TIMScore
+          operator: isEqualString
+          right:
+            value:
+              simple: "3"
+      label: 'malicious '
+    continueonerrortype: ""
+    id: "89"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "92"
+      - "99"
+      'malicious ':
+      - "91"
+      suspicious:
+      - "90"
+    note: false
+    quietmode: 1
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the enrichment data indicates that the file dropped
+        by certutil is suspicious or malicious.
+      id: task_0a425f37-906f-4c03-8932-b59f46b02ede
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Found suspicious files?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 0a425f37-906f-4c03-8932-b59f46b02ede
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -1903,
+          "y": 1410
+        }
+      }
+  "90":
+    continueonerrortype: ""
+    id: "90"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "92"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "certutil_file_write_suspicious", "Score": 2, "Comment":
+          "Found suspicious files written by CertUtil."}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Sets an evidence entry if a suspicious file is written by certutil.
+      displayLabel: The file hash ${PaloAltoNetworksXQL.GenericQuery.results.action_file_sha256}
+        was confirmed as suspicious.
+      id: task_76fe12a5-023b-43a9-8a25-731fc83cfd0a
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: Set evidence for suspicious file write'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 76fe12a5-023b-43a9-8a25-731fc83cfd0a
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -2016,
+          "y": 1580
+        }
+      }
+  "91":
+    continueonerrortype: ""
+    id: "91"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "92"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "certutil_file_write_malicious", "Score": 3, "Comment":
+          "Found malicious files written by CertUtil."}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Sets an evidence entry if a malicious file is written by certutil.
+      displayLabel: The file hash ${PaloAltoNetworksXQL.GenericQuery.results.action_file_sha256}
+        was checked and confirmed malicious.
+      id: 326b5a44-15df-427e-882c-1aed426a92f7
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: Set evidence for malicious file write'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 326b5a44-15df-427e-882c-1aed426a92f7
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -1616,
+          "y": 1580
+        }
+      }
+  "92":
+    continueonerror: true
+    continueonerrortype: errorPath
+    id: "92"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#error#':
+      - "107"
+      '#none#':
+      - "93"
+    note: false
+    quietmode: 0
+    reputationcalc: 2
+    scriptarguments:
+      query:
+        complex:
+          accessor: results.action_file_sha256
+          filters:
+          - - left:
+                iscontext: true
+                value:
+                  simple: PaloAltoNetworksXQL.GenericQuery.query_name
+              operator: isEqualString
+              right:
+                value:
+                  simple: certutil_file_drop_analysis
+          root: PaloAltoNetworksXQL.GenericQuery
+          transformers:
+          - operator: uniq
+          - args:
+              separator:
+                value:
+                  simple: '","'
+            operator: join
+          - args:
+              ctx_data:
+                iscontext: true
+                value:
+                  simple: .
+              ctx_inc: {}
+              ctx_inputs: {}
+              keep_symbol_to_null: {}
+              prefix:
+                value:
+                  simple: |-
+                    dataset = xdr_data
+                    | filter agent_id = "${alert.agentid}"
+                    | filter agent_os_type = AGENT_OS_WINDOWS AND event_sub_type = ENUM.PROCESS_START AND action_process_image_sha256 IN ("
+              suffix:
+                value:
+                  simple: "\")\n| fields actor_process_command_line, action_process_image_command_line "
+              variable_markers: {}
+            operator: ConcatFormat
+      query_name:
+        simple: certutil_file_drop_execution_analysis
+      time_frame:
+        complex:
+          accessor: timestamp
+          root: alert
+          transformers:
+          - args:
+              variation:
+                value:
+                  simple: 10 minutes ago
+            operator: ModifyDateTime
+          - args:
+              prefix:
+                value:
+                  simple: 'between '
+              suffix:
+                value:
+                  simple: ' and now'
+            operator: concat
+    separatecontext: false
+    skipunavailable: true
+    task:
+      brand: XQL Query Engine
+      description: Runs an XQL query to determine if the suspicious file dropped by
+        certutil was executed on the endpoint.
+      displayLabel: The file with hash ${PaloAltoNetworksXQL.GenericQuery.results.action_file_sha256}
+        was checked and found to be benign.
+      id: b95ec51d-aa07-4e6e-89d6-934f423028d9
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Check for execution of file dropped by CertUtil
+      playbooktaskmissingcomponent: null
+      script: XQL Query Engine|||xdr-xql-generic-query
+      type: regular
+      version: -1
+    taskid: b95ec51d-aa07-4e6e-89d6-934f423028d9
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -1399,
+          "y": 1750
+        }
+      }
+  "93":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: results.action_process_image_command_line
+                filters:
+                - - left:
+                      iscontext: true
+                      value:
+                        simple: PaloAltoNetworksXQL.GenericQuery.query_name
+                    operator: isEqualString
+                    right:
+                      value:
+                        simple: certutil_file_drop_execution_analysis
+                root: PaloAltoNetworksXQL.GenericQuery
+          operator: isNotEmpty
+          right:
+            value: {}
+      label: "yes"
+    continueonerrortype: ""
+    id: "93"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "309"
+      "yes":
+      - "94"
+    note: false
+    quietmode: 1
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the XQL query found any execution events for the
+        file dropped by certutil.
+      id: 87a02801-3728-4662-8405-bfc8c9a792d5
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Found execution of dropped files?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 87a02801-3728-4662-8405-bfc8c9a792d5
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": -2042,
+          "y": 1920
+        }
+      }
+  "94":
+    continueonerrortype: ""
+    id: "94"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "99"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "execution_dropped_files", "Score": 1, "Comment": "Found
+          execution of dropped files."}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Sets an evidence entry if execution of a file dropped by certutil
+        is detected.
+      displayLabel: Execution confirmed for dropped file ${PaloAltoNetworksXQL.GenericQuery.results.action_file_sha256}.
+      id: f7339b6c-29ee-4c35-80f3-67072b64d483
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: Set evidence for execution of dropped files'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: f7339b6c-29ee-4c35-80f3-67072b64d483
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -2154,
+          "y": 2090
+        }
+      }
+  "95":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: alert.initiatorcmd
+          operator: match
+          right:
+            value:
+              simple: (?i)((?<![?&/])&(?![0-9])|\^|!\w+:~?\d*(?:,\d+)?!|for\s+/L)
+        - left:
+            iscontext: true
+            value:
+              simple: alert.initiatorcmd
+          operator: match
+          right:
+            value:
+              simple: (?i)(set\s+\w+=!.*:.*=.*!|![a-zA-Z0-9]{2,}:.*=.*!|(\^[&<>|]){2,}|cmd\s+/V:ON|\|cmd(?:\.exe)?/Q)
+        - left:
+            iscontext: true
+            value:
+              simple: alert.targetprocesscmd
+          operator: match
+          right:
+            value:
+              simple: (?i)((?<![?&/])&(?![0-9])|\^|!\w+:~?\d*(?:,\d+)?!|for\s+/L)
+        - left:
+            iscontext: true
+            value:
+              simple: alert.targetprocesscmd
+          operator: match
+          right:
+            value:
+              simple: (?i)(set\s+\w+=!.*:.*=.*!|![a-zA-Z0-9]{2,}:.*=.*!|(\^[&<>|]){2,}|cmd\s+/V:ON|\|cmd(?:\.exe)?/Q)
+      label: "yes"
+    continueonerrortype: ""
+    id: "95"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "301"
+      "yes":
+      - "96"
+    note: false
+    quietmode: 1
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks if the CGO or actor process command line contains script
+        characteristics.
+      id: task_2e6ed268-ca9b-44a2-a06e-fb2fa0b98bf9
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Is the CGO or actor process command line contains script characteristics?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 2e6ed268-ca9b-44a2-a06e-fb2fa0b98bf9
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 2527,
+          "y": 730
+        }
+      }
+  "96":
+    continueonerrortype: ""
+    id: "96"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "99"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Evidence
+      value:
+        simple: '{"Name": "command_line_script_characteristics", "Score": 1, "Comment":
+          "Found evidence for CGO or actor process command line containing script
+          characteristics."}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Sets an evidence entry if the command line contains script-like
+        characteristics.
+      displayLabel: The actor process command line was confirmed to contain script
+        characteristics.
+      id: task_68dbda50-6d51-459d-8160-d541e3df081b
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Evidence: Set evidence for command line script characteristics'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 68dbda50-6d51-459d-8160-d541e3df081b
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 2414,
+          "y": 900
+        }
+      }
+  "97":
+    continueonerrortype: ""
+    id: "97"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "7"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Based on analyst approval, this section terminates the process
+        tree, isolates the endpoint, disables the user, and blocks the URL. It also
+        handles file quarantine and initiates manual remediation.
+      id: task_87d8c136-d24e-4e1d-829d-ae18ae2815bf
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Remediation
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 87d8c136-d24e-4e1d-829d-ae18ae2815bf
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 50,
+          "y": 3280
+        }
+      }
+  "98":
+    continueonerrortype: ""
+    id: "98"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "101"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: task_1371148e-8d8c-4e21-8523-f69b771226ef
+      isSubSection: true
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Inconclusive
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 1371148e-8d8c-4e21-8523-f69b771226ef
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 2600
+        }
+      }
+  "99":
+    continueonerrortype: ""
+    id: "99"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "100"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 493b45a4-2311-4d5e-8552-b7e633e16da9
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Verdict
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 493b45a4-2311-4d5e-8552-b7e633e16da9
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 2260
+        }
+      }
+  "100":
+    conditions:
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              complex:
+                accessor: Score
+                root: Evidence
+                transformers:
+                - args:
+                    applyIfEmpty: {}
+                    defaultValue:
+                      value:
+                        simple: "0"
+                  operator: SetIfEmpty
+                - operator: SumList
+          operator: greaterThanOrEqual
+          right:
+            value:
+              simple: "3"
+      label: Remediation
+    - condition:
+      - - left:
+            iscontext: true
+            value:
+              simple: Evidence
+          operator: isNotEmpty
+        - left:
+            iscontext: true
+            value:
+              simple: Errors
+          operator: isNotEmpty
+      label: Inconclusive
+    continueonerrortype: ""
+    id: "100"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "103"
+      Inconclusive:
+      - "98"
+      Remediation:
+      - "97"
+    note: false
+    quietmode: 1
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: 'Checks the investigation''s verdict score to determine the next
+        step: automated remediation, analyst review, or closing as a false positive.'
+      id: 14f1f3f3-c7b4-45a4-82cf-307ef7688000
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Should remediate?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 14f1f3f3-c7b4-45a4-82cf-307ef7688000
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 2430
+        }
+      }
+  "101":
+    continueonerrortype: ""
+    form:
+      description: ""
+      expired: false
+      questions:
+      - defaultrows: []
+        fieldassociated: ""
+        gridcolumns: []
+        id: "0"
+        label: ""
+        labelarg:
+          simple: "During the investigation phase, the playbook identified the following
+            suspicious evidence. Although the combined evidence does not conclusively
+            confirm a true positive, it still warrants suspicion. Please review the
+            evidence below and select the appropriate action.\n\n### Evidence found:\n${Evidence.Comment(val.length
+            > 0) =>\"- \" + val.join(\"\\n - \")} \n\n### Decision Required:\nPlease
+            choose the action you want to perform:\n\n- **False Positive** - Close
+            the alert as a false positive.\n- **True Positive** - Handle the alert
+            as a true positive by:\n        1. Terminating the CGO processes\n        2.
+            Disabling the acting user\n        3. Isolate the relevant host\n        4.
+            Quarantine any relavent files\n**(Note: Further approval might be required
+            as part of the remediation measures)**"
+        options: []
+        optionsarg:
+        - {}
+        - simple: False Positive
+        - simple: True Positive
+        placeholder: ""
+        readonly: false
+        required: false
+        tooltip: ""
+        type: singleSelect
+      sender: Your SOC team
+      title: Analyst Decision
+      totalanswers: 0
+    id: "101"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    message:
+      bcc: null
+      body: null
+      cc: null
+      format: ""
+      methods: []
+      subject: null
+      timings:
+        completeafterreplies: 1
+        completeaftersla: false
+        completeafterv2: true
+        retriescount: 2
+        retriesinterval: 360
+      to: null
+    nexttasks:
+      '#none#':
+      - "102"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      key:
+        simple: Message
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Analyst review is required to determine whether to take remediation
+        actions, or to close the alert as a false positive.
+      displayLabel: Manual Task - Analyst Decision
+      id: task_eeb2a5e1-0228-4377-87b2-01a524b3aa5c
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Manual Task - Analyst Decision
+      playbooktaskmissingcomponent: null
+      tags:
+      - analyst_decision
+      type: collection
+      version: -1
+    taskid: eeb2a5e1-0228-4377-87b2-01a524b3aa5c
+    timertriggers: []
+    type: collection
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 2770
+        }
+      }
+  "102":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: Analyst Decision.Answers.0
+          operator: isEqualString
+          right:
+            value:
+              simple: True Positive
+      label: True Positive
+    continueonerrortype: ""
+    id: "102"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "311"
+      True Positive:
+      - "310"
+    note: false
+    quietmode: 1
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks the analyst's decision to determine whether to remediate
+        or close the investigation.
+      id: task_e48ad5df-7539-4e11-8fa3-b6021a21e521
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Check Analyst Decision
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: e48ad5df-7539-4e11-8fa3-b6021a21e521
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 2940
+        }
+      }
+  "103":
+    continueonerrortype: ""
+    id: "103"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "104"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: task_57cc3cd5-62e1-406e-8a76-9a73c56831d7
+      isSubSection: true
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: False Positive
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 57cc3cd5-62e1-406e-8a76-9a73c56831d7
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 593,
+          "y": 3280
+        }
+      }
+  "104":
+    continueonerrortype: ""
+    id: "104"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "317"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      closeNotes:
+        simple: Resolved as False Positive - Handled by the playbook "Suspicious certutil
+          command line".
+      closeReason:
+        simple: Resolved - False Positive
+      id:
+        simple: ${alert.id}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: Closes the investigation and marks the alert's verdict as a False
+        Positive.
+      displayLabel: Close Alert as False Positive
+      id: task_7f6e371f-37c2-4268-8e61-ea1efca423c3
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Close Alert as False Positive
+      playbooktaskmissingcomponent: null
+      script: Builtin|||closeInvestigation
+      type: regular
+      version: -1
+    taskid: 7f6e371f-37c2-4268-8e61-ea1efca423c3
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 593,
+          "y": 3450
+        }
+      }
+  "105":
+    continueonerrortype: ""
+    id: "105"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: task_4436dbee-60d3-4d29-88b0-bb65f85ed9ad
+      isSubSection: true
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Done
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 4436dbee-60d3-4d29-88b0-bb65f85ed9ad
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 3790
+        }
+      }
+  "106":
+    continueonerrortype: ""
+    id: "106"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "99"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Errors
+      value:
+        simple: '{"Name": "xql_certuril_file_drop", "Comment": "XQL task failed to
+          check for file dropped by CertUtil"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: placeholder
+      displayLabel: Failed to query for CertUtil file drop on agent ${alert.agentid}.
+      id: task_398fc3d6-ed95-451d-897d-e1e1aad507e5
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Failed to query for CertUtil file drop on agent ${alert.agentid}.
+      playbooktaskmissingcomponent: null
+      script: Set
+      type: regular
+      version: -1
+    taskid: 398fc3d6-ed95-451d-897d-e1e1aad507e5
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -1350,
+          "y": 900
+        }
+      }
+  "107":
+    continueonerrortype: ""
+    id: "107"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "99"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Errors
+      value:
+        simple: '{"Name": "xql_dropped_file_execution", "Comment": "XQL task failed
+          to check for dropped file execution"}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: placeholder
+      displayLabel: XQL query failed to check file execution for SHA256 ${PaloAltoNetworksXQL.GenericQuery.results.action_file_sha256}.
+      id: task_a35573ab-ec00-4ea4-82d4-61423b95d6dc
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: XQL query failed to check file execution for SHA256 ${PaloAltoNetworksXQL.GenericQuery.results.action_file_sha256}.
+      playbooktaskmissingcomponent: null
+      script: Set
+      type: regular
+      version: -1
+    taskid: a35573ab-ec00-4ea4-82d4-61423b95d6dc
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -1627,
+          "y": 1920
+        }
+      }
+  "109":
+    continueonerrortype: ""
+    id: "109"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "13"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Remediation
+      value:
+        simple: '{"Name": "terminate_cgo", "Comment": "The CGO of the process was
+          terminated."}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: placeholder
+      displayLabel: Terminated Causality Group ${alert.cid} on agent ${alert.agentid}.
+      id: task_37f03df9-e63d-44a2-84e5-ce83ba328c1d
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Terminated Causality Group ${alert.cid} on agent ${alert.agentid}.
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 37f03df9-e63d-44a2-84e5-ce83ba328c1d
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 50,
+          "y": 3620
+        }
+      }
+  "110":
+    continueonerrortype: ""
+    id: "110"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "122"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: task_d0ee8b3f-5e13-4fb3-8d29-cc2873ac80d5
+      isSubSection: true
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Isolate Endpoint
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: d0ee8b3f-5e13-4fb3-8d29-cc2873ac80d5
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 870,
+          "y": 3960
+        }
+      }
+  "113":
+    continueonerror: true
+    continueonerrortype: errorPath
+    id: "113"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#error#':
+      - "116"
+      '#none#':
+      - "117"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      brands:
+        simple: Active Directory Query v2
+      user_name:
+        simple: ${Core.OriginalAlert.edrData.causality_actor_primary_username}
+    separatecontext: false
+    skipunavailable: true
+    task:
+      brand: ""
+      description: Performs remediation by disabling the actor's user account.
+      displayLabel: Disable User
+      id: task_02f25af3-cede-46a0-8b96-58cf37fd14dd
+      isResponse: true
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Disable User
+      playbooktaskmissingcomponent: null
+      requiresIntervention: true
+      script: disable-user
+      type: regular
+      version: -1
+    taskid: 02f25af3-cede-46a0-8b96-58cf37fd14dd
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1640,
+          "y": 4300
+        }
+      }
+  "114":
+    continueonerrortype: ""
+    id: "114"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "115"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: 8c93e2e0-cbf0-4c26-898e-3a5b2e7b4d8d
+      isSubSection: true
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Disable User
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 8c93e2e0-cbf0-4c26-898e-3a5b2e7b4d8d
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 1587,
+          "y": 3960
+        }
+      }
+  "115":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: Core.OriginalAlert.edrData.causality_actor_primary_username
+          operator: isNotEmpty
+          right:
+            value: {}
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: Core.OriginalAlert.edrData.causality_actor_primary_username
+          operator: isNotEqualString
+          right:
+            value:
+              simple: NT AUTHORITY\SYSTEM
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: RemediationApproval.Answers.3
+          operator: isEqualString
+          right:
+            value:
+              simple: "Yes"
+      label: "yes"
+    continueonerrortype: ""
+    id: "115"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "313"
+      "yes":
+      - "113"
+    note: false
+    quietmode: 1
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks if the analyst approved disabling the user and if the user
+        is a non-system account.
+      id: cc25922e-000d-4977-aef8-f71b9c89884d
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Check analyst answers and if User Is a Non-System Account
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: cc25922e-000d-4977-aef8-f71b9c89884d
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1587,
+          "y": 4130
+        }
+      }
+  "116":
+    continueonerrortype: ""
+    id: "116"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "118"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |-
+        During the execution of the automated response, the system was unable to disable the user ${Core.OriginalAlert.event.actor_primary_username}.
+
+        Recommendation: It is recommended that an analyst manually disable this user immediately. This action is necessary to mitigate the risk of lateral movement while the investigation continues.
+      displayLabel: Failed to disable user ${Core.OriginalAlert.edrData.causality_actor_primary_username},
+        initiating manual remediation.
+      id: task_5ef5049d-ef71-420f-8cf3-c7f26acd2482
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Manual remediation actions for user
+      playbooktaskmissingcomponent: null
+      type: regular
+      version: -1
+    taskid: 5ef5049d-ef71-420f-8cf3-c7f26acd2482
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1887,
+          "y": 4470
+        }
+      }
+  "117":
+    continueonerrortype: ""
+    id: "117"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "135"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Remediation
+      value:
+        simple: '{"Name": "disable_user", "Comment": "The acting user was disabled."}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that the acting user was disabled.
+      displayLabel: Disabled user account ${Core.OriginalAlert.edrData.causality_actor_primary_username}.
+      id: task_66fc533a-6313-405c-87a5-b479ea9deee3
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Remediation: Disable user'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 66fc533a-6313-405c-87a5-b479ea9deee3
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1487,
+          "y": 4470
+        }
+      }
+  "118":
+    continueonerrortype: ""
+    id: "118"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "135"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Remediation
+      value:
+        simple: '{"Name": "manual_disable_user", "Comment": "The acting user was disabled
+          manually."}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that the acting user required manual disabling.
+      displayLabel: Manual user disablement required for remediation.
+      id: df96ffba-678e-499c-8824-6f0e058bdcab
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Manual user disablement required for remediation.
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: df96ffba-678e-499c-8824-6f0e058bdcab
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1887,
+          "y": 4640
+        }
+      }
+  "120":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: RemediationApproval.Answers.0
+          operator: isEqualString
+          right:
+            value:
+              simple: "Yes"
+      label: Block URL
+    continueonerrortype: ""
+    id: "120"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "314"
+      Block URL:
+      - "12"
+    note: false
+    quietmode: 1
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks if the analyst approved blocking the malicious URL via the
+        PAN-OS integration.
+      id: 5d6ba244-59fb-4019-8ce0-9179977e10c8
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Check analyst answers for URL block
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 5d6ba244-59fb-4019-8ce0-9179977e10c8
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 152,
+          "y": 4130
+        }
+      }
+  "121":
+    continueonerror: true
+    continueonerrortype: errorPath
+    id: "121"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#error#':
+      - "123"
+      '#none#':
+      - "125"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      endpoint_id:
+        simple: ${alert.agentid}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Performs remediation by isolating the affected endpoint from the
+        network.
+      displayLabel: Endpoint ${alert.agentid} was confirmed as connected.
+      id: 715d01b6-6a44-4ff4-80d3-769ca29c8c01
+      isResponse: true
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Isolate endpoint
+      playbooktaskmissingcomponent: null
+      requiresIntervention: true
+      script: isolate-endpoint
+      type: regular
+      version: -1
+    taskid: 715d01b6-6a44-4ff4-80d3-769ca29c8c01
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 840,
+          "y": 4300
+        }
+      }
+  "122":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: EndpointData.AdditionalFields.endpoint_status
+          operator: isEqualString
+          right:
+            value:
+              simple: CONNECTED
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: EndpointData.AdditionalFields.is_isolated
+          operator: isEqualString
+          right:
+            value:
+              simple: AGENT_UNISOLATED
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: RemediationApproval.Answers.2
+          operator: isEqualString
+          right:
+            value:
+              simple: "Yes"
+      label: Isolate
+    continueonerrortype: ""
+    id: "122"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "312"
+      Isolate:
+      - "121"
+    note: false
+    quietmode: 1
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the endpoint is already isolated or disconnected
+        to prevent redundant isolation attempts.
+      id: e7302127-a086-4fa5-80a5-c45993cb9619
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Check analyst answers and verify endpoint isn't isolated or disconnected
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: e7302127-a086-4fa5-80a5-c45993cb9619
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 870,
+          "y": 4130
+        }
+      }
+  "123":
+    continueonerrortype: ""
+    id: "123"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "124"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |-
+        During the execution of the automated response, the system was unable to isolate host ${alert.hostname}.
+
+        Recommendation: It is recommended that an analyst manually isolate this endpoint immediately. This action is necessary to mitigate the risk of lateral movement while the investigation continues.
+      displayLabel: Automated isolation failed on the agent with id ${alert.agentid}.
+      id: bdba90dc-7d9d-4660-8182-b69b1bdc5ee6
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Automated isolation failed on the agent with id ${alert.agentid}.
+      playbooktaskmissingcomponent: null
+      type: regular
+      version: -1
+    taskid: bdba90dc-7d9d-4660-8182-b69b1bdc5ee6
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1087,
+          "y": 4470
+        }
+      }
+  "124":
+    continueonerrortype: ""
+    id: "124"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "135"
+    note: false
+    quietmode: 1
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Remediation
+      value:
+        simple: '{"Name": "manual_endpoint_isolation", "Comment": "The affected endpoint
+          was isolated manually."}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that the affected endpoint was isolated manually.
+      id: task_bd44a8ca-8a8d-4a3e-8401-8e84464ea6a7
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Remediation: Manual endpoint isolation'
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: bd44a8ca-8a8d-4a3e-8401-8e84464ea6a7
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1087,
+          "y": 4640
+        }
+      }
+  "125":
+    continueonerrortype: ""
+    id: "125"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "135"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Remediation
+      value:
+        simple: '{"Name": "endpoint_isolation", "Comment": "The affected endpoint
+          was isolated."}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Records evidence that the affected endpoint was isolated.
+      displayLabel: Isolated endpoint with agent id ${alert.agentid}.
+      id: 14b510c8-80a6-45f1-8e1a-0b21ae349177
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Isolated endpoint with agent id ${alert.agentid}.
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 14b510c8-80a6-45f1-8e1a-0b21ae349177
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 687,
+          "y": 4470
+        }
+      }
+  "126":
+    continueonerrortype: ""
+    id: "126"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "132"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: task_25d2d981-58d6-464d-896b-912796b99f85
+      isSubSection: true
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Quarantine File
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 25d2d981-58d6-464d-896b-912796b99f85
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 2305,
+          "y": 3960
+        }
+      }
+  "127":
+    continueonerror: true
+    continueonerrortype: ""
+    id: "127"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "128"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      endpoint_id:
+        simple: ${alert.agentid}
+      file_hash:
+        simple: ${PaloAltoNetworksXQL.GenericQuery.results.action_file_sha256}
+      file_path:
+        simple: ${PaloAltoNetworksXQL.GenericQuery.results.action_file_path}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Retrieves the quarantine status for a selected file.
+      displayLabel: Analyst approved quarantine for file(s) hash(s) ${PaloAltoNetworksXQL.GenericQuery.results.action_file_sha256}.
+      id: task_82e7d624-4f76-4c4f-83d8-441337c72778
+      isResponse: true
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Get file quarantine status
+      playbooktaskmissingcomponent: null
+      script: '|||core-get-quarantine-status'
+      type: regular
+      version: -1
+    taskid: 82e7d624-4f76-4c4f-83d8-441337c72778
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 2440,
+          "y": 4300
+        }
+      }
+  "128":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              complex:
+                accessor: status
+                root: Core.quarantineFiles.status
+          operator: isEqualString
+          right:
+            value:
+              simple: "false"
+      label: "yes"
+    continueonerrortype: ""
+    id: "128"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "135"
+      "yes":
+      - "129"
+    note: false
+    quietmode: 1
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the file should be quarantined based on its current
+        status.
+      id: task_66647d4a-4061-4e00-8d1d-e31849e7c10e
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Should quarantine file?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 66647d4a-4061-4e00-8d1d-e31849e7c10e
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 2440,
+          "y": 4470
+        }
+      }
+  "129":
+    continueonerror: true
+    continueonerrortype: errorPath
+    id: "129"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#error#':
+      - "130"
+      '#none#':
+      - "131"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      endpoint_id:
+        simple: ${alert.agentid}
+      file_hash:
+        simple: ${PaloAltoNetworksXQL.GenericQuery.results.action_file_sha256}
+      file_path:
+        simple: ${PaloAltoNetworksXQL.GenericQuery.results.action_file_path}
+      timeout:
+        simple: "180"
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Performs remediation by quarantining the suspicious file on the
+        endpoint.
+      displayLabel: File quarantine
+      id: 23dde0c1-0c41-4a7e-845d-a74846e138be
+      isResponse: true
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: File quarantine
+      playbooktaskmissingcomponent: null
+      script: quarantine-file
+      type: regular
+      version: -1
+    taskid: 23dde0c1-0c41-4a7e-845d-a74846e138be
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 2320,
+          "y": 4640
+        }
+      }
+  "130":
+    continueonerrortype: ""
+    id: "130"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "133"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: |-
+        The playbook was unable to quarantine the downloaded file due to the following possible reasons:
+
+        - The file does not exist or has been moved to another location on the host.
+        - The endpoint is currently disconnected.
+
+        Please take manual action to quarantine the downloaded file.
+      displayLabel: Manual action needed –The file couldn't be quarantined
+      id: task_4cc20c3b-f94d-4725-8254-44a70acd4055
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Manual action needed –The file couldn't be quarantined
+      playbooktaskmissingcomponent: null
+      type: regular
+      version: -1
+    taskid: 4cc20c3b-f94d-4725-8254-44a70acd4055
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 2607,
+          "y": 4980
+        }
+      }
+  "131":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: QuarantineFile.Status
+          operator: isEqualString
+          right:
+            value:
+              simple: Success
+      label: "yes"
+    continueonerrortype: ""
+    id: "131"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "130"
+      "yes":
+      - "134"
+    note: false
+    quietmode: 1
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks whether the file was successfully quarantined.
+      id: 1e3ce636-ee48-460c-8609-54888f83e763
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Was the quarantine successful?
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 1e3ce636-ee48-460c-8609-54888f83e763
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 2320,
+          "y": 4810
+        }
+      }
+  "132":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: RemediationApproval.Answers.0
+          operator: isEqualString
+          right:
+            value:
+              simple: "Yes"
+      label: 'Quarantine '
+    continueonerrortype: ""
+    id: "132"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "315"
+      'Quarantine ':
+      - "127"
+    note: false
+    quietmode: 1
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks the analyst's decision on whether to quarantine the file.
+      id: 0ec61c57-e5c2-4eff-ae40-4e66383a3ae4
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Check analyst answers for file quarantine '
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 0ec61c57-e5c2-4eff-ae40-4e66383a3ae4
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 2305,
+          "y": 4130
+        }
+      }
+  "133":
+    continueonerrortype: ""
+    id: "133"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "135"
+    note: false
+    quietmode: 1
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Remediation
+      value:
+        simple: '{"Name": "manual_dropped_file_quarantine", "Comment": "The files
+          dropped by CertUtil were manually quarantined."}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: placeholdefr
+      id: task_44b44975-a5c2-4e47-8341-2961d19b6d86
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Remediation: Manual file quarantine '
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 44b44975-a5c2-4e47-8341-2961d19b6d86
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 2607,
+          "y": 5150
+        }
+      }
+  "134":
+    continueonerrortype: ""
+    id: "134"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "135"
+    note: false
+    quietmode: 1
+    scriptarguments:
+      append:
+        simple: "true"
+      key:
+        simple: Remediation
+      value:
+        simple: '{"Name": "dropped_file_quarantine", "Comment": "The files dropped
+          by CertUtil were quarantined."}'
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: placeholder
+      id: 514ad25d-c5f7-42a5-881f-a60dec1fd64c
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Remediation: File quarantine '
+      playbooktaskmissingcomponent: null
+      script: SetAndHandleEmpty
+      type: regular
+      version: -1
+    taskid: 514ad25d-c5f7-42a5-881f-a60dec1fd64c
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 2207,
+          "y": 4980
+        }
+      }
+  "135":
+    continueonerrortype: ""
+    id: "135"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "138"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: task_4b594e0b-b704-40f3-8364-a28122d3b74c
+      isSubSection: true
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Update Alert
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: 4b594e0b-b704-40f3-8364-a28122d3b74c
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 1440,
+          "y": 5320
+        }
+      }
+  "136":
+    continueonerrortype: ""
+    id: "136"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "318"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      closeNotes:
+        simple: Resolved as True Positive - Handled by the playbook "Suspicious certutil
+          command line".
+      closeReason:
+        simple: Resolved - True Positive
+      id:
+        simple: ${alert.id}
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: Builtin
+      description: Closes the investigation and marks the alert's verdict as a True
+        Positive.
+      displayLabel: Close Issue as True Positive
+      id: task_d91c1032-96ec-4920-8280-c39fc9ee7ae3
+      iscommand: true
+      istaskmissingcomponenterrordismissed: false
+      name: Close Alert as True Positive
+      playbooktaskmissingcomponent: null
+      script: Builtin|||closeInvestigation
+      type: regular
+      version: -1
+    taskid: d91c1032-96ec-4920-8280-c39fc9ee7ae3
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 2207,
+          "y": 5830
+        }
+      }
+  "137":
+    continueonerrortype: ""
+    id: "137"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: task_bb348c35-6a75-4a9d-8d04-30ffdf5ab913
+      isSubSection: true
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Done
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: bb348c35-6a75-4a9d-8d04-30ffdf5ab913
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 6170
+        }
+      }
+  "138":
+    continueonerrortype: ""
+    form:
+      description: ""
+      expired: false
+      questions:
+      - defaultrows: []
+        fieldassociated: ""
+        gridcolumns: []
+        id: "0"
+        label: ""
+        labelarg:
+          simple: |-
+            The playbook analysis has classified this alert as a True Positive and executed remediation actions to mitigate the threat.
+
+            Please review the applied remediation and classification.
+
+            Note: Resolving this issue might close the case, provided all other issues in the case are resolved.
+        options: []
+        optionsarg:
+        - {}
+        - simple: Resolve Issue
+        - simple: Keep Open for Review
+        placeholder: ""
+        readonly: false
+        required: false
+        tooltip: ""
+        type: singleSelect
+      sender: ""
+      title: Should Resolve True Positive Alert
+      totalanswers: 0
+    id: "138"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    message:
+      bcc: null
+      body: null
+      cc: null
+      format: ""
+      methods: []
+      subject: null
+      timings:
+        completeafterreplies: 1
+        completeaftersla: false
+        completeafterv2: true
+        retriescount: 2
+        retriesinterval: 360
+      to: null
+    nexttasks:
+      '#none#':
+      - "139"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Prompts the analyst to confirm the True Positive verdict before
+        closing the investigation.
+      displayLabel: 'Manual Review: True Positive Confirmed'
+      id: task_ced20dc0-a425-4d4f-893f-7ef811019ae9
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'Manual Review: True Positive Confirmed'
+      playbooktaskmissingcomponent: null
+      type: collection
+      version: -1
+    taskid: ced20dc0-a425-4d4f-893f-7ef811019ae9
+    timertriggers: []
+    type: collection
+    view: |-
+      {
+        "position": {
+          "x": 1440,
+          "y": 5490
+        }
+      }
+  "139":
+    conditions:
+    - condition:
+      - - ignorecase: true
+          left:
+            iscontext: true
+            value:
+              simple: Should Resolve True Positive Alert.Answers.0
+          operator: isEqualString
+          right:
+            value:
+              simple: Resolve Issue
+      label: Resolve Alert
+    continueonerrortype: ""
+    id: "139"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#default#':
+      - "316"
+      Resolve Alert:
+      - "136"
+    note: false
+    quietmode: 1
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Checks the analyst's decision on whether to close the alert as
+        a True Positive.
+      id: task_92183e3f-1e25-4bf5-8d08-bda1ab6fb7e1
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Check Analyst Decision for resolve decision
+      playbooktaskmissingcomponent: null
+      type: condition
+      version: -1
+    taskid: 92183e3f-1e25-4bf5-8d08-bda1ab6fb7e1
+    timertriggers: []
+    type: condition
+    view: |-
+      {
+        "position": {
+          "x": 1440,
+          "y": 5660
+        }
+      }
+  "300":
+    continueonerrortype: ""
+    id: "300"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "99"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      value:
+        simple: The CGO and actor process signatures were checked and found to be
+          benign.
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Prints text to war room (Markdown supported)
+      displayLabel: The CGO and actor process signatures were checked and found to
+        be benign.
+      id: task_7d024032-cd1c-4f39-9f66-02d13da6138c
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'SHUBI: The CGO and actor process signatures were checked and found to
+        be benign.'
+      playbooktaskmissingcomponent: null
+      script: Print
+      type: regular
+      version: -1
+    taskid: 7d024032-cd1c-4f39-9f66-02d13da6138c
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -550,
+          "y": 900
+        }
+      }
+  "301":
+    continueonerrortype: ""
+    id: "301"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "99"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      value:
+        simple: The process command line was analyzed and no script characteristics
+          were found.
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Prints text to war room (Markdown supported)
+      displayLabel: The process command line was analyzed and no script characteristics
+        were found.
+      id: b467cb2b-4168-414a-af43-d3e02e8337c2
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'SHUBI: The process command line was analyzed and no script characteristics
+        were found.'
+      playbooktaskmissingcomponent: null
+      script: Print
+      type: regular
+      version: -1
+    taskid: b467cb2b-4168-414a-af43-d3e02e8337c2
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 2814,
+          "y": 900
+        }
+      }
+  "302":
+    continueonerrortype: ""
+    id: "302"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "99"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      value:
+        simple: The prevalence of process ${alert.cgoname} was checked and found to
+          be benign.
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Prints text to war room (Markdown supported)
+      displayLabel: The prevalence of process ${alert.cgoname} was checked and found
+        to be benign.
+      id: fce0f2de-a46e-4307-82b8-3b294b47aa40
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'SHUBI: The prevalence of process ${alert.cgoname} was checked and found
+        to be benign.'
+      playbooktaskmissingcomponent: null
+      script: Print
+      type: regular
+      version: -1
+    taskid: fce0f2de-a46e-4307-82b8-3b294b47aa40
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 170,
+          "y": 1070
+        }
+      }
+  "303":
+    continueonerrortype: ""
+    id: "303"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "73"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      value:
+        simple: Retrieved Wildfire verdict for URL ${URL.Data} from the command line.
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Prints text to war room (Markdown supported)
+      displayLabel: Retrieved Wildfire verdict for URL ${URL.Data} from the command
+        line.
+      id: task_1913190f-aa6a-4517-9642-69b6a2772330
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'SHUBI: Retrieved Wildfire verdict for URL ${URL.Data} from the command
+        line.'
+      playbooktaskmissingcomponent: null
+      script: Print
+      type: regular
+      version: -1
+    taskid: 1913190f-aa6a-4517-9642-69b6a2772330
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1370,
+          "y": 1070
+        }
+      }
+  "304":
+    continueonerrortype: ""
+    id: "304"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "99"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      value:
+        simple: The command line ${alert.targetprocesscmd} was analyzed and was checked
+          and found to be benign.
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Prints text to war room (Markdown supported)
+      displayLabel: The command line ${alert.targetprocesscmd} was analyzed and was
+        checked and found to be benign.
+      id: task_70c3551b-c699-4744-a9e4-82824d78f930
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'SHUBI: The command line ${alert.targetprocesscmd} was analyzed and was
+        checked and found to be benign.'
+      playbooktaskmissingcomponent: null
+      script: Print
+      type: regular
+      version: -1
+    taskid: 70c3551b-c699-4744-a9e4-82824d78f930
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 2190,
+          "y": 1070
+        }
+      }
+  "305":
+    continueonerrortype: ""
+    id: "305"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "99"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      value:
+        simple: No suspicious scheduled task alerts were found for case ${alert.parentXDRIncident}.
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Prints text to war room (Markdown supported)
+      displayLabel: No suspicious scheduled task alerts were found for case ${alert.parentXDRIncident}.
+      id: task_64cdf6f6-a4ab-4555-98a6-3ba824c7f3d3
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'SHUBI: No suspicious scheduled task alerts were found for case ${alert.parentXDRAlert}.'
+      playbooktaskmissingcomponent: null
+      script: Print
+      type: regular
+      version: -1
+    taskid: 64cdf6f6-a4ab-4555-98a6-3ba824c7f3d3
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 970,
+          "y": 1070
+        }
+      }
+  "306":
+    continueonerrortype: ""
+    id: "306"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "99"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      value:
+        simple: No files dropped by the certutil process were found on agent ${alert.agentid}.
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Prints text to war room (Markdown supported)
+      displayLabel: No files dropped by the certutil process were found on agent ${alert.agentid}.
+      id: b2c74446-355c-45e1-b685-a2d74bc11e01
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'SHUBI: No files dropped by the certutil process were found on agent ${alert.agentid}.'
+      playbooktaskmissingcomponent: null
+      script: Print
+      type: regular
+      version: -1
+    taskid: b2c74446-355c-45e1-b685-a2d74bc11e01
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -1488,
+          "y": 1070
+        }
+      }
+  "307":
+    continueonerrortype: ""
+    id: "307"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "86"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      value:
+        simple: Identified potentially suspicious file(s) ${PaloAltoNetworksXQL.GenericQuery.results.action_file_sha256}
+          dropped by CertUtil.
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Prints text to war room (Markdown supported)
+      displayLabel: Identified potentially suspicious file(s) ${PaloAltoNetworksXQL.GenericQuery.results.action_file_sha256}
+        dropped by CertUtil.
+      id: 80e6bd53-3d71-43da-99c4-e5415b187fad
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'SHUBI: Identified potentially suspicious file(s) ${PaloAltoNetworksXQL.GenericQuery.results.action_file_sha256}
+        dropped by CertUtil.'
+      playbooktaskmissingcomponent: null
+      script: Print
+      type: regular
+      version: -1
+    taskid: 80e6bd53-3d71-43da-99c4-e5415b187fad
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -1903,
+          "y": 1070
+        }
+      }
+  "308":
+    continueonerrortype: ""
+    id: "308"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "99"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      value:
+        simple: The URL ${URL.Data} reputation was checked and found to be benign.
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Prints text to war room (Markdown supported)
+      displayLabel: The URL ${URL.Data} reputation was checked and found to be benign.
+      id: task_f50faeee-0ddc-4cfc-8d8d-a9244eb52cee
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'SHUBI: The URL ${URL.Data} reputation was checked and found to be benign.'
+      playbooktaskmissingcomponent: null
+      script: Print
+      type: regular
+      version: -1
+    taskid: f50faeee-0ddc-4cfc-8d8d-a9244eb52cee
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1983,
+          "y": 1410
+        }
+      }
+  "309":
+    continueonerrortype: ""
+    id: "309"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "99"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      value:
+        simple: No execution events were found for the file hash ${PaloAltoNetworksXQL.GenericQuery.results.action_file_sha256}.
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Prints text to war room (Markdown supported)
+      displayLabel: No execution events were found for the file hash ${PaloAltoNetworksXQL.GenericQuery.results.action_file_sha256}.
+      id: a8958936-19a5-4c68-8960-40c89de6729a
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'SHUBI: No execution events were found for the file hash ${PaloAltoNetworksXQL.GenericQuery.results.action_file_sha256}.'
+      playbooktaskmissingcomponent: null
+      script: Print
+      type: regular
+      version: -1
+    taskid: a8958936-19a5-4c68-8960-40c89de6729a
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": -1754,
+          "y": 2090
+        }
+      }
+  "310":
+    continueonerrortype: ""
+    id: "310"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "97"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      value:
+        simple: True Positive — analyst confirmed the case requires remediation.
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Prints text to war room (Markdown supported)
+      displayLabel: True Positive — analyst confirmed the case requires remediation.
+      id: 3ea1b637-8163-47ae-99fa-3776e1940ab4
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'SHUBI: True Positive — analyst confirmed the case requires remediation.'
+      playbooktaskmissingcomponent: null
+      script: Print
+      type: regular
+      version: -1
+    taskid: 3ea1b637-8163-47ae-99fa-3776e1940ab4
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 337,
+          "y": 3110
+        }
+      }
+  "311":
+    continueonerrortype: ""
+    id: "311"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "103"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      value:
+        simple: The analyst classified the case as a False Positive.
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Prints text to war room (Markdown supported)
+      displayLabel: The analyst classified the case as a False Positive.
+      id: task_a192f167-cc07-45d1-9381-a33a04ad632d
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'SHUBI: The analyst classified the case as a False Positive.'
+      playbooktaskmissingcomponent: null
+      script: Print
+      type: regular
+      version: -1
+    taskid: a192f167-cc07-45d1-9381-a33a04ad632d
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 737,
+          "y": 3110
+        }
+      }
+  "312":
+    continueonerrortype: ""
+    id: "312"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "135"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      value:
+        simple: The endpoint was checked and found not to be isolated.
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Prints text to war room (Markdown supported)
+      displayLabel: The endpoint was checked and found not to be isolated.
+      id: task_3e81e8f6-f957-4080-8db8-153625ddd691
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'SHUBI: The endpoint was checked and found not to be isolated.'
+      playbooktaskmissingcomponent: null
+      script: Print
+      type: regular
+      version: -1
+    taskid: 3e81e8f6-f957-4080-8db8-153625ddd691
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 1240,
+          "y": 4300
+        }
+      }
+  "313":
+    continueonerrortype: ""
+    id: "313"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "135"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      value:
+        simple: User disablement not approved or the account is a system account.
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Prints text to war room (Markdown supported)
+      displayLabel: User disablement not approved or the account is a system account.
+      id: task_904b8f72-34e9-4a62-a098-6e87719c6a3c
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'SHUBI: User disablement not approved or the account is a system account.'
+      playbooktaskmissingcomponent: null
+      script: Print
+      type: regular
+      version: -1
+    taskid: 904b8f72-34e9-4a62-a098-6e87719c6a3c
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 2040,
+          "y": 4300
+        }
+      }
+  "314":
+    continueonerrortype: ""
+    id: "314"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "135"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      value:
+        simple: The analyst chose not to block the URL.
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Prints text to war room (Markdown supported)
+      displayLabel: The analyst chose not to block the URL.
+      id: task_3022af76-c102-49da-bf05-e939ffa8fc92
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'SHUBI: The analyst chose not to block the URL.'
+      playbooktaskmissingcomponent: null
+      script: Print
+      type: regular
+      version: -1
+    taskid: 3022af76-c102-49da-bf05-e939ffa8fc92
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 440,
+          "y": 4300
+        }
+      }
+  "315":
+    continueonerrortype: ""
+    id: "315"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "135"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      value:
+        simple: The analyst chose not to quarantine the file.
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Prints text to war room (Markdown supported)
+      displayLabel: The analyst chose not to quarantine the file.
+      id: task_7205ad8a-9a05-4e3c-a2e0-e53f36f05043
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'SHUBI: The analyst chose not to quarantine the file.'
+      playbooktaskmissingcomponent: null
+      script: Print
+      type: regular
+      version: -1
+    taskid: 7205ad8a-9a05-4e3c-a2e0-e53f36f05043
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 2840,
+          "y": 4300
+        }
+      }
+  "316":
+    continueonerrortype: ""
+    id: "316"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "318"
+    note: false
+    quietmode: 0
+    scriptarguments:
+      value:
+        simple: The analyst chose not to resolve the issue as a True Positive.
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      description: Prints text to war room (Markdown supported)
+      displayLabel: The analyst chose not to resolve the issue as a True Positive.
+      id: 469b1f78-0827-48ef-acaa-0775f8b886fb
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: 'SHUBI: The analyst chose not to resolve the issue as a True Positive.'
+      playbooktaskmissingcomponent: null
+      script: Print
+      type: regular
+      version: -1
+    taskid: 469b1f78-0827-48ef-acaa-0775f8b886fb
+    timertriggers: []
+    type: regular
+    view: |-
+      {
+        "position": {
+          "x": 2607,
+          "y": 5830
+        }
+      }
+  "317":
+    continueonerrortype: ""
+    id: "317"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "105"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: task_d430538e-3602-4ac9-be3c-9dd262aca419
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Playbook Completed
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: d430538e-3602-4ac9-be3c-9dd262aca419
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 3450
+        }
+      }
+  "318":
+    continueonerrortype: ""
+    id: "318"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    nexttasks:
+      '#none#':
+      - "137"
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: fc62abda-b185-46a1-91e8-791113a4e96b
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: Playbook Completed
+      playbooktaskmissingcomponent: null
+      type: title
+      version: -1
+    taskid: fc62abda-b185-46a1-91e8-791113a4e96b
+    timertriggers: []
+    type: title
+    view: |-
+      {
+        "position": {
+          "x": 450,
+          "y": 5830
+        }
+      }
+version: -1
+view: |-
+  {
+    "linkLabelsPosition": {},
+    "paper": {
+      "dimensions": {
+        "height": 6087.5,
+        "width": 4135,
+        "x": -1155,
+        "y": -1180
+      }
+    }
+  }

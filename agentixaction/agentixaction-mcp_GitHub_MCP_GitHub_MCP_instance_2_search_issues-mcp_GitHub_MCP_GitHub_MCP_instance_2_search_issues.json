@@ -1,0 +1,100 @@
+args:
+- description: Sort field by number of matches of categories, defaults to best match
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: sort
+  required: false
+  type: string
+  underlyingargname: sort
+- description: Sort order
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: order
+  required: false
+  type: string
+  underlyingargname: order
+- description: Optional repository owner. If provided with repo, only issues for this
+    repository are listed.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: owner
+  required: false
+  type: string
+  underlyingargname: owner
+- description: Page number for pagination (min 1)
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: page
+  required: false
+  type: number
+  underlyingargname: page
+- description: Results per page for pagination (min 1, max 100)
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: perPage
+  required: false
+  type: number
+  underlyingargname: perPage
+- description: Search query using GitHub issues search syntax
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: query
+  required: true
+  type: string
+  underlyingargname: query
+- description: Optional repository name. If provided with owner, only issues for this
+    repository are listed.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: repo
+  required: false
+  type: string
+  underlyingargname: repo
+commonfields:
+  id: mcp_GitHub_MCP_GitHub_MCP_instance_2_search_issues
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    prevname: mcp_GitHub_MCP_GitHub_MCP_instance_2_search_issues
+    propagationLabels:
+    - all
+    supportedModules: []
+    toServerVersion: ""
+created: "2026-05-06T07:45:46Z"
+description: '[External MCP tool - GitHub MCP] Search for issues in GitHub repositories
+  using issues search syntax already scoped to is:issue'
+display: GitHub MCP - search_issues - GitHub MCP_instance_2
+isdetailsoverridden: false
+locked: true
+name: mcp_GitHub_MCP_GitHub_MCP_instance_2_search_issues
+requiredroles: []
+requiresuserapproval: true
+state:
+  isuserdisabled: false
+system: true
+underlyingcontentitem:
+  command: ""
+  id: GitHub MCP-GitHub MCP_instance_2-search_issues
+  instance: GitHub MCP_instance_2
+  name: search_issues
+  type: MCP Tool

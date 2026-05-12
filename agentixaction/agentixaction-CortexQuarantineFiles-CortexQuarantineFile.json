@@ -1,0 +1,106 @@
+args:
+- description: Links the response action to the triggered case (formerly known as
+    incident).
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: incident_id
+  required: false
+  type: string
+  underlyingargname: incident_id
+- description: A comma-separated list of endpoint IDs where the file will be quarantined.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: endpoint_id_list
+  required: true
+  type: string
+  underlyingargname: endpoint_id_list
+- description: The file path of the file you want to quarantine on the selected endpoints.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: file_path
+  required: true
+  type: string
+  underlyingargname: file_path
+- description: The SHA256 hash of the file to quarantine. Must be a valid SHA256 hash.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: file_hash
+  required: true
+  type: string
+  underlyingargname: file_hash
+category: Endpoint
+commonfields:
+  id: CortexQuarantineFiles
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: 3.5.45
+    packID: Core
+    packName: Core
+    packPropagationLabels:
+    - all
+    prevname: CortexQuarantineFile
+    propagationLabels: []
+    supportedModules:
+    - xsiam
+    - cloud_runtime_security
+    - edr
+    toServerVersion: ""
+created: "2026-04-09T13:46:21Z"
+createdby: DBot
+description: |
+  Quarantines a specified file through Cortex by moving it from its original location to a secure, local quarantine folder. Requires the file path and SHA256 hash. Logs detailed error information if the operation fails. Supports quarantining on up to 1000 Windows endpoints.
+  Workflow: 1. Execute the "GetEndpointData" action with the "Cortex Core - IR" integration brand as input to get the endpoint IDs (unless provided or returned from a previous action). 2. Use this action to quarantine the files.
+display: Cortex - Quarantine File
+isdetailsoverridden: false
+locked: false
+name: CortexQuarantineFile
+outputs:
+- description: The quarantine action ID.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.GetActionStatus.action_id
+  type: string
+  underlyingoutputcontextpath: Core.GetActionStatus.action_id
+- description: The endpoint ID on which the quarantine action was taken.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.GetActionStatus.endpoint_id
+  type: string
+  underlyingoutputcontextpath: Core.GetActionStatus.endpoint_id
+- description: The status of the action.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.GetActionStatus.status
+  type: string
+  underlyingoutputcontextpath: Core.GetActionStatus.status
+- description: The error reasons (if occurred).
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.GetActionStatus.ErrorReasons
+  type: unknown
+  underlyingoutputcontextpath: Core.GetActionStatus.ErrorReasons
+requiredroles: []
+requiresuserapproval: true
+state:
+  isuserdisabled: false
+system: true
+tags:
+- Endpoint
+underlyingcontentitem:
+  command: ""
+  id: CoreQuarantineFiles
+  instance: ""
+  name: CoreQuarantineFiles
+  type: script

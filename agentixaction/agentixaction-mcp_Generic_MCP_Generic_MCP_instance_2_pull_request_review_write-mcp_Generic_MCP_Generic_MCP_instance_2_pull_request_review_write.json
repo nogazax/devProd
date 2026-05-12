@@ -1,0 +1,116 @@
+args:
+- description: Review action to perform.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: event
+  required: false
+  type: string
+  underlyingargname: event
+- description: The write operation to perform on pull request review.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: method
+  required: true
+  type: string
+  underlyingargname: method
+- description: Repository owner
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: owner
+  required: true
+  type: string
+  underlyingargname: owner
+- description: Pull request number
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: pullNumber
+  required: true
+  type: number
+  underlyingargname: pullNumber
+- description: Repository name
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: repo
+  required: true
+  type: string
+  underlyingargname: repo
+- description: The node ID of the review thread (e.g., PRRT_kwDOxxx). Required for
+    resolve_thread and unresolve_thread methods. Get thread IDs from pull_request_read
+    with method get_review_comments.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: threadId
+  required: false
+  type: string
+  underlyingargname: threadId
+- description: Review comment text
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: body
+  required: false
+  type: string
+  underlyingargname: body
+- description: SHA of commit to review
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: commitID
+  required: false
+  type: string
+  underlyingargname: commitID
+commonfields:
+  id: mcp_Generic_MCP_Generic_MCP_instance_2_pull_request_review_write
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    prevname: mcp_Generic_MCP_Generic_MCP_instance_2_pull_request_review_write
+    propagationLabels:
+    - all
+    supportedModules: []
+    toServerVersion: ""
+created: "2026-05-06T08:10:31Z"
+description: |
+  [External MCP tool - github-mcp-server] Create and/or submit, delete review of a pull request.
+
+  Available methods:
+  - create: Create a new review of a pull request. If "event" parameter is provided, the review is submitted. If "event" is omitted, a pending review is created.
+  - submit_pending: Submit an existing pending review of a pull request. This requires that a pending review exists for the current user on the specified pull request. The "body" and "event" parameters are used when submitting the review.
+  - delete_pending: Delete an existing pending review of a pull request. This requires that a pending review exists for the current user on the specified pull request.
+  - resolve_thread: Resolve a review thread. Requires only "threadId" parameter with the thread's node ID (e.g., PRRT_kwDOxxx). The owner, repo, and pullNumber parameters are not used for this method. Resolving an already-resolved thread is a no-op.
+  - unresolve_thread: Unresolve a previously resolved review thread. Requires only "threadId" parameter. The owner, repo, and pullNumber parameters are not used for this method. Unresolving an already-unresolved thread is a no-op.
+display: github-mcp-server - pull_request_review_write - Generic MCP_instance_2
+isdetailsoverridden: false
+locked: true
+name: mcp_Generic_MCP_Generic_MCP_instance_2_pull_request_review_write
+requiredroles: []
+requiresuserapproval: true
+state:
+  isuserdisabled: false
+system: true
+underlyingcontentitem:
+  command: ""
+  id: Generic MCP-Generic MCP_instance_2-pull_request_review_write
+  instance: Generic MCP_instance_2
+  name: pull_request_review_write
+  type: MCP Tool

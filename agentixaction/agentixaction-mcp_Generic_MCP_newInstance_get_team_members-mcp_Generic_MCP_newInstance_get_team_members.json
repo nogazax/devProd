@@ -1,0 +1,53 @@
+args:
+- description: Organization login (owner) that contains the team.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: org
+  required: true
+  type: string
+  underlyingargname: org
+- description: Team slug
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: team_slug
+  required: true
+  type: string
+  underlyingargname: team_slug
+commonfields:
+  id: mcp_Generic_MCP_newInstance_get_team_members
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    prevname: mcp_Generic_MCP_newInstance_get_team_members
+    propagationLabels:
+    - all
+    supportedModules: []
+    toServerVersion: ""
+created: "2026-05-06T08:14:41Z"
+description: '[External MCP tool - github-mcp-server] Get member usernames of a specific
+  team in an organization. Limited to organizations accessible with current credentials'
+display: github-mcp-server - get_team_members - newInstance
+isdetailsoverridden: false
+locked: true
+name: mcp_Generic_MCP_newInstance_get_team_members
+requiredroles: []
+requiresuserapproval: true
+state:
+  isuserdisabled: false
+system: true
+underlyingcontentitem:
+  command: ""
+  id: Generic MCP-newInstance-get_team_members
+  instance: newInstance
+  name: get_team_members
+  type: MCP Tool

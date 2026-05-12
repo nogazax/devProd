@@ -1,0 +1,76 @@
+args:
+- description: |
+    The user email addresses used for unique identification to filter by. Accepts a comma-separated list of max length 50.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: email
+  required: false
+  type: string
+  underlyingargname: email
+commonfields:
+  id: CortexListSystemUsers
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: 3.5.45
+    packID: Core
+    packName: Core
+    packPropagationLabels:
+    - all
+    prevname: CortexListSystemUsers
+    propagationLabels: []
+    supportedModules:
+    - xsiam
+    - cloud_runtime_security
+    - edr
+    toServerVersion: ""
+created: "2026-04-09T13:46:21Z"
+createdby: DBot
+description: |
+  This action returns a list of users and their core properties within the system based on a provided filters. When searched by email - if a user does not appear in the results, or no results are returned, they are considered an external or non-existent user. Note: Due to a value constraint of 50 on the result size, the data returned may be partial and not reflect the complete set of matching results.
+display: Cortex - List System Users
+isdetailsoverridden: false
+locked: false
+name: CortexListSystemUsers
+outputs:
+- description: The user's email address used for unique identification.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.User.user_email
+  type: string
+  underlyingoutputcontextpath: Core.User.user_email
+- description: The user's first name.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.User.user_first_name
+  type: string
+  underlyingoutputcontextpath: Core.User.user_first_name
+- description: The user's last name.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.User.user_last_name
+  type: string
+  underlyingoutputcontextpath: Core.User.user_last_name
+- description: The specific role assigned to the user within the system cortex instance
+    (e.g., Instance Administrator, AI Security Administrator, No-Role).
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.User.role_name
+  type: string
+  underlyingoutputcontextpath: Core.User.role_name
+requiredroles: []
+requiresuserapproval: false
+state:
+  isuserdisabled: false
+system: true
+underlyingcontentitem:
+  command: core-list-system-users
+  id: Cortex Core - Platform
+  instance: ""
+  name: Cortex Core - Platform
+  type: command

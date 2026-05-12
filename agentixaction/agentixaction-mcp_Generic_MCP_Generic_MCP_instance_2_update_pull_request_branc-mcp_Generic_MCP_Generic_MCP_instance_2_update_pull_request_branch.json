@@ -1,0 +1,71 @@
+args:
+- description: The expected SHA of the pull request's HEAD ref
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: expectedHeadSha
+  required: false
+  type: string
+  underlyingargname: expectedHeadSha
+- description: Repository owner
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: owner
+  required: true
+  type: string
+  underlyingargname: owner
+- description: Pull request number
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: pullNumber
+  required: true
+  type: number
+  underlyingargname: pullNumber
+- description: Repository name
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: repo
+  required: true
+  type: string
+  underlyingargname: repo
+commonfields:
+  id: mcp_Generic_MCP_Generic_MCP_instance_2_update_pull_request_branch
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    prevname: mcp_Generic_MCP_Generic_MCP_instance_2_update_pull_request_branch
+    propagationLabels:
+    - all
+    supportedModules: []
+    toServerVersion: ""
+created: "2026-05-06T08:10:31Z"
+description: '[External MCP tool - github-mcp-server] Update the branch of a pull
+  request with the latest changes from the base branch.'
+display: github-mcp-server - update_pull_request_branch - Generic MCP_instance_2
+isdetailsoverridden: false
+locked: true
+name: mcp_Generic_MCP_Generic_MCP_instance_2_update_pull_request_branch
+requiredroles: []
+requiresuserapproval: true
+state:
+  isuserdisabled: false
+system: true
+underlyingcontentitem:
+  command: ""
+  id: Generic MCP-Generic MCP_instance_2-update_pull_request_branch
+  instance: Generic MCP_instance_2
+  name: update_pull_request_branch
+  type: MCP Tool

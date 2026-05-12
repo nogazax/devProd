@@ -1,0 +1,73 @@
+args:
+- description: Comment content
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: body
+  required: true
+  type: string
+  underlyingargname: body
+- description: Issue number to comment on
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: issue_number
+  required: true
+  type: number
+  underlyingargname: issue_number
+- description: Repository owner
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: owner
+  required: true
+  type: string
+  underlyingargname: owner
+- description: Repository name
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: repo
+  required: true
+  type: string
+  underlyingargname: repo
+commonfields:
+  id: mcp_GitHub_MCP_GitHub_MCP_instance_1_add_issue_comment
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    prevname: mcp_GitHub_MCP_GitHub_MCP_instance_1_add_issue_comment
+    propagationLabels:
+    - all
+    supportedModules: []
+    toServerVersion: ""
+created: "2026-04-23T12:49:35Z"
+description: '[External MCP tool - GitHub MCP] Add a comment to a specific issue in
+  a GitHub repository. Use this tool to add comments to pull requests as well (in
+  this case pass pull request number as issue_number), but only if user is not asking
+  specifically to add review comments.'
+display: GitHub MCP - add_issue_comment - GitHub MCP_instance_1
+isdetailsoverridden: false
+locked: true
+name: mcp_GitHub_MCP_GitHub_MCP_instance_1_add_issue_comment
+requiredroles: []
+requiresuserapproval: true
+state:
+  isuserdisabled: false
+system: true
+underlyingcontentitem:
+  command: ""
+  id: GitHub MCP-GitHub MCP_instance_1-add_issue_comment
+  instance: GitHub MCP_instance_1
+  name: add_issue_comment
+  type: MCP Tool

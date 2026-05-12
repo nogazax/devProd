@@ -1,0 +1,63 @@
+args:
+- description: Repository owner
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: owner
+  required: true
+  type: string
+  underlyingargname: owner
+- description: Pull request number
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: pullNumber
+  required: true
+  type: number
+  underlyingargname: pullNumber
+- description: Repository name
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: repo
+  required: true
+  type: string
+  underlyingargname: repo
+commonfields:
+  id: mcp_GitHub_MCP_GitHub_MCP_instance_1_request_copilot_review
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    prevname: mcp_GitHub_MCP_GitHub_MCP_instance_1_request_copilot_review
+    propagationLabels:
+    - all
+    supportedModules: []
+    toServerVersion: ""
+created: "2026-04-23T12:49:36Z"
+description: '[External MCP tool - GitHub MCP] Request a GitHub Copilot code review
+  for a pull request. Use this for automated feedback on pull requests, usually before
+  requesting a human reviewer.'
+display: GitHub MCP - request_copilot_review - GitHub MCP_instance_1
+isdetailsoverridden: false
+locked: true
+name: mcp_GitHub_MCP_GitHub_MCP_instance_1_request_copilot_review
+requiredroles: []
+requiresuserapproval: true
+state:
+  isuserdisabled: false
+system: true
+underlyingcontentitem:
+  command: ""
+  id: GitHub MCP-GitHub MCP_instance_1-request_copilot_review
+  instance: GitHub MCP_instance_1
+  name: request_copilot_review
+  type: MCP Tool

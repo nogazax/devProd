@@ -1,0 +1,107 @@
+args:
+- description: Create as draft PR
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: draft
+  required: false
+  type: boolean
+  underlyingargname: draft
+- description: Branch containing changes
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: head
+  required: true
+  type: string
+  underlyingargname: head
+- description: Allow maintainer edits
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: maintainer_can_modify
+  required: false
+  type: boolean
+  underlyingargname: maintainer_can_modify
+- description: Repository owner
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: owner
+  required: true
+  type: string
+  underlyingargname: owner
+- description: Repository name
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: repo
+  required: true
+  type: string
+  underlyingargname: repo
+- description: PR title
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: title
+  required: true
+  type: string
+  underlyingargname: title
+- description: Branch to merge into
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: base
+  required: true
+  type: string
+  underlyingargname: base
+- description: PR description
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: body
+  required: false
+  type: string
+  underlyingargname: body
+commonfields:
+  id: mcp_GitHub_MCP_GitHub_MCP_instance_1_create_pull_request
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    prevname: mcp_GitHub_MCP_GitHub_MCP_instance_1_create_pull_request
+    propagationLabels:
+    - all
+    supportedModules: []
+    toServerVersion: ""
+created: "2026-04-23T12:49:35Z"
+description: '[External MCP tool - GitHub MCP] Create a new pull request in a GitHub
+  repository.'
+display: GitHub MCP - create_pull_request - GitHub MCP_instance_1
+isdetailsoverridden: false
+locked: true
+name: mcp_GitHub_MCP_GitHub_MCP_instance_1_create_pull_request
+requiredroles: []
+requiresuserapproval: true
+state:
+  isuserdisabled: false
+system: true
+underlyingcontentitem:
+  command: ""
+  id: GitHub MCP-GitHub MCP_instance_1-create_pull_request
+  instance: GitHub MCP_instance_1
+  name: create_pull_request
+  type: MCP Tool

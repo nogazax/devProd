@@ -1,0 +1,66 @@
+actionids:
+- mcp_Generic_MCP_newInstance_add_comment_to_pending_review
+- mcp_Generic_MCP_newInstance_add_issue_comment
+- mcp_Generic_MCP_newInstance_add_reply_to_pull_request_comment
+- mcp_Generic_MCP_newInstance_create_branch
+- mcp_Generic_MCP_newInstance_create_or_update_file
+- mcp_Generic_MCP_newInstance_create_pull_request
+- mcp_Generic_MCP_newInstance_create_repository
+- mcp_Generic_MCP_newInstance_delete_file
+- mcp_Generic_MCP_newInstance_fork_repository
+- mcp_Generic_MCP_newInstance_get_commit
+- mcp_Generic_MCP_newInstance_get_file_contents
+- mcp_Generic_MCP_newInstance_get_label
+- mcp_Generic_MCP_newInstance_get_latest_release
+- mcp_Generic_MCP_newInstance_get_me
+- mcp_Generic_MCP_newInstance_get_release_by_tag
+- mcp_Generic_MCP_newInstance_get_tag
+- mcp_Generic_MCP_newInstance_get_team_members
+- mcp_Generic_MCP_newInstance_get_teams
+- mcp_Generic_MCP_newInstance_issue_read
+- mcp_Generic_MCP_newInstance_issue_write
+- mcp_Generic_MCP_newInstance_list_branches
+- mcp_Generic_MCP_newInstance_list_commits
+- mcp_Generic_MCP_newInstance_list_issue_types
+- mcp_Generic_MCP_newInstance_list_issues
+- mcp_Generic_MCP_newInstance_list_pull_requests
+- mcp_Generic_MCP_newInstance_list_releases
+- mcp_Generic_MCP_newInstance_list_tags
+- mcp_Generic_MCP_newInstance_merge_pull_request
+- mcp_Generic_MCP_newInstance_pull_request_read
+- mcp_Generic_MCP_newInstance_pull_request_review_write
+- mcp_Generic_MCP_newInstance_push_files
+- mcp_Generic_MCP_newInstance_request_copilot_review
+- mcp_Generic_MCP_newInstance_run_secret_scanning
+- mcp_Generic_MCP_newInstance_search_code
+- mcp_Generic_MCP_newInstance_search_issues
+- mcp_Generic_MCP_newInstance_search_pull_requests
+- mcp_Generic_MCP_newInstance_search_repositories
+- mcp_Generic_MCP_newInstance_search_users
+- mcp_Generic_MCP_newInstance_sub_issue_write
+- mcp_Generic_MCP_newInstance_update_pull_request
+- mcp_Generic_MCP_newInstance_update_pull_request_branch
+color: '#00CC66'
+commonfields:
+  id: 29cf2a8cc1c442a48ad4a5c60e63a75f
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    prevname: aasd
+    propagationLabels:
+    - all
+    supportedModules: []
+    toServerVersion: ""
+createdby: nsacks@paloaltonetworks.com
+description: asd
+locked: false
+name: aasd
+status: enabled
+system: false
+visibility: private

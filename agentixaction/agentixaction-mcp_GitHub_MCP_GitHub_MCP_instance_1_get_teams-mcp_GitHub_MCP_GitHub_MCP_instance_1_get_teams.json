@@ -1,0 +1,45 @@
+args:
+- description: Username to get teams for. If not provided, uses the authenticated
+    user.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: user
+  required: false
+  type: string
+  underlyingargname: user
+commonfields:
+  id: mcp_GitHub_MCP_GitHub_MCP_instance_1_get_teams
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    prevname: mcp_GitHub_MCP_GitHub_MCP_instance_1_get_teams
+    propagationLabels:
+    - all
+    supportedModules: []
+    toServerVersion: ""
+created: "2026-04-23T12:49:35Z"
+description: '[External MCP tool - GitHub MCP] Get details of the teams the user is
+  a member of. Limited to organizations accessible with current credentials'
+display: GitHub MCP - get_teams - GitHub MCP_instance_1
+isdetailsoverridden: false
+locked: true
+name: mcp_GitHub_MCP_GitHub_MCP_instance_1_get_teams
+requiredroles: []
+requiresuserapproval: true
+state:
+  isuserdisabled: false
+system: true
+underlyingcontentitem:
+  command: ""
+  id: GitHub MCP-GitHub MCP_instance_1-get_teams
+  instance: GitHub MCP_instance_1
+  name: get_teams
+  type: MCP Tool

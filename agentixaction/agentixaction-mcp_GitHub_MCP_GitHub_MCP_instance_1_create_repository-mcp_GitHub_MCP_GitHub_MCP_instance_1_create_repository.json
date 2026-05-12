@@ -1,0 +1,81 @@
+args:
+- description: Initialize with README
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: autoInit
+  required: false
+  type: boolean
+  underlyingargname: autoInit
+- description: Repository description
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: description
+  required: false
+  type: string
+  underlyingargname: description
+- description: Repository name
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: name
+  required: true
+  type: string
+  underlyingargname: name
+- description: Organization to create the repository in (omit to create in your personal
+    account)
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: organization
+  required: false
+  type: string
+  underlyingargname: organization
+- description: Whether repo should be private
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: private
+  required: false
+  type: boolean
+  underlyingargname: private
+commonfields:
+  id: mcp_GitHub_MCP_GitHub_MCP_instance_1_create_repository
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    prevname: mcp_GitHub_MCP_GitHub_MCP_instance_1_create_repository
+    propagationLabels:
+    - all
+    supportedModules: []
+    toServerVersion: ""
+created: "2026-04-23T12:49:35Z"
+description: '[External MCP tool - GitHub MCP] Create a new GitHub repository in your
+  account or specified organization'
+display: GitHub MCP - create_repository - GitHub MCP_instance_1
+isdetailsoverridden: false
+locked: true
+name: mcp_GitHub_MCP_GitHub_MCP_instance_1_create_repository
+requiredroles: []
+requiresuserapproval: true
+state:
+  isuserdisabled: false
+system: true
+underlyingcontentitem:
+  command: ""
+  id: GitHub MCP-GitHub MCP_instance_1-create_repository
+  instance: GitHub MCP_instance_1
+  name: create_repository
+  type: MCP Tool

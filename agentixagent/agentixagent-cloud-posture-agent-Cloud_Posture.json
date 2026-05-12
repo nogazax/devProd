@@ -1,0 +1,63 @@
+actionids:
+- jiraCreateIssue
+- jiraGetIssue
+- TavilyExtract
+- ExtractURLContent
+- ServiceNowCreateTicket
+- GetUserData
+- SearchCases
+- SearchIssues
+- SendMail
+- SendNotification
+- SetIssue
+- GetIssueRecommendations
+- SearchAssets
+- SearchAssetGroups
+- SearchVulnerabilityIssues
+- JiraUpdateIssue
+- ServiceNowGetTicket
+- ServiceNowUpdateTicket
+- CortexCreateAppSecPolicy
+- CortexRunPlaybook
+- CortexRunXQLQuery
+- CortexListComplianceStandards
+- CortexCreateAssessmentProfile
+- CortexGetAIModelActivity
+- CortexListFindings
+builtinactions:
+- InvokeLLM
+color: '#02A1EB'
+commonfields:
+  id: cloud-posture-agent
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: 1.0.24
+    packID: AIAgents
+    packName: AI Agents
+    packPropagationLabels:
+    - all
+    prevname: Cloud Posture
+    propagationLabels: []
+    supportedModules:
+    - cloud_posture
+    toServerVersion: ""
+conversationstarters:
+- What is the latest critical posture risk in my environment?
+- What are the top 5 most critical misconfiguration issues in my environment?
+created: "2026-04-09T13:46:18Z"
+createdby: DBot
+description: |-
+  Helps understand, triage, and remediate misconfigurations, attack path, and posture issues across cloud environments.
+  Streamlines work for security analysts by proactively prioritizing risks, enriching identified exposures with ownership
+  information, and automatically taking mitigating or remediating actions, such as blocking network access or updating
+  protection policies, to reduce the organization's exposure footprint.
+locked: false
+name: Cloud Posture
+status: disabled
+system: true
+systeminstructions: '{MULAN}wdcbXSHpR3ZEEThPl8VYmo9c1iEoDs2XqEatHBvcA55AmnHz8FR6VRauvW5BxhI1JtDSLnJ0GZaGIZNVDhBTUGU9qWEbn+Fe/BP3jtmquUcBAv/CkxVhxcQktbvXUAO0ebWoEd4uO8PlhHgec/YQbWysfsf2ZOn1VCJLKUgJUmv5MEKOpctvTt95SrUDUKGFos7VoQEVG41JGCxDzexB59P8gumdwBiC00kWgNfarIsaDLnIehrCIForNdiBCG/t'
+visibility: public

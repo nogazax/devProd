@@ -1,0 +1,144 @@
+args:
+- description: Comma-separated list of email addresses to send the email to.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: to
+  required: true
+  type: string
+  underlyingargname: to
+- description: The subject of the email.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: true
+  name: subject
+  required: true
+  type: string
+  underlyingargname: subject
+- description: The plain-text or HTML body of the email.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: true
+  name: body
+  required: true
+  type: string
+  underlyingargname: body
+- description: Comma-separated list of CC email addresses.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: cc
+  required: false
+  type: string
+  underlyingargname: cc
+- description: Comma-separated list of BCC email addresses.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: bcc
+  required: false
+  type: string
+  underlyingargname: bcc
+- description: Email address for replies.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: replyTo
+  required: false
+  type: string
+  underlyingargname: replyTo
+- description: Comma-separated list of War Room entry IDs to attach to the email.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: attachIDs
+  required: false
+  type: string
+  underlyingargname: attachIDs
+- description: The content (body) of the email to be sent in HTML format. For example,
+    <div> "test mail" </div>.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: htmlBody
+  required: false
+  type: string
+  underlyingargname: htmlBody
+- description: A JSON string of key-value pairs to populate dynamic variables in email
+    templates.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: templateParams
+  required: false
+  type: string
+  underlyingargname: templateParams
+- defaultvalue: Text
+  description: Whether message response body type is text or HTML. Optional values
+    HTML or Text.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: bodyType
+  required: false
+  type: string
+  underlyingargname: bodyType
+category: Email
+commonfields:
+  id: SendMail
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: 1.41.81
+    packID: Base
+    packName: Base
+    packPropagationLabels:
+    - all
+    prevname: SendEmail
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+created: "2026-04-09T13:46:21Z"
+createdby: DBot
+description: |-
+  Sends an email to the desired mailbox using one of the configured mail integrations.
+  Supports sending messages with custom subject lines, plain-text or HTML bodies, and attachments.
+  You can specify multiple recipients (To, CC, BCC), and optionally define a reply-to address.
+
+  This command is supported by the following integrations:
+    - Mail Sender (New) – Generic SMTP integration (e.g., Exchange, Postfix, SendGrid)
+    - EWS Mail Sender / EWS On-Premise – Microsoft Exchange Web Services
+    - Gmail / Gmail Single User – Google Gmail API with OAuth 2.0
+    - Microsoft Graph Mail / Graph Mail Single User – Microsoft 365 Graph API
+
+  Common use cases include notifications, ticketing updates, report sharing, and automated alerting workflows.
+display: Send Email
+isdetailsoverridden: false
+locked: false
+name: SendEmail
+requiredroles: []
+requiresuserapproval: false
+state:
+  isuserdisabled: false
+system: true
+tags:
+- Email
+underlyingcontentitem:
+  command: send-mail
+  id: _any_
+  instance: ""
+  name: _any_
+  type: command

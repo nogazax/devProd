@@ -1,0 +1,93 @@
+args:
+- description: Page number for pagination (min 1)
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: page
+  required: false
+  type: number
+  underlyingargname: page
+- description: Results per page for pagination (min 1, max 100)
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: perPage
+  required: false
+  type: number
+  underlyingargname: perPage
+- description: 'Repository search query. Examples: ''machine learning in:name stars:>1000
+    language:python'', ''topic:react'', ''user:facebook''. Supports advanced search
+    syntax for precise filtering.'
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: query
+  required: true
+  type: string
+  underlyingargname: query
+- description: Sort repositories by field, defaults to best match
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: sort
+  required: false
+  type: string
+  underlyingargname: sort
+- description: 'Return minimal repository information (default: true). When false,
+    returns full GitHub API repository objects.'
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: minimal_output
+  required: false
+  type: boolean
+  underlyingargname: minimal_output
+- description: Sort order
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: order
+  required: false
+  type: string
+  underlyingargname: order
+commonfields:
+  id: mcp_GitHub_MCP_GitHub_MCP_instance_1_search_repositories
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    prevname: mcp_GitHub_MCP_GitHub_MCP_instance_1_search_repositories
+    propagationLabels:
+    - all
+    supportedModules: []
+    toServerVersion: ""
+created: "2026-04-23T12:49:36Z"
+description: '[External MCP tool - GitHub MCP] Find GitHub repositories by name, description,
+  readme, topics, or other metadata. Perfect for discovering projects, finding examples,
+  or locating specific repositories across GitHub.'
+display: GitHub MCP - search_repositories - GitHub MCP_instance_1
+isdetailsoverridden: false
+locked: true
+name: mcp_GitHub_MCP_GitHub_MCP_instance_1_search_repositories
+requiredroles: []
+requiresuserapproval: true
+state:
+  isuserdisabled: false
+system: true
+underlyingcontentitem:
+  command: ""
+  id: GitHub MCP-GitHub MCP_instance_1-search_repositories
+  instance: GitHub MCP_instance_1
+  name: search_repositories
+  type: MCP Tool

@@ -1,0 +1,56 @@
+actionids:
+- SearchIssues
+- MicrosoftGraphMailDeleteEmail
+- GmailDeleteEmail
+- GetUserData
+- EnrichURL
+- EnrichDomain
+- EnrichFile
+- EnrichEmail
+- ServiceNowCreateTicket
+- jiraCreateIssue
+- SendNotification
+- SendMail
+- TavilyExtract
+- ExtractURLContent
+- jiraGetIssue
+- SearchCases
+- SetIssue
+- JiraUpdateIssue
+- ServiceNowGetTicket
+- ServiceNowUpdateTicket
+- CortexRunPlaybook
+- CortexRunXQLQuery
+builtinactions:
+- InvokeLLM
+color: '#FA8416'
+commonfields:
+  id: email-investigation-agent
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: 1.0.24
+    packID: AIAgents
+    packName: AI Agents
+    packPropagationLabels:
+    - all
+    prevname: Email Investigation
+    propagationLabels: []
+    supportedModules:
+    - agentix
+    - email_security
+    - xsiam
+    toServerVersion: ""
+created: "2026-04-09T13:46:18Z"
+createdby: DBot
+description: |-
+  Automates the full lifecycle of email-borne threat response, spanning mailbox search, forensic collection, analysis,
+  containment, and incident closure across all major mail platforms and security layers
+locked: false
+name: Email Investigation
+status: disabled
+system: true
+visibility: public

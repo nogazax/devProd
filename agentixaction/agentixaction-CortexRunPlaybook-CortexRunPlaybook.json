@@ -1,0 +1,61 @@
+args:
+- description: |
+    The ID of the playbook to run, For example: "Cortex EM - Exposure Issue", "Cortex XDR Malware - Investigation And Response", "34650a68-b97e-46f9-8580-25e76b648f4b".
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: playbook_id
+  required: true
+  type: string
+  underlyingargname: playbook_id
+- description: |
+    A comma-separated list of issues IDs to process with the playbook.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: issue_ids
+  required: true
+  type: string
+  underlyingargname: issue_ids
+category: Analytics & SIEM
+commonfields:
+  id: CortexRunPlaybook
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: 3.5.45
+    packID: Core
+    packName: Core
+    packPropagationLabels:
+    - all
+    prevname: CortexRunPlaybook
+    propagationLabels: []
+    supportedModules:
+    - agentix
+    - xsiam
+    - cloud_posture
+    toServerVersion: ""
+created: "2026-04-09T13:46:21Z"
+createdby: DBot
+description: |
+  Runs a specified playbook on a provided set of issue IDs.
+display: Cortex - Run Playbook
+isdetailsoverridden: false
+locked: false
+name: CortexRunPlaybook
+requiredroles: []
+requiresuserapproval: true
+state:
+  isuserdisabled: false
+system: true
+underlyingcontentitem:
+  command: core-run-playbook
+  id: Cortex Core - Platform
+  instance: ""
+  name: Cortex Core - Platform
+  type: command

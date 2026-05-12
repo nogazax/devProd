@@ -1,0 +1,316 @@
+args:
+- description: A comma-separated list of endpoint names. Uses equal operator.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: endpoint_name
+  required: false
+  type: string
+  underlyingargname: endpoint_name
+- description: 'A comma-separated list of endpoint types. Options: mobile, server,
+    workstation, containerized, serverless.'
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: endpoint_type
+  required: false
+  type: string
+  underlyingargname: endpoint_type
+- description: 'A comma-separated list of endpoint connection statuses. Options: connected,
+    lost, disconnected, uninstalled, vdi pending login, forensics offline.'
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: endpoint_status
+  required: false
+  type: string
+  underlyingargname: endpoint_status
+- description: 'A comma-separated list of endpoint platforms. Options: windows, mac,
+    linux, android, ios, serverless.'
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: platform
+  required: false
+  type: string
+  underlyingargname: platform
+- description: A comma-separated list of operating system names (e.g., Windows, macOS,
+    Linux).
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: operating_system
+  required: false
+  type: string
+  underlyingargname: operating_system
+- description: A comma-separated list of agent versions (e.g., 8.9.0.14028).
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: agent_version
+  required: false
+  type: string
+  underlyingargname: agent_version
+- description: 'Indicates whether the endpoint is running an End-of-Life (EOL) agent
+    version. Options: true, false.'
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: agent_eol
+  required: false
+  type: string
+  underlyingargname: agent_eol
+- description: A comma-separated list of OS versions (e.g., 10.0.22621).
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: os_version
+  required: false
+  type: string
+  underlyingargname: os_version
+- description: A comma-separated list of endpoint IP addresses.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: ip_address
+  required: false
+  type: string
+  underlyingargname: ip_address
+- description: A comma-separated list of domain names.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: domain
+  required: false
+  type: string
+  underlyingargname: domain
+- description: 'A comma-separated list of assigned prevention policies. Options: pcastro,
+    Caas Default, kris, democloud, Linux Default, Android Default, Serverless Function
+    Default, macOS Default, iOS Default, Windows Default, bcpolicy.'
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: assigned_prevention_policy
+  required: false
+  type: string
+  underlyingargname: assigned_prevention_policy
+- description: A comma-separated list of endpoint tags.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: tags
+  required: false
+  type: string
+  underlyingargname: tags
+- description: A comma-separated list of endpoint IDs.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: endpoint_id
+  required: false
+  type: string
+  underlyingargname: endpoint_id
+- description: 'A comma-separated list of endpoint operational protection statuses.
+    Options: protected, partially protected, unprotected.'
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: operational_status
+  required: false
+  type: string
+  underlyingargname: operational_status
+- description: 'A comma-separated list of cloud providers. Options: aws, azure, gcp,
+    alibaba, oracle, on_prem.'
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: cloud_provider
+  required: false
+  type: string
+  underlyingargname: cloud_provider
+- description: A comma-separated list of cloud regions (e.g., us-east-1).
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: cloud_region
+  required: false
+  type: string
+  underlyingargname: cloud_region
+- description: Page number for pagination. Default is 0.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: page
+  required: false
+  type: string
+  underlyingargname: page
+- description: The number of endpoints to return per page. Default and maximum is
+    100.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: page_size
+  required: false
+  type: string
+  underlyingargname: page_size
+category: Data Enrichment & Threat Intelligence
+commonfields:
+  id: CortexListEndpoints
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: 3.5.45
+    packID: Core
+    packName: Core
+    packPropagationLabels:
+    - all
+    prevname: CortexListEndpoints
+    propagationLabels: []
+    supportedModules:
+    - xsiam
+    - cloud_posture
+    toServerVersion: ""
+created: "2026-04-09T13:46:21Z"
+createdby: DBot
+description: |
+  Searches for endpoints (can also be referred as XDR Agents or Agents) based on provided filters and retrieves endpoints data.
+display: Cortex - List Endpoints
+isdetailsoverridden: false
+locked: false
+name: CortexListEndpoints
+outputs:
+- description: The endpoint name.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Endpoint.endpoint_name
+  type: string
+  underlyingoutputcontextpath: Core.Endpoint.endpoint_name
+- description: The endpoint type.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Endpoint.endpoint_type
+  type: string
+  underlyingoutputcontextpath: Core.Endpoint.endpoint_type
+- description: The endpoint status.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Endpoint.endpoint_status
+  type: string
+  underlyingoutputcontextpath: Core.Endpoint.endpoint_status
+- description: The endpoint platform.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Endpoint.platform
+  type: string
+  underlyingoutputcontextpath: Core.Endpoint.platform
+- description: The operating system of the endpoint.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Endpoint.operating_system
+  type: string
+  underlyingoutputcontextpath: Core.Endpoint.operating_system
+- description: The agent version installed on the endpoint.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Endpoint.agent_version
+  type: string
+  underlyingoutputcontextpath: Core.Endpoint.agent_version
+- description: Indicates whether the endpoint is running a supported or EOL agent
+    version.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Endpoint.agent_eol
+  type: string
+  underlyingoutputcontextpath: Core.Endpoint.agent_eol
+- description: The operating system version.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Endpoint.os_version
+  type: string
+  underlyingoutputcontextpath: Core.Endpoint.os_version
+- description: The endpoint IP address.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Endpoint.ip_address
+  type: string
+  underlyingoutputcontextpath: Core.Endpoint.ip_address
+- description: The domain of the endpoint.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Endpoint.domain
+  type: string
+  underlyingoutputcontextpath: Core.Endpoint.domain
+- description: The assigned prevention policy.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Endpoint.assigned_prevention_policy
+  type: string
+  underlyingoutputcontextpath: Core.Endpoint.assigned_prevention_policy
+- description: A list of group names the endpoint belongs to.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Endpoint.group_name
+  type: string
+  underlyingoutputcontextpath: Core.Endpoint.group_name
+- description: A list of tags assigned to the endpoint.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Endpoint.tags
+  type: string
+  underlyingoutputcontextpath: Core.Endpoint.tags
+- description: The unique endpoint ID.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Endpoint.endpoint_id
+  type: string
+  underlyingoutputcontextpath: Core.Endpoint.endpoint_id
+- description: The operational status of the endpoint.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Endpoint.operational_status
+  type: string
+  underlyingoutputcontextpath: Core.Endpoint.operational_status
+- description: The cloud provider associated with the endpoint.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Endpoint.cloud_provider
+  type: string
+  underlyingoutputcontextpath: Core.Endpoint.cloud_provider
+- description: The cloud region of the endpoint.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Endpoint.cloud_region
+  type: string
+  underlyingoutputcontextpath: Core.Endpoint.cloud_region
+requiredroles: []
+requiresuserapproval: false
+state:
+  isuserdisabled: false
+system: true
+underlyingcontentitem:
+  command: core-list-endpoints
+  id: Cortex Core - Platform
+  instance: ""
+  name: Cortex Core - Platform
+  type: command

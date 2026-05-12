@@ -1,0 +1,114 @@
+args:
+- description: The ID of the sub-issue to be prioritized before (either after_id OR
+    before_id should be specified)
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: before_id
+  required: false
+  type: number
+  underlyingargname: before_id
+- description: The number of the parent issue
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: issue_number
+  required: true
+  type: number
+  underlyingargname: issue_number
+- description: "The action to perform on a single sub-issue\nOptions are:\n- 'add'
+    - add a sub-issue to a parent issue in a GitHub repository.\n- 'remove' - remove
+    a sub-issue from a parent issue in a GitHub repository.\n- 'reprioritize' - change
+    the order of sub-issues within a parent issue in a GitHub repository. Use either
+    'after_id' or 'before_id' to specify the new position.\n\t\t\t\t"
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: method
+  required: true
+  type: string
+  underlyingargname: method
+- description: Repository owner
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: owner
+  required: true
+  type: string
+  underlyingargname: owner
+- description: When true, replaces the sub-issue's current parent issue. Use with
+    'add' method only.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: replace_parent
+  required: false
+  type: boolean
+  underlyingargname: replace_parent
+- description: Repository name
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: repo
+  required: true
+  type: string
+  underlyingargname: repo
+- description: The ID of the sub-issue to add. ID is not the same as issue number
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: sub_issue_id
+  required: true
+  type: number
+  underlyingargname: sub_issue_id
+- description: The ID of the sub-issue to be prioritized after (either after_id OR
+    before_id should be specified)
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: after_id
+  required: false
+  type: number
+  underlyingargname: after_id
+commonfields:
+  id: mcp_Generic_MCP_Generic_MCP_instance_2_sub_issue_write
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    prevname: mcp_Generic_MCP_Generic_MCP_instance_2_sub_issue_write
+    propagationLabels:
+    - all
+    supportedModules: []
+    toServerVersion: ""
+created: "2026-05-06T08:10:31Z"
+description: '[External MCP tool - github-mcp-server] Add a sub-issue to a parent
+  issue in a GitHub repository.'
+display: github-mcp-server - sub_issue_write - Generic MCP_instance_2
+isdetailsoverridden: false
+locked: true
+name: mcp_Generic_MCP_Generic_MCP_instance_2_sub_issue_write
+requiredroles: []
+requiresuserapproval: true
+state:
+  isuserdisabled: false
+system: true
+underlyingcontentitem:
+  command: ""
+  id: Generic MCP-Generic MCP_instance_2-sub_issue_write
+  instance: Generic MCP_instance_2
+  name: sub_issue_write
+  type: MCP Tool

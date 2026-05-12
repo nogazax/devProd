@@ -1,0 +1,120 @@
+args:
+- description: Order direction. If provided, the 'orderBy' also needs to be provided.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: direction
+  required: false
+  type: string
+  underlyingargname: direction
+- description: Order issues by field. If provided, the 'direction' also needs to be
+    provided.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: orderBy
+  required: false
+  type: string
+  underlyingargname: orderBy
+- description: Results per page for pagination (min 1, max 100)
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: perPage
+  required: false
+  type: number
+  underlyingargname: perPage
+- description: Repository name
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: repo
+  required: true
+  type: string
+  underlyingargname: repo
+- description: Filter by date (ISO 8601 timestamp)
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: since
+  required: false
+  type: string
+  underlyingargname: since
+- description: Filter by labels
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: labels
+  required: false
+  type: unknown
+  underlyingargname: labels
+- description: Repository owner
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: owner
+  required: true
+  type: string
+  underlyingargname: owner
+- description: Filter by state, by default both open and closed issues are returned
+    when not provided
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: state
+  required: false
+  type: string
+  underlyingargname: state
+- description: Cursor for pagination. Use the endCursor from the previous page's PageInfo
+    for GraphQL APIs.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: after
+  required: false
+  type: string
+  underlyingargname: after
+commonfields:
+  id: mcp_Generic_MCP_Generic_MCP_instance_2_list_issues
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    prevname: mcp_Generic_MCP_Generic_MCP_instance_2_list_issues
+    propagationLabels:
+    - all
+    supportedModules: []
+    toServerVersion: ""
+created: "2026-05-06T08:10:31Z"
+description: '[External MCP tool - github-mcp-server] List issues in a GitHub repository.
+  For pagination, use the ''endCursor'' from the previous response''s ''pageInfo''
+  in the ''after'' parameter.'
+display: github-mcp-server - list_issues - Generic MCP_instance_2
+isdetailsoverridden: false
+locked: true
+name: mcp_Generic_MCP_Generic_MCP_instance_2_list_issues
+requiredroles: []
+requiresuserapproval: true
+state:
+  isuserdisabled: false
+system: true
+underlyingcontentitem:
+  command: ""
+  id: Generic MCP-Generic MCP_instance_2-list_issues
+  instance: Generic MCP_instance_2
+  name: list_issues
+  type: MCP Tool

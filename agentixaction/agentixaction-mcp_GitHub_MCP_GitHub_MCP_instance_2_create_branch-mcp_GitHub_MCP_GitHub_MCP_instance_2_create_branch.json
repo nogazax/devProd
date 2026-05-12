@@ -1,0 +1,70 @@
+args:
+- description: Repository owner
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: owner
+  required: true
+  type: string
+  underlyingargname: owner
+- description: Repository name
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: repo
+  required: true
+  type: string
+  underlyingargname: repo
+- description: Name for new branch
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: branch
+  required: true
+  type: string
+  underlyingargname: branch
+- description: Source branch (defaults to repo default)
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: from_branch
+  required: false
+  type: string
+  underlyingargname: from_branch
+commonfields:
+  id: mcp_GitHub_MCP_GitHub_MCP_instance_2_create_branch
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    prevname: mcp_GitHub_MCP_GitHub_MCP_instance_2_create_branch
+    propagationLabels:
+    - all
+    supportedModules: []
+    toServerVersion: ""
+created: "2026-05-06T07:45:45Z"
+description: '[External MCP tool - GitHub MCP] Create a new branch in a GitHub repository'
+display: GitHub MCP - create_branch - GitHub MCP_instance_2
+isdetailsoverridden: false
+locked: true
+name: mcp_GitHub_MCP_GitHub_MCP_instance_2_create_branch
+requiredroles: []
+requiresuserapproval: true
+state:
+  isuserdisabled: false
+system: true
+underlyingcontentitem:
+  command: ""
+  id: GitHub MCP-GitHub MCP_instance_2-create_branch
+  instance: GitHub MCP_instance_2
+  name: create_branch
+  type: MCP Tool

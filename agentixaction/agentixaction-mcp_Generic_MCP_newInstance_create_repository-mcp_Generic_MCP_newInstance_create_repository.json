@@ -1,0 +1,81 @@
+args:
+- description: Repository description
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: description
+  required: false
+  type: string
+  underlyingargname: description
+- description: Repository name
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: name
+  required: true
+  type: string
+  underlyingargname: name
+- description: Organization to create the repository in (omit to create in your personal
+    account)
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: organization
+  required: false
+  type: string
+  underlyingargname: organization
+- description: Whether repo should be private
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: private
+  required: false
+  type: boolean
+  underlyingargname: private
+- description: Initialize with README
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: autoInit
+  required: false
+  type: boolean
+  underlyingargname: autoInit
+commonfields:
+  id: mcp_Generic_MCP_newInstance_create_repository
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    prevname: mcp_Generic_MCP_newInstance_create_repository
+    propagationLabels:
+    - all
+    supportedModules: []
+    toServerVersion: ""
+created: "2026-05-06T08:14:40Z"
+description: '[External MCP tool - github-mcp-server] Create a new GitHub repository
+  in your account or specified organization'
+display: github-mcp-server - create_repository - newInstance
+isdetailsoverridden: false
+locked: true
+name: mcp_Generic_MCP_newInstance_create_repository
+requiredroles: []
+requiresuserapproval: true
+state:
+  isuserdisabled: false
+system: true
+underlyingcontentitem:
+  command: ""
+  id: Generic MCP-newInstance-create_repository
+  instance: newInstance
+  name: create_repository
+  type: MCP Tool

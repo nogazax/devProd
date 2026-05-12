@@ -1,0 +1,71 @@
+args:
+- description: Pull request number
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: pullNumber
+  required: true
+  type: number
+  underlyingargname: pullNumber
+- description: Repository name
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: repo
+  required: true
+  type: string
+  underlyingargname: repo
+- description: The expected SHA of the pull request's HEAD ref
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: expectedHeadSha
+  required: false
+  type: string
+  underlyingargname: expectedHeadSha
+- description: Repository owner
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: owner
+  required: true
+  type: string
+  underlyingargname: owner
+commonfields:
+  id: mcp_GitHub_MCP_GitHub_MCP_instance_1_update_pull_request_branch
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    prevname: mcp_GitHub_MCP_GitHub_MCP_instance_1_update_pull_request_branch
+    propagationLabels:
+    - all
+    supportedModules: []
+    toServerVersion: ""
+created: "2026-04-23T12:50:50Z"
+description: '[External MCP tool - GitHub MCP] Update the branch of a pull request
+  with the latest changes from the base branch.'
+display: GitHub MCP - update_pull_request_branch - GitHub MCP_instance_1
+isdetailsoverridden: false
+locked: true
+name: mcp_GitHub_MCP_GitHub_MCP_instance_1_update_pull_request_branch
+requiredroles: []
+requiresuserapproval: true
+state:
+  isuserdisabled: false
+system: true
+underlyingcontentitem:
+  command: ""
+  id: GitHub MCP-GitHub MCP_instance_1-update_pull_request_branch
+  instance: GitHub MCP_instance_1
+  name: update_pull_request_branch
+  type: MCP Tool

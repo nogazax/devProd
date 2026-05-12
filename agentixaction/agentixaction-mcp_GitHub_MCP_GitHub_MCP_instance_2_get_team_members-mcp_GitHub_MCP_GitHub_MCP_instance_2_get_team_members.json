@@ -1,0 +1,53 @@
+args:
+- description: Organization login (owner) that contains the team.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: org
+  required: true
+  type: string
+  underlyingargname: org
+- description: Team slug
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: team_slug
+  required: true
+  type: string
+  underlyingargname: team_slug
+commonfields:
+  id: mcp_GitHub_MCP_GitHub_MCP_instance_2_get_team_members
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    prevname: mcp_GitHub_MCP_GitHub_MCP_instance_2_get_team_members
+    propagationLabels:
+    - all
+    supportedModules: []
+    toServerVersion: ""
+created: "2026-05-06T07:45:46Z"
+description: '[External MCP tool - GitHub MCP] Get member usernames of a specific
+  team in an organization. Limited to organizations accessible with current credentials'
+display: GitHub MCP - get_team_members - GitHub MCP_instance_2
+isdetailsoverridden: false
+locked: true
+name: mcp_GitHub_MCP_GitHub_MCP_instance_2_get_team_members
+requiredroles: []
+requiresuserapproval: true
+state:
+  isuserdisabled: false
+system: true
+underlyingcontentitem:
+  command: ""
+  id: GitHub MCP-GitHub MCP_instance_2-get_team_members
+  instance: GitHub MCP_instance_2
+  name: get_team_members
+  type: MCP Tool

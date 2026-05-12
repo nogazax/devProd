@@ -1,0 +1,139 @@
+args:
+- description: Identifier for the object. It could be a key (e.g. ENG-1234), ID, ARI,
+    or full URL; format depends on objectType.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: objectIdentifier
+  required: true
+  type: string
+  underlyingargname: objectIdentifier
+- description: Type of object to fetch context for.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: objectType
+  required: true
+  type: string
+  underlyingargname: objectType
+- description: Filter results to only include relationships targeting specific object
+    types (e.g. AtlassianUser, ConfluenceComment).
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: targetObjectTypes
+  required: false
+  type: unknown
+  underlyingargname: targetObjectTypes
+- description: Optional time range to filter relationships by creation or update time.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: timeRange
+  required: false
+  type: unknown
+  underlyingargname: timeRange
+- description: Pagination cursor for fetching the next page of results.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: after
+  required: false
+  type: string
+  underlyingargname: after
+- description: Cloud ID (UUID or site URL)
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: cloudId
+  required: true
+  type: string
+  underlyingargname: cloudId
+- description: '''summary'' (counts/metadata) or ''full'' (detailed content).'
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: detailLevel
+  required: false
+  type: string
+  underlyingargname: detailLevel
+- description: Max number of related items to return.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: first
+  required: false
+  type: number
+  underlyingargname: first
+- description: Filter full results to specific relationship types to save tokens (e.g.
+    'jira-work-item-links-external-build' for Jira work items).
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: relationshipTypes
+  required: false
+  type: unknown
+  underlyingargname: relationshipTypes
+commonfields:
+  id: mcp_Generic_MCP_atlassian_with_priv_user_getTeamworkGraphContext
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    prevname: mcp_Generic_MCP_atlassian_with_priv_user_getTeamworkGraphContext
+    propagationLabels:
+    - all
+    supportedModules: []
+    toServerVersion: ""
+created: "2026-04-16T09:30:48Z"
+description: |-
+  [External MCP tool - atlassian-mcp-server] Retrieves connected context from Teamwork Graph for any Atlassian entity. Returns all relationships and linked objects within one traversal – including cross-product and third-party connections. Use when the answer requires connections between entities, not just a single entity's fields.
+
+  Supported entry points:
+
+  Jira: issues, projects, sprints, versions, comments
+
+  Confluence: pages, blogposts, whiteboards, databases, spaces
+
+  Goals, Projects, Focus Areas, Tags and updates
+
+  People: users, teams, organisations
+
+  DevOps: PRs, repos, deployments, services, builds, designs
+
+  Loom: videos, meetings
+
+  Compass: components
+
+  Incidents, conversations, calendar events, external documents
+
+  After calling this tool, call getTeamworkGraphObject on returned ARIs to get full content.
+display: atlassian-mcp-server - getTeamworkGraphContext - atlassian with priv user
+isdetailsoverridden: false
+locked: true
+name: mcp_Generic_MCP_atlassian_with_priv_user_getTeamworkGraphContext
+requiredroles: []
+requiresuserapproval: true
+state:
+  isuserdisabled: false
+system: true
+underlyingcontentitem:
+  command: ""
+  id: Generic MCP-atlassian with priv user-getTeamworkGraphContext
+  instance: atlassian with priv user
+  name: getTeamworkGraphContext
+  type: MCP Tool

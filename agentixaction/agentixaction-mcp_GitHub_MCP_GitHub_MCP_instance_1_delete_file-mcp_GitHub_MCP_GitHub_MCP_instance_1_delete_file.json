@@ -1,0 +1,79 @@
+args:
+- description: Branch to delete the file from
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: branch
+  required: true
+  type: string
+  underlyingargname: branch
+- description: Commit message
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: message
+  required: true
+  type: string
+  underlyingargname: message
+- description: Repository owner (username or organization)
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: owner
+  required: true
+  type: string
+  underlyingargname: owner
+- description: Path to the file to delete
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: path
+  required: true
+  type: string
+  underlyingargname: path
+- description: Repository name
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: repo
+  required: true
+  type: string
+  underlyingargname: repo
+commonfields:
+  id: mcp_GitHub_MCP_GitHub_MCP_instance_1_delete_file
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    prevname: mcp_GitHub_MCP_GitHub_MCP_instance_1_delete_file
+    propagationLabels:
+    - all
+    supportedModules: []
+    toServerVersion: ""
+created: "2026-04-23T12:49:35Z"
+description: '[External MCP tool - GitHub MCP] Delete a file from a GitHub repository'
+display: GitHub MCP - delete_file - GitHub MCP_instance_1
+isdetailsoverridden: false
+locked: true
+name: mcp_GitHub_MCP_GitHub_MCP_instance_1_delete_file
+requiredroles: []
+requiresuserapproval: true
+state:
+  isuserdisabled: false
+system: true
+underlyingcontentitem:
+  command: ""
+  id: GitHub MCP-GitHub MCP_instance_1-delete_file
+  instance: GitHub MCP_instance_1
+  name: delete_file
+  type: MCP Tool

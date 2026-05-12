@@ -1,0 +1,128 @@
+args:
+- description: A comma-separated list of repository asset IDs to configure scanners
+    for.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: repository_ids
+  required: true
+  type: string
+  underlyingargname: repository_ids
+- description: |
+    A comma-separated list of scanners to enable.
+    Options: SECRETS, SCA, IAC.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: enable_scanners
+  required: false
+  type: string
+  underlyingargname: enable_scanners
+- description: |
+    A comma-separated list of scanners to disable.
+    Options: SECRETS, SCA, IAC.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: disable_scanners
+  required: false
+  type: string
+  underlyingargname: disable_scanners
+- description: Enable live validation of discovered secrets. This argument is only
+    relevant when the SECRETS scanner is enabled.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: secret_validation
+  required: false
+  type: boolean
+  underlyingargname: secret_validation
+- description: Enable scanning on pull requests.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: pr_scanning
+  required: false
+  type: boolean
+  underlyingargname: pr_scanning
+- description: Block deployment on scanner errors.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: block_on_error
+  required: false
+  type: boolean
+  underlyingargname: block_on_error
+- description: Enable tagging of resource blocks.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: tag_resource_blocks
+  required: false
+  type: boolean
+  underlyingargname: tag_resource_blocks
+- description: Enable tagging of module blocks.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: tag_module_blocks
+  required: false
+  type: boolean
+  underlyingargname: tag_module_blocks
+- description: A comma-separated List of file paths to exclude from scanning.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: exclude_paths
+  required: false
+  type: string
+  underlyingargname: exclude_paths
+category: Utilities
+commonfields:
+  id: CortexEnableAppSecScanner
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: 3.5.38
+    packID: Core
+    packName: Core
+    packPropagationLabels:
+    - all
+    prevname: CortexEnableAppSecScanner
+    propagationLabels: []
+    supportedModules:
+    - cloud
+    - cloud_posture
+    - cloud_runtime_security
+    toServerVersion: ""
+created: "2026-04-09T13:46:21Z"
+createdby: DBot
+description: |
+  Update repository scanners with the specified configuration for a list of repository asset IDs.
+display: Cortex - Update AppSec Scan Configuration
+isdetailsoverridden: false
+locked: false
+name: CortexEnableAppSecScanner
+requiredroles: []
+requiresuserapproval: true
+state:
+  isuserdisabled: false
+system: true
+underlyingcontentitem:
+  command: core-enable-scanners
+  id: Cortex Core - Platform
+  instance: ""
+  name: Cortex Core - Platform
+  type: command

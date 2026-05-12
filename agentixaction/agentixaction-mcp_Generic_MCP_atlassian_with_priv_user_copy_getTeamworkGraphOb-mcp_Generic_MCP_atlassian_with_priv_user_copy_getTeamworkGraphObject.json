@@ -1,0 +1,55 @@
+args:
+- description: Cloud ID (UUID or site URL)
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: cloudId
+  required: true
+  type: string
+  underlyingargname: cloudId
+- description: A list of object identifiers to hydrate. Supports both ARIs (e.g.,
+    'ari:cloud:jira::issue/123') and full browser URLs (e.g., 'https://mysite.atlassian.net/browse/PROJ-1').
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: objects
+  required: true
+  type: unknown
+  underlyingargname: objects
+commonfields:
+  id: mcp_Generic_MCP_atlassian_with_priv_user_copy_getTeamworkGraphObject
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    prevname: mcp_Generic_MCP_atlassian_with_priv_user_copy_getTeamworkGraphObject
+    propagationLabels:
+    - all
+    supportedModules: []
+    toServerVersion: ""
+created: "2026-05-05T13:28:50Z"
+description: '[External MCP tool - atlassian-mcp-server] Fetches the entire available
+  data for one or more objects (Atlassian or third-party) using their ARIs or URLs.
+  Use for the objects gathered from getTeamworkGraphContext tool.'
+display: atlassian-mcp-server - getTeamworkGraphObject - atlassian with priv user_copy
+isdetailsoverridden: false
+locked: true
+name: mcp_Generic_MCP_atlassian_with_priv_user_copy_getTeamworkGraphObject
+requiredroles: []
+requiresuserapproval: true
+state:
+  isuserdisabled: false
+system: true
+underlyingcontentitem:
+  command: ""
+  id: Generic MCP-atlassian with priv user_copy-getTeamworkGraphObject
+  instance: atlassian with priv user_copy
+  name: getTeamworkGraphObject
+  type: MCP Tool

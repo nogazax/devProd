@@ -1,0 +1,168 @@
+args:
+- description: The ID of the agent on which the process is running.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: agent_id
+  required: true
+  type: string
+  underlyingargname: agent_id
+- description: The instance ID of the process to terminate. This can be a single value
+    or a list.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: instance_id
+  required: true
+  type: string
+  underlyingargname: instance_id
+- description: The name of the process to terminate. This is optional and used for
+    display or auditing purposes.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: process_name
+  required: false
+  type: string
+  underlyingargname: process_name
+- description: The ID of the case (formerly known as incident) associated with this
+    termination action.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: incident_id
+  required: false
+  type: string
+  underlyingargname: incident_id
+category: Endpoint
+commonfields:
+  id: CortexTerminateProcess
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: 3.5.45
+    packID: Core
+    packName: Core
+    packPropagationLabels:
+    - all
+    prevname: CortexTerminateProcess
+    propagationLabels: []
+    supportedModules:
+    - xsiam
+    - cloud_runtime_security
+    - edr
+    toServerVersion: ""
+created: "2026-04-09T13:46:21Z"
+createdby: DBot
+description: Terminates a specific process on an agent using its instance ID.
+display: Cortex - Terminate Process
+isdetailsoverridden: false
+locked: false
+name: CortexTerminateProcess
+outputs:
+- description: The ID of the initiated termination action.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.TerminateProcess.action_id
+  type: string
+  underlyingoutputcontextpath: Core.TerminateProcess.action_id
+- description: Detailed status results for the termination action.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.GetActionStatus
+  type: unknown
+  underlyingoutputcontextpath: Core.GetActionStatus
+- description: The ID of the endpoint where the action was executed.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.GetActionStatus.endpoint_id
+  type: string
+  underlyingoutputcontextpath: Core.GetActionStatus.endpoint_id
+- description: The current status of the termination action for the endpoint.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.GetActionStatus.status
+  type: string
+  underlyingoutputcontextpath: Core.GetActionStatus.status
+- description: The ID of the action executed.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.GetActionStatus.action_id
+  type: number
+  underlyingoutputcontextpath: Core.GetActionStatus.action_id
+- description: The component or system bucket where the error occurred.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.GetActionStatus.ErrorReasons.bucket
+  type: string
+  underlyingoutputcontextpath: Core.GetActionStatus.ErrorReasons.bucket
+- description: The file name that caused the termination action to fail.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.GetActionStatus.ErrorReasons.file_name
+  type: string
+  underlyingoutputcontextpath: Core.GetActionStatus.ErrorReasons.file_name
+- description: The file path that caused the termination action to fail.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.GetActionStatus.ErrorReasons.file_path
+  type: string
+  underlyingoutputcontextpath: Core.GetActionStatus.ErrorReasons.file_path
+- description: The size (in bytes) of the file that caused the error.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.GetActionStatus.ErrorReasons.file_size
+  type: number
+  underlyingoutputcontextpath: Core.GetActionStatus.ErrorReasons.file_size
+- description: List of missing files that led to the error.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.GetActionStatus.ErrorReasons.missing_files
+  type: string
+  underlyingoutputcontextpath: Core.GetActionStatus.ErrorReasons.missing_files
+- description: Additional error data explaining the failure reason.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.GetActionStatus.ErrorReasons.errorData
+  type: string
+  underlyingoutputcontextpath: Core.GetActionStatus.ErrorReasons.errorData
+- description: The instance ID or process that terminated the action unexpectedly.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.GetActionStatus.ErrorReasons.terminated_by
+  type: string
+  underlyingoutputcontextpath: Core.GetActionStatus.ErrorReasons.terminated_by
+- description: Human-readable description of the error.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.GetActionStatus.ErrorReasons.errorDescription
+  type: string
+  underlyingoutputcontextpath: Core.GetActionStatus.ErrorReasons.errorDescription
+- description: The result of the termination attempt (e.g., success or failure).
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.GetActionStatus.ErrorReasons.terminate_result
+  type: string
+  underlyingoutputcontextpath: Core.GetActionStatus.ErrorReasons.terminate_result
+requiredroles: []
+requiresuserapproval: true
+state:
+  isuserdisabled: false
+system: true
+tags:
+- Endpoint
+- EDR
+- Process Management
+underlyingcontentitem:
+  command: ""
+  id: CoreTerminateProcess
+  instance: ""
+  name: CoreTerminateProcess
+  type: script

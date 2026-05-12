@@ -1,0 +1,136 @@
+args:
+- description: A comma-separated list of the script names to filter by.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: script_name
+  required: false
+  type: string
+  underlyingargname: script_name
+- description: 'A comma-separated list of the platforms where the script can be executed.
+    Options: windows, macos, linux.'
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: supported_platforms
+  required: false
+  type: string
+  underlyingargname: supported_platforms
+- defaultvalue: "100"
+  description: The number of scripts to return per page. The default is 100.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: page_size
+  required: false
+  type: number
+  underlyingargname: page_size
+- defaultvalue: "0"
+  description: Page number (for pagination). The default is 0 (the first page).
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: page_number
+  required: false
+  type: number
+  underlyingargname: page_number
+commonfields:
+  id: CortexListEndpointScripts
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: 3.5.45
+    packID: Core
+    packName: Core
+    packPropagationLabels:
+    - all
+    prevname: CortexListEndpointScripts
+    propagationLabels: []
+    supportedModules:
+    - xsiam
+    - cloud_runtime_security
+    - edr
+    toServerVersion: ""
+created: "2026-04-09T13:46:21Z"
+createdby: DBot
+description: Retrieves a list of available endpoint scripts available in CORTEX based
+  on specified filter criteria such as the script's name or its supported operating
+  system. This action returns essential details for each script, including its Globally
+  Unique Identifier (UID), which is required for other script-related actions.
+display: Cortex - List Endpoint Scripts
+isdetailsoverridden: false
+locked: false
+name: CortexListEndpointScripts
+outputs:
+- description: The name of the script.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Scripts.name
+  type: string
+  underlyingoutputcontextpath: Core.Scripts.name
+- description: The Globally Unique Identifier of the script, used to identify the
+    script when executing.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Scripts.script_uid
+  type: string
+  underlyingoutputcontextpath: Core.Scripts.script_uid
+- description: The input parameters accepted by the script.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Scripts.script_inputs
+  type: json
+  underlyingoutputcontextpath: Core.Scripts.script_inputs
+- description: The boolean indicating if the script supports the Windows operating
+    system.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Scripts.windows_supported
+  type: boolean
+  underlyingoutputcontextpath: Core.Scripts.windows_supported
+- description: The boolean indicating if the script supports the Linux operating system.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Scripts.linux_supported
+  type: boolean
+  underlyingoutputcontextpath: Core.Scripts.linux_supported
+- description: The boolean indicating if the script supports the macOS operating system.
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.Scripts.macos_supported
+  type: boolean
+  underlyingoutputcontextpath: Core.Scripts.macos_supported
+- description: 'IMPORTANT: returned_count must always be part of the response displayed
+    to the user. This field must be accompanied by its definition: The actual number
+    of script results returned in this specific execution.'
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.ScriptsMetadata.returned_count
+  type: number
+  underlyingoutputcontextpath: Core.ScriptsMetadata.returned_count
+- description: 'IMPORTANT: filtered_count must always be part of the response displayed
+    to the user. This field must be accompanied by its definition: The total number
+    of script results in the system that match the specified filter criteria.'
+  disabled: false
+  isdetailsoverridden: false
+  name: Core.ScriptsMetadata.filtered_count
+  type: number
+  underlyingoutputcontextpath: Core.ScriptsMetadata.filtered_count
+requiredroles: []
+requiresuserapproval: false
+state:
+  isuserdisabled: false
+system: true
+underlyingcontentitem:
+  command: core-list-scripts
+  id: Cortex Core - Platform
+  instance: ""
+  name: Cortex Core - Platform
+  type: command

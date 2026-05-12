@@ -1,0 +1,83 @@
+args:
+- description: Results per page for pagination (min 1, max 100)
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: perPage
+  required: false
+  type: number
+  underlyingargname: perPage
+- description: 'User search query. Examples: ''john smith'', ''location:seattle'',
+    ''followers:>100''. Search is automatically scoped to type:user.'
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: query
+  required: true
+  type: string
+  underlyingargname: query
+- description: Sort users by number of followers or repositories, or when the person
+    joined GitHub.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: sort
+  required: false
+  type: string
+  underlyingargname: sort
+- description: Sort order
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: order
+  required: false
+  type: string
+  underlyingargname: order
+- description: Page number for pagination (min 1)
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: page
+  required: false
+  type: number
+  underlyingargname: page
+commonfields:
+  id: mcp_Generic_MCP_Generic_MCP_instance_2_search_users
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    prevname: mcp_Generic_MCP_Generic_MCP_instance_2_search_users
+    propagationLabels:
+    - all
+    supportedModules: []
+    toServerVersion: ""
+created: "2026-05-06T08:10:31Z"
+description: '[External MCP tool - github-mcp-server] Find GitHub users by username,
+  real name, or other profile information. Useful for locating developers, contributors,
+  or team members.'
+display: github-mcp-server - search_users - Generic MCP_instance_2
+isdetailsoverridden: false
+locked: true
+name: mcp_Generic_MCP_Generic_MCP_instance_2_search_users
+requiredroles: []
+requiresuserapproval: true
+state:
+  isuserdisabled: false
+system: true
+underlyingcontentitem:
+  command: ""
+  id: Generic MCP-Generic MCP_instance_2-search_users
+  instance: Generic MCP_instance_2
+  name: search_users
+  type: MCP Tool

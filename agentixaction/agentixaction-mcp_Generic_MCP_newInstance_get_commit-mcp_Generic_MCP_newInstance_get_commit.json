@@ -1,0 +1,90 @@
+args:
+- description: Commit SHA, branch name, or tag name
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: sha
+  required: true
+  type: string
+  underlyingargname: sha
+- description: Whether to include file diffs and stats in the response. Default is
+    true.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: include_diff
+  required: false
+  type: boolean
+  underlyingargname: include_diff
+- description: Repository owner
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: owner
+  required: true
+  type: string
+  underlyingargname: owner
+- description: Page number for pagination (min 1)
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: page
+  required: false
+  type: number
+  underlyingargname: page
+- description: Results per page for pagination (min 1, max 100)
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: perPage
+  required: false
+  type: number
+  underlyingargname: perPage
+- description: Repository name
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: repo
+  required: true
+  type: string
+  underlyingargname: repo
+commonfields:
+  id: mcp_Generic_MCP_newInstance_get_commit
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    prevname: mcp_Generic_MCP_newInstance_get_commit
+    propagationLabels:
+    - all
+    supportedModules: []
+    toServerVersion: ""
+created: "2026-05-06T08:14:40Z"
+description: '[External MCP tool - github-mcp-server] Get details for a commit from
+  a GitHub repository'
+display: github-mcp-server - get_commit - newInstance
+isdetailsoverridden: false
+locked: true
+name: mcp_Generic_MCP_newInstance_get_commit
+requiredroles: []
+requiresuserapproval: true
+state:
+  isuserdisabled: false
+system: true
+underlyingcontentitem:
+  command: ""
+  id: Generic MCP-newInstance-get_commit
+  instance: newInstance
+  name: get_commit
+  type: MCP Tool

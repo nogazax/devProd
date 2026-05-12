@@ -1,0 +1,88 @@
+args:
+- description: Repository owner
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: owner
+  required: true
+  type: string
+  underlyingargname: owner
+- description: Pull request number
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: pullNumber
+  required: true
+  type: number
+  underlyingargname: pullNumber
+- description: Repository name
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: repo
+  required: true
+  type: string
+  underlyingargname: repo
+- description: Extra detail for merge commit
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: commit_message
+  required: false
+  type: string
+  underlyingargname: commit_message
+- description: Title for merge commit
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: commit_title
+  required: false
+  type: string
+  underlyingargname: commit_title
+- description: Merge method
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: merge_method
+  required: false
+  type: string
+  underlyingargname: merge_method
+commonfields:
+  id: mcp_GitHub_MCP_GitHub_MCP_instance_1_merge_pull_request
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    prevname: mcp_GitHub_MCP_GitHub_MCP_instance_1_merge_pull_request
+    propagationLabels:
+    - all
+    supportedModules: []
+    toServerVersion: ""
+created: "2026-04-23T12:49:35Z"
+description: '[External MCP tool - GitHub MCP] Merge a pull request in a GitHub repository.'
+display: GitHub MCP - merge_pull_request - GitHub MCP_instance_1
+isdetailsoverridden: false
+locked: true
+name: mcp_GitHub_MCP_GitHub_MCP_instance_1_merge_pull_request
+requiredroles: []
+requiresuserapproval: true
+state:
+  isuserdisabled: false
+system: true
+underlyingcontentitem:
+  command: ""
+  id: GitHub MCP-GitHub MCP_instance_1-merge_pull_request
+  instance: GitHub MCP_instance_1
+  name: merge_pull_request
+  type: MCP Tool

@@ -749,6 +749,7 @@ tasks:
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Process Email - Generic v2
+      playbookId: Process Email - Generic v2
       playbookName: Process Email - Generic v2
       playbooktaskmissingcomponent: null
       type: playbook
@@ -1855,6 +1856,7 @@ tasks:
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Entity Enrichment - Phishing v2
+      playbookId: Entity Enrichment - Phishing v2
       playbookName: Entity Enrichment - Phishing v2
       playbooktaskmissingcomponent: null
       type: playbook
@@ -2120,6 +2122,7 @@ tasks:
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Process Microsoft's Anti-Spam Headers
+      playbookId: Process Microsoft's Anti-Spam Headers
       playbookName: Process Microsoft's Anti-Spam Headers
       playbooktaskmissingcomponent: null
       type: playbook
@@ -2786,6 +2789,7 @@ tasks:
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Phishing - Indicators Hunting
+      playbookId: Phishing - Indicators Hunting
       playbookName: Phishing - Indicators Hunting
       playbooktaskmissingcomponent: null
       type: playbook
@@ -3266,6 +3270,7 @@ tasks:
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: TIM - Indicator Relationships Analysis
+      playbookId: TIM - Indicator Relationships Analysis
       playbookName: TIM - Indicator Relationships Analysis
       playbooktaskmissingcomponent: null
       type: playbook
@@ -3557,6 +3562,7 @@ tasks:
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: Spear Phishing Investigation
+      playbookId: Spear Phishing Investigation
       playbookName: Spear Phishing Investigation
       playbooktaskmissingcomponent: null
       type: playbook
@@ -3775,6 +3781,7 @@ tasks:
       iscommand: false
       istaskmissingcomponenterrordismissed: false
       name: AP Get clicked URLs from XDR and FW logs
+      playbookId: AP Get clicked URLs from XDR and FW logs
       playbookName: AP Get clicked URLs from XDR and FW logs
       playbooktaskmissingcomponent: null
       type: playbook
@@ -4065,6 +4072,7 @@ view: |-
       "152_28_yes": 0.38,
       "15_30_Malicious": 0.48,
       "15_31_#default#": 0.52,
+      "161_11_No - Manual": 0.29,
       "162_163_yes": 0.41,
       "162_52_#default#": 0.22,
       "179_211_yes": 0.5,

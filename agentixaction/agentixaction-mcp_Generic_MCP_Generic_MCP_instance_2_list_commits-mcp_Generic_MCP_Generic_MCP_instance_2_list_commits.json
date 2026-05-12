@@ -1,0 +1,121 @@
+args:
+- description: 'Only commits before this date will be returned (ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ
+    or YYYY-MM-DD)'
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: until
+  required: false
+  type: string
+  underlyingargname: until
+- description: Author username or email address to filter commits by
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: author
+  required: false
+  type: string
+  underlyingargname: author
+- description: Repository owner
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: owner
+  required: true
+  type: string
+  underlyingargname: owner
+- description: Page number for pagination (min 1)
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: page
+  required: false
+  type: number
+  underlyingargname: page
+- description: Only commits containing this file path will be returned
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: path
+  required: false
+  type: string
+  underlyingargname: path
+- description: 'Only commits after this date will be returned (ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ
+    or YYYY-MM-DD)'
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: since
+  required: false
+  type: string
+  underlyingargname: since
+- description: Results per page for pagination (min 1, max 100)
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: perPage
+  required: false
+  type: number
+  underlyingargname: perPage
+- description: Repository name
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: repo
+  required: true
+  type: string
+  underlyingargname: repo
+- description: Commit SHA, branch or tag name to list commits of. If not provided,
+    uses the default branch of the repository. If a commit SHA is provided, will list
+    commits up to that SHA.
+  disabled: false
+  hidden: false
+  isdetailsoverridden: false
+  isgeneratable: false
+  name: sha
+  required: false
+  type: string
+  underlyingargname: sha
+commonfields:
+  id: mcp_Generic_MCP_Generic_MCP_instance_2_list_commits
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    prevname: mcp_Generic_MCP_Generic_MCP_instance_2_list_commits
+    propagationLabels:
+    - all
+    supportedModules: []
+    toServerVersion: ""
+created: "2026-05-06T08:10:31Z"
+description: '[External MCP tool - github-mcp-server] Get list of commits of a branch
+  in a GitHub repository. Returns at least 30 results per page by default, but can
+  return more if specified using the perPage parameter (up to 100).'
+display: github-mcp-server - list_commits - Generic MCP_instance_2
+isdetailsoverridden: false
+locked: true
+name: mcp_Generic_MCP_Generic_MCP_instance_2_list_commits
+requiredroles: []
+requiresuserapproval: true
+state:
+  isuserdisabled: false
+system: true
+underlyingcontentitem:
+  command: ""
+  id: Generic MCP-Generic MCP_instance_2-list_commits
+  instance: Generic MCP_instance_2
+  name: list_commits
+  type: MCP Tool

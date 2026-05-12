@@ -1,0 +1,45 @@
+adopted: true
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    prevname: ""
+    propagationLabels:
+    - all
+    supportedModules: []
+    toServerVersion: ""
+id: 3662cb1f-21a8-47bf-8ffb-6a7d2a52abe0
+inputs: []
+name: aaa
+outlinetasks: {}
+outputs: []
+possibleresponses: []
+quiet: true
+starttaskid: "0"
+tasks:
+  "0":
+    continueonerrortype: ""
+    id: "0"
+    ignoreworker: false
+    isautoswitchedtoquietmode: false
+    isoversize: false
+    note: false
+    quietmode: 0
+    separatecontext: false
+    skipunavailable: false
+    task:
+      brand: ""
+      id: f920a481-7eb1-489f-89d7-0421925f215b
+      iscommand: false
+      istaskmissingcomponenterrordismissed: false
+      name: ""
+      playbooktaskmissingcomponent: null
+      version: -1
+    taskid: f920a481-7eb1-489f-89d7-0421925f215b
+    timertriggers: []
+    type: start
+version: -1
