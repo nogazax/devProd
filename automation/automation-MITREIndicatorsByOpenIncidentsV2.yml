@@ -15,7 +15,7 @@ contentitemexportablefields:
     definitionid: ""
     fromServerVersion: 5.5.0
     isoverridable: false
-    itemVersion: 1.2.25
+    itemVersion: 1.2.26
     packID: FeedMitreAttackv2
     packName: MITRE ATT&CK
     packPropagationLabels:
