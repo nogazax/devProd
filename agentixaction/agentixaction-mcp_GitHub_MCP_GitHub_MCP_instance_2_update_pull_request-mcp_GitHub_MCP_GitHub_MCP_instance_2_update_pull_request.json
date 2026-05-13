@@ -120,6 +120,6 @@ system: true
 underlyingcontentitem:
   command: ""
   id: GitHub MCP-GitHub MCP_instance_2-update_pull_request
-  instance: GitHub MCP_instance_2
+  instance: ghost_instance_xyz
   name: update_pull_request
   type: MCP Tool
