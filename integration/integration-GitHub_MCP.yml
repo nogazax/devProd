@@ -1,0 +1,881 @@
+category: Utilities
+commonfields:
+  id: GitHub MCP
+  version: -1
+configuration:
+- additionalinfo: GitHub Personal Access Token
+  display: ""
+  displaypassword: Personal Access Token
+  hiddenusername: true
+  name: token
+  required: true
+  section: Connect
+  supportedModules: []
+  type: 9
+- additionalinfo: If no toolsets are selected, GitHub's default toolsets 'context',
+    'repos', 'issues', 'pull_requests', and 'users' will be enabled.
+  display: Enabled Toolsets
+  name: enabled_toolsets
+  options:
+  - context
+  - actions
+  - code_security
+  - dependabot
+  - discussions
+  - gists
+  - git
+  - issues
+  - labels
+  - notifications
+  - orgs
+  - projects
+  - pull_requests
+  - repos
+  - secret_protection
+  - security_advisories
+  - stargazers
+  - users
+  - copilot
+  - copilot_spaces
+  - github_support_docs_search
+  required: false
+  section: Connect
+  supportedModules: []
+  type: 16
+- additionalinfo: When enabled, limits tools to read-only operations preventing any
+    write/modification actions.
+  display: Enable Read-Only Tools
+  name: readonly
+  required: false
+  section: Connect
+  supportedModules: []
+  type: 8
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: 8.13.0
+    isoverridable: false
+    itemVersion: 1.0.2
+    packID: GitHubMCP
+    packName: GitHub MCP
+    packPropagationLabels:
+    - all
+    prevname: ""
+    propagationLabels: []
+    supportedModules: []
+    toServerVersion: ""
+description: Use this integration to connect securely with a GitHub Model Context
+  Protocol (MCP) server and access its tools in real time.
+detaileddescription: |-
+  #### Create a Fine-grained Personal Access Token
+
+  1. In GitHub, click your **profile picture** (upper-right), then **Settings**.
+  2. In the left sidebar, click **Developer settings**.
+  3. Under **Personal access tokens**, click **Fine-grained tokens**.
+  4. Click **Generate new token**.
+  5. Enter a **Token name**.
+  6. Select an **Expiration** for the token.
+  7. (Optional) Add a **Description**.
+  8. Select a **Resource owner**.
+  9. Under **Repository access**, select which repositories the token can access. Choose minimal access.
+  10. Under **Permissions**, select the necessary permissions. Choose minimal permissions.
+  11. Click **Generate token**.
+
+  #### Advanced Configuration Parameters
+
+  * **Enabled Toolsets**: Select the specific GitHub toolsets to enable. If no toolsets are selected, GitHub's default toolsets 'context', 'repos', 'issues', 'pull_requests', and 'users' will be enabled.
+    For detailed documentation on available toolsets, refer to: [GitHub MCP Tools](https://github.com/github/github-mcp-server?tab=readme-ov-file#tools)
+
+  * **Enable Read-Only Tools**: When enabled, the integration will only use read-only tools, preventing any write operations to GitHub.
+
+
+  ---
+  [View Integration Documentation](https://xsoar.pan.dev/docs/reference/integrations/git-hub-mcp)
+display: GitHub MCP
+image: data:image/png;base64,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
+imagepath: content/packs/GitHubMCP/GitHubMCP_image.png
+name: GitHub MCP
+restrictioncenter: {}
+script:
+  commands:
+  - arguments: []
+    description: Retrieves a list of available tools in the GitHub MCP server.
+    hidden: true
+    name: list-tools
+    supportedModules: []
+  - arguments:
+    - description: The name of the tool to call.
+      name: name
+      required: true
+      supportedModules: []
+    - description: Parameters for the tool execution.
+      name: arguments
+      supportedModules: []
+    description: Calls a specific tool on the GitHub MCP server with optional input
+      parameters.
+    hidden: true
+    name: call-tool
+    supportedModules: []
+  dockerimage: demisto/mcp:1.0.0.6978288
+  mcp: true
+  runonce: false
+  script: |
+    register_module_line('GitHub MCP', 'start', __line__())
+    CONSTANT_PACK_VERSION = '1.0.2'
+    demisto.debug('pack id = GitHubMCP, pack version = 1.0.2')
+
+
+
+    ### GENERATED CODE ###: from MCPApiModule import *
+    # This code was inserted in place of an API module.
+    register_module_line('MCPApiModule', 'start', __line__(), wrapper=-3)
+
+
+
+    from contextlib import asynccontextmanager
+    from enum import Enum
+
+    import time
+    import os
+    import traceback
+    import hashlib
+
+    from mcp import ClientSession
+    from mcp.client.streamable_http import streamable_http_client
+    from typing import Any
+    import base64
+    from base64 import b64encode
+    import httpx
+
+    from urllib.parse import urlparse, urlunparse
+
+    # --- Utility Functions ---
+
+    TOKEN_EXPIRY_BUFFER = 60  # seconds
+
+
+    def extract_root_error_message(exception: BaseException) -> str:
+        """
+        Extract the root error message from an exception, handling nested exception groups.
+
+        Args:
+            exception: The exception to extract the error message from
+
+        Returns:
+            Formatted error message string from the root cause exception.
+        """
+        if isinstance(exception, BaseExceptionGroup | ExceptionGroup) and exception.exceptions:
+            # Recursively check the first inner exception
+            return extract_root_error_message(exception.exceptions[0])
+
+        # Format and return the message for a regular exception
+        return "".join(traceback.format_exception_only(type(exception), exception))
+
+
+    def parse_custom_headers(headers_text: str) -> dict[str, str]:
+        """
+        Parses custom headers provided as multiline text in the format 'HeaderName: HeaderValue'.
+
+        Args:
+            headers_text: The multiline string input from the integration parameters.
+
+        Returns:
+            A dictionary of headers {HeaderName: HeaderValue}.
+        """
+        if not headers_text:
+            return {}
+
+        headers: dict[str, str] = {}
+
+        for line in headers_text.splitlines():
+            clean_line = line.strip()
+
+            if not clean_line:
+                continue
+
+            try:
+                name, value = clean_line.split(":", 1)
+
+                header_name = name.strip()
+                header_value = value.strip()
+
+                if header_name:
+                    headers[header_name] = header_value
+
+            except ValueError:
+                raise ValueError(f"Invalid header line format: {line}")
+
+        return headers
+
+
+    def join_url(base: str, path: str) -> str:
+        """Joins a base URL and a path, ensuring correct slashes."""
+        parsed = urlparse(base)
+        new_path = parsed.path.rstrip("/") + "/" + path.lstrip("/")
+        return urlunparse(parsed._replace(path=new_path))
+
+
+    def url_origin_join(base_url: str, path: str = "") -> str:
+        """Gets the origin (scheme and netloc) of a URL and joins a path."""
+        parsed = urlparse(base_url)
+        origin = urlunparse((parsed.scheme, parsed.netloc, "", "", "", ""))
+        return origin.rstrip("/") + ("/" + path.lstrip("/") if path else "")
+
+
+    def generate_state() -> str:
+        """
+        Generate a random state parameter for OAuth flows (CSRF protection).
+
+        Returns:
+            A URL-safe base64-encoded random string without padding.
+        """
+        return base64.urlsafe_b64encode(os.urandom(16)).decode().rstrip("=")
+
+
+    def update_integration_context_oauth_flow(data: dict[str, Any], override: bool = False) -> None:
+        """Update the integration context with the OAuth flow state."""
+        if override:
+            integration_context = data
+        else:
+            integration_context = get_integration_context()
+            integration_context.update(remove_empty_elements(data))
+        set_integration_context(integration_context)
+
+
+    # --- Constants and Configuration ---
+
+    REDIRECT_URI = "https://oproxy.demisto.ninja/authcode"
+    CLIENT_NAME = "Palo Alto Networks"
+    LOGO_URI = "https://www.paloaltonetworks.com/content/dam/pan/en_US/images/logos/brand/cortex-primary/Cortex-logo.png"
+    RESPONSE_TYPE = "code"
+    CODE_CHALLENGE_METHOD = "S256"
+    ACCESS_TOKEN_DEFAULT_DURATION_SECONDS = 1800  # Default to 30 minutes if not provided
+    APPLICATION_JSON_HEADERS = {"Content-Type": "application/json"}
+    FORM_URLENCODED_HEADERS = {"Content-Type": "application/x-www-form-urlencoded"}
+    MCP_PROTOCOL_HEADERS = {"MCP-Protocol-Version": "2025-03-26"}
+    SOFTWARE_ID = "5bfad241-79aa-4a49-86df-c668f8e03e11"
+    SOFTWARE_VERSION = "1.0.0"
+
+
+    class AuthMethods(str, Enum):
+        BASIC = "Basic"
+        TOKEN = "Token"
+        BEARER = "Bearer"
+        API_KEY = "Api-Key"
+        RAW_TOKEN = "RawToken"
+        NO_AUTHORIZATION = "No Authorization"
+        AUTHORIZATION_CODE = "OAuth 2.0 Authorization Code"
+        CLIENT_CREDENTIALS = "OAuth 2.0 Client Credentials"
+        DYNAMIC_CLIENT_REGISTRATION = "OAuth 2.0 Dynamic Client Registration"
+
+        @classmethod
+        def list(cls) -> list[str]:  # pylint: disable=W9014
+            """
+            Returns a list of all string values defined in the Enum.
+            """
+            return [member.value for member in cls]
+
+
+    def get_client_metadata(redirect_uri: str) -> dict[str, Any]:
+        """Returns metadata used for OAuth Dynamic Client Registration."""
+        return {
+            "redirect_uris": [redirect_uri],
+            "token_endpoint_auth_method": "none",
+            "grant_types": ["authorization_code", "refresh_token"],
+            "response_types": ["code"],
+            "client_name": CLIENT_NAME,
+            "client_uri": demisto.demistoUrls().get("server", ""),
+            "software_id": SOFTWARE_ID,
+            "software_version": SOFTWARE_VERSION,
+            "scope": [],
+            "logo_uri": LOGO_URI,
+        }
+
+
+    # --- OAuth Handler Class (Consolidated OAuth Logic) ---
+
+
+    class OAuthHandler:
+        """
+        Handles OAuth 2.0 flows, discovery, and client registration.
+        Uses httpx.AsyncClient for token operations.
+        """
+
+        def __init__(
+            self,
+            base_url: str,
+            command_prefix,
+            client_id: str = "",
+            client_secret: str = "",
+            token_endpoint: str = "",
+            scope: str = "",
+            auth_code: str = "",
+            redirect_uri: str = REDIRECT_URI,
+            verify: bool = True,
+        ):
+            self.base_url = base_url
+            self.client_id = client_id
+            self.client_secret = client_secret
+            self.token_endpoint = token_endpoint
+            self.scope = scope
+            self.auth_code = auth_code
+            self.redirect_uri = redirect_uri
+            self.verify = verify
+            self.session = httpx.AsyncClient(timeout=5, verify=verify)
+            self.command_prefix = command_prefix
+
+        async def close(self):
+            if self.session:
+                demisto.debug(f"Closing OAuth session for {self.command_prefix}")
+                await self.session.aclose()
+
+        async def _discover_oauth_protected_resource_metadata(self) -> str:
+            """
+            Enhanced metadata discovery for OAuth protected resources.
+            Returns the authorization server URL.
+            """
+            origin_base_url = url_origin_join(self.base_url)
+            authorization_servers = origin_base_url
+            error_message = (
+                f"Error discovering OAuth protected resource metadata for {origin_base_url}, falling back to default base URL"
+            )
+            try:
+                response = await self.session.get(
+                    f"{origin_base_url}/.well-known/oauth-protected-resource", headers=MCP_PROTOCOL_HEADERS
+                )
+                if response.is_success:
+                    metadata = response.json()
+                    authorization_servers = (
+                        metadata.get("authorization_servers")[0] if metadata.get("authorization_servers") else origin_base_url
+                    )
+                else:
+                    demisto.debug(error_message)
+            except Exception:
+                demisto.debug(error_message)
+
+            return authorization_servers
+
+        async def _discover_oauth_metadata(self, base_url: str) -> dict[str, Any]:
+            """Discovers OAuth metadata from a given base URL."""
+            metadata = {
+                "registration_endpoint": url_origin_join(base_url, "register"),
+                "token_endpoint": url_origin_join(base_url, "token"),
+                "response_types_supported": [RESPONSE_TYPE],
+                "code_challenge_methods_supported": [CODE_CHALLENGE_METHOD],
+                "grant_types_supported": ["authorization_code", "refresh_token"],
+                "authorization_endpoint": url_origin_join(base_url, "oauth2/authorize"),
+            }
+            error_message = f"Error discovering OAuth metadata for {base_url}, using default metadata."
+            try:
+                response = await self.session.get(f"{base_url}/.well-known/oauth-authorization-server", headers=MCP_PROTOCOL_HEADERS)
+                if response.is_success:
+                    metadata.update(response.json())
+                else:
+                    demisto.debug(error_message)
+            except Exception:
+                demisto.debug(error_message)
+
+            return metadata
+
+        async def _oauth_register_client(self, registration_metadata: dict[str, Any]) -> tuple[str, str]:
+            """Registers a client dynamically to obtain client_id and client_secret."""
+            registration_endpoint = registration_metadata["registration_endpoint"]
+            try:
+                response = await self.session.post(
+                    registration_endpoint, json=get_client_metadata(self.redirect_uri), headers=APPLICATION_JSON_HEADERS
+                )
+                if response.is_success:
+                    client_registration = response.json()
+                    client_id = client_registration.get("client_id")
+                    client_secret = client_registration.get("client_secret")
+                    return client_id, client_secret
+                else:
+                    raise DemistoException(
+                        f"Failed to register OAuth client: Received status code {response.status_code}, "
+                        f"and response: {response.text}"
+                    )
+            except Exception as e:
+                demisto.error(f"Error registering OAuth client: {str(e)}")
+                raise DemistoException(f"Failed to register OAuth client: {str(e)}")
+
+        def pkce_challenge(self) -> tuple[str, str]:
+            """Generate PKCE code_verifier and S256 code_challenge."""
+            code_verifier = base64.urlsafe_b64encode(os.urandom(32)).rstrip(b"=").decode()
+            code_challenge = base64.urlsafe_b64encode(hashlib.sha256(code_verifier.encode()).digest()).rstrip(b"=").decode()
+            return (code_verifier, code_challenge)
+
+        def _create_authorization_url(
+            self, authorization_endpoint: str, client_id: str, scope: str, code_challenge: str = "", state: str = ""
+        ) -> str:
+            """
+            Constructs the authorization URL manually (replaces client.create_authorization_url).
+            Handles both PKCE (dynamic registration) and standard flow.
+            """
+            params: dict[str, str] = {
+                "client_id": client_id,
+                "response_type": RESPONSE_TYPE,
+                "redirect_uri": self.redirect_uri,
+                "scope": scope,
+                "token_access_type": "offline",
+            }
+
+            if code_challenge:
+                # Add PKCE parameters for Dynamic Registration flow
+                params["code_challenge"] = code_challenge
+                params["code_challenge_method"] = CODE_CHALLENGE_METHOD
+            if state:
+                # Add optional state parameter for CSRF protection
+                params["state"] = state
+
+            query_string = str(httpx.QueryParams(params))
+            authorization_url = f"{authorization_endpoint}?{query_string}"
+            demisto.debug(f"Generated authorization URL: {authorization_url}")
+            return authorization_url
+
+        async def generate_dynamic_registration_login_url(self) -> tuple[str, dict[str, str]]:
+            """
+            Performs dynamic client registration and starts the authorization process.
+            Returns the authorization URL and context data to save.
+            """
+            # 1. Discover authorization server
+            authorization_server = await self._discover_oauth_protected_resource_metadata()
+
+            # 2. Discover metadata from the auth server
+            metadata = await self._discover_oauth_metadata(authorization_server)
+
+            # 3. Register client dynamically
+            client_id, client_secret = await self._oauth_register_client(metadata)
+
+            # 4. Generate PKCE challenge
+            code_verifier, code_challenge = self.pkce_challenge()
+            authorization_endpoint = metadata.get("authorization_endpoint", "")
+
+            # 5. Generate random state for CSRF protection
+            state = generate_state()
+
+            # 6. Build Authorization URL using the internal helper
+            auth_url = self._create_authorization_url(authorization_endpoint, client_id, self.scope, code_challenge, state)
+
+            context_data = {
+                "client_id": client_id,
+                "client_secret": client_secret,
+                "code_verifier": code_verifier,
+                "code_challenge": code_challenge,
+                "authorization_endpoint": authorization_endpoint,
+                "token_endpoint": metadata.get("token_endpoint"),
+                "redirect_uri": self.redirect_uri,
+                "state": state,
+            }
+            return auth_url, context_data
+
+        def generate_authorization_code_login_url(self, authorization_endpoint: str) -> str:
+            """Generates the login URL for the standard Authorization Code flow."""
+            auth_endpoint = authorization_endpoint or url_origin_join(self.base_url, "oauth2/authorize")
+            state = generate_state()
+            auth_url = self._create_authorization_url(auth_endpoint, self.client_id, self.scope, state=state)
+            return auth_url
+
+        async def get_client_credentials_token(self) -> tuple[str, int]:
+            """Obtains an access token using Client Credentials Grant."""
+            demisto.debug("Running Client Credentials Grant flow")
+            token_endpoint = self.token_endpoint if self.token_endpoint else url_origin_join(self.base_url, "oauth2/token")
+
+            payload = {
+                "grant_type": "client_credentials",
+                "client_id": self.client_id,
+                "client_secret": self.client_secret,
+                "scope": self.scope,
+            }
+
+            response = await self.session.post(token_endpoint, data=payload, headers=FORM_URLENCODED_HEADERS)
+            response.raise_for_status()
+            result = response.json()
+
+            token = result.get("access_token", "")
+            expires_in = result.get("expires_in", ACCESS_TOKEN_DEFAULT_DURATION_SECONDS)
+            return token, expires_in
+
+        async def get_authorization_code_token(self, refresh_token: str, code_verifier: str = "") -> tuple[str, str, int]:
+            """
+            Obtains or refreshes an access token using Authorization Code Grant or Refresh Token.
+            Dynamically handles client_secret vs. code_verifier (PKCE).
+            """
+            token_endpoint = self.token_endpoint if self.token_endpoint else url_origin_join(self.base_url, "oauth2/token")
+            payload: dict[str, Any] = {
+                "client_id": self.client_id,
+            }
+
+            if refresh_token:
+                # --- Refresh Token Flow ---
+                demisto.debug("Running OAuth Refresh Token flow.")
+                payload["grant_type"] = "refresh_token"
+                payload["refresh_token"] = refresh_token
+                # Client Secret is required for Refresh Token flow for confidential clients
+                if self.client_secret:
+                    payload["client_secret"] = self.client_secret
+
+            elif not self.auth_code:
+                # --- Missing Auth Code ---
+                raise ValueError(
+                    "Authorization code is required for OAuth Authorization Code flow.\n"
+                    f"To get the Authorization Code, call the !{self.command_prefix}-generate-login-url command first."
+                )
+            else:
+                # --- Authorization Code Flow ---
+                demisto.debug("Running OAuth Authorization Code flow.")
+
+                payload["grant_type"] = "authorization_code"
+                payload["code"] = self.auth_code
+                payload["redirect_uri"] = self.redirect_uri
+                if code_verifier:
+                    # PKCE flow relies on code_verifier, client_secret is typically omitted/optional
+                    payload["code_verifier"] = code_verifier
+                elif self.client_secret:
+                    # Standard confidential client flow
+                    payload["client_secret"] = self.client_secret
+
+            # Execute the token request
+            try:
+                response = await self.session.post(token_endpoint, data=payload, headers=FORM_URLENCODED_HEADERS)
+                response.raise_for_status()
+                result = response.json()
+            except httpx.HTTPStatusError as e:
+                error_details = f"HTTP Error: {e.response.status_code}. Response: {e.response.text}"
+                demisto.error(error_details)
+                raise DemistoException(f"Failed to obtain/refresh token. {error_details}")
+            except Exception as e:
+                demisto.error(f"Error during token exchange: {str(e)}")
+                raise DemistoException(f"Failed to obtain/refresh token: {str(e)}")
+
+            new_access_token = result.get("access_token")
+            new_refresh_token = result.get("refresh_token")
+            expires_in = result.get("expires_in", ACCESS_TOKEN_DEFAULT_DURATION_SECONDS)
+            return new_access_token, new_refresh_token, expires_in
+
+
+    # --- Client Class (MCP and Authentication Orchestration) ---
+
+
+    class Client:
+        """
+        Client for interacting with the MCP server, responsible for:
+        1. Orchestrating the authentication flows.
+        2. Handling MCP protocol commands (test, list_tools, call_tool).
+        """
+
+        def __init__(
+            self,
+            base_url: str,
+            auth_type: str,
+            command_prefix: str = "",
+            user_name: str = "",
+            password: str = "",
+            token: str = "",
+            client_id: str = "",
+            client_secret: str = "",
+            auth_code: str = "",
+            token_endpoint: str = "",
+            scope: str = "",
+            custom_headers: dict[str, str] | None = None,
+            redirect_uri: str = "",
+            verify: bool = True,
+        ):
+            self.base_url = base_url
+            self.auth_type = auth_type
+            self.user_name = user_name
+            self.password = password
+            self.token = token
+            self.custom_headers = custom_headers or {}
+            self.verify = verify
+
+            # OAuth Setup
+            self.client_id = client_id
+            self.client_secret = client_secret
+            self.auth_code = auth_code
+            self.token_endpoint = token_endpoint
+            self.scope = scope
+            self._oauth_handler = OAuthHandler(
+                base_url, command_prefix, client_id, client_secret, token_endpoint, scope, auth_code, redirect_uri, verify
+            )
+            self._headers_cache: dict[Any, Any] = {}  # Cache for resolved headers
+
+        async def close(self):
+            if self._oauth_handler:
+                await self._oauth_handler.close()
+
+        async def _resolve_headers(self) -> dict[Any, Any]:
+            """
+            Generates and caches the necessary Authorization headers based on auth_type.
+            Handles token expiration and refreshing for OAuth flows.
+            """
+            # Return cached headers if available (OAuth token refresh is handled internally)
+            if self._headers_cache:
+                return self._headers_cache | self.custom_headers
+
+            headers = {}
+
+            if self.auth_type == AuthMethods.NO_AUTHORIZATION:
+                demisto.debug("Connecting without Authorization")
+
+            elif self.auth_type == AuthMethods.BASIC:
+                demisto.debug(f"Authenticating with Basic Authentication, username: {self.user_name}")
+                auth_credentials = f"{self.user_name}:{self.password}"
+                encoded_credentials = b64encode(auth_credentials.encode()).decode("utf-8")
+                headers = {"Authorization": f"Basic {encoded_credentials}"}
+
+            elif self.auth_type in (AuthMethods.BEARER, AuthMethods.TOKEN, AuthMethods.API_KEY, AuthMethods.RAW_TOKEN):
+                demisto.debug(f"Authenticating with {self.auth_type}")
+                if self.auth_type == AuthMethods.BEARER:
+                    headers = {"Authorization": f"Bearer {self.token}"}
+                elif self.auth_type == AuthMethods.TOKEN:
+                    headers = {"Authorization": f"Token {self.token}"}
+                elif self.auth_type == AuthMethods.API_KEY:
+                    headers = {"api-key": self.token}
+                elif self.auth_type == AuthMethods.RAW_TOKEN:
+                    headers = {"Authorization": self.token}
+
+            elif self.auth_type in (
+                AuthMethods.CLIENT_CREDENTIALS,
+                AuthMethods.AUTHORIZATION_CODE,
+                AuthMethods.DYNAMIC_CLIENT_REGISTRATION,
+            ):
+                headers = await self._generate_oauth_headers()
+
+            self._headers_cache = headers
+            return headers | self.custom_headers
+
+        async def _generate_oauth_headers(self) -> dict[str, str]:
+            """Handles OAuth token acquisition (caching/refreshing) and returns headers."""
+            integration_context = get_integration_context()
+            access_token = integration_context.get("access_token")
+            expires_in: float = integration_context.get("expires_in", 0)
+
+            # 1. Check existing token
+            if access_token and time.time() < (expires_in - TOKEN_EXPIRY_BUFFER):
+                demisto.debug("Using existing valid access token")
+                return {"Authorization": f"Bearer {access_token}"}
+
+            # 2. Acquire new token
+            demisto.debug(f"Creating new access token, since {'no valid token was found' if not access_token else 'token expired'}.")
+
+            new_token = ""
+            new_refresh_token = ""
+            new_expires_in = 0
+
+            if self.auth_type == AuthMethods.CLIENT_CREDENTIALS:
+                new_token, new_expires_in = await self._oauth_handler.get_client_credentials_token()
+
+            elif self.auth_type in (AuthMethods.AUTHORIZATION_CODE, AuthMethods.DYNAMIC_CLIENT_REGISTRATION):
+                # Update OAuth handler details from context for Dynamic Registration flow
+                if self.auth_type == AuthMethods.DYNAMIC_CLIENT_REGISTRATION:
+                    self._oauth_handler.client_id = integration_context.get("client_id", "")
+                    self._oauth_handler.client_secret = integration_context.get("client_secret", "")
+                    self._oauth_handler.token_endpoint = integration_context.get("token_endpoint", "")
+                    self._oauth_handler.redirect_uri = integration_context.get("redirect_uri", "")
+                    code_verifier = integration_context.get("code_verifier", "")
+                else:
+                    code_verifier = ""
+                refresh_token = integration_context.get("refresh_token", "")
+
+                new_token, new_refresh_token, new_expires_in = await self._oauth_handler.get_authorization_code_token(
+                    refresh_token, code_verifier
+                )
+
+            # 3. Update context and return headers
+            demisto.debug(f"Successfully retrieved access token for {self.auth_type}, {new_expires_in=}")
+            update_integration_context_oauth_flow(
+                {"access_token": new_token, "expires_in": time.time() + new_expires_in, "refresh_token": new_refresh_token}
+            )
+            return {"Authorization": f"Bearer {new_token}"}
+
+        @asynccontextmanager
+        async def _get_session(self):
+            """
+            Creates and initializes an async context manager for MCP client session.
+
+            Establishes a streamable HTTP connection to the MCP server and creates a client session
+            for communication. The session is automatically initialized and cleaned up when the
+            context exits.
+
+            Yields:
+                ClientSession: An initialized MCP client session for making requests
+            """
+            headers = await self._resolve_headers()
+            async with (
+                httpx.AsyncClient(headers=headers, verify=self.verify) as custom_httpx_client,
+                streamable_http_client(url=self.base_url, http_client=custom_httpx_client) as (
+                    read_stream,
+                    write_stream,
+                    _,
+                ),
+                ClientSession(read_stream, write_stream) as session,  # pylint: disable=E0601
+            ):
+                # Initialize the connection
+                init = await session.initialize()
+                yield session, init.serverInfo.name
+
+        async def test_connection(self, auth_test: bool = False):
+            async with self._get_session():
+                if auth_test:
+                    return CommandResults(readable_output="✅ Authentication successful.")
+                else:
+                    return "ok"
+
+        async def list_tools(self, default_server_name: str = ""):
+            async with self._get_session() as (session, server_name):
+                tools = await session.list_tools()
+
+            server_name = default_server_name or server_name
+            tool_names = [tool.name for tool in tools.tools]
+            readable_output = f"{server_name} has {len(tool_names)} available tools:\n{tool_names}"
+            demisto.debug(f"Available tools: {tool_names}")
+
+            tools_dump = tools.model_dump(mode="json")
+            outputs = {"server_name": server_name, "Tools": tools_dump.get("tools", [])}
+            return CommandResults(
+                readable_output=readable_output,
+                outputs_prefix="ListTools",
+                outputs=outputs,
+            )
+
+        async def call_tool(self, tool_name: str, arguments: str):
+            try:
+                parsed_arguments = json.loads(arguments or "{}")
+            except json.JSONDecodeError:
+                raise DemistoException(f"Invalid JSON provided for arguments: {arguments}")
+
+            async with self._get_session() as (session, server_name):
+                result = await session.call_tool(tool_name, parsed_arguments)
+
+            result_dump = result.model_dump(mode="json")
+            result_content = result_dump.get("content", [])
+            readable_output = tableToMarkdown(
+                f"Tool Execution on {server_name}: '{tool_name}'{' failed' if result.isError else ''}", result_content
+            )
+
+            return CommandResults(
+                readable_output=readable_output,
+                outputs_prefix="CallTool.Tool",
+                outputs=result_content,
+                entry_type=EntryType.NOTE if not result.isError else EntryType.ERROR,
+            )
+
+
+    async def generate_login_url(
+        oauth_handler: OAuthHandler,
+        auth_type: str = "",
+        authorization_endpoint: str = "",
+        redirect_uri: str = "",
+        troubleshooting_redirect: bool = False,
+    ) -> CommandResults:
+        """
+        Generates the login URL for the OAuth Authorization Code flow.
+        This function handles both static and dynamic registration flows.
+        """
+        if auth_type not in (AuthMethods.AUTHORIZATION_CODE, AuthMethods.DYNAMIC_CLIENT_REGISTRATION):
+            raise ValueError(
+                f"To generate a login URL, 'auth_type' must be a valid OAuth flow type. Invalid type received: {auth_type}"
+            )
+
+        auth_url = ""
+        context_data: dict[str, Any] = {}
+        if auth_type == AuthMethods.AUTHORIZATION_CODE:
+            auth_url = oauth_handler.generate_authorization_code_login_url(authorization_endpoint)
+
+        if auth_type == AuthMethods.DYNAMIC_CLIENT_REGISTRATION:
+            auth_url, context_data = await oauth_handler.generate_dynamic_registration_login_url()
+
+        update_integration_context_oauth_flow(context_data, override=True)
+
+        result_msg = (
+            "### Authorization instructions\n"
+            f"1. Click on the [login URL]({auth_url}) to sign in and grant Cortex permissions for your MCP server.\n"
+            "  You will be automatically redirected to a link with the following structure:\n"
+            "  ```REDIRECT_URI?code=AUTH_CODE&session_state=SESSION_STATE```\n"
+            "2. Copy the `AUTH_CODE` (without the `code=` prefix, and the `session_state` parameter) and paste it "
+            "in the instance configuration under the **Authorization code** parameter.\n"
+            "3. Save the instance configuration.\n"
+            "  **IMPORTANT NOTE**: Authentication code is time-sensitive and expires quickly.\n"
+            "  Please copy the Authorization code to the instance configuration "
+            "within a short time frame after generating the login URL.\n\n"
+            f"4. To check connectivity, run the **!{oauth_handler.command_prefix}-auth-test** command."
+        )
+        if troubleshooting_redirect:
+            result_msg += (
+                "\n\n**Troubleshooting Redirect Errors**:\n"
+                f"If you encounter a `Redirect URI` mismatch error, please ensure that `{redirect_uri}` "
+                "is added to your application's allowed redirect list.\nAlternatively, you can update the **Redirect URI** "
+                "parameter found in the Advanced section of your instance settings."
+            )
+        return CommandResults(readable_output=result_msg)
+
+    register_module_line('MCPApiModule', 'end', __line__(), wrapper=1)
+    ### END GENERATED CODE ###
+
+    import asyncio
+
+
+    GITHUB_BASE_URL = "https://api.githubcopilot.com/mcp"
+    GITHUB_AUTH_TYPE = AuthMethods.BEARER.value
+    SERVER_NAME = "GitHub MCP"
+
+
+    """ MAIN FUNCTION """
+
+
+    async def main() -> None:  # pragma: no cover
+        params = demisto.params()
+        args = demisto.args()
+        command = demisto.command()
+
+        token = params.get("token", {}).get("password")
+        toolsets = argToList(params.get("enabled_toolsets"))
+        readonly = argToBoolean(params.get("readonly"))
+        custom_headers = {
+            "X-MCP-Toolsets": ",".join(toolsets),
+            "X-MCP-Readonly": str(readonly).lower(),
+        }
+
+        demisto.debug(f"Command being called is {command}")
+
+        try:
+            client = Client(
+                base_url=GITHUB_BASE_URL,
+                auth_type=GITHUB_AUTH_TYPE,
+                token=token,
+                custom_headers=custom_headers,
+            )
+            demisto.debug(f"Command being called is {command}")
+
+            if command == "test-module":
+                result = await client.test_connection()
+                return_results(result)
+
+            elif command == "list-tools":
+                result = await client.list_tools(SERVER_NAME)
+                return_results(result)
+
+            elif command == "call-tool":
+                result = await client.call_tool(args["name"], args.get("arguments", ""))
+                return_results(result)
+
+            else:
+                raise NotImplementedError(f"Command {command} is not implemented")
+
+        except BaseException as eg:
+            root_msg = extract_root_error_message(eg)
+            return_error(f"Failed to execute {command} command.\nError:\n{root_msg}")
+
+
+    """ ENTRY POINT """
+
+    if __name__ in ("__main__", "__builtin__", "builtins"):
+        asyncio.run(main())
+
+    register_module_line('GitHub MCP', 'end', __line__())
+  subtype: python3
+  type: python
+sectionorder:
+- Connect
+signature: IUenXCTTpmalACvnH4VQa+dXmyzAMffaHLUsC0BoEgURr1PwiXf5xKTjxA7C8Q+XrSAmNuxvWr4ePNyinqbqV21sYYLzu4mtjELSGKTFXiakOfE/Qnjf/p6s3bgNrT9NcqF4SKDEoNVseMQBD2O21Bk+IIsi0OZw96zF8ZqYlNU9GEcN1tWSGlT8g5MkXfLyUohvzIYQj4GvfTTGZldR1mrHb7fYeoBBjuqhFUENqd8Ok/apKlQylLQ+cjubGlLEilbpPKn/BFRyGUT81tKnTuGPWQlXj/2YQifc02FGkFTL3Qy8779tZFcC2FRLdA0dK0B7Q/dn/YyDuFreIGU8Kg==
+system: true

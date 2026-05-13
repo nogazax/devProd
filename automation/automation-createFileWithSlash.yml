@@ -1,0 +1,59 @@
+commonfields:
+  id: 652ce32a-167f-48df-8ac5-a43bcacae562
+  version: -1
+contentitemexportablefields:
+  contentitemfields:
+    definitionid: ""
+    fromServerVersion: ""
+    isoverridable: false
+    itemVersion: ""
+    packID: ""
+    packName: ""
+    prevname: ""
+    propagationLabels:
+    - all
+    supportedModules: []
+    toServerVersion: ""
+dockerimage: demisto/python3:3.9.7.24076
+enabled: true
+engineinfo: {}
+mainengineinfo: {}
+name: createFileWithSlash
+pswd: ""
+restrictioncenter: {}
+runas: DBotWeakRole
+runonce: false
+script: |
+  import os
+
+  temp_id = demisto.uniqueFile()
+  inv_id = demisto.investigation()['id']
+  filename = inv_id + '_' + temp_id
+
+  # Write a valid .eml file
+  eml_content = """From: sender@example.com
+  To: recipient@example.com
+  Subject: Test Email
+  Date: Mon, 13 Apr 2026 10:00:00 +0000
+  MIME-Version: 1.0
+  Content-Type: text/plain; charset="utf-8"
+  Content-Transfer-Encoding: 7bit
+
+  This is a test email body for testing slash in filename.
+  """
+
+  with open(filename, 'w') as f:
+      f.write(eml_content)
+
+  demisto.results({
+      'Contents': '',
+      'ContentsFormat': 'text',
+      'Type': 3,
+      'File': 'Faktura Fm/9880.eml',
+      'FileID': temp_id
+  })
+scripttarget: 0
+signature: ""
+subtype: python3
+tags: []
+type: python
