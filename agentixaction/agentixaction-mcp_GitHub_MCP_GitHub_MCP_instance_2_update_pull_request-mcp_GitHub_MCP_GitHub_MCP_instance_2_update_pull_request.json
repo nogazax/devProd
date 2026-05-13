@@ -115,7 +115,7 @@ name: mcp_GitHub_MCP_GitHub_MCP_instance_2_update_pull_request
 requiredroles: []
 requiresuserapproval: true
 state:
-  isuserdisabled: false
+  isuserdisabled: true
 system: true
 underlyingcontentitem:
   command: ""
